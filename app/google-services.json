@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "379301565168",
+    "project_id": "firebase-fastnetwork"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379301565168:android:af08cf428dbccdff",
+        "android_client_info": {
+          "package_name": "sega.fastnetwork.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379301565168-k0ji7al10s0fbdv0c5v6gquj400kerlf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "379301565168-sds2suvu43abjn3l0n4ita22rrfnkn8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sega.fastnetwork.test",
+            "certificate_hash": "ea727dbf66ab0e20feacd900687ca668937cb74e"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVD-zpYHZ6rXwFsWMbNjkbcaeYqZx1AHA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

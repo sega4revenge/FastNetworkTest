@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/slidingUpPanelLayout"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:gravity="bottom"
+                                                 app:umanoDragView="@+id/dragView"
+                                                 app:umanoOverlay="true"
+                                                 app:umanoPanelHeight="48dp"
+                                                 app:umanoParallaxOffset="100dp"
+                                                 app:umanoScrollableView="@+id/gallery_rcl"
+                                                 app:umanoShadowHeight="4dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/view_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        >
+
+
+        <Button
+            android:id="@+id/btn_done"
+            style="?borderlessButtonStyle"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/select_icon_done"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <Button
+            android:id="@+id/btn_camera"
+            style="?borderlessButtonStyle"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+
+            android:background="@drawable/ic_camera"
+
+
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <!--     <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/btn_done"
+            android:text="@string/tedbottompicker_title"
+            android:textSize="16sp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>-->
+
+    </RelativeLayout>
+
+
+
+
+
+
+    <FrameLayout
+        android:id="@+id/selected_photos_container_frame"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+
+        >
+
+        <HorizontalScrollView
+            android:id="@+id/hsv_selected_photos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/tedbottompicker_selected"
+            android:fillViewport="false"
+
+            android:foregroundGravity="left"
+            >
+
+            <LinearLayout
+                android:id="@+id/selected_photos_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:animateLayoutChanges="false"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:visibility="gone"/>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/selected_photos_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_image"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorAccent"/>
+    </FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="54dp"
+        />
+    <!--
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f0f0f0"
+            />
+    -->
+
+
+</LinearLayout>
+    <LinearLayout
+        android:id="@+id/dragView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:focusable="false"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#FFFFFF"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:minHeight="48dp"
+            android:paddingLeft="16dp"
+            android:text="Galerry"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:id="@+id/folder"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/gallery_rcl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

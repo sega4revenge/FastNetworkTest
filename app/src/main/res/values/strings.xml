@@ -1,0 +1,63 @@
+<resources>
+    <string name="app_name">Sega</string>
+    <string name="facebook_app_id">251217995359869</string>
+    <string name="fb_login_protocol_scheme">fb251217995359869</string>
+
+    <string name="lg_hint_email">Email</string>
+    <string name="lg_hint_pass">Password</string>
+    <string name="lg_btn_login">Login</string>
+    <string name="lg_btn_forgot">Forgot Password</string>
+    <string name="lg_btn_noaccount">Dont have account ?</string>
+
+    <string name="re_title_register">Register</string>
+    <string name="re_text_haveaccount">Have account ? Login now</string>
+    <string name="re_hint_name">Name</string>
+    <string name="re_hint_email">Email</string>
+    <string name="re_hint_repass">Refill Password</string>
+    <string name="re_btn_confirm">Confirm</string>
+
+    //==================================
+    <string name="people_participation_detail_event">Participation person</string>
+    <string name="people_care_detail_event">Participation person</string>
+    <string name="created_event">has created the event</string>
+    <string name="participation_detail_event">Partici..</string>
+    <string name="time_event">Time:</string>
+    <string name="day_event">Date:</string>
+    <string name="cancelnot">Cancel</string>
+    <string name="comment">Comment</string>
+    <string name="share">Share</string>
+    <string name="in">- in</string>
+    <string name="you">You </string>
+    <string name="youand">You and </string>
+    <string name="delete_comment">Do you want delete comment?</string>
+    <string name="title_comment">Delete Comment</string>
+    <string name="detail_comment">Detail comment</string>
+    <string name="view">view</string>
+    <string name="money">Money</string>
+    <string name="delete_event">Do do want delete event?</string>
+    <string name="delete_title_event">Delete Event</string>
+    //=================================== imagepicker
+
+    <string name="remain_time_minute">%1$d minutes left</string>
+    <string name="remain_time_second">%1$d seconds left</string>
+    <string name="uploading" formatted="false">Uploading %d of %d</string>
+    <string name="uploaded_title" formatted="false">%d of %d photos</string>
+    <string name="tedbottompicker_title">Select Image</string>
+    <string name="no_image">No Image</string>
+    <string name="done">Done</string>
+
+
+    <string name="select_max_count">Already %1$d images selected</string>
+    <string name="select_min_count">You have to choice %1$d images</string>
+    <string name="gallery_num">%s photos</string>
+    <string name="all_photo">All photos</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    //======================================
+    <string name="btn_signin">Sign in</string>
+    <string name="btn_forgot">Forgot Password</string>
+    <string name="btn_signup">Dont have account ?</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="tv_social_login">Or Log In using</string>
+</resources>

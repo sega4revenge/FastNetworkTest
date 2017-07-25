@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                tools:context=".lib.imagepicker.MainActivity">
+                <sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerView
+                    android:id="@+id/add_picker_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:background="#eee"
+                    app:is_show_del="true" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dist_medium"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:orientation="vertical"
+
+                >
+
+                <!-- Crew Header -->
+                <LinearLayout
+                    android:id="@+id/personal_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:descendantFocusability="beforeDescendants"
+                        android:focusableInTouchMode="true"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                        <EditText
+
+                            android:id="@+id/productname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@android:color/transparent"
+                            android:drawablePadding="15dp"
+                            android:ems="10"
+                            android:hint="Name"
+                            android:inputType="textEmailAddress"
+                            android:padding="5dp"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/bg_screen1" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="15dp"
+                            android:paddingStart="15dp"
+                            android:paddingTop="10dp"
+                            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                            <EditText
+
+                                android:id="@+id/price"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:background="@android:color/transparent"
+                                android:drawablePadding="15dp"
+                                android:ems="10"
+                                android:hint="Price"
+
+                                android:inputType="numberDecimal"
+                                android:padding="5dp"
+
+
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/bg_screen1" />
+
+
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+
+                        >
+
+                        <EditText
+                            android:id="@+id/addressEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:drawablePadding="15dp"
+
+                            android:ems="10"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Address"
+                            android:padding="5dp"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/bg_screen1" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!--  <LinearLayout
+                          android:orientation="horizontal"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:paddingTop="10dp"
+                          android:weightSum="10">
+
+                          <TextView
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:text="@string/category"
+                              android:layout_weight="7"/>
+
+                          <Spinner
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/categoryid"
+                              android:layout_weight="3"/>
+
+                      </LinearLayout>-->
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                        <EditText
+
+                            android:id="@+id/categoryid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:drawablePadding="15dp"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:hint="Category"
+                            android:padding="5dp"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/bg_screen1" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingTop="10dp"
+                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                        <EditText
+
+                            android:id="@+id/productarea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:background="@android:color/transparent"
+                            android:cursorVisible="true"
+                            android:drawablePadding="15dp"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:hint="Number"
+                            android:padding="5dp"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/bg_screen1" />
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <!--   <com.sega.vimarket.widget.RobotoLightTextView
+
+                           android:id="@+id/selleremail"
+                           style="@style/MovieCrewItemValueStyle"
+
+                           android:ellipsize="marquee"
+                           android:focusable="true"
+                           android:focusableInTouchMode="true"
+                           android:marqueeRepeatLimit="marquee_forever"
+                           android:scrollHorizontally="true"
+                           android:singleLine="true"
+                           android:text="sega4revenge@gmail.com" />-->
+
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dist_medium"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+
+                android:orientation="vertical"
+                >
+
+                <!-- Header -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dist_medium"
+                    >
+
+                    <ImageView
+                        style="@style/MovieItemIconsStyle"
+
+                        tools:ignore="ContentDescription" />
+
+                    <sega.fastnetwork.test.view.RobotoBoldTextView
+                      
+                        android:text="Detail"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content" />
+                </LinearLayout>
+
+                <!-- Value -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   >
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                        <EditText
+                            android:background="@android:color/transparent"
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:drawablePadding="15dp"
+                            android:ems="10"
+                            android:hint="Description"
+                            android:textColor="@color/black"
+                            android:textColorHighlight="@color/bg_screen1"/>
+
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <!-- Crew Value 1 -->
+
+            <!-- See All Button -->
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button12345"
+                android:text="Sell"
+                android:layout_gravity="center"
+                android:background="@color/bg_screen1"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+    <!--<include-->
+    <!--layout="@layout/layout_detail_fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="end|bottom"-->
+    <!--android:layout_marginBottom="@dimen/dist_medium"-->
+    <!--android:layout_marginEnd="@dimen/dist_medium"-->
+    <!--android:layout_marginRight="@dimen/dist_medium" />-->
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_margin">20dp</dimen>
+
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="tedbottompicker_grid_layout_margin">5dp</dimen>
+
+    <dimen name="tedbottompicker_selected_image_height">80dp</dimen>
+
+    <dimen name="layout_padding_8dp">8dp</dimen>
+    <dimen name="layout_padding_16dp">16dp</dimen>
+    <dimen name="layout_margin_16dp">16dp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="icon_size_20dp">20dp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="layout_margin_8dp">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="dist_xlarge">32dp</dimen>
+    <dimen name="dist_large">24dp</dimen>
+    <dimen name="dist_medium">8dp</dimen>
+    <dimen name="dist_small">4dp</dimen>
+
+    <dimen name="detail_icon_size">16dp</dimen>
+
+    //==========================================
+    <dimen name="button_size_large">50dp</dimen>
+
+</resources>
