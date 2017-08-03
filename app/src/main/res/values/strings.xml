@@ -55,9 +55,14 @@
 
     //======================================
     <string name="btn_signin">Sign in</string>
+    <string name="btn_join">Join now</string>
     <string name="btn_forgot">Forgot Password</string>
     <string name="btn_signup">Dont have account ?</string>
+    <string name="btn_backtologin">Already have account ?</string>
+    <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>
+    <string name="hint_repassword">Repassword</string>
     <string name="hint_password">Password</string>
-    <string name="tv_social_login">Or Log In using</string>
+    <string name="tv_social_login">Or</string>
+    <string name="message_signin">Join success</string>
 </resources>

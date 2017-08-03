@@ -12,7 +12,7 @@
     <!-- dots inactive colors -->
     <!-- dots active colors -->
 
-    <color name="color_background_button">#EC407A</color>
+    <color name="color_background_button">#ba77ff</color>
 
     <color name="colorBg">#EC407A</color>
 
@@ -21,7 +21,7 @@
     <!--<color name="colorAccent">#c8e8ff</color>-->
     <!--<color name="colorPrimary">#3F51B5</color>-->
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <color name="colorAccent">#ff3366</color>
+    <color name="colorAccent">#ba77ff</color>
     <color name="white">#ffffff</color>
     <color name="actionbar">#C51162</color>
 
@@ -32,7 +32,9 @@
 
     //======================================
 
-    <color name="btn_login">#ff3366</color>
-
+    <color name="btn_login">#ba77ff</color>
+    <color name="input_register">#888888</color>
+    <color name="input_register_bg">#3b4148</color>
     <color name="btn_color_login">#bbbab8</color>
+    <color name="black_login">#56000000</color>
 </resources>

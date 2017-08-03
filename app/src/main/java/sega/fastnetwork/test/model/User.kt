@@ -11,11 +11,7 @@ class User {
     var email: String? = null
     var password: String? = null
     var tokenfirebase: String? = null
-    var phone: String? = null
     val created_at: String? = null
-    var type: String? = null
-    var photoprofile: String? = null
-
-
-
+    var facebook : Facebook? = Facebook()
+    var google : Google? = Google()
 }

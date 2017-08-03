@@ -21,15 +21,12 @@ import android.app.Application
 import android.graphics.BitmapFactory
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.ConnectionQuality
-import io.socket.client.IO
-import io.socket.client.Socket
-import java.net.URISyntaxException
 
 /**
  * Created by amitshekhar on 22/03/16.
  */
 class MyApplication : Application() {
-    var mSocket : Socket? = null
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -51,23 +48,12 @@ class MyApplication : Application() {
             }
         }
 
-// Removing Listener
-
-        run {
-            try {
-                mSocket = IO.socket("http://10.0.2.2:8080/")
-            } catch (e: URISyntaxException) {
-                throw RuntimeException(e)
-            }
-        }
-
-
 
     }
 
     companion object {
 
-        private val TAG = MyApplication::class.java.simpleName
+
         var instance: MyApplication? = null
             private set
     }

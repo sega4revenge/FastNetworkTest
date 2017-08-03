@@ -7,4 +7,7 @@ package sega.fastnetwork.test.util
 internal object Constants {
 
     val BASE_URL = "http://45.77.36.109:8080/api/v1/"
+    val FACEBOOK =1
+    val GOOGLE = 2
+    val LOCAL = 0
 }
