@@ -25,6 +25,7 @@ import sega.fastnetwork.test.view.HomeView
 
 class HomeActivity : AppCompatActivity(), HomeView, AppBarLayout.OnOffsetChangedListener {
 
+
     private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.6f
     private val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
     private val ALPHA_ANIMATIONS_DURATION = 200

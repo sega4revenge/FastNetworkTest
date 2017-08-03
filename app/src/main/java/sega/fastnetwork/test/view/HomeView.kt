@@ -6,5 +6,7 @@ interface HomeView {
 
     fun setErrorMessage(errorMessage: String)
     fun getUserDetail(user : User)
+
     fun isgetUserDetailSuccess(success : Boolean)
+
 }

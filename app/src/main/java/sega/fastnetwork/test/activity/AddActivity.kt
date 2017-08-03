@@ -33,11 +33,16 @@ import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageBean
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerBean
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerListener
 import sega.fastnetwork.test.lib.imagepicker.showpicker.Loader
+import sega.fastnetwork.test.manager.AppAccountManager
+import sega.fastnetwork.test.presenter.AddPresenter
 import sega.fastnetwork.test.util.Constants
+import sega.fastnetwork.test.view.AddView
 import java.io.File
 import java.util.*
 
-class AddActivity : AppCompatActivity() {
+class AddActivity : AppCompatActivity(), AddView {
+
+
     var mNotificationManager: NotificationManager? = null
     val TAG = MainActivity::class.java.simpleName
     var temp: Int = 0
@@ -46,11 +51,12 @@ class AddActivity : AppCompatActivity() {
     var mRemoteView: RemoteViews? = null
     var mTimeRemain: Double = 0.0
     var mPercent: Int = 0
+    var mAddPresenter: AddPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
         list = ArrayList<ImageBean>()
-
+        mAddPresenter = AddPresenter(this)
         Log.e("list", "======" + list!!.size)
         add_picker_view!!.setImageLoaderInterface(Loader())
         add_picker_view!!.setNewData(list!!)
@@ -125,15 +131,17 @@ class AddActivity : AppCompatActivity() {
 
 
     private fun setMultiShowButton() {
-
+        println(uriList!!.size)
         button12345!!.setOnClickListener {
             if (uriList!!.size == 0) {
                 Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
-            } else
+            } else {
                 temp = 0
-                uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])))
-        }
+                mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this))
 
+            }
+
+        }
     }
 
     fun getRealFilePath(context: Context, uri: Uri?): String? {
@@ -184,7 +192,12 @@ class AddActivity : AppCompatActivity() {
 
     }
 
-    fun uploadImage(file: File) {
+    override fun isCreateSuccess(success: Boolean, productid: String) {
+        if (success)
+            uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])),productid)
+    }
+
+    fun uploadImage(file: File,productid : String) {
 
         mTimeRemain = 0.0
         mPercent = 0
@@ -226,7 +239,7 @@ class AddActivity : AppCompatActivity() {
         timer.scheduleAtFixedRate(task, 0, 500)
         val startTime = System.nanoTime()
         val observable = Rx2AndroidNetworking.upload(Constants.BASE_URL + "upload")
-                .addMultipartParameter("name","sega")
+                .addMultipartParameter("productid", productid)
                 .addMultipartFile("image", file)
                 .build()
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
@@ -292,7 +305,7 @@ class AddActivity : AppCompatActivity() {
                         Log.d(TAG + "_1", "onResponse object : " + response.toString())
                         temp++
                         if (temp + 1 <= uriList!!.size) {
-                            uploadImage(File(getRealFilePath(this@AddActivity, uriList?.get(temp))))
+                            uploadImage(File(getRealFilePath(this@AddActivity, uriList?.get(temp))),productid)
                         } else {
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
                             mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")
