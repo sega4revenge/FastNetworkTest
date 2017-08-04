@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.StrictMode
 import android.provider.MediaStore
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.NotificationCompat
 import android.util.Log
@@ -135,9 +136,13 @@ class AddActivity : AppCompatActivity(), AddView {
         button12345!!.setOnClickListener {
             if (uriList!!.size == 0) {
                 Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
-            } else {
+            }
+            else if (productname!!.text.toString().equals("") || price!!.text.toString().equals("") || description!!.text.toString().equals("")) {
+                Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
+            }
+            else {
                 temp = 0
-                mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this))
+                mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),description.text.toString())
 
             }
 
@@ -310,6 +315,7 @@ class AddActivity : AppCompatActivity(), AddView {
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
                             mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")
                             mRemoteView!!.setTextViewText(R.id.timeremain, getString(R.string.uploaded_title, temp, uriList!!.size))
+                            Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded successfully", Snackbar.LENGTH_SHORT).show()
                             mNotificationManager?.cancel(1)
                             mNotificationManager?.notify(1, notification)
                         }

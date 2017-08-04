@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity(), HomeView, AppBarLayout.OnOffsetChanged
         setContentView(R.layout.activity_home)
         mHomePresenter = HomePresenter(this)
         appbar.addOnOffsetChangedListener(this)
-
+        setSupportActionBar(toolbar)
         toolbar.inflateMenu(R.menu.menu_product)
         startAlphaAnimation(textview_title, 0, View.INVISIBLE)
         mHomePresenter!!.getUserDetail(AppAccountManager.getAppAccountUserId(this))
@@ -131,8 +131,7 @@ class HomeActivity : AppCompatActivity(), HomeView, AppBarLayout.OnOffsetChanged
             startActivity(Intent(applicationContext, AddActivity::class.java))
             return true
         }
-
-        return super.onOptionsItemSelected(item)
+        return true
     }
 
     public override fun onDestroy() {

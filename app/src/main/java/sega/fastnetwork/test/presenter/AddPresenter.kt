@@ -1,6 +1,8 @@
 package sega.fastnetwork.test.presenter
 
+import android.accounts.AuthenticatorDescription
 import android.os.Looper
+import android.os.ParcelFileDescriptor
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.rx2androidnetworking.Rx2AndroidNetworking
@@ -25,14 +27,14 @@ class AddPresenter(addActivity: AddActivity) {
   
     var createproduct = "CREATEPRODUCT"
 
-    fun createProduct(userid: String){
+    fun createProduct(userid: String, productname : String, price : String, description: String){
 
         val jsonObject = JSONObject()
         try {
-            jsonObject.put("price", "3000")
             jsonObject.put("userid", userid)
-          
-
+            jsonObject.put("productname", productname)
+            jsonObject.put("price", price)
+            jsonObject.put("description", description)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
