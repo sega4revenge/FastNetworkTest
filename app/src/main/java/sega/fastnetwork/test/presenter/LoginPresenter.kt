@@ -76,14 +76,17 @@ class LoginPresenter(loginActivity: LoginActivity) {
                                 Log.d(login, "onError errorCode : " + anError.errorCode)
                                 Log.d(login, "onError errorBody : " + anError.errorBody)
                                 Log.d(login, "onError errorDetail : " + anError.errorDetail)
+                                mLoginView.isLoginSuccessful(false)
                                 mLoginView.setErrorMessage(anError.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(login, "onError errorDetail : " + anError.errorDetail)
+                                mLoginView.isLoginSuccessful(false)
                                 mLoginView.setErrorMessage(anError.errorDetail)
                             }
                         } else {
                             Log.d(login, "onError errorMessage : " + e.message)
+                            mLoginView.isLoginSuccessful(false)
                             mLoginView.setErrorMessage(e.message!!)
                         }
                     }
