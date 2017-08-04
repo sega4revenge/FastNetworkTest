@@ -39,7 +39,6 @@ class LoginPresenter(loginActivity: LoginActivity) {
             e.printStackTrace()
         }
         Rx2AndroidNetworking.post(Constants.BASE_URL + "authenticate")
-
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->

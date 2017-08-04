@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,6 +20,8 @@ import kotlinx.android.synthetic.main.activity_home.*
 
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.manager.AppAccountManager
+import sega.fastnetwork.test.model.ResponseListProduct
+import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.HomePresenter
 import sega.fastnetwork.test.view.HomeView
@@ -30,6 +34,7 @@ class HomeActivity : AppCompatActivity(), HomeView, AppBarLayout.OnOffsetChanged
     private val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
     private val ALPHA_ANIMATIONS_DURATION = 200
     var user: User? = null
+    var product: Product? = null
     private var mIsTheTitleVisible = false
     private var mIsTheTitleContainerVisible = true
     var mHomePresenter: HomePresenter? = null
@@ -43,13 +48,16 @@ class HomeActivity : AppCompatActivity(), HomeView, AppBarLayout.OnOffsetChanged
         toolbar.inflateMenu(R.menu.menu_product)
         startAlphaAnimation(textview_title, 0, View.INVISIBLE)
         mHomePresenter!!.getUserDetail(AppAccountManager.getAppAccountUserId(this))
-
+        mHomePresenter!!.getAllProduct()
+        product_grid.setHasFixedSize(true)
+        product_grid.layoutManager
 
     }
 
     override fun getUserDetail(user: User) {
         this.user = user
     }
+
 
     override fun setErrorMessage(errorMessage: String) {
         println(errorMessage)
@@ -70,6 +78,12 @@ class HomeActivity : AppCompatActivity(), HomeView, AppBarLayout.OnOffsetChanged
                     .into(avatar)
         }
 
+    }
+
+    override fun isgetProductDetailSuccess(success: Boolean,product: ResponseListProduct) {
+        if(success){
+            Log.e("AAA", product.listproduct!![0].productname)
+        }
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {

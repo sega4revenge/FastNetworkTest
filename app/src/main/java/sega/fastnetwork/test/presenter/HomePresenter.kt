@@ -9,6 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import sega.fastnetwork.test.activity.HomeActivity
+import sega.fastnetwork.test.model.ResponseListProduct
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.view.HomeView
@@ -21,6 +22,7 @@ import sega.fastnetwork.test.view.HomeView
 class HomePresenter(homeActivity: HomeActivity) {
     internal var mHomeView: HomeView = homeActivity
     var userdetail = "USERDETAIL"
+    var productdetail = "PRODUCTDETAIL"
     var createproduct = "CREATEPRODUCT"
     fun getUserDetail(userid: String) {
 
@@ -79,5 +81,62 @@ class HomePresenter(homeActivity: HomeActivity) {
 
                 })
     }
+    fun getAllProduct() {
 
+        Rx2AndroidNetworking.get(Constants.BASE_URL + "allproduct")
+//                .addPathParameter("userid",userid)
+                .build()
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(productdetail, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(productdetail, " bytesSent : " + bytesSent)
+                    Log.d(productdetail, " bytesReceived : " + bytesReceived)
+                    Log.d(productdetail, " isFromCache : " + isFromCache)
+                }
+                .getObjectObservable(ResponseListProduct::class.java)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<ResponseListProduct> {
+                    override fun onNext(product: ResponseListProduct?) {
+                        Log.d(productdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+                        mHomeView.isgetProductDetailSuccess(true,product!!)
+//                        Log.e("AAAA",product._id)
+//                        mHomeView.getUserDetail(user!!)
+                    }
+
+
+                    override fun onComplete() {
+//                        mHomeView.isgetUserDetailSuccess(true)
+
+                    }
+
+                    override fun onError(e: Throwable) {
+//                        if (e is ANError) {
+//                            val anError = e
+//                            if (anError.errorCode != 0) {
+//                                // received ANError from server
+//                                // error.getErrorCode() - the ANError code from server
+//                                // error.getErrorBody() - the ANError body from server
+//                                // error.getErrorDetail() - just a ANError detail
+//                                Log.d(userdetail, "onError errorCode : " + anError.errorCode)
+//                                Log.d(userdetail, "onError errorBody : " + anError.errorBody)
+//                                Log.d(userdetail, "onError errorDetail : " + anError.errorDetail)
+//                                mHomeView.setErrorMessage(anError.errorDetail)
+//                            } else {
+//                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+//                                Log.d(userdetail, "onError errorDetail : " + anError.errorDetail)
+//                                mHomeView.setErrorMessage(anError.errorDetail)
+//                            }
+//                        } else {
+//                            Log.d(userdetail, "onError errorMessage : " + e.message)
+//                            mHomeView.setErrorMessage(e.message!!)
+//                        }
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+
+                })
+    }
 }

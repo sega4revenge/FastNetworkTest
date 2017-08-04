@@ -58,7 +58,14 @@
         android:background="@color/white"
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/product_grid"
+            android:name="com.sega.vimarket.productGridFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="6dp"
+            android:visibility="gone" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
