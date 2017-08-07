@@ -22,9 +22,7 @@ class HomeFragment : Fragment() {
         val view = inflater!!.inflate(R.layout.tab_home, container, false)
         view.pager!!.adapter = TabsAdapter(childFragmentManager)
         view.tab_layout!!.setupWithViewPager(view.pager)
-
         setHasOptionsMenu(true)
-
         return view
     }
 
