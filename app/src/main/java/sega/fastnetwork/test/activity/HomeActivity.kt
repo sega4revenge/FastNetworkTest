@@ -1,156 +1,195 @@
 package sega.fastnetwork.test.activity
 
-
-import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
+import android.os.Handler
+import android.preference.PreferenceManager
+import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.animation.AlphaAnimation
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
-
 import kotlinx.android.synthetic.main.activity_home.*
-
-
+import kotlinx.android.synthetic.main.header.*
+import kotlinx.android.synthetic.main.toolbar.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.fragment.HomeFragment
 import sega.fastnetwork.test.manager.AppAccountManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.HomePresenter
 import sega.fastnetwork.test.view.HomeView
 
 
-class HomeActivity : AppCompatActivity(), HomeView, AppBarLayout.OnOffsetChangedListener {
+/* Ismail Xebia */
+
+class HomeActivity : AppCompatActivity(), HomeView, NavigationView.OnNavigationItemSelectedListener {
 
 
-    private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.6f
-    private val PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f
-    private val ALPHA_ANIMATIONS_DURATION = 200
-    var user: User? = null
-    private var mIsTheTitleVisible = false
-    private var mIsTheTitleContainerVisible = true
+    private val mDrawerHandler = Handler()
+    private var mPrevSelectedId: Int = 0
+    private var mSelectedId: Int = 0
     var mHomePresenter: HomePresenter? = null
+    var user: User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         mHomePresenter = HomePresenter(this)
-        appbar.addOnOffsetChangedListener(this)
-
-        toolbar.inflateMenu(R.menu.menu_product)
-        startAlphaAnimation(textview_title, 0, View.INVISIBLE)
         mHomePresenter!!.getUserDetail(AppAccountManager.getAppAccountUserId(this))
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayShowTitleEnabled(false);
+        navigation_view!!.setNavigationItemSelectedListener(this)
 
+        val mDrawerToggle = object : ActionBarDrawerToggle(this,
+                drawer_layout, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close) {
+            override fun onDrawerOpened(drawerView: View?) {
+                super.onDrawerOpened(drawerView)
+                super.onDrawerSlide(drawerView, 0f)
+            }
 
-    }
+            override fun onDrawerSlide(drawerView: View?, slideOffset: Float) {
+                super.onDrawerSlide(drawerView, 0f)
+            }
+        }
+        drawer_layout!!.setDrawerListener(mDrawerToggle)
+        mDrawerToggle.syncState()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        mSelectedId = navigation_view!!.menu.getItem(prefs.getInt("default_view", 0)).itemId
+        mSelectedId = savedInstanceState?.getInt(SELECTED_ITEM_ID) ?: mSelectedId
+        mPrevSelectedId = mSelectedId
+        navigation_view!!.menu.findItem(mSelectedId).isChecked = true
 
-    override fun getUserDetail(user: User) {
-        this.user = user
+        if (savedInstanceState == null) {
+            mDrawerHandler.removeCallbacksAndMessages(null)
+            mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
+
+            val openDrawer = prefs.getBoolean("open_drawer", false)
+
+            if (openDrawer)
+                drawer_layout!!.openDrawer(GravityCompat.START)
+            else
+                drawer_layout!!.closeDrawers()
+        }
     }
 
     override fun setErrorMessage(errorMessage: String) {
         println(errorMessage)
     }
 
-    override fun isgetUserDetailSuccess(success: Boolean) {
-        if (success) {
-            val options = RequestOptions()
-                    .centerCrop()
-                    .dontAnimate()
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.img_error)
-                    .priority(Priority.HIGH)
-            Glide.with(this)
-                    .load(user!!.google!!.photoprofile)
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(avatar)
-        }
+    override fun getUserDetail(user: User) {
+        this.user = user
+
+        val options = RequestOptions()
+                .centerCrop()
+                .dontAnimate()
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.img_error)
+                .priority(Priority.HIGH)
+        Glide.with(this)
+                .load(user!!.google!!.photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(avatar_header)
 
     }
 
-    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-        val maxScroll = appBarLayout!!.totalScrollRange
-        val percentage = Math.abs(verticalOffset).toFloat() / maxScroll.toFloat()
-
-        handleAlphaOnTitle(percentage)
-        handleToolbarTitleVisibility(percentage)
+    fun switchFragment(itemId: Int) {
+        mSelectedId = navigation_view!!.menu.getItem(itemId).itemId
+        navigation_view!!.menu.findItem(mSelectedId).isChecked = true
+        mDrawerHandler.removeCallbacksAndMessages(null)
+        mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
+        drawer_layout!!.closeDrawers()
     }
 
-    private fun handleToolbarTitleVisibility(percentage: Float) {
-        if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
-
-            if (!mIsTheTitleVisible) {
-                startAlphaAnimation(textview_title, ALPHA_ANIMATIONS_DURATION.toLong(), View.VISIBLE)
-                mIsTheTitleVisible = true
+    private fun navigate(itemId: Int) {
+        /*  val elevation = findViewById(R.id.elevation)*/
+        var navFragment: Fragment? = null
+        when (itemId) {
+            R.id.nav_1 -> {
+                mPrevSelectedId = itemId
+                toolbar_title.setText(R.string.nav_home)
+                navFragment = HomeFragment()
             }
-
-        } else {
-
-            if (mIsTheTitleVisible) {
-                startAlphaAnimation(textview_title, ALPHA_ANIMATIONS_DURATION.toLong(), View.INVISIBLE)
-                mIsTheTitleVisible = false
+            R.id.nav_2 -> {
+                mPrevSelectedId = itemId
+                toolbar_title.setText(R.string.nav_category)
             }
-        }
-    }
-
-    private fun handleAlphaOnTitle(percentage: Float) {
-        if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if (mIsTheTitleContainerVisible) {
-                startAlphaAnimation(framelayout_title, ALPHA_ANIMATIONS_DURATION.toLong(), View.INVISIBLE)
-                mIsTheTitleContainerVisible = false
-            }
-
-        } else {
-
-            if (!mIsTheTitleContainerVisible) {
-                startAlphaAnimation(framelayout_title, ALPHA_ANIMATIONS_DURATION.toLong(), View.VISIBLE)
-                mIsTheTitleContainerVisible = true
+        //case R.id.nav_5:
+        //startActivity(new Intent(this, SettingsActivity.class));
+        //navigation_view.getMenu().findItem(mPrevSelectedId).setChecked(true);
+        //return;
+            R.id.nav_6 -> {
+                /*   startActivity(new Intent(this, AboutActivity.class));*/
+                navigation_view!!.menu.findItem(mPrevSelectedId).isChecked = true
+                return
             }
         }
+
+        val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(4f))
+
+        if (navFragment != null) {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+            try {
+                transaction.replace(R.id.content_frame, navFragment).commit()
+
+                //elevation shadow
+                /*  if (elevation != null) {
+                      params.topMargin = if (navFragment is HomeFragment) dp(48f) else 0
+  
+                      val a = object : Animation() {
+                          override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                              elevation.layoutParams = params
+                          }
+                      }
+                      a.duration = 150
+                      elevation.startAnimation(a)
+                  }*/
+            } catch (ignored: IllegalStateException) {
+            }
+
+        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_product, menu)
+    fun dp(value: Float): Int {
+        val density = applicationContext.resources.displayMetrics.density
+
+        if (value == 0f) {
+            return 0
+        }
+        return Math.ceil((density * value).toDouble()).toInt()
+    }
+
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        menuItem.isChecked = true
+        mSelectedId = menuItem.itemId
+        mDrawerHandler.removeCallbacksAndMessages(null)
+        mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
+        drawer_layout!!.closeDrawers()
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(SELECTED_ITEM_ID, mSelectedId)
+    }
 
-
-        if (id == R.id.action_add) {
-            System.out.println("add")
-            startActivity(Intent(applicationContext, AddActivity::class.java))
-            return true
+    override fun onBackPressed() {
+        if (drawer_layout!!.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout!!.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
-
-        return super.onOptionsItemSelected(item)
     }
 
-    public override fun onDestroy() {
-        super.onDestroy()
+    companion object {
 
-
+        private val SELECTED_ITEM_ID = "SELECTED_ITEM_ID"
     }
-
-    fun startAlphaAnimation(v: View, duration: Long, visibility: Int) {
-        val alphaAnimation = if (visibility == View.VISIBLE)
-            AlphaAnimation(0f, 1f)
-        else
-            AlphaAnimation(1f, 0f)
-
-        alphaAnimation.duration = duration
-        alphaAnimation.fillAfter = true
-        v.startAnimation(alphaAnimation)
-    }
-
 }
-

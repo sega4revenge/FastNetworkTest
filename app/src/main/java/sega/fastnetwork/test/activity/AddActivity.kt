@@ -194,10 +194,10 @@ class AddActivity : AppCompatActivity(), AddView {
 
     override fun isCreateSuccess(success: Boolean, productid: String) {
         if (success)
-            uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])),productid)
+            uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])), productid)
     }
 
-    fun uploadImage(file: File,productid : String) {
+    fun uploadImage(file: File, productid: String) {
 
         mTimeRemain = 0.0
         mPercent = 0
@@ -305,7 +305,7 @@ class AddActivity : AppCompatActivity(), AddView {
                         Log.d(TAG + "_1", "onResponse object : " + response.toString())
                         temp++
                         if (temp + 1 <= uriList!!.size) {
-                            uploadImage(File(getRealFilePath(this@AddActivity, uriList?.get(temp))),productid)
+                            uploadImage(File(getRealFilePath(this@AddActivity, uriList?.get(temp))), productid)
                         } else {
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
                             mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")

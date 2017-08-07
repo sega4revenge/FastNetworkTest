@@ -21,7 +21,7 @@ import sega.fastnetwork.test.view.HomeView
 class HomePresenter(homeActivity: HomeActivity) {
     internal var mHomeView: HomeView = homeActivity
     var userdetail = "USERDETAIL"
-    var createproduct = "CREATEPRODUCT"
+
     fun getUserDetail(userid: String) {
 
         Rx2AndroidNetworking.get(Constants.BASE_URL + "/data/{userid}")
@@ -45,7 +45,7 @@ class HomePresenter(homeActivity: HomeActivity) {
 
 
                     override fun onComplete() {
-                        mHomeView.isgetUserDetailSuccess(true)
+
 
                     }
 

@@ -1,12 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -16,14 +17,17 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
 
         <item name="android:textColor">@color/bg_screen1</item>
@@ -35,5 +39,19 @@
         <item name="android:layout_width">@dimen/detail_icon_size</item>
         <item name="android:scaleType">fitCenter</item>
     </style>
+    <style name="Theme.Samita.Toolbar" parent="ThemeOverlay.AppCompat.Light">
 
+        <item name="android:textColorPrimary">@color/text_icon_color</item>
+        <item name="actionMenuTextColor">@color/text_icon_color</item>
+        <item name="android:textColorSecondary">@color/text_icon_color</item>
+    </style>
+    <style name="FontTextViewStyle" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="pix_font">fonts/NunitoSans-Regular.ttf</item>
+        <item name="pix_fontBold">fonts/NunitoSans-Bold.ttf</item>
+        <item name="pix_fontItalic">fonts/NunitoSans-SemiBold.ttf</item>
+        <item name="pix_fontBoldItalic">fonts/QanelasSoft-ExtraBold.otf</item>
+    </style>
+    <style name="AppTheme.NavigationView" >
+        <item name="android:listDivider">@color/divider_color</item>
+    </style>
 </resources>

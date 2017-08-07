@@ -98,7 +98,7 @@ class SessionManager
         if (!this.isLoggedIn) {
             p = true
             //            // user is not logged in redirect him to Login Activity
-            //            Intent i = new Intent(_context, HomeActivity.class);
+            //            Intent i = new Intent(_context, DetailActivity.class);
             //            // Closing all the Activities
             //            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             //
