@@ -19,7 +19,7 @@
         app:tabTextColor="@color/black"
 
         app:tabSelectedTextColor="@color/black"
-        app:tabTextAppearance="@style/TextAppearance.Design.Tab" />
+        app:tabTextAppearance="@style/FontTextViewStyle" />
        <!-- app:tabMode="scrollable"
         app:tabContentStart="66dp"-->
 

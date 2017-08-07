@@ -15,11 +15,13 @@
         app:theme="@style/Theme.Samita.Toolbar"
        android:layout_centerVertical="true">
 
-        <TextView
+        <com.pixplicity.fontview.FontAppCompatTextView
+            style="@style/FontTextViewStyle"
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="@color/black"
             android:text="Toolbar Title"
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>

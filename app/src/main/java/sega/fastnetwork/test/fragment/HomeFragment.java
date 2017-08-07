@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
@@ -55,8 +55,6 @@ public class HomeFragment extends Fragment {
                     return new TabGeoCone();
                 case 1:
                     return new TabGeoCone();
-                case 2:
-                    return new TabGeoCone();
             }
             return null;
         }
@@ -65,11 +63,10 @@ public class HomeFragment extends Fragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Cube";
+                    return "Cần thuê";
                 case 1:
-                    return "Rectangular";
-                case 2:
-                    return "Cylinder";
+                    return "Cho thuê";
+
             }
             return "";
         }
