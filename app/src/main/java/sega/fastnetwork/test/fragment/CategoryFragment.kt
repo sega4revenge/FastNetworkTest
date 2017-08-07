@@ -1,0 +1,56 @@
+package sega.fastnetwork.test.fragment
+
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import kotlinx.android.synthetic.main.category_fragment.view.*
+import sega.fastnetwork.test.R
+import sega.fastnetwork.test.adapter.CategoryAdapter
+import sega.fastnetwork.test.customview.ItemPaddingDecoration
+
+
+/**
+ * Created by Admin on 3/15/2017.
+ */
+
+class CategoryFragment : Fragment(), CategoryAdapter.OnproductClickListener {
+
+    private var layoutManager: GridLayoutManager? = null
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater!!.inflate(R.layout.category_fragment, container, false)
+        val adapter = CategoryAdapter(context, this)
+
+        layoutManager = GridLayoutManager(context, getNumberOfColumns())
+        view.category_grid.setHasFixedSize(true)
+        view.category_grid.layoutManager = layoutManager!!
+        view.category_grid.addItemDecoration(ItemPaddingDecoration(context))
+        view.category_grid.adapter = adapter
+        adapter.notifyDataSetChanged()
+        println(adapter.itemCount)
+        println(getNumberOfColumns())
+        return view
+    }
+
+    override fun onproductClicked(position: Int) {
+
+    }
+
+    fun getNumberOfColumns(): Int {
+        // Get screen width
+        val displayMetrics = resources.displayMetrics
+        val widthPx = displayMetrics.widthPixels.toFloat()
+        /* if (isTablet) {
+             widthPx = widthPx / 3
+         }*/
+        // Calculate desired width
+
+
+        val desiredPx = resources.getDimensionPixelSize(R.dimen.product_card_width).toFloat()
+        val columns = Math.round(widthPx / desiredPx)
+        return if (columns > 2) columns else 2
+
+    }
+}

@@ -57,4 +57,15 @@
     <dimen name="floating_height">650dp</dimen>
     <dimen name="floating_width">500dp</dimen>
 
+
+    <dimen name="product_card_width">180dp</dimen>
+    <dimen name="product_image_height">135dp</dimen>
+    <dimen name="product_info_height">65dp</dimen>
+    <dimen name="product_info_padding">5dp</dimen>
+    <dimen name="product_rating_icon_size">16dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+
+    <dimen name="recycler_item_padding">2dp</dimen>
+    <dimen name="recycler_view_padding">6dp</dimen>
+
 </resources>

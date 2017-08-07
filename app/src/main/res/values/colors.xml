@@ -42,4 +42,5 @@
     <color name="divider_color">#ededed</color>
     <color name="menu_background">#119c4b</color>
     <color name="background">#ececec</color>
+    <color name="card_background">#fafafa</color>
 </resources>

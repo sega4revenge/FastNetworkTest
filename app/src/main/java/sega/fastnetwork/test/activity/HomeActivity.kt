@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.header.*
 import kotlinx.android.synthetic.main.toolbar.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.fragment.CategoryFragment
 import sega.fastnetwork.test.fragment.HomeFragment
 import sega.fastnetwork.test.manager.AppAccountManager
 import sega.fastnetwork.test.model.User
@@ -96,7 +97,9 @@ class HomeActivity : AppCompatActivity(), HomeView, NavigationView.OnNavigationI
                 .thumbnail(0.1f)
                 .apply(options)
                 .into(avatar_header)
-
+        println(user.name)
+        username_header.text = user.name
+        email_header.text = user.email
     }
 
     fun switchFragment(itemId: Int) {
@@ -119,6 +122,7 @@ class HomeActivity : AppCompatActivity(), HomeView, NavigationView.OnNavigationI
             R.id.nav_2 -> {
                 mPrevSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
+                navFragment = CategoryFragment()
             }
         //case R.id.nav_5:
         //startActivity(new Intent(this, SettingsActivity.class));

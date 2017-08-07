@@ -212,7 +212,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
                         .colorOrImageRes(R.color.white)
                         .go(object : CircularAnim.OnAnimationEndListener {
                             override fun onAnimationEnd() {
-                                startActivity(Intent(this@LoginActivity, DetailActivity::class.java))
+                                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                                 finish()
                             }
                         })
@@ -221,7 +221,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
                         .colorOrImageRes(R.color.white)
                         .go(object : CircularAnim.OnAnimationEndListener {
                             override fun onAnimationEnd() {
-                                startActivity(Intent(this@LoginActivity, DetailActivity::class.java))
+                                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                                 finish()
                             }
                         })

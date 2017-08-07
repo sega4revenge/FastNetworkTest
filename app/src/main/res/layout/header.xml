@@ -28,6 +28,7 @@
             android:orientation="vertical">
 
             <com.pixplicity.fontview.FontAppCompatTextView
+                android:id="@+id/username_header"
                 style="@style/FontTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
                 android:textStyle="bold" />
 
             <com.pixplicity.fontview.FontAppCompatTextView
+                android:id="@+id/email_header"
                 style="@style/FontTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
