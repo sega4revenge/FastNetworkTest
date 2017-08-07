@@ -37,10 +37,18 @@
     <color name="input_register_bg">#3b4148</color>
     <color name="btn_color_login">#bbbab8</color>
     <color name="black_login">#56000000</color>
-
-    <color name="text_icon_color">#b8b7bb</color>
+    <color name="navigation_icon_color">#bbbbbe</color>
+    <color name="category_divider_color">#f4f4f4</color>
     <color name="divider_color">#ededed</color>
     <color name="menu_background">#119c4b</color>
     <color name="background">#ececec</color>
     <color name="card_background">#fafafa</color>
+
+    <color name="md_styled_primary">#1565C0</color>
+    <color name="md_styled_primary_dark">#0D47A1</color>
+    <color name="md_styled_accent">#FFC107</color>
+    <color name="dot_light_screen1">#f98da5</color>
+    <color name="dot_light_screen2">#8cf9eb</color>
+    <color name="dot_light_screen3">#93c6fd</color>
+    <color name="dot_light_screen4">#e4b5fc</color>
 </resources>

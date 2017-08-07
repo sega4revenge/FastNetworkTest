@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.category_fragment.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.CategoryAdapter
-import sega.fastnetwork.test.customview.ItemPaddingDecoration
+import sega.fastnetwork.test.customview.DividerItemDecoration
 
 
 /**
@@ -26,7 +26,8 @@ class CategoryFragment : Fragment(), CategoryAdapter.OnproductClickListener {
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
         view.category_grid.setHasFixedSize(true)
         view.category_grid.layoutManager = layoutManager!!
-        view.category_grid.addItemDecoration(ItemPaddingDecoration(context))
+
+        view.category_grid.addItemDecoration(DividerItemDecoration(R.color.category_divider_color,1))
         view.category_grid.adapter = adapter
         adapter.notifyDataSetChanged()
         println(adapter.itemCount)

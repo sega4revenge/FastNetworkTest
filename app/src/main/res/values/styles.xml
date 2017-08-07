@@ -41,9 +41,9 @@
     </style>
     <style name="Theme.Samita.Toolbar" parent="ThemeOverlay.AppCompat.Light">
 
-        <item name="android:textColorPrimary">@color/text_icon_color</item>
-        <item name="actionMenuTextColor">@color/text_icon_color</item>
-        <item name="android:textColorSecondary">@color/text_icon_color</item>
+        <item name="android:textColorPrimary">@color/navigation_icon_color</item>
+        <item name="actionMenuTextColor">@color/navigation_icon_color</item>
+        <item name="android:textColorSecondary">@color/navigation_icon_color</item>
     </style>
     <style name="FontTextViewStyle" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="pix_font">fonts/myriadpro.otf</item>

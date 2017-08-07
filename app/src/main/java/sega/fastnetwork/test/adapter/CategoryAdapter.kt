@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.category_item_list.view.*
 import sega.fastnetwork.test.R
-import java.text.DecimalFormat
+import sega.fastnetwork.test.model.Category
 import java.util.*
 
 /**
@@ -15,36 +15,34 @@ import java.util.*
  */
 class CategoryAdapter// Constructor
 (private val context: Context, private val onproductClickListener: OnproductClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val format: String
 
-    var productList: ArrayList<String>
-    internal var formatprice: DecimalFormat
+
+    var productList: ArrayList<Category>
+
 
     init {
-        println("chay1")
-       productList = ArrayList<String>()
-        productList.add("abc")
-       productList.add("abc2")
-       productList.add("abc3")
-       productList.add("abc4")
-        productList.add("abc5")
-        productList.add("abc6")
-        formatprice = DecimalFormat("#0,000")
-        val current = Locale("vi", "VN")
-        val cur = Currency.getInstance(current)
-        format = cur.symbol
+
+       productList = ArrayList<Category>()
+      productList.add(Category("Xe cộ","25",R.color.menu_background))
+        productList.add(Category("Đồ chơi","40",R.color.btn_login))
+        productList.add(Category("Điện tử","105",R.color.md_styled_accent))
+        productList.add(Category("Gia dụng","6",R.color.md_styled_primary))
+        productList.add(Category("Thời trang","216",R.color.dot_light_screen1))
+        productList.add(Category("Nhà cửa","42",R.color.dot_light_screen2))
+        productList.add(Category("Vợ","15",R.color.dot_light_screen3))
+        productList.add(Category("Người yêu","8",R.color.dot_light_screen4))
     }
 
     // RecyclerView methods
     override fun getItemCount(): Int {
-        println(productList.size)
+
         return productList.size
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductGridViewHolder {
 
-        println("cha3")
+
         // GRID MODE
         val v = LayoutInflater.from(parent.context).inflate(
                 R.layout.category_item_list, null)
@@ -55,14 +53,17 @@ class CategoryAdapter// Constructor
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(0)
         val product = productList[position]
-        println("chay2")
+
         // GRID MODE
 
 
 
 
 
-        viewHolder.itemView.product_name.text = "abc"
+        viewHolder.itemView.category_name.text = product.name
+        viewHolder.itemView.category_number.text = product.number
+        viewHolder.itemView.category_line.setBackgroundResource(product.color)
+        println(product.color)
         // Title and year
 
         //                productViewHolder.productRating.setText(product.price+"");
