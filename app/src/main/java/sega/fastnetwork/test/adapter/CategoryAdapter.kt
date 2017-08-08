@@ -23,14 +23,14 @@ class CategoryAdapter// Constructor
     init {
 
        productList = ArrayList<Category>()
-      productList.add(Category("Xe cộ","25",R.color.menu_background))
-        productList.add(Category("Đồ chơi","40",R.color.abc_tint_spinner))
-        productList.add(Category("Điện tử","105",R.color.md_styled_accent))
-        productList.add(Category("Gia dụng","6",R.color.md_styled_primary))
-        productList.add(Category("Thời trang","216",R.color.dot_light_screen1))
-        productList.add(Category("Nhà cửa","42",R.color.dot_light_screen2))
-        productList.add(Category("Vợ","15",R.color.dot_light_screen3))
-        productList.add(Category("Người yêu","8",R.color.dot_light_screen4))
+      productList.add(Category("Xe cộ","25",R.drawable.vehicle_icon))
+        productList.add(Category("Đồ chơi","40",R.drawable.babytoy_icon))
+        productList.add(Category("Điện tử","105",R.drawable.electronic_icon))
+        productList.add(Category("Gia dụng","6",R.drawable.furniture_icon))
+        productList.add(Category("Thời trang","216",R.drawable.fashion_icon))
+        productList.add(Category("Nhà cửa","42",R.drawable.home_icon))
+        productList.add(Category("Giáo dục","15",R.drawable.education_icon))
+        productList.add(Category("Khác","8",R.drawable.more_icon))
     }
 
     // RecyclerView methods

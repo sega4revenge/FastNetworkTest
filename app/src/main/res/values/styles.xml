@@ -46,7 +46,7 @@
         <item name="android:textColorSecondary">@color/navigation_icon_color</item>
     </style>
     <style name="FontTextViewStyle" parent="@android:style/TextAppearance.Widget.TextView">
-        <item name="pix_font">fonts/myriadpro.otf</item>
+        <item name="pix_font">fonts/Sofia.ttf</item>
       <!--  <item name="pix_fontBold">fonts/NunitoSans-Bold.ttf</item>
         <item name="pix_fontItalic">fonts/NunitoSans-SemiBold.ttf</item>
         <item name="pix_fontBoldItalic">fonts/QanelasSoft-ExtraBold.otf</item>-->
