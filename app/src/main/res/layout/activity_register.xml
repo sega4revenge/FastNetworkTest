@@ -4,7 +4,7 @@
     android:id="@+id/root_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signup_background"
+    android:background="@color/input_register_bg"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:layout_marginLeft="@dimen/dist_large"
         android:layout_marginRight="@dimen/dist_large"
         android:layout_marginStart="@dimen/dist_large"
-        android:layout_marginBottom="@dimen/dist_large"
+        android:layout_marginBottom="43dp"
         android:orientation="vertical">
         <android.support.design.widget.TextInputLayout
             android:id="@+id/layoutname"

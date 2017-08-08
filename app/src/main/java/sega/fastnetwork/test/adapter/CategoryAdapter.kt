@@ -24,7 +24,7 @@ class CategoryAdapter// Constructor
 
        productList = ArrayList<Category>()
       productList.add(Category("Xe cộ","25",R.color.menu_background))
-        productList.add(Category("Đồ chơi","40",R.color.btn_login))
+        productList.add(Category("Đồ chơi","40",R.color.abc_tint_spinner))
         productList.add(Category("Điện tử","105",R.color.md_styled_accent))
         productList.add(Category("Gia dụng","6",R.color.md_styled_primary))
         productList.add(Category("Thời trang","216",R.color.dot_light_screen1))

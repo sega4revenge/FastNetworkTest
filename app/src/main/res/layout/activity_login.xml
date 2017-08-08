@@ -4,7 +4,7 @@
     android:id="@+id/root_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
+    android:background="@color/input_register_bg"
     android:orientation="vertical">
 
     <RelativeLayout

@@ -30,7 +30,7 @@
 
     <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
 
-        <item name="android:textColor">@color/bg_screen1</item>
+        <item name="android:textColor">@color/btn_color_login</item>
         <item name="android:textSize">15sp</item>
     </style>
 

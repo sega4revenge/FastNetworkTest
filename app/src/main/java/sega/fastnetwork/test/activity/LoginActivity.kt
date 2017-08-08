@@ -256,9 +256,11 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
 
     fun gotoregister() {
         val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+
         startActivity(intent)
         finish()
         overridePendingTransition(0, 0)
+
     }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
@@ -324,6 +326,31 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
 
         Snackbar.make(findViewById(R.id.root_login), message!!, Snackbar.LENGTH_SHORT).show()
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // Your application logic
+        // ...
+        // ...
+
+        mGoogleApiClient?.disconnect()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // stop GoogleApiClient
+        if (mGoogleApiClient?.isConnected!!) {
+            mGoogleApiClient?.disconnect()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (mGoogleApiClient?.isConnected!!) {
+            mGoogleApiClient?.disconnect()
+        }
     }
 
 }
