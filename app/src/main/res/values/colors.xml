@@ -32,10 +32,10 @@
 
     //======================================
     <color name="cyan">#50d2c2</color>
-    <color name="btn_login">#4fd2c2</color>
+    <color name="btn_login">#EC407A</color>
     <color name="input_register">#888888</color>
     <color name="input_register_bg">#3b4148</color>
-    <color name="btn_color_login">#2f2e33</color>
+    <color name="btn_color_login">#bbbab8</color>
     <color name="black_login">#56000000</color>
     <color name="navigation_icon_color">#bbbbbe</color>
     <color name="category_divider_color">#f4f4f4</color>
@@ -51,4 +51,6 @@
     <color name="dot_light_screen2">#8cf9eb</color>
     <color name="dot_light_screen3">#93c6fd</color>
     <color name="dot_light_screen4">#e4b5fc</color>
+
+    <color name="default_image_background">#d8d8d8</color>
 </resources>

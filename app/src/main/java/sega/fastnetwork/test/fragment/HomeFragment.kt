@@ -34,8 +34,8 @@ class HomeFragment : Fragment() {
 
         override fun getItem(i: Int): Fragment? {
             when (i) {
-                0 -> return TabGeoCone()
-                1 -> return TabGeoCone()
+                0 -> return ProductListFragment()
+                1 -> return ProductListFragment()
             }
             return null
         }

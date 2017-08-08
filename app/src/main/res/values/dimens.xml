@@ -58,14 +58,54 @@
     <dimen name="floating_width">500dp</dimen>
 
 
+
+    <dimen name="small_margin">8dp</dimen>
+
+    <dimen name="recycler_item_padding">1dp</dimen>
+    <dimen name="recycler_view_padding">6dp</dimen>
+
+
+
+    <!-- product Grid Item -->
     <dimen name="product_card_width">180dp</dimen>
     <dimen name="product_image_height">135dp</dimen>
     <dimen name="product_info_height">175dp</dimen>
     <dimen name="product_info_padding">5dp</dimen>
     <dimen name="product_rating_icon_size">16dp</dimen>
-    <dimen name="small_margin">8dp</dimen>
 
-    <dimen name="recycler_item_padding">1dp</dimen>
-    <dimen name="recycler_view_padding">6dp</dimen>
+    <!-- product List Item -->
+    <dimen name="product_list_card_height">200dp</dimen>
+    <dimen name="product_list_card_width">400dp</dimen>
+    <dimen name="product_list_poster_width">120dp</dimen>
+
+    <!-- product Compact Item -->
+    <dimen name="product_compact_image_size">100dp</dimen>
+    <dimen name="product_compact_rating_icon_size">14dp</dimen>
+    <dimen name="product_compact_text_margin">12dp</dimen>
+
+
+    <dimen name="tiny_margin">4dp</dimen>
+    <!-- General Text Sizes -->
+    <dimen name="text_xxlarge">20sp</dimen>
+    <dimen name="text_xlarge">18sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+    <dimen name="text_medium">14sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_draweruser">15sp</dimen>
+    <dimen name="text_draweremail">13sp</dimen>
+
+    <!-- Error Message -->
+    <dimen name="error_icon_width">120dp</dimen>
+    <dimen name="error_icon_height">120dp</dimen>
+    <dimen name="error_message_marginTop">15dp</dimen>
+    <dimen name="error_try_again_padding">8dp</dimen>
+
+    <!-- Loading Circle -->
+    <dimen name="progress_circle_width">80dp</dimen>
+    <dimen name="progress_circle_height">80dp</dimen>
+    <dimen name="progress_circle_stroke">4dp</dimen>
+    <dimen name="progress_circle_small_width">40dp</dimen>
+    <dimen name="progress_circle_small_height">40dp</dimen>
+    <dimen name="progress_circle_small_stroke">3dp</dimen>
 
 </resources>

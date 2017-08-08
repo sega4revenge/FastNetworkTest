@@ -9,7 +9,9 @@ class Product {
     var _id : String?=null
     var iduser: User? = null
     var productname: String? = null
+    var number : String?=null
     var price: String? = null
+    var category: String?= null
     var description: String? = null
     var images : ArrayList<String>? = ArrayList()
 }
