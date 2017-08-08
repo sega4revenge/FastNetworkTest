@@ -46,6 +46,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
     private var mGoogleApiClient: GoogleApiClient? = null
     private val RC_SIGN_IN = 7
     var mLoginPresenter: LoginPresenter? = null
+    var type : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FacebookSdk.sdkInitialize(applicationContext)
@@ -111,7 +112,8 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
                         user.password = ""
                         user.facebook!!.photoprofile = (url)
                         user.tokenfirebase = (tokenfirebase)
-                        mLoginPresenter!!.register(user, Constants.FACEBOOK)
+                        type = Constants.FACEBOOK
+                        mLoginPresenter!!.register(user, type)
 
 
                     } catch (e: JSONException) {
@@ -241,11 +243,12 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
         account = Account(user.name, AppAccountManager.ACCOUNT_TYPE)
         if (mAccountManager!!.addAccountExplicitly(account, user.password, null)) {
             println("tao thanh cong")
-            AppAccountManager.saveAccountUser(this, account!!, user)
+            AppAccountManager.saveAccountUser(this, account!!, user,type)
         } else {
             account = AppAccountManager.getAppAccount(this)
             val accountManager = this.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
             accountManager.setUserData(account, AppAccountManager.USER_DATA_ID, user._id)
+            accountManager.setUserData(account,AppAccountManager.USER_TYPE, type.toString())
         }
         this.user = user
     }
@@ -284,7 +287,8 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
             user.password = ""
             user.google!!.photoprofile = acct.photoUrl.toString()
             user.tokenfirebase = tokenfirebase
-            mLoginPresenter!!.register(user, Constants.GOOGLE)
+            type = Constants.GOOGLE
+            mLoginPresenter!!.register(user, type)
             Log.e(TAG, "Name: " + user.google!!.name + ", email: " + user.google!!.email
                     + ", Image: " + user.google!!.photoprofile)
         } else {

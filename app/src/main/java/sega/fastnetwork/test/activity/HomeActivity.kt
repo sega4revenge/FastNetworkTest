@@ -133,6 +133,12 @@ class HomeActivity : AppCompatActivity(), HomeView, NavigationView.OnNavigationI
                 navigation_view!!.menu.findItem(mPrevSelectedId).isChecked = true
                 return
             }
+            R.id.nav_8 -> {
+                /*   startActivity(new Intent(this, AboutActivity.class));*/
+               AppAccountManager.removeAccount(this)
+
+                return
+            }
         }
 
         val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(4f))
