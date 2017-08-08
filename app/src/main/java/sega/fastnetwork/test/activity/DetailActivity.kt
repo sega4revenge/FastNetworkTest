@@ -1,7 +1,6 @@
 package sega.fastnetwork.test.activity
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
@@ -13,8 +12,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_detailuser.*
-
-
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.manager.AppAccountManager
 import sega.fastnetwork.test.model.User
@@ -125,12 +122,12 @@ class DetailActivity : AppCompatActivity(), DetailUserView, AppBarLayout.OnOffse
         val id = item.itemId
 
 
-        if (id == R.id.action_add) {
+       /* if (id == R.id.action_add) {
             System.out.println("add")
             startActivity(Intent(applicationContext, AddActivity::class.java))
             return true
         }
-
+*/
         return super.onOptionsItemSelected(item)
     }
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_tab1.*
 import kotlinx.android.synthetic.main.fragment_tab1.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.ProductAdapter
@@ -78,6 +79,26 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
         return v
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+
+        if (layoutManager != null && adapter != null) {
+            outState!!.putBoolean(Constants.IS_LOADING, isLoading)
+            outState.putBoolean(Constants.IS_LOCKED, isLoadingLocked)
+            outState.putInt(Constants.PAGE_TO_DOWNLOAD, pageToDownload)
+
+
+        }
+        super.onSaveInstanceState(outState)
+    }
+    fun refreshLayout() {
+        val state = layoutManager!!.onSaveInstanceState()
+        layoutManager = GridLayoutManager(context, getNumberOfColumns())
+        product_recycleview.layoutManager = layoutManager
+        layoutManager!!.onRestoreInstanceState(state)
+        product_recycleview.performClick()
+
+
+    }
     private fun onDownloadSuccessful() {
         if (isTablet && adapter?.productList?.size!! > 0) {
             /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/

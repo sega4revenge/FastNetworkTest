@@ -111,12 +111,13 @@
         android:layout_height="@dimen/image_width"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginTop="100dp"
-        app:border_color="@android:color/white"
-        app:border_width="@dimen/border_width"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="@dimen/border_width"
         app:finalHeight="@dimen/image_final_width"
         app:finalToolbarHeight="?attr/actionBarSize"
         app:finalXPosition="@dimen/spacing_small"
         app:finalYPosition="@dimen/spacing_small"
         app:layout_behavior="sega.fastnetwork.test.customview.AvatarImageBehavior" />
+
 
 </android.support.design.widget.CoordinatorLayout>

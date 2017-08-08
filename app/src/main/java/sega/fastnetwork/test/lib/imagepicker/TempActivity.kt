@@ -1,3 +1,4 @@
+/*
 package sega.fastnetwork.test.lib.imagepicker
 
 import android.Manifest
@@ -24,7 +25,6 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageBean
@@ -36,9 +36,9 @@ import java.io.File
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class TempActivity : AppCompatActivity() {
     var mNotificationManager: NotificationManager? = null
-    val TAG = MainActivity::class.java.simpleName
+    val TAG = TempActivity::class.java.simpleName
     var temp: Int = 0
     internal var list: List<ImageBean>? = null
     var uriList: ArrayList<Uri>? = ArrayList()
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                 val permissionlistener = object : PermissionListener {
                     override fun onPermissionGranted() {
                         System.out.println("cho roi")
-                        val bottomSheetDialogFragment = TedBottomPicker.Builder(this@MainActivity)
+                        val bottomSheetDialogFragment = TedBottomPicker.Builder(this@TempActivity)
                                 .setOnMultiImageSelectedListener(object : TedBottomPicker.OnMultiImageSelectedListener {
                                     override fun onImagesSelected(uriList: ArrayList<Uri>) {
                                         showUriList(uriList)
@@ -90,13 +90,13 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-                        Toast.makeText(this@MainActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@TempActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
                     }
 
 
                 }
 
-                TedPermission(this@MainActivity)
+                TedPermission(this@TempActivity)
                         .setPermissionListener(permissionlistener)
                         .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                         .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             if (uriList!!.size == 0) {
                 Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
             } else
-                uploadImage(File(getRealFilePath(this@MainActivity, uriList!![temp])))
+                uploadImage(File(getRealFilePath(this@TempActivity, uriList!![temp])))
         }
 
     }
@@ -168,10 +168,10 @@ class MainActivity : AppCompatActivity() {
 
         if (uriList.size == 1) {
             it_picker_view!!.listUri = uriList
-            it_picker_view!!.addData(ImageBean(getRealFilePath(this@MainActivity, uriList[0])!!))
+            it_picker_view!!.addData(ImageBean(getRealFilePath(this@TempActivity, uriList[0])!!))
 
         } else {
-            val list = uriList.map { ImageBean(getRealFilePath(this@MainActivity, it)!!) }
+            val list = uriList.map { ImageBean(getRealFilePath(this@TempActivity, it)!!) }
 
             it_picker_view!!.addData(list)
             it_picker_view!!.listUri = uriList
@@ -289,7 +289,7 @@ class MainActivity : AppCompatActivity() {
                         Log.d(TAG + "_1", "onResponse object : " + response.toString())
                         temp++
                         if (temp + 1 <= uriList!!.size) {
-                            uploadImage(File(getRealFilePath(this@MainActivity, uriList?.get(temp))))
+                            uploadImage(File(getRealFilePath(this@TempActivity, uriList?.get(temp))))
                         } else {
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
                             mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")
@@ -304,3 +304,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+*/

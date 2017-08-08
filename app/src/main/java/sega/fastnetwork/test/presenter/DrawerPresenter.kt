@@ -8,18 +8,18 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import sega.fastnetwork.test.activity.HomeActivity
+import sega.fastnetwork.test.fragment.DrawerFragment
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.HomeView
+import sega.fastnetwork.test.view.DrawerView
 
 
 /**
  * Created by sega4 on 27/07/2017.
  */
 
-class HomePresenter(homeActivity: HomeActivity) {
-    internal var mHomeView: HomeView = homeActivity
+class DrawerPresenter(drawerFragment: DrawerFragment) {
+    internal var mDrawerView: DrawerView = drawerFragment
     var userdetail = "USERDETAIL"
 
     fun getUserDetail(userid: String) {
@@ -40,7 +40,7 @@ class HomePresenter(homeActivity: HomeActivity) {
                     override fun onNext(user: User?) {
                         Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
 
-                        mHomeView.getUserDetail(user!!)
+                        mDrawerView.getUserDetail(user!!)
                     }
 
 
@@ -60,15 +60,15 @@ class HomePresenter(homeActivity: HomeActivity) {
                                 Log.d(userdetail, "onError errorCode : " + anError.errorCode)
                                 Log.d(userdetail, "onError errorBody : " + anError.errorBody)
                                 Log.d(userdetail, "onError errorDetail : " + anError.errorDetail)
-                                mHomeView.setErrorMessage(anError.errorDetail)
+                                mDrawerView.setErrorMessage(anError.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(userdetail, "onError errorDetail : " + anError.errorDetail)
-                                mHomeView.setErrorMessage(anError.errorDetail)
+                                mDrawerView.setErrorMessage(anError.errorDetail)
                             }
                         } else {
                             Log.d(userdetail, "onError errorMessage : " + e.message)
-                            mHomeView.setErrorMessage(e.message!!)
+                            mDrawerView.setErrorMessage(e.message!!)
                         }
                     }
 

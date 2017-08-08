@@ -3,6 +3,7 @@ package sega.fastnetwork.test.fragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +26,11 @@ class CategoryFragment : Fragment(), CategoryAdapter.OnproductClickListener {
 
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
         view.category_grid.setHasFixedSize(true)
-        view.category_grid.layoutManager = layoutManager!!
+        view.category_grid.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
 
         view.category_grid.addItemDecoration(DividerItemDecoration(R.color.category_divider_color,1))
         view.category_grid.adapter = adapter
         adapter.notifyDataSetChanged()
-        println(adapter.itemCount)
-        println(getNumberOfColumns())
         return view
     }
 

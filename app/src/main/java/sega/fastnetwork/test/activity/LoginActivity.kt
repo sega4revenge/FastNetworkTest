@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
         if (accountsFromFirstApp.isNotEmpty()) {
 
             //            // User is already logged in. Take him to main activity
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
             overridePendingTransition(0, 0)
@@ -194,7 +194,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
                     .colorOrImageRes(R.color.colorAccent)
                     .go(object : CircularAnim.OnAnimationEndListener {
                         override fun onAnimationEnd() {
-                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                             finish()
                         }
                     })
@@ -212,7 +212,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
                         .colorOrImageRes(R.color.white)
                         .go(object : CircularAnim.OnAnimationEndListener {
                             override fun onAnimationEnd() {
-                                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                                 finish()
                             }
                         })
@@ -221,7 +221,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
                         .colorOrImageRes(R.color.white)
                         .go(object : CircularAnim.OnAnimationEndListener {
                             override fun onAnimationEnd() {
-                                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                                 finish()
                             }
                         })

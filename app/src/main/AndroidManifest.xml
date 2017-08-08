@@ -86,13 +86,14 @@
 
         <activity android:name=".activity.DetailActivity" />
         <!--
-        <activity android:name=".lib.imagepicker.MainActivity">
+        <activity android:name=".lib.imagepicker.TempActivity">
         </activity>
         -->
 
         <activity android:name=".activity.AddActivity" />
+
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
     </application>

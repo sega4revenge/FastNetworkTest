@@ -35,28 +35,29 @@ class SessionManager
         get() = pref.getString(KEY_TOKEN, null)
     val profilePic: String
         get() = pref.getString(KEY_PHOTO, null)
-
+    val lastpage: String
+        get() = pref.getString("lastpage", null)
     fun setName(name: String) {
         pref.edit().putString(KEY_NAME, name)
-        pref.edit().commit()
+        pref.edit().apply()
     }
 
     fun setEmail(email: String) {
 
         pref.edit().putString(KEY_EMAIL, email)
-        pref.edit().commit()
+        pref.edit().apply()
     }
 
     fun setPhone(phone: String) {
 
         pref.edit().putString(KEY_PHONE, phone)
-        pref.edit().commit()
+        pref.edit().apply()
     }
 
     fun setProfilepic(profilepic: String) {
 
         pref.edit().putString(KEY_PHOTO, profilepic)
-        pref.edit().commit()
+        pref.edit().apply()
     }
     /* public void createInfoUser(String age, String phone, String location){
 
@@ -65,7 +66,7 @@ class SessionManager
         pref.edit().putString(KEY_PHONE, phone);
         pref.edit().putString(KEY_LOCATION, location);
 
-        pref.edit().commit();
+        pref.edit().apply();
     }*/
     /**
      * Create login session
@@ -84,7 +85,7 @@ class SessionManager
 
 
         // commit changes
-        pref.edit().commit()
+        pref.edit().apply()
     }
 
     /**
@@ -135,7 +136,7 @@ class SessionManager
     fun logoutUser() {
         // Clearing all data from Shared Preferences
         pref.edit().clear()
-        pref.edit().commit()
+        pref.edit().apply()
 
         // After logout redirect user to Loing Activity
         val i = Intent(_context, LoginActivity::class.java)
@@ -149,6 +150,10 @@ class SessionManager
 
     }
 
+    fun setLastpage(page: String) {
+        pref.edit().putString("lastpage", page)
+        pref.edit().apply()
+    }
     /**
      * Quick check for login
      */

@@ -49,7 +49,7 @@
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context=".lib.imagepicker.MainActivity">
+                tools:context=".lib.imagepicker.TempActivity">
                 <sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerView
                     android:id="@+id/add_picker_view"
                     android:layout_width="match_parent"

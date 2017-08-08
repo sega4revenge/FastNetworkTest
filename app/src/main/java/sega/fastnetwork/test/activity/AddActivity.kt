@@ -28,7 +28,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add.*
 import org.json.JSONObject
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.lib.imagepicker.MainActivity
 import sega.fastnetwork.test.lib.imagepicker.TedBottomPicker
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageBean
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerBean
@@ -45,7 +44,7 @@ class AddActivity : AppCompatActivity(), AddView {
 
 
     var mNotificationManager: NotificationManager? = null
-    val TAG = MainActivity::class.java.simpleName
+    val TAG = AddActivity::class.java.simpleName
     var temp: Int = 0
     internal var list: List<ImageBean>? = null
     var uriList: ArrayList<Uri>? = ArrayList()

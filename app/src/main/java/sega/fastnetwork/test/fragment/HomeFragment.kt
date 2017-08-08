@@ -21,9 +21,23 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.tab_home, container, false)
         view.pager!!.adapter = TabsAdapter(childFragmentManager)
+
         view.tab_layout!!.setupWithViewPager(view.pager)
+
         setHasOptionsMenu(true)
         return view
+    }
+
+    fun refresh() {
+
+        val fragment = childFragmentManager.findFragmentByTag(getFragmentTag(R.id.pager, 0)) as ProductListFragment
+        val fragment2 = childFragmentManager.findFragmentByTag(getFragmentTag(R.id.pager, 1)) as ProductListFragment
+        fragment.refreshLayout()
+        fragment2.refreshLayout()
+    }
+
+    private fun getFragmentTag(viewPagerId: Int, fragmentPosition: Int): String {
+        return "android:switcher:$viewPagerId:$fragmentPosition"
     }
 
     internal inner class TabsAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {

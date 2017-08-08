@@ -63,7 +63,7 @@ class CategoryAdapter// Constructor
         viewHolder.itemView.category_name.text = product.name
         viewHolder.itemView.category_number.text = product.number
         viewHolder.itemView.category_line.setBackgroundResource(product.color)
-        println(product.color)
+
         // Title and year
 
         //                productViewHolder.productRating.setText(product.price+"");

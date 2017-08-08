@@ -26,6 +26,17 @@
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
 
+    <ImageButton
+        android:id="@+id/action_grid"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:gravity="right"
+        android:src="@drawable/action_grid"/>
+
     <!--    <View
             android:id="@+id/elevation"
             android:layout_width="match_parent"

@@ -85,4 +85,10 @@
     <string name="server_unreachable">Oops! Something went wrong.\nPlease check your internet connection.</string>
     <string name="try_again">Try Again?</string>
     <string name="loading">Loading&#8230;</string>
+
+    <!-- Toolbar actions -->
+    <string name="action_grid">Grid View</string>
+    <string name="action_list">List View</string>
+    <string name="action_compact">Compact View</string>
+    <string name="action_search">Search</string>
 </resources>
