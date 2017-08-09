@@ -27,14 +27,17 @@ class AddPresenter(addActivity: AddActivity) {
   
     var createproduct = "CREATEPRODUCT"
 
-    fun createProduct(userid: String, productname : String, price : String, description: String){
+    fun createProduct(userid: String, productname : String, price : String, number : String, description: String, type: Int){
 
         val jsonObject = JSONObject()
         try {
             jsonObject.put("userid", userid)
             jsonObject.put("productname", productname)
             jsonObject.put("price", price)
+            jsonObject.put("number", number)
             jsonObject.put("description", description)
+            jsonObject.put("type", type)
+            Log.e("AAAAA",userid + " " + productname + " " + price + " " + number + " " + description+ " "+ type)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
@@ -53,7 +56,7 @@ class AddPresenter(addActivity: AddActivity) {
                 .subscribe(object : Observer<Response> {
                     override fun onNext(response: Response?) {
                         Log.d(createproduct, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-                        mAddView.isCreateSuccess(true, response!!.product!!._id!!)
+                        mAddView.isCreateSuccess(true, response!!.product!!._id!!, response.product!!.type!!)
                     }
 
 
@@ -73,15 +76,15 @@ class AddPresenter(addActivity: AddActivity) {
                                 Log.d(createproduct, "onError errorCode : " + anError.errorCode)
                                 Log.d(createproduct, "onError errorBody : " + anError.errorBody)
                                 Log.d(createproduct, "onError errorDetail : " + anError.errorDetail)
-                                mAddView.isCreateSuccess(false,"")
+                                mAddView.isCreateSuccess(false,"","")
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(createproduct, "onError errorDetail : " + anError.errorDetail)
-                                mAddView.isCreateSuccess(false,"")
+                                mAddView.isCreateSuccess(false,"","")
                             }
                         } else {
                             Log.d(createproduct, "onError errorMessage : " + e.message)
-                            mAddView.isCreateSuccess(false,"")
+                            mAddView.isCreateSuccess(false,"","")
                         }
                     }
 

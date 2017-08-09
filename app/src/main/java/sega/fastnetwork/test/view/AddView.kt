@@ -2,7 +2,6 @@ package sega.fastnetwork.test.view
 
 interface AddView {
 
+    fun isCreateSuccess(success : Boolean,productid : String, type: String)
 
-
-    fun isCreateSuccess(success : Boolean,productid : String)
 }

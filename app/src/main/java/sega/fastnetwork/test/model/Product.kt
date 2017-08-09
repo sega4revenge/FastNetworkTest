@@ -13,5 +13,6 @@ class Product {
     var price: String? = null
     var category: String?= null
     var description: String? = null
+    var type: String? = null
     var images : ArrayList<String>? = ArrayList()
 }

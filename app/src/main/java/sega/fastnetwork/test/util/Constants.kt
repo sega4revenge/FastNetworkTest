@@ -10,6 +10,8 @@ internal object Constants {
     val FACEBOOK =1
     val GOOGLE = 2
     val LOCAL = 0
+    val BORROW = 1
+    val NEEDBORROW = 2
     val VIEW_MODE = "view_mode"
     val VIEW_MODE_GRID = 1
     val VIEW_MODE_LIST = 2

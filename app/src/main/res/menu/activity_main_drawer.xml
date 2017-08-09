@@ -19,8 +19,6 @@
             android:title="Profile" />
 
     </group>
-
-
     <group
         android:id="@+id/menu_bottom"
         android:checkableBehavior="none">
@@ -45,6 +43,4 @@
             android:icon="@mipmap/ic_logout"
             android:title="Logout" />
     </group>
-
-
 </menu>

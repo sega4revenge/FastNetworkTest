@@ -13,22 +13,92 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_addproduct"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
-
-
-
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="?attr/actionBarSize"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/base"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#eeeeee"
+            >
+            <RadioGroup
+                android:checkedButton="@+id/borrow"
+                android:id="@+id/toggle"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/pink_out_line"
+                android:orientation="horizontal">
 
+                <RadioButton
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:id="@+id/borrow"
+                    android:background="@drawable/toggle_widget_background"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Cho thuê"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:layout_marginRight="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:id="@+id/needborrow"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="Cần thuê"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+            <!--<com.nightonke.jellytogglebutton.JellyToggleButton-->
+                <!--android:id="@+id/jtb"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginBottom="5dp"-->
+
+                <!--app:jtbLeftText="Cho thuê"-->
+                <!--app:jtbRightText="Cần thuê"-->
+                <!--app:jtbLeftTextSize="10sp"-->
+                <!--app:jtbRightTextSize="10sp"-->
+                <!--app:jtbTextMarginRight="10dp"-->
+                <!--app:jtbTextMarginLeft="10dp"-->
+                <!--app:jtbBackgroundRadius="13dp"-->
+                <!--app:jtbDuration="500"-->
+                <!--/>-->
+            <sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerView
+                android:id="@+id/add_picker_view"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                app:is_show_del="true" />
+        </LinearLayout>
     <android.support.v4.widget.NestedScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -49,13 +119,8 @@
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context=".lib.imagepicker.TempActivity">
-                <sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerView
-                    android:id="@+id/add_picker_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:background="#eee"
-                    app:is_show_del="true" />
+                tools:context=".lib.imagepicker.MainActivity">
+
 
 
             </LinearLayout>
@@ -80,98 +145,114 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-
-                    <android.support.design.widget.TextInputLayout
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/productname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:descendantFocusability="beforeDescendants"
-                        android:focusableInTouchMode="true"
-                        android:paddingEnd="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingTop="10dp"
-                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                        <EditText
-
-                            android:id="@+id/productname"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:background="@android:color/transparent"
-                            android:drawablePadding="15dp"
-                            android:ems="10"
-                            android:hint="Name"
-                            android:inputType="textEmailAddress"
-                            android:padding="5dp"
-                            android:textColor="@color/black"
-                            android:textColorHighlight="@color/bg_screen1" />
-
-
-                    </android.support.design.widget.TextInputLayout>
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                      android:hint="TITLE"
+                        android:textCursorDrawable="@drawable/text_cursor_cyan"
+                        android:textSize="15sp"
+                        app:met_baseColor="@android:color/black"
+                        app:met_floatingLabel="highlight"
+                        app:met_maxCharacters="100"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="15dp"
-                            android:paddingStart="15dp"
-                            android:paddingTop="10dp"
-                            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                            <EditText
-
-                                android:id="@+id/price"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-
-                                android:background="@android:color/transparent"
-                                android:drawablePadding="15dp"
-                                android:ems="10"
-                                android:hint="Price"
-
-                                android:inputType="numberDecimal"
-                                android:padding="5dp"
-
-
-                                android:textColor="@color/black"
-                                android:textColorHighlight="@color/bg_screen1" />
-
-
-                        </android.support.design.widget.TextInputLayout>
-
-                    </LinearLayout>
-
-                    <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingEnd="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingTop="10dp"
-                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
-
-                        >
-
-                        <EditText
-                            android:id="@+id/addressEdit"
-                            android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            android:drawablePadding="15dp"
+                            android:layout_weight="5"
+                            android:hint="PRICE"
+                            android:textCursorDrawable="@drawable/text_cursor_cyan"
+                            android:textSize="15sp"
+                            android:inputType="numberDecimal"
+                            android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"                            app:met_baseColor="@android:color/black"
+                            app:met_floatingLabel="highlight"
+                            app:met_maxCharacters="100"
+                            app:met_primaryColor="?colorAccent"
+                            app:met_singleLineEllipsis="true" />
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:hint="NUMBER"
+                            android:textCursorDrawable="@drawable/text_cursor_cyan"
+                            android:textSize="15sp"
+                            android:inputType="number"
+                            android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"                            app:met_baseColor="@android:color/black"
+                            app:met_floatingLabel="highlight"
+                            app:met_maxCharacters="100"
+                            app:met_primaryColor="?colorAccent"
+                            app:met_singleLineEllipsis="true" />
+                    </LinearLayout>
 
-                            android:ems="10"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:hint="Address"
-                            android:padding="5dp"
-                            android:textColor="@color/black"
-                            android:textColorHighlight="@color/bg_screen1" />
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/categoryid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:hint="CATEGORY"
+                        android:textCursorDrawable="@drawable/text_cursor_cyan"
+                        android:textSize="15sp"
+                        app:met_baseColor="@android:color/black"
+                        app:met_floatingLabel="highlight"
+                        app:met_maxCharacters="100"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
 
-
-                    </android.support.design.widget.TextInputLayout>
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/addressEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ADDRESS"
+                        android:textCursorDrawable="@drawable/text_cursor_cyan"
+                        android:textSize="15sp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"                        app:met_baseColor="@android:color/black"
+                        app:met_floatingLabel="highlight"
+                        app:met_maxCharacters="100"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="DESCIPTION"
+                        android:textCursorDrawable="@drawable/text_cursor_cyan"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"                        app:met_baseColor="@android:color/black"
+                        app:met_floatingLabel="highlight"
+                        app:met_maxCharacters="100"
+                        app:met_primaryColor="?colorAccent"
+                        app:met_singleLineEllipsis="true" />
 
                     <!--  <LinearLayout
                           android:orientation="horizontal"
@@ -193,59 +274,8 @@
                               android:layout_weight="3"/>
 
                       </LinearLayout>-->
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingTop="10dp"
-                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                        <EditText
-
-                            android:id="@+id/categoryid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:background="@android:color/transparent"
-                            android:cursorVisible="true"
-                            android:drawablePadding="15dp"
-                            android:ems="10"
-                            android:focusable="false"
-                            android:hint="Category"
-                            android:padding="5dp"
-                            android:textColor="@color/black"
-                            android:textColorHighlight="@color/bg_screen1" />
 
 
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="15dp"
-                        android:paddingStart="15dp"
-                        android:paddingTop="10dp"
-                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                        <EditText
-
-                            android:id="@+id/productarea"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:background="@android:color/transparent"
-                            android:cursorVisible="true"
-                            android:drawablePadding="15dp"
-                            android:ems="10"
-                            android:focusable="false"
-                            android:hint="Number"
-                            android:padding="5dp"
-                            android:textColor="@color/black"
-                            android:textColorHighlight="@color/bg_screen1" />
-
-
-                    </android.support.design.widget.TextInputLayout>
 
 
                     <!--   <com.sega.vimarket.widget.RobotoLightTextView
@@ -264,86 +294,22 @@
 
                 </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dist_medium"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
 
-                android:orientation="vertical"
-                >
-
-                <!-- Header -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/dist_medium"
-                    >
-
-                    <ImageView
-                        style="@style/MovieItemIconsStyle"
-
-                        tools:ignore="ContentDescription" />
-
-                    <sega.fastnetwork.test.view.RobotoBoldTextView
-                      
-                        android:text="Detail"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content" />
-                </LinearLayout>
-
-                <!-- Value -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                   >
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
-                        app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
-
-                        <EditText
-                            android:background="@android:color/transparent"
-                            android:id="@+id/description"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:drawablePadding="15dp"
-                            android:ems="10"
-                            android:hint="Description"
-                            android:textColor="@color/black"
-                            android:textColorHighlight="@color/bg_screen1"/>
-
-
-                    </android.support.design.widget.TextInputLayout>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
             <!-- Crew Value 1 -->
 
             <!-- See All Button -->
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button12345"
-                android:text="Sell"
-                android:layout_gravity="center"
-                android:background="@color/bg_screen1"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                />
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/button12345"-->
+                <!--android:text="Sell"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:background="@color/bg_screen1"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--/>-->
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
     <!--<include-->
@@ -355,5 +321,5 @@
     <!--android:layout_marginEnd="@dimen/dist_medium"-->
     <!--android:layout_marginRight="@dimen/dist_medium" />-->
 
-
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
