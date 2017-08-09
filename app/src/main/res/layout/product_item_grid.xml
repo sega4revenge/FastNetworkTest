@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/product_poster_holder_grid"
             android:orientation="vertical"
-            android:padding="@dimen/product_info_padding">
+            android:padding="@dimen/small_margin">
 
             <!-- product Title -->
             <com.pixplicity.fontview.FontAppCompatTextView
@@ -73,12 +73,10 @@
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-
                 android:marqueeRepeatLimit="marquee_forever"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_large"
                 tools:text="My Awesome product Title" />
 
             <!-- product User -->
@@ -86,20 +84,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:orientation="horizontal">
 
-                <com.pixplicity.fontview.FontAppCompatTextView
-                    android:id="@+id/price_grid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/text_medium"
-                    tools:text="2015" />
 
-              <!--  <LinearLayout
+                <!--  <LinearLayout
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
@@ -132,18 +121,27 @@
                 </LinearLayout>-->
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/area_grid"
-
-                style="?android:textAppearanceSmall"
+            <com.pixplicity.fontview.FontAppCompatTextView
+                android:id="@+id/price_grid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Area"
                 android:ellipsize="end"
-                android:gravity="center"
+                android:maxLines="1"
                 android:paddingTop="@dimen/small_margin"
-               />
+                android:textColor="@color/colorAccent"
+
+                tools:text="2015" />
+
+            <com.pixplicity.fontview.FontAppCompatTextView
+                android:id="@+id/area_grid"
+
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingTop="@dimen/small_margin"
+                android:text="Area" />
 
         </LinearLayout>
 

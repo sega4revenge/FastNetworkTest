@@ -70,7 +70,7 @@
     <dimen name="product_card_width">180dp</dimen>
     <dimen name="product_image_height">135dp</dimen>
     <dimen name="product_info_height">175dp</dimen>
-    <dimen name="product_info_padding">5dp</dimen>
+    <dimen name="product_info_padding">10dp</dimen>
     <dimen name="product_rating_icon_size">16dp</dimen>
 
     <!-- product List Item -->

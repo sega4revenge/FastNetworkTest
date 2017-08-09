@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_tab1.*
-import kotlinx.android.synthetic.main.fragment_tab1.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
@@ -41,7 +40,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
 
         product_recycleview.setHasFixedSize(true)
-        product_recycleview.layoutManager = layoutManager
+        product_recycleview.layoutManager = layoutManager!!
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         product_recycleview.adapter = adapter
         swipe_refresh.setColorSchemeResources(R.color.colorAccent)
@@ -124,13 +123,13 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
         }
         isLoading = false
 
-        view!!.error_message.visibility = View.GONE
-        view!!.progress_circle.visibility = View.GONE
-        view!!.loading_more.visibility = View.GONE
-        view!!.product_recycleview.visibility = View.VISIBLE
-        view!!.swipe_refresh.visibility = View.VISIBLE
-        view!!.swipe_refresh.isRefreshing = false
-        view!!.swipe_refresh.isEnabled = true
+        error_message.visibility = View.GONE
+        progress_circle.visibility = View.GONE
+        loading_more.visibility = View.GONE
+        product_recycleview.visibility = View.VISIBLE
+        swipe_refresh.visibility = View.VISIBLE
+        swipe_refresh.isRefreshing = false
+        swipe_refresh.isEnabled = true
 
 
         adapter?.notifyDataSetChanged()
@@ -141,20 +140,20 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
     private fun onDownloadFailed() {
         isLoading = false
         if (pageToDownload == 1) {
-            view!!.progress_circle.visibility = View.GONE
-            view!!.loading_more.visibility = View.GONE
-            view!!.product_recycleview.visibility = View.GONE
-            view!!.swipe_refresh.isRefreshing = false
-            view!!.swipe_refresh.visibility = View.GONE
-            view!!.error_message.visibility = View.VISIBLE
+            progress_circle.visibility = View.GONE
+          loading_more.visibility = View.GONE
+            product_recycleview.visibility = View.GONE
+           swipe_refresh.isRefreshing = false
+            swipe_refresh.visibility = View.GONE
+            error_message.visibility = View.VISIBLE
         } else {
-            view!!.progress_circle.visibility = View.GONE
-            view!!.loading_more.visibility = View.GONE
-            view!!.error_message.visibility = View.GONE
-            view!!.product_recycleview.visibility = View.VISIBLE
-            view!!.swipe_refresh.visibility = View.VISIBLE
-            view!!.swipe_refresh.isRefreshing = false
-            view!!.swipe_refresh.isEnabled = true
+            progress_circle.visibility = View.GONE
+            loading_more.visibility = View.GONE
+            error_message.visibility = View.GONE
+            product_recycleview.visibility = View.VISIBLE
+            swipe_refresh.visibility = View.VISIBLE
+            swipe_refresh.isRefreshing = false
+            swipe_refresh.isEnabled = true
             isLoadingLocked = true
         }
     }

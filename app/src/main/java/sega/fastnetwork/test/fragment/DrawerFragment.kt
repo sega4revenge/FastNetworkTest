@@ -8,7 +8,6 @@ import android.preference.PreferenceManager
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -19,10 +18,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_drawer_main.*
-import kotlinx.android.synthetic.main.fragment_drawer_main.view.*
-import kotlinx.android.synthetic.main.header.view.*
+import kotlinx.android.synthetic.main.header.*
 import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.android.synthetic.main.toolbar.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.manager.AppAccountManager
 import sega.fastnetwork.test.model.User
@@ -44,7 +41,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
     internal var isTablet: Boolean? = null
     var user: User? = null
     var fragment: Fragment? = null
-    var mDrawerLayout: DrawerLayout? = null
+
     private var preferences: SharedPreferences? = null
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -58,7 +55,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
         }
         (activity as AppCompatActivity).supportActionBar!!.setDisplayShowTitleEnabled(false)
         navigation_view!!.setNavigationItemSelectedListener(this)
-        mDrawerLayout = view?.findViewById(R.id.drawer_layout) as DrawerLayout
+
         val mDrawerToggle = object : ActionBarDrawerToggle(activity,
                 drawer_layout, toolbar, R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close) {
@@ -139,8 +136,8 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
 
     fun isClosedDrawer() {
 
-        if (mDrawerLayout!!.isDrawerOpen(GravityCompat.START)) {
-            mDrawerLayout!!.closeDrawer(GravityCompat.START)
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
         } else {
             activity.finish()
         }
@@ -165,21 +162,21 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
                 .error(R.drawable.img_error)
                 .priority(Priority.HIGH)
         Glide.with(this)
-                .load(user.google!!.photoprofile)
+                .load(user.photoprofile)
                 .thumbnail(0.1f)
                 .apply(options)
-                .into(view!!.avatar_header)
+                .into(avatar_header)
 
-        view!!.username_header.text = user.name
-        view!!.email_header.text = user.email
+        username_header.text = user.name
+        email_header.text = user.email
     }
 
     fun switchFragment(itemId: Int) {
-        mSelectedId = view!!.navigation_view!!.menu.getItem(itemId).itemId
-        view!!.navigation_view!!.menu.findItem(mSelectedId).isChecked = true
+        mSelectedId = navigation_view!!.menu.getItem(itemId).itemId
+        navigation_view!!.menu.findItem(mSelectedId).isChecked = true
         mDrawerHandler.removeCallbacksAndMessages(null)
         mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
-        mDrawerLayout!!.closeDrawers()
+        drawer_layout.closeDrawers()
     }
 
     private fun navigate(itemId: Int) {
@@ -188,12 +185,12 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
         when (itemId) {
             R.id.nav_1 -> {
                 mPrevSelectedId = itemId
-                view!!.toolbar_title.setText(R.string.nav_home)
+                toolbar_title.setText(R.string.nav_home)
                 fragment = HomeFragment()
             }
             R.id.nav_2 -> {
                 mPrevSelectedId = itemId
-                view!!.toolbar_title.setText(R.string.nav_category)
+                toolbar_title.setText(R.string.nav_category)
                 fragment = CategoryFragment()
             }
         //case R.id.nav_5:
@@ -202,7 +199,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
         //return;
             R.id.nav_6 -> {
                 /*   startActivity(new Intent(this, AboutActivity.class));*/
-                view!!.navigation_view!!.menu.findItem(mPrevSelectedId).isChecked = true
+                navigation_view!!.menu.findItem(mPrevSelectedId).isChecked = true
                 return
             }
             R.id.nav_8 -> {
@@ -254,7 +251,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
         mDrawerHandler.removeCallbacksAndMessages(null)
         mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
 
-        mDrawerLayout!!.closeDrawers()
+        drawer_layout.closeDrawers()
         return true
     }
 
