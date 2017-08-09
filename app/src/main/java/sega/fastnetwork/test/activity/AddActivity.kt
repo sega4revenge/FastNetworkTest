@@ -440,6 +440,7 @@ class AddActivity : AppCompatActivity(), AddView {
                 if (productname!!.text.toString() == "" || number!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 }
+
                 else {
                     temp = 0
                     mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),"",number.text.toString(),description.text.toString(),Constants.NEEDBORROW)
