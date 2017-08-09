@@ -51,7 +51,7 @@ class CategoryAdapter// Constructor
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
-        val viewType = getItemViewType(0)
+
         val product = productList[position]
 
         // GRID MODE

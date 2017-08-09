@@ -8,9 +8,12 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
-    cardview:cardBackgroundColor="@color/card_background"
+    cardview:cardBackgroundColor="@color/white"
     cardview:cardPreventCornerOverlap="false"
-    cardview:cardUseCompatPadding="true">
+    cardview:cardCornerRadius="0dp"
+    cardview:cardUseCompatPadding="true"
+
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -60,7 +63,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/product_poster_holder_grid"
-            android:minHeight="@dimen/product_info_height"
             android:orientation="vertical"
             android:padding="@dimen/product_info_padding">
 

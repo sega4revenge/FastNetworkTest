@@ -15,7 +15,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
@@ -72,7 +71,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
             }
         }
 
-        drawer_layout!!.setDrawerListener(mDrawerToggle)
+        drawer_layout!!.addDrawerListener(mDrawerToggle)
         mDrawerToggle.syncState()
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
         mSelectedId = navigation_view!!.menu.getItem(prefs.getInt("default_view", 0)).itemId
@@ -213,7 +212,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
             }
         }
 
-        val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(4f))
+        /*  val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(4f))*/
 
         if (fragment != null) {
             val transaction = activity.supportFragmentManager.beginTransaction()

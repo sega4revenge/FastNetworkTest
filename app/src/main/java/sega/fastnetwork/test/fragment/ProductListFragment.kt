@@ -43,7 +43,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
         v!!.product_recycleview.setHasFixedSize(true)
         v!!.product_recycleview.layoutManager = layoutManager
-        v!!.product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 1))
+        v!!.product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         v!!.product_recycleview.adapter = adapter
 
 
