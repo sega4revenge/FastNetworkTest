@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/product_card_grid"
@@ -9,8 +8,8 @@
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     cardview:cardBackgroundColor="@color/white"
-    cardview:cardPreventCornerOverlap="false"
     cardview:cardCornerRadius="0dp"
+    cardview:cardPreventCornerOverlap="false"
     cardview:cardUseCompatPadding="true"
 
     >
@@ -45,17 +44,17 @@
                 android:scaleType="centerCrop"
                 tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/overlaytext_grid"
-                style="?android:textAppearanceSmallInverse"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/product_poster_grid"
+            <!--     <TextView
+                     android:id="@+id/overlaytext_grid"
+                     style="?android:textAppearanceSmallInverse"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_alignBottom="@+id/product_poster_grid"
 
-                android:background="@color/input_register"
-                android:gravity="center"
-                android:padding="@dimen/tiny_margin"
-                tools:text="Overlay" />
+                     android:background="@color/input_register"
+                     android:gravity="center"
+                     android:padding="@dimen/tiny_margin"
+                     tools:text="Overlay" />-->
         </RelativeLayout>
 
         <!-- product Title and Year -->
@@ -67,40 +66,40 @@
             android:padding="@dimen/product_info_padding">
 
             <!-- product Title -->
-            <sega.fastnetwork.test.view.RobotoLightTextView
+            <com.pixplicity.fontview.FontAppCompatTextView
                 android:id="@+id/product_name_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
-                android:gravity="center"
-                android:textColor="@color/input_register"
-                android:textSize="@dimen/text_large"
-                tools:text="My Awesome product Title"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:maxLines="1" />
 
-            <!-- product Year -->
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_large"
+                tools:text="My Awesome product Title" />
+
+            <!-- product User -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <sega.fastnetwork.test.view.RobotoLightTextView
-                    android:id="@+id/username_grid"
+                <com.pixplicity.fontview.FontAppCompatTextView
+                    android:id="@+id/price_grid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:textColor="@color/input_register"
+                    android:textColor="@color/colorAccent"
                     android:textSize="@dimen/text_medium"
                     tools:text="2015" />
 
-                <LinearLayout
+              <!--  <LinearLayout
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
@@ -108,7 +107,7 @@
                     android:orientation="horizontal">
 
                     <sega.fastnetwork.test.view.RobotoLightTextView
-                        android:id="@+id/product_rating_grid"
+                        android:id="@+id/product_number_grid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/dist_small"
@@ -130,34 +129,21 @@
                         android:src="@drawable/logo"
                         tools:ignore="contentDescription" />
 
-                </LinearLayout>
+                </LinearLayout>-->
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/price_grid"
-                style="?android:textAppearanceSmall"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_gravity="center"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:paddingTop="@dimen/small_margin"
-                tools:text="Price" />
 
             <TextView
                 android:id="@+id/area_grid"
 
                 style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_gravity="center"
+                android:text="Area"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:paddingTop="@dimen/small_margin"
-                tools:text="Area" />
+               />
 
         </LinearLayout>
 

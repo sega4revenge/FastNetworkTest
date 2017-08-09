@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.product_item_list.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.util.Constants
+import java.text.DecimalFormat
 import java.util.*
 
 /**
@@ -24,15 +25,19 @@ import java.util.*
  */
 class ProductAdapter// Constructor
 (private val context: Context, private val onproductClickListener: OnproductClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+    private val format: String
     private val sharedPref: SharedPreferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
     var productList: ArrayList<Product>
     private val imageWidth: Int
+    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
 
     init {
         imageWidth = sharedPref.getInt(Constants.THUMBNAIL_SIZE,
                 0)   // Load image width for grid view
-       productList = ArrayList<Product>()
+        productList = ArrayList<Product>()
+        val current = Locale("vi", "VN")
+        val cur = Currency.getInstance(current)
+        format = cur.symbol
 
     }
 
@@ -86,9 +91,9 @@ class ProductAdapter// Constructor
             return ProductCompactViewHolder(v)
         }
         // GRID MODE
-      /*  val v = LayoutInflater.from(parent.context).inflate(
-                R.layout.category_item_list, null)
-        return ProductGridViewHolder(v)*/
+        /*  val v = LayoutInflater.from(parent.context).inflate(
+                  R.layout.category_item_list, null)
+          return ProductGridViewHolder(v)*/
 
     }
 
@@ -101,7 +106,8 @@ class ProductAdapter// Constructor
             // GRID MODE
             val viewHolder = viewHolderParent as ProductGridViewHolder
             viewHolder.itemView.product_name_grid.text = product.productname
-            viewHolder.itemView.price_grid.text = product.number
+            val temp = formatprice?.format(product.price?.toDouble()) + format
+            viewHolder.itemView.price_grid.text = temp
             val options = RequestOptions()
                     .centerCrop()
                     .dontAnimate()
@@ -109,7 +115,7 @@ class ProductAdapter// Constructor
                     .error(R.drawable.img_error)
                     .priority(Priority.HIGH)
             Glide.with(context)
-                    .load(Constants.BASE_URL + "?image="+ product.images?.get(0))
+                    .load(Constants.BASE_URL + "?image=" + product.images?.get(0))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(viewHolder.itemView.product_poster_grid)
@@ -127,7 +133,7 @@ class ProductAdapter// Constructor
                     .error(R.drawable.img_error)
                     .priority(Priority.HIGH)
             Glide.with(context)
-                    .load(Constants.BASE_URL + "?image="+ product.images?.get(0))
+                    .load(Constants.BASE_URL + "?image=" + product.images?.get(0))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(viewHolder.itemView.product_poster_list)
@@ -143,7 +149,7 @@ class ProductAdapter// Constructor
                     .error(R.drawable.img_error)
                     .priority(Priority.HIGH)
             Glide.with(context)
-                    .load(Constants.BASE_URL + "?image="+ product.images?.get(0) )
+                    .load(Constants.BASE_URL + "?image=" + product.images?.get(0))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(viewHolder.itemView.product_poster_compact)
@@ -151,12 +157,10 @@ class ProductAdapter// Constructor
         }
 
 
-
-
-       /* viewHolder.itemView.category_name.text = product.name
-        viewHolder.itemView.category_number.text = product.number
-        viewHolder.itemView.category_line.setBackgroundResource(product.color)
-        println(product.color)*/
+        /* viewHolder.itemView.category_name.text = product.name
+         viewHolder.itemView.category_number.text = product.number
+         viewHolder.itemView.category_line.setBackgroundResource(product.color)
+         println(product.color)*/
         // Title and year
 
         //                productViewHolder.productRating.setText(product.price+"");
@@ -166,6 +170,7 @@ class ProductAdapter// Constructor
 
     // ViewHolders
     inner class ProductGridViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
     inner class ProductListViewHolder(view: View) : RecyclerView.ViewHolder(view)
     inner class ProductCompactViewHolder(view: View) : RecyclerView.ViewHolder(view)
     // Click listener interface

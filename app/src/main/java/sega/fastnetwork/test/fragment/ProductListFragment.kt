@@ -31,21 +31,32 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
     internal var isTablet: Boolean = false
     private var layoutManager: GridLayoutManager? = null
     private var adapter: ProductAdapter? = null
-    var v: View? = null
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        v = inflater!!.inflate(R.layout.fragment_tab1, container, false)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         isTablet = resources.getBoolean(R.bool.is_tablet)
         adapter = ProductAdapter(context, this)
         mProductListPresenter = ProductListPresenter(this)
 
-        //        floatingActionsMenu.setVisibility(View.VISIBLE);
+        //        floatingActionsMenu.visibility = View.VISIBLE;
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
-        v!!.product_recycleview.setHasFixedSize(true)
-        v!!.product_recycleview.layoutManager = layoutManager
-        v!!.product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        v!!.product_recycleview.adapter = adapter
 
+        product_recycleview.setHasFixedSize(true)
+        product_recycleview.layoutManager = layoutManager
+        product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
+        product_recycleview.adapter = adapter
+        swipe_refresh.setColorSchemeResources(R.color.colorAccent)
+        swipe_refresh.setOnRefreshListener({
+            // Toggle visibility
+            error_message.visibility = View.GONE
+            progress_circle.visibility = View.GONE
+            product_recycleview.visibility = View.GONE
+            // Remove cache
+
+            // Download again
+            pageToDownload = 1
+            adapter!!.productList.clear()
+            mProductListPresenter!!.getProductList()
+        })
 
         if (savedInstanceState == null || !savedInstanceState.containsKey(Constants.product_LIST)) {
 
@@ -58,15 +69,15 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
             // Download again if stopped, else show list
             if (isLoading) {
                 if (pageToDownload == 1) {
-                    v!!.progress_circle.visibility = View.VISIBLE
-                    v!!.loading_more.setVisibility(View.GONE)
-                    v!!.product_recycleview.setVisibility(View.GONE)
-                    v!!.swipe_refresh.setVisibility(View.GONE)
+                    progress_circle.visibility = View.VISIBLE
+                    loading_more.visibility = View.GONE
+                    product_recycleview.visibility = View.GONE
+                    swipe_refresh.visibility = View.GONE
                 } else {
-                    v!!.progress_circle.setVisibility(View.GONE)
-                    v!!.loading_more.setVisibility(View.VISIBLE)
-                    v!!.product_recycleview.setVisibility(View.VISIBLE)
-                    v!!.swipe_refresh.setVisibility(View.VISIBLE)
+                    progress_circle.visibility = View.GONE
+                    loading_more.visibility = View.VISIBLE
+                    product_recycleview.visibility = View.VISIBLE
+                    swipe_refresh.visibility = View.VISIBLE
                 }
 
                 mProductListPresenter!!.getProductList()
@@ -76,7 +87,13 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
             }
         }
 
-        return v
+    }
+
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+
+
+        return inflater!!.inflate(R.layout.fragment_tab1, container, false)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -90,6 +107,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
         }
         super.onSaveInstanceState(outState)
     }
+
     fun refreshLayout() {
         val state = layoutManager!!.onSaveInstanceState()
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
@@ -99,18 +117,22 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
 
 
     }
+
     private fun onDownloadSuccessful() {
         if (isTablet && adapter?.productList?.size!! > 0) {
             /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
         }
         isLoading = false
-        v!!.error_message.setVisibility(View.GONE)
-        v!!.progress_circle.setVisibility(View.GONE)
-        v!!.loading_more.setVisibility(View.GONE)
-        v!!.product_recycleview.setVisibility(View.VISIBLE)
-        v!!.swipe_refresh.setVisibility(View.VISIBLE)
-        v!!.swipe_refresh.setRefreshing(false)
-        v!!.swipe_refresh.setEnabled(true)
+
+        view!!.error_message.visibility = View.GONE
+        view!!.progress_circle.visibility = View.GONE
+        view!!.loading_more.visibility = View.GONE
+        view!!.product_recycleview.visibility = View.VISIBLE
+        view!!.swipe_refresh.visibility = View.VISIBLE
+        view!!.swipe_refresh.isRefreshing = false
+        view!!.swipe_refresh.isEnabled = true
+
+
         adapter?.notifyDataSetChanged()
 
 
@@ -119,20 +141,20 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
     private fun onDownloadFailed() {
         isLoading = false
         if (pageToDownload == 1) {
-            v!!.progress_circle.setVisibility(View.GONE)
-            v!!.loading_more.setVisibility(View.GONE)
-            v!!.product_recycleview.setVisibility(View.GONE)
-            v!!.swipe_refresh.setRefreshing(false)
-            v!!.swipe_refresh.setVisibility(View.GONE)
-            v!!.error_message.setVisibility(View.VISIBLE)
+            view!!.progress_circle.visibility = View.GONE
+            view!!.loading_more.visibility = View.GONE
+            view!!.product_recycleview.visibility = View.GONE
+            view!!.swipe_refresh.isRefreshing = false
+            view!!.swipe_refresh.visibility = View.GONE
+            view!!.error_message.visibility = View.VISIBLE
         } else {
-            v!!.progress_circle.setVisibility(View.GONE)
-            v!!.loading_more.setVisibility(View.GONE)
-            v!!.error_message.setVisibility(View.GONE)
-            v!!.product_recycleview.setVisibility(View.VISIBLE)
-            v!!.swipe_refresh.setVisibility(View.VISIBLE)
-            v!!.swipe_refresh.setRefreshing(false)
-            v!!.swipe_refresh.setEnabled(true)
+            view!!.progress_circle.visibility = View.GONE
+            view!!.loading_more.visibility = View.GONE
+            view!!.error_message.visibility = View.GONE
+            view!!.product_recycleview.visibility = View.VISIBLE
+            view!!.swipe_refresh.visibility = View.VISIBLE
+            view!!.swipe_refresh.isRefreshing = false
+            view!!.swipe_refresh.isEnabled = true
             isLoadingLocked = true
         }
     }
@@ -150,16 +172,13 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
 
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
     fun getNumberOfColumns(): Int {
         // Get screen width
         val displayMetrics = resources.displayMetrics
         var widthPx = displayMetrics.widthPixels.toFloat()
         if (isTablet) {
-            widthPx = widthPx / 3
+            widthPx /= 3
         }
         // Calculate desired width
         val preferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)

@@ -46,6 +46,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
     var fragment: Fragment? = null
     var mDrawerLayout: DrawerLayout? = null
     private var preferences: SharedPreferences? = null
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         preferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
         // Setup toolbar
@@ -95,7 +96,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
         onRefreshToolbarMenu()
         action_grid.setOnClickListener {
 
-            when(viewtype){
+            when (viewtype) {
                 1 -> {
                     val editor1 = preferences!!.edit()
                     editor1.putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_LIST)
