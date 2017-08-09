@@ -1,6 +1,7 @@
 package sega.fastnetwork.test.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import kotlinx.android.synthetic.main.header.*
 import kotlinx.android.synthetic.main.toolbar.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.AddActivity
 import sega.fastnetwork.test.manager.AppAccountManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DrawerPresenter
@@ -95,27 +97,23 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
 
             when (viewtype) {
                 1 -> {
-                    val editor1 = preferences!!.edit()
-                    editor1.putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_LIST)
-                    editor1.apply()
+
+                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_LIST).apply()
+
                     onRefreshToolbarMenu()
                     onRefreshFragmentLayout()
 
 
                 }
                 2 -> {
-                    val editor1 = preferences!!.edit()
-                    editor1.putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_COMPACT)
-                    editor1.apply()
+                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_COMPACT).apply()
                     onRefreshToolbarMenu()
                     onRefreshFragmentLayout()
 
 
                 }
                 3 -> {
-                    val editor1 = preferences!!.edit()
-                    editor1.putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID)
-                    editor1.apply()
+                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID).apply()
                     onRefreshToolbarMenu()
                     onRefreshFragmentLayout()
 
@@ -124,6 +122,9 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
             }
 
 
+        }
+        addproduct.setOnClickListener {
+            startActivity(Intent(this@DrawerFragment.activity,AddActivity::class.java))
         }
 
     }

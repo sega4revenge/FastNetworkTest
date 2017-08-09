@@ -22,34 +22,48 @@
 package sega.fastnetwork.test.service
 
 
-import android.accounts.AbstractAccountAuthenticator
-import android.accounts.Account
-import android.accounts.AccountAuthenticatorResponse
-import android.accounts.AccountManager
-import android.accounts.NetworkErrorException
+import android.accounts.*
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
-
+import android.widget.Toast
 import sega.fastnetwork.test.activity.LoginActivity
+import sega.fastnetwork.test.manager.AppAccountManager
+
+
 
 class Authenticator(private val mContext: Context) : AbstractAccountAuthenticator(mContext) {
 
+
     @Throws(NetworkErrorException::class)
     override fun addAccount(response: AccountAuthenticatorResponse,
-                            accountType: String, authTokenType: String,
-                            requiredFeatures: Array<String>, options: Bundle): Bundle {
-
-
-        Log.v(TAG, "addAccount()")
-
-        val intent = Intent(mContext, LoginActivity::class.java)
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
+                            accountType: String,
+                            authTokenType: String?,
+                            requiredFeatures: Array<String>?,
+                            options: Bundle?): Bundle? {
         val bundle = Bundle()
-        bundle.putParcelable(AccountManager.KEY_INTENT, intent)
-        return bundle
+        val accountManager = mContext.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
+        val accounts = accountManager.getAccountsByType(AppAccountManager.ACCOUNT_TYPE)
+        if (accounts.isEmpty()) {
+            Log.v(TAG, "addAccount()")
 
+            val intent = Intent(mContext, LoginActivity::class.java)
+            intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response)
+
+            bundle.putParcelable(AccountManager.KEY_INTENT, intent)
+        }
+        else{
+            val h = Handler(Looper.getMainLooper())
+            h.post {Toast.makeText(mContext,"Already Login",Toast.LENGTH_LONG).show() }
+
+
+        }
+
+
+        return bundle
     }
 
     @Throws(NetworkErrorException::class)

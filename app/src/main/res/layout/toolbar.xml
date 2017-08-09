@@ -25,7 +25,16 @@
             android:text="Toolbar Title"
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
-
+    <ImageButton
+        android:id="@+id/addproduct"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="right"
+        android:src="@drawable/action_search"
+        android:layout_toLeftOf="@+id/action_grid"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/action_grid" />
     <ImageButton
         android:id="@+id/action_grid"
         android:layout_width="50dp"

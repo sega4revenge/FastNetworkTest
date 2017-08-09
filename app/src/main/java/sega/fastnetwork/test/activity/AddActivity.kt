@@ -7,10 +7,6 @@ import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -20,27 +16,24 @@ import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.NotificationCompat
-import android.util.Base64
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.RemoteViews
+import android.widget.Toast
 import com.androidnetworking.error.ANError
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import com.nightonke.jellytogglebutton.JellyToggleButton
-import com.nightonke.jellytogglebutton.State
 import com.rx2androidnetworking.Rx2AndroidNetworking
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_add.*
-import kotlinx.android.synthetic.main.toolbar.*
 import org.json.JSONObject
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.lib.imagepicker.TedBottomPicker
@@ -50,20 +43,17 @@ import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerListener
 import sega.fastnetwork.test.lib.imagepicker.showpicker.Loader
 import sega.fastnetwork.test.manager.AppAccountManager
 import sega.fastnetwork.test.presenter.AddPresenter
+import sega.fastnetwork.test.util.CompressImage
 import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.view.AddView
 import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import java.util.*
 
 class AddActivity : AppCompatActivity(), AddView {
 
     val PLACE_PICKER_REQUEST = 3
     var mNotificationManager: NotificationManager? = null
-    val TAG = AddActivity::class.java.simpleName
+    val TAG: String = AddActivity::class.java.simpleName
     var temp: Int = 0
     internal var list: List<ImageBean>? = null
     var uriList: ArrayList<Uri>? = ArrayList()
@@ -74,7 +64,7 @@ class AddActivity : AppCompatActivity(), AddView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
-         try {
+      /*   try {
         val info = getPackageManager().getPackageInfo(
                 "sega.fastnetwork.test",
                 PackageManager.GET_SIGNATURES);
@@ -87,11 +77,11 @@ class AddActivity : AppCompatActivity(), AddView {
 
     } catch (e: NoSuchAlgorithmException) {
 
-    }
+    }*/
         setSupportActionBar(toolbar_addproduct)
         toolbar_addproduct.inflateMenu(R.menu.uploadproduct_menu)
 //        Log.e("Radio",toggle.checkedRadioButtonId.toString())
-        toggle.setOnCheckedChangeListener { group, checkedId ->
+        toggle.setOnCheckedChangeListener { _, checkedId ->
             run {
                 if (checkedId == R.id.borrow) {
                     add_picker_view.visibility = View.VISIBLE
@@ -230,7 +220,7 @@ class AddActivity : AppCompatActivity(), AddView {
 //            if (uriList!!.size == 0) {
 //                Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
 //            }
-//            else if (productname!!.text.toString().equals("") || price!!.text.toString().equals("") || description!!.text.toString().equals("")) {
+//            else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || description!!.text.toString().equals("")) {
 //                Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
 //            }
 //            else {
@@ -341,7 +331,7 @@ class AddActivity : AppCompatActivity(), AddView {
         val startTime = System.nanoTime()
         val observable = Rx2AndroidNetworking.upload(Constants.BASE_URL + "upload")
                 .addMultipartParameter("productid", productid)
-                .addMultipartFile("image", getReducedBitmap(file,512,200000))
+                .addMultipartFile("image", CompressImage.compressImage(file,this))
                 .build()
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
                     Log.d(TAG, " timeTakenInMillis : " + timeTakenInMillis)
@@ -438,7 +428,7 @@ class AddActivity : AppCompatActivity(), AddView {
                 if (uriList!!.size == 0) {
                     Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
                 }
-                else if (productname!!.text.toString().equals("") || price!!.text.toString().equals("") || number!!.text.toString().equals("") || description!!.text.toString().equals("")) {
+                else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 }
                 else {
@@ -447,7 +437,7 @@ class AddActivity : AppCompatActivity(), AddView {
                 }
             }else if(toggle.checkedRadioButtonId == needborrow.id){
                 Toast.makeText(this, "Can thueeeeeeee", Toast.LENGTH_LONG).show()
-                if (productname!!.text.toString().equals("") || number!!.text.toString().equals("") || description!!.text.toString().equals("")) {
+                if (productname!!.text.toString() == "" || number!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 }
                 else {
@@ -462,50 +452,5 @@ class AddActivity : AppCompatActivity(), AddView {
         return super.onOptionsItemSelected(item)
     }
 
-    fun getReducedBitmap(imgPath: File, MaxWidth: Int, MaxFileSize: Long): File? {
-        // MaxWidth = maximum image width
-        // MaxFileSize = maximum image file size
-        val file = imgPath
-        var length = file.length()
-        if (length.equals(0))
-            return null
-        try {
-            val options = BitmapFactory.Options()
-            options.inJustDecodeBounds = true
-            // read image file
-
-            BitmapFactory.decodeFile(imgPath.path)
-            var srcWidth = options.outWidth
-            var scale = 1
-            while (srcWidth > MaxWidth || length > MaxFileSize) {
-                srcWidth /= 2
-                scale *= 2
-                length = length / 2
-            }
-            options.inJustDecodeBounds = false
-            options.inSampleSize = scale
-            options.inScaled = false
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888
-            // read again image file with new constraints
-
-            return persistImage(BitmapFactory.decodeFile(imgPath.path, options),file.name)
-        } catch (e: Exception) {
-            return null
-        }
-
-    }
-    fun persistImage(bitmap : Bitmap,name : String) : File{
-        var filesDir = this.filesDir
-        var imageFile = File(filesDir,name + ".jpg")
-        var os : OutputStream
-        try{
-            os = FileOutputStream(imageFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,os)
-            os.flush()
-            os.close()
-        }catch (e : Exception){
-            Log.e("ez", "Error writing bitmap", e)
-        }
-        return imageFile
-    }
+  
 }
