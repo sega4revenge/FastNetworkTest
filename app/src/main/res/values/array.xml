@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item>Xe cộ</item>
+        <item>Đồ chơi</item>
+        <item>Điện tử</item>
+        <item>Gia dụng</item>
+        <item>Thời trang</item>
+        <item>Nhà cửa</item>
+        <item>Giáo dục</item>
+        <item>Khác</item>
+    </string-array>
+    <string-array name="timeid">
+        <item>1 giờ</item>
+        <item>1 ngày</item>
+        <item>1 tuần</item>
+        <item>1 tháng</item>
+        <item>1 năm</item>
+    </string-array>
+</resources>

@@ -20,6 +20,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.RemoteViews
 import android.widget.Toast
 import com.androidnetworking.error.ANError
@@ -79,23 +80,39 @@ class AddActivity : AppCompatActivity(), AddView {
 
     }*/
         setSupportActionBar(toolbar_addproduct)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
+
         toolbar_addproduct.inflateMenu(R.menu.uploadproduct_menu)
 //        Log.e("Radio",toggle.checkedRadioButtonId.toString())
+///=======================Cho thue/ Can thue=========================
+
         toggle.setOnCheckedChangeListener { _, checkedId ->
             run {
                 if (checkedId == R.id.borrow) {
                     add_picker_view.visibility = View.VISIBLE
-                    price.visibility = View.VISIBLE
+                    price_and_time.visibility = View.VISIBLE
                 } else {
                     add_picker_view.visibility = View.GONE
-                    price.visibility = View.GONE
+                    price_and_time.visibility = View.GONE
                 }
             }
         }
-
+///=======================Lay dia chi=========================
         addressEdit.setOnClickListener {
             locationPlacesIntent()
         }
+///=======================Spinner danh muc=========================
+        val adaptercategory = ArrayAdapter.createFromResource(this@AddActivity, R.array.category, android.R.layout.simple_spinner_item)
+        adaptercategory.setDropDownViewResource(android.R.layout.simple_list_item_checked)
+        category.adapter = adaptercategory
+///=======================Spinner time=========================
+        val adaptertime = ArrayAdapter.createFromResource(this@AddActivity, R.array.timeid, android.R.layout.simple_spinner_item)
+        adaptertime.setDropDownViewResource(android.R.layout.simple_list_item_checked)
+        time.adapter = adaptertime
+
+
         list = ArrayList<ImageBean>()
         mAddPresenter = AddPresenter(this)
         Log.e("list", "======" + list!!.size)
@@ -424,34 +441,42 @@ class AddActivity : AppCompatActivity(), AddView {
 
         if (id == R.id.action_uploadproduct) {
             if(toggle.checkedRadioButtonId == borrow.id){
-                Toast.makeText(this, "Cho thueeeeeeeee", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, time.selectedItemPosition.toString()+" "+category.selectedItemPosition.toString(), Toast.LENGTH_LONG).show()
                 if (uriList!!.size == 0) {
                     Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
                 }
-                else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || description!!.text.toString() == "") {
+                else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 }
                 else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),number.text.toString(),description.text.toString(),Constants.BORROW)
+                    mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),time.selectedItemPosition.toString(),number.text.toString(),category.selectedItemPosition.toString(),addressEdit.text.toString(),description.text.toString(),Constants.BORROW)
                 }
             }else if(toggle.checkedRadioButtonId == needborrow.id){
                 Toast.makeText(this, "Can thueeeeeeee", Toast.LENGTH_LONG).show()
-                if (productname!!.text.toString() == "" || number!!.text.toString() == "" || description!!.text.toString() == "") {
+                if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedItemPosition.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 }
 
                 else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),"",number.text.toString(),description.text.toString(),Constants.NEEDBORROW)
+                    mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),"","",number.text.toString(),category.selectedItemPosition.toString(),addressEdit.text.toString(),description.text.toString(),Constants.NEEDBORROW)
                 }
             }
             System.out.println("upload")
 //            startActivity(Intent(applicationContext, AddActivity::class.java))
             return true
         }
+        else if(id == android.R.id.home){
+//            Log.e("AaaA","AAA")
+            onBackPressed()
+            return true
+        }
         return super.onOptionsItemSelected(item)
     }
 
-  
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
+    }
 }

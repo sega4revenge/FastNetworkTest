@@ -25,17 +25,20 @@ class AddPresenter(addActivity: AddActivity) {
   
     var createproduct = "CREATEPRODUCT"
 
-    fun createProduct(userid: String, productname : String, price : String, number : String, description: String, type: Int){
+    fun createProduct(userid: String, productname : String, price : String, time: String, number : String, category: String, address: String, description: String, type: Int){
 
         val jsonObject = JSONObject()
         try {
             jsonObject.put("user", userid)
             jsonObject.put("productname", productname)
             jsonObject.put("price", price)
+            jsonObject.put("time",time)
             jsonObject.put("number", number)
+            jsonObject.put("category",category)
+            jsonObject.put("address",address)
             jsonObject.put("description", description)
             jsonObject.put("type", type)
-            Log.e("AAAAA",userid + " " + productname + " " + price + " " + number + " " + description+ " "+ type)
+            Log.e("AAAAA",userid + " " + productname+ " " + price + " " + time  + " " + number  + " " + category  + " " + address+ " " + description+ " "+ type)
         } catch (e: JSONException) {
             e.printStackTrace()
         }

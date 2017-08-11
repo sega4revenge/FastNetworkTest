@@ -12,11 +12,14 @@ class Product() : Parcelable {
     var _id : String?=null
     var user: User? = null
     var productname: String? = null
-    var number : String?=null
     var price: String? = null
+    var time: String? = null
+    var number : String?=null
     var category: String?= null
+    var address: String? = null
     var description: String? = null
     var type: String? = null
+    var created_at: String? = null
     var images : ArrayList<String>? = ArrayList()
 
     constructor(parcel: Parcel) : this() {
@@ -24,9 +27,12 @@ class Product() : Parcelable {
         productname = parcel.readString()
         number = parcel.readString()
         price = parcel.readString()
+        time = parcel.readString()
         category = parcel.readString()
+        address = parcel.readString()
         description = parcel.readString()
         type = parcel.readString()
+        created_at = parcel.readString()
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -34,9 +40,13 @@ class Product() : Parcelable {
         parcel.writeString(productname)
         parcel.writeString(number)
         parcel.writeString(price)
+        parcel.writeString(time)
         parcel.writeString(category)
+        parcel.writeString(address)
         parcel.writeString(description)
         parcel.writeString(type)
+        parcel.writeString(created_at)
+
     }
 
     override fun describeContents(): Int {
