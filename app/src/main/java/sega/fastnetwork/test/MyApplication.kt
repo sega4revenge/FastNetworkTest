@@ -18,9 +18,13 @@
 package sega.fastnetwork.test
 
 import android.app.Application
+import android.content.Context
 import android.graphics.BitmapFactory
+import android.support.multidex.MultiDex
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.ConnectionQuality
+
+
 
 /**
  * Created by amitshekhar on 22/03/16.
@@ -30,6 +34,7 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        MultiDex.install(this)
         AndroidNetworking.initialize(applicationContext)
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
@@ -51,6 +56,10 @@ class MyApplication : Application() {
 
     }
 
+    protected override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
     companion object {
 
 
