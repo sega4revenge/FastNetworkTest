@@ -46,7 +46,7 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.nightonke:jellytogglebutton:1.0.2'
     compile 'com.google.android.gms:play-services-places:10.2.1'
-
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.android.gms:play-services-auth:10.2.1'
     compile 'com.sothree.slidinguppanel:library:3.3.1'
     compile 'gun0912.ted:tedpermission:1.0.3'

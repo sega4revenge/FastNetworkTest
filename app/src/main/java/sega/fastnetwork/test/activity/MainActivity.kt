@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 println(session!!.lastpage)
             } else {
 
-                loadDetailFragmentWith("null", "null")
+                loadDetailFragmentWith("null")
             }
         }
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         (main_fragment as DrawerFragment).isClosedDrawer()
 
     }
-    fun loadDetailFragmentWith(productId: String, productUserId: String) {
+    fun loadDetailFragmentWith(productId: String) {
         /*   ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
         args.putString(ViMarket.product_ID, productId);

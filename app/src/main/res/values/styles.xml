@@ -39,19 +39,41 @@
         <item name="android:layout_width">@dimen/detail_icon_size</item>
         <item name="android:scaleType">fitCenter</item>
     </style>
+
     <style name="Theme.Samita.Toolbar" parent="ThemeOverlay.AppCompat.Light">
 
         <item name="android:textColorPrimary">@color/navigation_icon_color</item>
         <item name="actionMenuTextColor">@color/navigation_icon_color</item>
         <item name="android:textColorSecondary">@color/navigation_icon_color</item>
     </style>
+
     <style name="FontTextViewStyle" parent="@android:style/TextAppearance.Widget.TextView">
         <item name="pix_font">fonts/Sofia.ttf</item>
-      <!--  <item name="pix_fontBold">fonts/NunitoSans-Bold.ttf</item>
-        <item name="pix_fontItalic">fonts/NunitoSans-SemiBold.ttf</item>
-        <item name="pix_fontBoldItalic">fonts/QanelasSoft-ExtraBold.otf</item>-->
+        <!--  <item name="pix_fontBold">fonts/NunitoSans-Bold.ttf</item>
+          <item name="pix_fontItalic">fonts/NunitoSans-SemiBold.ttf</item>
+          <item name="pix_fontBoldItalic">fonts/QanelasSoft-ExtraBold.otf</item>-->
     </style>
-    <style name="AppTheme.NavigationView" >
+
+    <style name="AppTheme.NavigationView">
         <item name="android:listDivider">@color/divider_color</item>
     </style>
+
+
+    <style name="MovieItemValueStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dist_medium</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MovieItemHeaderStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/dist_medium</item>
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="MovieCrewItemValueStyle" parent="@style/MovieItemValueStyle"></style>
 </resources>

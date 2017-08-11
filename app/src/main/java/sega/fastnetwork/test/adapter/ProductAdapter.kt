@@ -165,6 +165,7 @@ class ProductAdapter// Constructor
 
         //                productViewHolder.productRating.setText(product.price+"");
         //            }
+        viewHolderParent.itemView.setOnClickListener { onproductClickListener.onproductClicked(position)}
     }
 
 
@@ -177,4 +178,5 @@ class ProductAdapter// Constructor
     interface OnproductClickListener {
         fun onproductClicked(position: Int)
     }
+
 }

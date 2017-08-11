@@ -19,6 +19,7 @@
     <dimen name="dist_xlarge">32dp</dimen>
     <dimen name="dist_large">24dp</dimen>
     <dimen name="dist_medium">8dp</dimen>
+    <dimen name="dist_xmedium">15dp</dimen>
     <dimen name="dist_small">4dp</dimen>
 
     <dimen name="detail_icon_size">16dp</dimen>
@@ -108,4 +109,10 @@
     <dimen name="progress_circle_small_height">40dp</dimen>
     <dimen name="progress_circle_small_stroke">3dp</dimen>
 
+
+    <!-- Detail Activity -->
+    <dimen name="detail_backdrop_height">250dp</dimen>
+    <dimen name="detail_see_all_height">40dp</dimen>
+    <dimen name="detail_arrow_size">12dp</dimen>
+    <dimen name="detail_crew_item">15dp</dimen>
 </resources>

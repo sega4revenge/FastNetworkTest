@@ -2,14 +2,18 @@ package sega.fastnetwork.test.fragment
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_tab1.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.MainActivity
+import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.model.Product
@@ -40,7 +44,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
 
         product_recycleview.setHasFixedSize(true)
-        product_recycleview.layoutManager = layoutManager!!
+        product_recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         product_recycleview.adapter = adapter
         swipe_refresh.setColorSchemeResources(R.color.colorAccent)
@@ -56,12 +60,12 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
             adapter!!.productList.clear()
             mProductListPresenter!!.getProductList()
         })
-
+        pageToDownload = 1
         if (savedInstanceState == null || !savedInstanceState.containsKey(Constants.product_LIST)) {
 
             mProductListPresenter!!.getProductList()
         } else {
-            adapter!!.productList = savedInstanceState.get(Constants.product_LIST) as ArrayList<Product>
+            adapter!!.productList = savedInstanceState.getParcelableArrayList(Constants.product_LIST)
             /*   pageToDownload = savedInstanceState.getInt(Constants.PAGE_TO_DOWNLOAD)
                isLoadingLocked = savedInstanceState.getBoolean(Constants.IS_LOCKED)
                isLoading = savedInstanceState.getBoolean(Constants.IS_LOADING)*/
@@ -101,6 +105,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
             outState!!.putBoolean(Constants.IS_LOADING, isLoading)
             outState.putBoolean(Constants.IS_LOCKED, isLoadingLocked)
             outState.putInt(Constants.PAGE_TO_DOWNLOAD, pageToDownload)
+            outState.putParcelableArrayList(Constants.product_LIST, adapter!!.productList)
 
 
         }
@@ -168,7 +173,17 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
     }
 
     override fun onproductClicked(position: Int) {
-
+        println("da nhan")
+        if (isTablet) {
+            //                Toast.makeText(getActivity(),"3",Toast.LENGTH_LONG).show();
+           
+            (activity as MainActivity).loadDetailFragmentWith(adapter!!.productList[position]._id!!)
+        } else {
+            //                Toast.makeText(getActivity(),"4",Toast.LENGTH_LONG).show();
+            val intent = Intent(context, ProductDetailActivity::class.java)
+            intent.putExtra(Constants.product_ID,adapter!!.productList[position]._id!!)
+            startActivity(intent)
+        }
     }
 
 
