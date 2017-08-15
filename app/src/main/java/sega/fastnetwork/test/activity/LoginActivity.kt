@@ -84,6 +84,13 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
         btn_signup!!.setOnClickListener {
             gotoregister()
         }
+//================================fogot==============================
+        btn_forgot!!.setOnClickListener {
+            gotoforgot()
+        }
+ //==============================================================
+
+
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 val request = GraphRequest.newMeRequest(
@@ -125,10 +132,12 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
             }
 
             override fun onCancel() {
-
+                println("loi cmnr")
             }
 
-            override fun onError(error: FacebookException) {}
+            override fun onError(error: FacebookException) {
+                Log.i("Error", error.message)
+            }
         })
         btn_facebook.setOnClickListener {
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
@@ -261,6 +270,11 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
 
     }
 
+    private fun gotoforgot() {
+        startActivity(Intent(this@LoginActivity, ForgotPassword::class.java))
+        finish()
+        overridePendingTransition(0, 0)
+    }
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager!!.onActivityResult(requestCode, resultCode, data)

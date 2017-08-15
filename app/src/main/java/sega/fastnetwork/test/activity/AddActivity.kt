@@ -7,6 +7,7 @@ import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -80,11 +81,12 @@ class AddActivity : AppCompatActivity(), AddView {
 
     }*/
         setSupportActionBar(toolbar_addproduct)
+        toolbar_addproduct.inflateMenu(R.menu.uploadproduct_menu)
+        toolbar_addproduct.setTitleTextColor(Color.BLACK)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
-
-        toolbar_addproduct.inflateMenu(R.menu.uploadproduct_menu)
+        supportActionBar!!.title = "Add product"
 //        Log.e("Radio",toggle.checkedRadioButtonId.toString())
 ///=======================Cho thue/ Can thue=========================
 
