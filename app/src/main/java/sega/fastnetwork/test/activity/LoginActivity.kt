@@ -170,7 +170,6 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
         }
 
 
-
         if (!validateFields(password!!.text.toString())) {
 
             err++
