@@ -178,6 +178,7 @@ class ProductDetailFragment : Fragment(), ProductDetailView, BaseSliderView.OnSl
         }
         product_name.text = product!!.productname
         product_overview.text = product!!.description
+
         val temp = formatprice?.format(product!!.price?.toDouble()) + format
         product_price.text = temp
 
