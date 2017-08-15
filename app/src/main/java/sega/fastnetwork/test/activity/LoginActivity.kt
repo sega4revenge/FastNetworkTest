@@ -1,4 +1,5 @@
 package sega.fastnetwork.test.activity
+
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Context
@@ -44,7 +45,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
     private var mGoogleApiClient: GoogleApiClient? = null
     private val RC_SIGN_IN = 7
     var mLoginPresenter: LoginPresenter? = null
-    var type : Int = 0
+    var type: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FacebookSdk.sdkInitialize(applicationContext)
@@ -88,7 +89,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
         btn_forgot!!.setOnClickListener {
             gotoforgot()
         }
- //==============================================================
+        //==============================================================
 
 
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
@@ -249,12 +250,12 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
         account = Account(user.name, AppAccountManager.ACCOUNT_TYPE)
         if (mAccountManager!!.addAccountExplicitly(account, user.password, null)) {
             println("tao thanh cong")
-            AppAccountManager.saveAccountUser(this, account!!, user,type)
+            AppAccountManager.saveAccountUser(this, account!!, user, type)
         } else {
             account = AppAccountManager.getAppAccount(this)
             val accountManager = this.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
             accountManager.setUserData(account, AppAccountManager.USER_DATA_ID, user._id)
-            accountManager.setUserData(account,AppAccountManager.USER_TYPE, type.toString())
+            accountManager.setUserData(account, AppAccountManager.USER_TYPE, type.toString())
         }
         this.user = user
     }
@@ -274,6 +275,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
         finish()
         overridePendingTransition(0, 0)
     }
+
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager!!.onActivityResult(requestCode, resultCode, data)
