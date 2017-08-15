@@ -20,7 +20,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            style="@style/MovieItemIconsStyle"
+            style="@style/ProductItemIconsStyle"
             android:src="@mipmap/ic_information_bold"
             tools:ignore="ContentDescription"
             android:layout_width="25dp"
@@ -29,7 +29,7 @@
             />
 
         <sega.fastnetwork.test.view.RobotoBoldTextView
-            style="@style/MovieItemHeaderStyle"
+            style="@style/ProductItemHeaderStyle"
             android:layout_marginLeft="@dimen/detail_crew_item"
             android:text="Thông tin" />
 
@@ -50,7 +50,7 @@
             <ImageView
                 android:src="@mipmap/ic_profile"
                 android:tint="@color/input_register"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -60,7 +60,7 @@
             <sega.fastnetwork.test.view.RobotoRegularTextView
 
                 android:id="@+id/product_user_name"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:ellipsize="marquee"
                 android:layout_marginLeft="@dimen/detail_crew_item"
@@ -81,7 +81,7 @@
             <ImageView
                 android:src="@mipmap/ic_email"
                 android:tint="@color/input_register"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -90,7 +90,7 @@
             <sega.fastnetwork.test.view.RobotoRegularTextView
 
                 android:id="@+id/product_user_email"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -110,7 +110,7 @@
             <ImageView
                 android:src="@mipmap/ic_phone"
                 android:tint="@color/input_register"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -119,7 +119,7 @@
             <sega.fastnetwork.test.view.RobotoRegularTextView
 
                 android:id="@+id/product_user_phone"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/detail_crew_item"
                 android:ellipsize="marquee"
@@ -139,7 +139,7 @@
             <ImageView
                 android:src="@mipmap/ic_location"
                 android:tint="@color/input_register"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -147,7 +147,7 @@
 
             <sega.fastnetwork.test.view.RobotoRegularTextView
                 android:id="@+id/product_user_address"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/detail_crew_item"
@@ -169,7 +169,7 @@
             <ImageView
                 android:src="@mipmap/ic_category"
                 android:tint="@color/input_register"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -178,7 +178,7 @@
             <sega.fastnetwork.test.view.RobotoRegularTextView
 
                 android:id="@+id/product_category"
-                style="@style/MovieCrewItemValueStyle"
+                style="@style/ProductCrewItemValueStyle"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/detail_crew_item"
                 android:ellipsize="marquee"

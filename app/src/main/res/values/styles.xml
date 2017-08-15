@@ -34,7 +34,7 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="MovieItemIconsStyle">
+    <style name="ProductItemIconsStyle">
         <item name="android:layout_height">@dimen/detail_icon_size</item>
         <item name="android:layout_width">@dimen/detail_icon_size</item>
         <item name="android:scaleType">fitCenter</item>
@@ -59,7 +59,7 @@
     </style>
 
 
-    <style name="MovieItemValueStyle">
+    <style name="ProductItemValueStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/dist_medium</item>
@@ -67,7 +67,7 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="MovieItemHeaderStyle">
+    <style name="ProductItemHeaderStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/dist_medium</item>
@@ -75,5 +75,41 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
-    <style name="MovieCrewItemValueStyle" parent="@style/MovieItemValueStyle"></style>
+    <style name="ProductCrewItemValueStyle" parent="@style/ProductItemValueStyle"></style>
+
+    <style name="ProductCastHolderStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dist_medium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+
+    <!-- Detail Activity See All Button -->
+    <style name="ProductSeeAllHolderStyle">
+        <item name="android:layout_height">@dimen/detail_see_all_height</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/dist_small</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="ProductSeeAllTextStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:text">See all</item>
+    </style>
+
+    <style name="ProductSeeAllArrowStyle">
+        <item name="android:layout_height">@dimen/detail_arrow_size</item>
+        <item name="android:layout_width">@dimen/detail_arrow_size</item>
+        <item name="android:layout_marginLeft">@dimen/dist_small</item>
+        <item name="android:src">@drawable/check_arrow</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
 </resources>

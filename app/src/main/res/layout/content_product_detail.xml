@@ -37,7 +37,7 @@
            -->
 
             <!-- Section 4: Cast -->
-
+            <include layout="@layout/layout_detail_cast" />
 
         </LinearLayout>
 

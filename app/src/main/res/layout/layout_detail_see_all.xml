@@ -1,0 +1,13 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/ProductSeeAllHolderStyle"
+              android:foregroundGravity="top"
+              android:gravity="right|center_vertical">
+
+    <sega.fastnetwork.test.view.RobotoBoldTextView
+        style="@style/ProductSeeAllTextStyle" />
+
+    <ImageView
+        style="@style/ProductSeeAllArrowStyle"
+        tools:ignore="contentDescription"/>
+</LinearLayout>

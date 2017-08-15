@@ -17,7 +17,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            style="@style/MovieItemIconsStyle"
+            style="@style/ProductItemIconsStyle"
             android:src="@mipmap/ic_description"
             tools:ignore="ContentDescription"
             android:layout_width="25dp"
@@ -26,7 +26,7 @@
             />
 
         <sega.fastnetwork.test.view.RobotoBoldTextView
-            style="@style/MovieItemHeaderStyle"
+            style="@style/ProductItemHeaderStyle"
             android:layout_marginLeft="@dimen/detail_crew_item"
             android:text="Mô tả" />
     </LinearLayout>
@@ -34,7 +34,7 @@
     <!-- Value -->
     <com.pixplicity.fontview.FontAppCompatTextView
         android:id="@+id/product_overview"
-        style="@style/MovieItemValueStyle"
+        style="@style/ProductItemValueStyle"
         tools:text="My movie overview goes here" />
 
 </LinearLayout>

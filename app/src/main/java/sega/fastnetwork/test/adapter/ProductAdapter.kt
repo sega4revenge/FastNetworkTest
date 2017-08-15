@@ -28,6 +28,7 @@ class ProductAdapter// Constructor
     private val format: String
     private val sharedPref: SharedPreferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
     var productList: ArrayList<Product>
+
     private val imageWidth: Int
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
 
@@ -35,6 +36,7 @@ class ProductAdapter// Constructor
         imageWidth = sharedPref.getInt(Constants.THUMBNAIL_SIZE,
                 0)   // Load image width for grid view
         productList = ArrayList<Product>()
+
         val current = Locale("vi", "VN")
         val cur = Currency.getInstance(current)
         format = cur.symbol
