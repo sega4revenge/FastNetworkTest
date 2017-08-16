@@ -167,7 +167,6 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
                 .thumbnail(0.1f)
                 .apply(options)
                 .into(avatar_header)
-
         username_header.text = user.name
         email_header.text = user.email
     }

@@ -80,7 +80,7 @@
     <dimen name="product_list_poster_width">120dp</dimen>
 
     <!-- product Compact Item -->
-    <dimen name="product_compact_image_size">100dp</dimen>
+    <dimen name="product_compact_image_size">25dp</dimen>
     <dimen name="product_compact_rating_icon_size">14dp</dimen>
     <dimen name="product_compact_text_margin">12dp</dimen>
 
