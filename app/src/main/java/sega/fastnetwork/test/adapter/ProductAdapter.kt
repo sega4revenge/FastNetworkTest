@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,12 @@ import android.view.ViewTreeObserver
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import kotlinx.android.synthetic.main.product_item_compact.view.*
 import kotlinx.android.synthetic.main.product_item_grid.view.*
 import kotlinx.android.synthetic.main.product_item_list.view.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.model.Category
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.util.Constants
 import java.text.DecimalFormat
@@ -28,6 +31,7 @@ class ProductAdapter// Constructor
     private val format: String
     private val sharedPref: SharedPreferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
     var productList: ArrayList<Product>
+
 
     private val imageWidth: Int
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
@@ -99,6 +103,8 @@ class ProductAdapter// Constructor
 
     }
 
+
+
     override fun onBindViewHolder(viewHolderParent: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(0)
         val product = productList[position]
@@ -143,18 +149,17 @@ class ProductAdapter// Constructor
             // COMPACT MODE
             val viewHolder = viewHolderParent as ProductCompactViewHolder
             viewHolder.itemView.product_name_compact.text = product.productname
-            viewHolder.itemView.price_compact.text = product.number
-            val options = RequestOptions()
-                    .centerCrop()
-                    .dontAnimate()
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.img_error)
-                    .priority(Priority.HIGH)
-            Glide.with(context)
-                    .load(Constants.BASE_URL + "?image=" + product.images?.get(0))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(viewHolder.itemView.product_poster_compact)
+            viewHolder.itemView.timepost.text = product.created_at
+            val timeAgo = DateUtils.getRelativeTimeSpanString(
+                    java.lang.Long.parseLong(product.created_at),
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+            viewHolder.itemView.timepost.setText(timeAgo)
+            viewHolder.itemView.price_compact.text = product.price
+            viewHolder.itemView.userpost.text = product.user!!.name
+            viewHolder.itemView.area_compact.text = product.address
+
+
+
 
         }
 

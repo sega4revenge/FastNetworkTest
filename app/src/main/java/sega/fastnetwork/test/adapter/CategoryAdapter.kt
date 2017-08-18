@@ -31,6 +31,7 @@ class CategoryAdapter// Constructor
         productList.add(Category("Nhà cửa","42",R.drawable.cate_home))
         productList.add(Category("Giáo dục","15",R.drawable.cate_education))
         productList.add(Category("Âm nhạc","15",R.drawable.cate_music))
+        productList.add(Category("Máy móc","6",R.drawable.cate_machine))
         productList.add(Category("Khác","8",R.drawable.cate_more))
     }
 
