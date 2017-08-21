@@ -11,15 +11,13 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import sega.fastnetwork.test.activity.LoginActivity
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.LoginView
 
-class LoginPresenter(loginActivity: LoginActivity) {
+class LoginPresenter(view: LoginView) {
 
-    internal var mLoginView: LoginView = loginActivity
+    internal var mLoginView: LoginView = view
     var login = "LOGIN"
     var register = "REGISTER"
     fun onCreate() {
@@ -179,5 +177,12 @@ class LoginPresenter(loginActivity: LoginActivity) {
 
 
                 })
+    }
+    interface LoginView {
+
+        fun isLoginSuccessful(isLoginSuccessful: Boolean)
+        fun isRegisterSuccessful(isRegisterSuccessful: Boolean,type : Int)
+        fun setErrorMessage(errorMessage: String)
+        fun getUserDetail(user : User)
     }
 }

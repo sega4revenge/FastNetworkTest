@@ -12,12 +12,10 @@ import android.view.ViewTreeObserver
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import kotlinx.android.synthetic.main.product_item_compact.view.*
 import kotlinx.android.synthetic.main.product_item_grid.view.*
 import kotlinx.android.synthetic.main.product_item_list.view.*
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.model.Category
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.util.Constants
 import java.text.DecimalFormat
@@ -153,11 +151,11 @@ class ProductAdapter// Constructor
             val timeAgo = DateUtils.getRelativeTimeSpanString(
                     java.lang.Long.parseLong(product.created_at),
                     System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
-            viewHolder.itemView.timepost.setText(timeAgo)
+            viewHolder.itemView.timepost.text = timeAgo
             viewHolder.itemView.price_compact.text = product.price
             viewHolder.itemView.userpost.text = product.user!!.name
             viewHolder.itemView.area_compact.text = product.address
-
+            viewHolder.itemView.area_compact.isSelected = true
 
 
 

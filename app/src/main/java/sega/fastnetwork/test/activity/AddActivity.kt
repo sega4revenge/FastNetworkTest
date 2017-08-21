@@ -43,7 +43,7 @@ import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageBean
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerBean
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerListener
 import sega.fastnetwork.test.lib.imagepicker.showpicker.Loader
-import sega.fastnetwork.test.manager.AppAccountManager
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.presenter.AddPresenter
 import sega.fastnetwork.test.util.CompressImage
 import sega.fastnetwork.test.util.Constants
@@ -244,7 +244,7 @@ class AddActivity : AppCompatActivity(), AddView {
 //            }
 //            else {
 //                temp = 0
-//                mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),description.text.toString())
+//                mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),description.text.toString())
 //
 //            }
 //
@@ -452,7 +452,7 @@ class AddActivity : AppCompatActivity(), AddView {
                 }
                 else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),time.selectedItemPosition.toString(),number.text.toString(),category.selectedItemPosition.toString(),addressEdit.text.toString(),description.text.toString(),Constants.BORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),time.selectedItemPosition.toString(),number.text.toString(),category.selectedItemPosition.toString(),addressEdit.text.toString(),description.text.toString(),Constants.BORROW)
                 }
             }else if(toggle.checkedRadioButtonId == needborrow.id){
                 Toast.makeText(this, "Can thueeeeeeee", Toast.LENGTH_LONG).show()
@@ -462,7 +462,7 @@ class AddActivity : AppCompatActivity(), AddView {
 
                 else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppAccountManager.getAppAccountUserId(this),productname.text.toString(),"","",number.text.toString(),category.selectedItemPosition.toString(),addressEdit.text.toString(),description.text.toString(),Constants.NEEDBORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this),productname.text.toString(),"","",number.text.toString(),category.selectedItemPosition.toString(),addressEdit.text.toString(),description.text.toString(),Constants.NEEDBORROW)
                 }
             }
             System.out.println("upload")

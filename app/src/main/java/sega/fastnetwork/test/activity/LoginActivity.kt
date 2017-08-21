@@ -26,16 +26,15 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
-import sega.fastnetwork.test.manager.AppAccountManager
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.manager.SessionManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.LoginPresenter
 import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.util.Validation.validateFields
-import sega.fastnetwork.test.view.LoginView
 
 
-class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnectionFailedListener {
+class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiClient.OnConnectionFailedListener {
     var mAccountManager: AccountManager? = null
     var account: Account? = null
     var user: User? = null
@@ -54,7 +53,7 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
         setContentView(R.layout.activity_login)
         mAccountManager = AccountManager.get(this)
 
-        val accountsFromFirstApp = mAccountManager!!.getAccountsByType(AppAccountManager.ACCOUNT_TYPE)
+        val accountsFromFirstApp = mAccountManager!!.getAccountsByType(AppManager.ACCOUNT_TYPE)
         if (accountsFromFirstApp.isNotEmpty()) {
 
             //            // User is already logged in. Take him to main activity
@@ -247,15 +246,15 @@ class LoginActivity : AppCompatActivity(), LoginView, GoogleApiClient.OnConnecti
     }
 
     override fun getUserDetail(user: User) {
-        account = Account(user.name, AppAccountManager.ACCOUNT_TYPE)
+        account = Account(user.name, AppManager.ACCOUNT_TYPE)
         if (mAccountManager!!.addAccountExplicitly(account, user.password, null)) {
             println("tao thanh cong")
-            AppAccountManager.saveAccountUser(this, account!!, user, type)
+            AppManager.saveAccountUser(this, account!!, user, type)
         } else {
-            account = AppAccountManager.getAppAccount(this)
+            account = AppManager.getAppAccount(this)
             val accountManager = this.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
-            accountManager.setUserData(account, AppAccountManager.USER_DATA_ID, user._id)
-            accountManager.setUserData(account, AppAccountManager.USER_TYPE, type.toString())
+            accountManager.setUserData(account, AppManager.USER_DATA_ID, user._id)
+            accountManager.setUserData(account, AppManager.USER_TYPE, type.toString())
         }
         this.user = user
     }

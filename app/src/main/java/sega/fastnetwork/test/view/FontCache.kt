@@ -5,9 +5,9 @@ import android.graphics.Typeface
 import java.util.*
 
 object FontCache {
-    val ROBOTO_REGULAR = "fonts/Roboto-Regular.ttf"
-    val ROBOTO_LIGHT = "fonts/Roboto-Light.ttf"
-    val ROBOTO_BOLD = "fonts/Roboto-Bold.ttf"
+    val ROBOTO_REGULAR = "fonts/SF-UI-Display-Regular.ttf"
+    val ROBOTO_LIGHT = "fonts/SF-UI-Display-Light.ttf"
+    val ROBOTO_BOLD = "fonts/SF-UI-Display-Bold.ttf"
     private val fontCache = Hashtable<String, Typeface>()
 
     fun getTypeface(name: String, context: Context): Typeface? {

@@ -27,18 +27,17 @@
             android:layout_marginLeft="16dp"
             android:orientation="vertical">
 
-            <com.pixplicity.fontview.FontAppCompatTextView
+            <sega.fastnetwork.test.view.RobotoBoldTextView
                 android:id="@+id/username_header"
-                style="@style/FontTextViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sega"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <com.pixplicity.fontview.FontAppCompatTextView
+            <sega.fastnetwork.test.view.RobotoRegularTextView
                 android:id="@+id/email_header"
-                style="@style/FontTextViewStyle"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"

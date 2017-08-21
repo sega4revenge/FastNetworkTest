@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.header.*
 import kotlinx.android.synthetic.main.toolbar.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.AddActivity
-import sega.fastnetwork.test.manager.AppAccountManager
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DrawerPresenter
 import sega.fastnetwork.test.util.Constants
@@ -51,7 +51,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
         // Setup toolbar
         isTablet = resources.getBoolean(R.bool.is_tablet)
         mDrawerPresenter = DrawerPresenter(this)
-        mDrawerPresenter!!.getUserDetail(AppAccountManager.getAppAccountUserId(activity))
+        mDrawerPresenter!!.getUserDetail(AppManager.getAppAccountUserId(activity))
         if (view != null) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
         }
@@ -127,6 +127,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
             startActivity(Intent(this@DrawerFragment.activity,AddActivity::class.java))
         }
 
+
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -169,6 +170,9 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
                 .into(avatar_header)
         username_header.text = user.name
         email_header.text = user.email
+
+
+
     }
 
     fun switchFragment(itemId: Int) {
@@ -204,7 +208,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
             }
             R.id.nav_8 -> {
                 /*   startActivity(new Intent(this, AboutActivity.class));*/
-                AppAccountManager.removeAccount(activity)
+                AppManager.removeAccount(activity)
 
                 return
             }
@@ -313,6 +317,7 @@ class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSe
 
 
     }
+
 }
 
 

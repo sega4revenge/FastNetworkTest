@@ -22,6 +22,8 @@ import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.view.ProductListView
 
 
+
+
 /**
  * Created by Admin on 5/25/2016.
  */
@@ -34,6 +36,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
     internal var isTablet: Boolean = false
     private var layoutManager: GridLayoutManager? = null
     private var adapter: ProductAdapter? = null
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isTablet = resources.getBoolean(R.bool.is_tablet)
@@ -207,4 +210,6 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
         }
 
     }
+
+
 }

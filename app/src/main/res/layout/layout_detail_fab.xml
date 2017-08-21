@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.clans.fab.FloatingActionMenu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fab_menu"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    app:menu_colorNormal="@color/colorAccent"
+    app:menu_colorPressed="@color/colorPrimaryDark"
+    app:menu_icon="@drawable/fab_add"
+    tools:visibility="visible">
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/call"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorPrimaryDark"
+        app:fab_label="Gọi điện"
+        app:fab_size="mini" />
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/fab_sms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sms"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorPrimaryDark"
+        app:fab_label="Nhắn tin SMS"
+        app:fab_size="mini" />
+    <com.github.clans.fab.FloatingActionButton
+
+        android:id="@+id/fab_messenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/chat"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorPrimaryDark"
+        app:fab_label="Nhắn tin trực tuyến"
+        app:fab_size="mini" />
+
+
+
+</com.github.clans.fab.FloatingActionMenu>

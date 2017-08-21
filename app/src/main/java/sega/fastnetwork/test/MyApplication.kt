@@ -23,14 +23,20 @@ import android.graphics.BitmapFactory
 import android.support.multidex.MultiDex
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.ConnectionQuality
-
+import io.socket.client.IO
+import io.socket.client.Socket
 
 
 /**
  * Created by amitshekhar on 22/03/16.
  */
 class MyApplication : Application() {
+    private var mSocket: Socket? = null
 
+
+    fun getSocket(): Socket? {
+        return mSocket
+    }
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -39,6 +45,8 @@ class MyApplication : Application() {
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
         AndroidNetworking.enableLogging()
+        mSocket = IO.socket("http://192.168.1.42:8080").connect()
+
 
         AndroidNetworking.setConnectionQualityChangeListener { connectionQuality, _ ->
             if (connectionQuality == ConnectionQuality.EXCELLENT) {

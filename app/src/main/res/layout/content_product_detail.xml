@@ -17,18 +17,44 @@
         app:layout_scrollFlags="scroll"
         tools:visibility="visible">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!-- Header Image -->
-            <include layout="@layout/layout_detail_header" />
 
+
+            <include
+                android:id="@+id/layout_detail_header"
+                layout="@layout/layout_detail_header"
+
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+
+            <include
+                android:id="@+id/layout_detail_info"
+                layout="@layout/layout_detail_info"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/layout_detail_header"
+                />
             <!-- Section 1: Basic Info -->
-            <include layout="@layout/layout_detail_info" />
-            <include layout="@layout/layout_detail_overview" />
-            <include layout="@layout/layout_detail_crew" />
+
+
+            <include layout="@layout/layout_detail_overview"
+                android:id="@+id/layout_detail_overview"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+
+                android:layout_below="@+id/layout_detail_info"/>
+
+            <include layout="@layout/layout_detail_crew"
+                android:id="@+id/layout_detail_crew"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/layout_detail_overview"
+                />
             <!--<include layout="@layout/layout_detail_rating" />-->
             <!-- Section 2: Overview -->
           <!--
@@ -37,9 +63,15 @@
            -->
 
             <!-- Section 4: Cast -->
-            <include layout="@layout/layout_detail_cast" />
+            <include layout="@layout/layout_detail_cast"
+                android:id="@+id/layout_detail_cast"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/layout_detail_crew"
+                />
 
-        </LinearLayout>
+
+        </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

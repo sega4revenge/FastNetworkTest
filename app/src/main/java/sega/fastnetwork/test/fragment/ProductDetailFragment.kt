@@ -4,7 +4,9 @@ package sega.fastnetwork.test.fragment
 import android.app.Activity
 import android.app.Fragment
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.support.v4.widget.NestedScrollView
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
@@ -12,12 +14,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.content_product_detail.*
+import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_crew.*
+import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
 import kotlinx.android.synthetic.main.layout_detail_overview.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
+
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
@@ -28,7 +33,6 @@ import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.ProductDetailView
 import java.text.DecimalFormat
 import java.util.*
 
@@ -37,7 +41,7 @@ import java.util.*
  * Created by sega4 on 10/08/2017.
  */
 
-class ProductDetailFragment : Fragment(), ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
 
     internal var error: Boolean = false
@@ -97,7 +101,13 @@ class ProductDetailFragment : Fragment(), ProductDetailView, BaseSliderView.OnSl
 
         }
 
-
+        v.product_detail_holder.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
+            if (oldScrollY < scrollY) {
+                v.fab_menu.hideMenuButton(true)
+            } else {
+                v.fab_menu.showMenuButton(true)
+            }
+        }
         return v
     }
 
@@ -129,11 +139,16 @@ class ProductDetailFragment : Fragment(), ProductDetailView, BaseSliderView.OnSl
             slider!!.addSlider(textSliderView)
 
         }
-        slider!!.setPresetTransformer(SliderLayout.Transformer.Accordion)
-        slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
-        slider!!.setCustomAnimation(DescriptionAnimation())
-        slider!!.setDuration(4000)
-        slider!!.addOnPageChangeListener(this)
+        if(product!!.images!!.size!=1)
+        {
+            slider!!.setPresetTransformer(SliderLayout.Transformer.Accordion)
+            slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
+            slider!!.setCustomAnimation(DescriptionAnimation())
+            slider!!.setDuration(4000)
+            slider!!.addOnPageChangeListener(this)
+        }
+
+
     }
 
     override fun onResume() {
@@ -177,6 +192,7 @@ class ProductDetailFragment : Fragment(), ProductDetailView, BaseSliderView.OnSl
             toolbar_subtitle.text = product!!.user?.name
         }
         product_name.text = product!!.productname
+        product_name.typeface = Typeface.createFromAsset(activity.assets, "fonts/open-sans-extrabold.ttf");
         product_overview.text = product!!.description
 
         val temp = formatprice?.format(product!!.price?.toDouble()) + format
@@ -185,6 +201,7 @@ class ProductDetailFragment : Fragment(), ProductDetailView, BaseSliderView.OnSl
         println(product!!.user!!.name)
         product_user_name.text = product!!.user?.name
         product_user_email.text = product!!.user?.email
+        product_user_address.text = product!!.address
         /* val timeAgo = DateUtils.getRelativeTimeSpanString(
                  java.lang.Long.parseLong(product!!.productdate),
                  System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)

@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.ProductDetailFragment
-import sega.fastnetwork.test.manager.AppAccountManager
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.manager.SessionManager
 import sega.fastnetwork.test.util.Constants
 
@@ -43,14 +43,14 @@ class ProductDetailActivity : AppCompatActivity() {
                 println(productId)
                 when (productId) {
                 // Load product Lists
-                    "link.php" -> if (AccountManager.get(this).getAccountsByType(AppAccountManager.ACCOUNT_TYPE).isNotEmpty()) {
+                    "link.php" -> if (AccountManager.get(this).getAccountsByType(AppManager.ACCOUNT_TYPE).isNotEmpty()) {
                         loadproductsOfType(0)
                     } else {
                         startActivity(i)
                         finish()
                     }
                 // Load details of a particular product
-                    else -> if (AccountManager.get(this).getAccountsByType(AppAccountManager.ACCOUNT_TYPE).isNotEmpty()) {
+                    else -> if (AccountManager.get(this).getAccountsByType(AppManager.ACCOUNT_TYPE).isNotEmpty()) {
                         val abc = productId.split("&".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                         productId = abc[0].substring(abc[0].lastIndexOf("=") + 1)
                         userId = abc[1].substring(abc[1].lastIndexOf("=") + 1)

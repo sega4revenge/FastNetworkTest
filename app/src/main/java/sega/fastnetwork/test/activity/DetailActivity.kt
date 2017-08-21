@@ -13,13 +13,12 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_detailuser.*
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.manager.AppAccountManager
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DetailUserPresenter
-import sega.fastnetwork.test.view.DetailUserView
 
 
-class DetailActivity : AppCompatActivity(), DetailUserView, AppBarLayout.OnOffsetChangedListener {
+class DetailActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView, AppBarLayout.OnOffsetChangedListener {
 
 
     private val PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.6f
@@ -38,7 +37,7 @@ class DetailActivity : AppCompatActivity(), DetailUserView, AppBarLayout.OnOffse
 
         toolbar.inflateMenu(R.menu.menu_product)
         startAlphaAnimation(textview_title, 0, View.INVISIBLE)
-        mDetailUserPresenter!!.getUserDetail(AppAccountManager.getAppAccountUserId(this))
+        mDetailUserPresenter!!.getUserDetail(AppManager.getAppAccountUserId(this))
 
 
     }

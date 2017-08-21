@@ -5,6 +5,10 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="horizontal"
+    android:paddingBottom="@dimen/dist_large"
+    android:paddingLeft="@dimen/dist_large"
+    android:paddingRight="@dimen/dist_large"
+    android:paddingTop="@dimen/dist_large"
     >
 
     <!-- Poster Area -->
@@ -49,7 +53,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/dist_xmedium"
+
         android:orientation="vertical">
         <sega.fastnetwork.test.view.RobotoRegularTextView
             android:id="@+id/product_name"
@@ -58,11 +62,11 @@
             android:layout_margin="5dp"
             android:ellipsize="marquee"
             android:focusable="true"
+            android:textStyle="bold"
             android:focusableInTouchMode="true"
             android:marqueeRepeatLimit="marquee_forever"
             android:maxLines="2"
             android:text="My Awesome Movie Title"
-            android:textColor="@color/black"
             android:textSize="@dimen/text_xxlarge" />
 
         <!-- Title -->

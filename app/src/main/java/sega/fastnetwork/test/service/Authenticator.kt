@@ -31,7 +31,7 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import sega.fastnetwork.test.activity.LoginActivity
-import sega.fastnetwork.test.manager.AppAccountManager
+import sega.fastnetwork.test.manager.AppManager
 
 
 
@@ -46,7 +46,7 @@ class Authenticator(private val mContext: Context) : AbstractAccountAuthenticato
                             options: Bundle?): Bundle? {
         val bundle = Bundle()
         val accountManager = mContext.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
-        val accounts = accountManager.getAccountsByType(AppAccountManager.ACCOUNT_TYPE)
+        val accounts = accountManager.getAccountsByType(AppManager.ACCOUNT_TYPE)
         if (accounts.isEmpty()) {
             Log.v(TAG, "addAccount()")
 

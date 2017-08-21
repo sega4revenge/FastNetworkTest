@@ -8,20 +8,20 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import sega.fastnetwork.test.activity.DetailActivity
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.DetailUserView
 
 
 /**
  * Created by sega4 on 27/07/2017.
  */
 
-class DetailUserPresenter(detailActivity: DetailActivity) {
-    internal var mDetailUserView: DetailUserView = detailActivity
+class DetailUserPresenter(view: DetailUserPresenter.DetailUserView) {
+    private var mDetailView: DetailUserView = view
+
+
+
     var userdetail = "USERDETAIL"
-    var createproduct = "CREATEPRODUCT"
     fun getUserDetail(userid: String) {
 
         Rx2AndroidNetworking.get(Constants.BASE_URL + "/data/{userid}")
@@ -40,12 +40,12 @@ class DetailUserPresenter(detailActivity: DetailActivity) {
                     override fun onNext(user: User?) {
                         Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
 
-                        mDetailUserView.getUserDetail(user!!)
+                        mDetailView.getUserDetail(user!!)
                     }
 
 
                     override fun onComplete() {
-                        mDetailUserView.isgetUserDetailSuccess(true)
+                        mDetailView.isgetUserDetailSuccess(true)
 
                     }
 
@@ -60,15 +60,15 @@ class DetailUserPresenter(detailActivity: DetailActivity) {
                                 Log.d(userdetail, "onError errorCode : " + anError.errorCode)
                                 Log.d(userdetail, "onError errorBody : " + anError.errorBody)
                                 Log.d(userdetail, "onError errorDetail : " + anError.errorDetail)
-                                mDetailUserView.setErrorMessage(anError.errorDetail)
+                                mDetailView.setErrorMessage(anError.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(userdetail, "onError errorDetail : " + anError.errorDetail)
-                                mDetailUserView.setErrorMessage(anError.errorDetail)
+                                mDetailView.setErrorMessage(anError.errorDetail)
                             }
                         } else {
                             Log.d(userdetail, "onError errorMessage : " + e.message)
-                            mDetailUserView.setErrorMessage(e.message!!)
+                            mDetailView.setErrorMessage(e.message!!)
                         }
                     }
 
@@ -79,5 +79,11 @@ class DetailUserPresenter(detailActivity: DetailActivity) {
 
                 })
     }
+    interface DetailUserView {
 
+        fun setErrorMessage(errorMessage: String)
+        fun getUserDetail(user : User)
+        fun isgetUserDetailSuccess(success : Boolean)
+
+    }
 }

@@ -34,6 +34,7 @@
     <!-- Value -->
     <com.pixplicity.fontview.FontAppCompatTextView
         android:id="@+id/product_overview"
+
         style="@style/ProductItemValueStyle"
         tools:text="My movie overview goes here" />
 

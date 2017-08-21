@@ -10,19 +10,19 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import sega.fastnetwork.test.fragment.ProductDetailFragment
+import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.ProductDetailView
 
 
 /**
  * Created by sega4 on 27/07/2017.
  */
 
-class ProductDetailPresenter(productDetailFragment: ProductDetailFragment) {
-    internal var mProductDetailView: ProductDetailView = productDetailFragment
+class ProductDetailPresenter(view : ProductDetailPresenter.ProductDetailView) {
+    internal var mProductDetailView: ProductDetailView = view
     var productdetail = "PRODUCTDETAIL"
+
 
     fun getProductDetail(productid : String) {
 
@@ -90,4 +90,13 @@ class ProductDetailPresenter(productDetailFragment: ProductDetailFragment) {
                 })
     }
 
+    interface ProductDetailView {
+
+        fun setErrorMessage(errorMessage: String)
+        fun getProductDetail(product : Product)
+
+
+
+
+    }
 }
