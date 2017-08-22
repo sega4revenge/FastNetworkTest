@@ -1,33 +1,35 @@
 {
   "project_info": {
-    "project_number": "379301565168",
-    "project_id": "firebase-fastnetwork"
+    "project_number": "566281454179",
+    "firebase_url": "https://rent-177602.firebaseio.com",
+    "project_id": "rent-177602",
+    "storage_bucket": "rent-177602.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:379301565168:android:af08cf428dbccdff",
+        "mobilesdk_app_id": "1:566281454179:android:af08cf428dbccdff",
         "android_client_info": {
           "package_name": "sega.fastnetwork.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "379301565168-k0ji7al10s0fbdv0c5v6gquj400kerlf.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "379301565168-sds2suvu43abjn3l0n4ita22rrfnkn8g.apps.googleusercontent.com",
+          "client_id": "566281454179-9ppu0vdtn7mhpgtnpub16i4d5b8fs0da.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "sega.fastnetwork.test",
-            "certificate_hash": "ea727dbf66ab0e20feacd900687ca668937cb74e"
+            "certificate_hash": "ce0fb291055347bcccf04b2ad3afb83b5225b5b0"
           }
+        },
+        {
+          "client_id": "566281454179-d9eqt8b6htiu2pq8nnl9l55ncejhk6g4.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDVD-zpYHZ6rXwFsWMbNjkbcaeYqZx1AHA"
+          "current_key": "AIzaSyBM-_9uRVvQOkvPbgD_K1zt6lb5XgITBO0"
         }
       ],
       "services": {
@@ -35,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566281454179-d9eqt8b6htiu2pq8nnl9l55ncejhk6g4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
