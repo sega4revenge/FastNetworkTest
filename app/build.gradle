@@ -66,6 +66,7 @@ dependencies {
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.pixplicity.letterpress:library:1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-v4:25.3.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }
 

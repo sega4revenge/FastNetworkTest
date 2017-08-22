@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.ProductDetailFragment
@@ -72,7 +73,8 @@ class ProductDetailActivity : AppCompatActivity() {
 
         args.putString(Constants.product_ID, productId)
         fragment.arguments = args
-        fragmentManager.beginTransaction().replace(R.id.product_detail_container, fragment).commit()
+
+        supportFragmentManager.beginTransaction().replace(R.id.product_detail_container, fragment).commit()
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -84,7 +86,6 @@ class ProductDetailActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
-
     override fun onResume() {
         super.onResume()
 
@@ -98,7 +99,6 @@ class ProductDetailActivity : AppCompatActivity() {
         super.onStart()
 
     }
-
     override fun onStop() {
         super.onStop()
 

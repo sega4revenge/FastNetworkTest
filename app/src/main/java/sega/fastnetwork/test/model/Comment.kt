@@ -5,7 +5,7 @@ package sega.fastnetwork.test.model
  */
 
 class Comment {
-    var id: String? = null
+    var _id: String? = null
     var user: User? = null
     var content: String? = null
     var time: String? = null

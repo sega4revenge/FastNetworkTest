@@ -140,6 +140,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.ChatActivity" />
+        <activity android:name=".activity.CommentActivity" />
 
     </application>
 

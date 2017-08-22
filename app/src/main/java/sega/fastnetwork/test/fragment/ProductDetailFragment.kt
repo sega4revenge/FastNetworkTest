@@ -2,37 +2,46 @@ package sega.fastnetwork.test.fragment
 
 
 import android.app.Activity
-import android.app.Fragment
+
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.text.TextUtils
+import android.text.format.DateUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.content_product_detail.*
 import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
+import kotlinx.android.synthetic.main.layout_detail_cast.*
+import kotlinx.android.synthetic.main.layout_detail_cast.view.*
 import kotlinx.android.synthetic.main.layout_detail_crew.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
 import kotlinx.android.synthetic.main.layout_detail_overview.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
-
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.CommentActivity
 import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
 import sega.fastnetwork.test.lib.SliderTypes.SliderLayout
 import sega.fastnetwork.test.lib.SliderTypes.TextSliderView
 import sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
+import sega.fastnetwork.test.view.ProductDetailView
 import java.text.DecimalFormat
 import java.util.*
 
@@ -74,8 +83,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         val cur = Currency.getInstance(current)
         format = cur.symbol
         mProductDetailPresenter = ProductDetailPresenter(this)
-
-
+//=============================see all comment=======================
+        v.comments_see_all.setOnClickListener {
+            gotoallcomment()
+        }
+//===================================================================
         // Download product details if new instance, else restore from saved instance
         if (savedInstanceState == null || !(savedInstanceState.containsKey(Constants.product_ID)
                 && savedInstanceState.containsKey(Constants.product_OBJECT) && savedInstanceState.containsKey(Constants.seller_DETAIL))) {
@@ -87,15 +99,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 toolbar_text_holder.visibility = View.GONE
                 toolbar.title = ""
             } else {
-
-
-                mProductDetailPresenter!!.getProductDetail(id)
+                mProductDetailPresenter!!.getProductDetail(id, AppManager.getAppAccountUserId(activity))
             }
 
         } else {
 
             id = savedInstanceState.getString(Constants.product_ID)
             product = savedInstanceState.get(Constants.product_OBJECT) as Product
+            Log.e("BBB",id + " " + product)
             onDownloadSuccessful()
 
 
@@ -109,6 +120,13 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
         return v
+
+    }
+
+    private fun gotoallcomment() {
+       val intent = Intent(activity, CommentActivity::class.java)
+        intent.putExtra(Constants.product_ID,id)
+        startActivity(intent)
     }
 
     override fun setErrorMessage(errorMessage: String) {
@@ -192,7 +210,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             toolbar_subtitle.text = product!!.user?.name
         }
         product_name.text = product!!.productname
-        product_name.typeface = Typeface.createFromAsset(activity.assets, "fonts/open-sans-extrabold.ttf");
         product_overview.text = product!!.description
 
         val temp = formatprice?.format(product!!.price?.toDouble()) + format
@@ -206,10 +223,123 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                  java.lang.Long.parseLong(product!!.productdate),
                  System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
          product_date.setText(timeAgo)*/
+//=======================option Glide========================
+        val options = RequestOptions()
+                .centerCrop()
+                .dontAnimate()
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.img_error)
+                .priority(Priority.HIGH)
+//=======================0 cmt========================
+        if (product!!.comment!!.size == 0) {
+            comment_item1.visibility = View.GONE
+            comment_item2.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+            comments_see_all.visibility = View.GONE
+        }
+//=======================1 cmt========================
 
+        else if (product!!.comment!!.size == 1) {
+            comments_see_all.visibility = View.GONE
+            comment_item2.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+            Glide.with(this)
+                    .load(product!!.comment!![0].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = product!!.comment!![0].user!!.name
+            comments1.text = product!!.comment!![0].content
+            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+        }
+//=======================2 cmt========================
+
+        else if (product!!.comment!!.size == 2) {
+            comments_see_all.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+
+            Glide.with(this)
+                    .load(product!!.comment!![0].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = product!!.comment!![0].user!!.name
+            comments1.text = product!!.comment!![0].content
+            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+            Glide.with(this)
+                    .load(product!!.comment!![1].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = product!!.comment!![1].user!!.name
+            comments2.text = product!!.comment!![1].content
+            datecomment2.text = timeAgo(product!!.comment!![0].time!!)
+        }
+
+//=======================3 cmt========================
+        else if (product!!.comment!!.size == 3) {
+            comments_see_all.visibility = View.GONE
+            Glide.with(this)
+                    .load(product!!.comment!![0].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = product!!.comment!![0].user!!.name
+            comments1.text = product!!.comment!![0].content
+            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+            Glide.with(this)
+                    .load(product!!.comment!![1].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = product!!.comment!![1].user!!.name
+            comments2.text = product!!.comment!![1].content
+            datecomment2.text = timeAgo(product!!.comment!![0].time!!)
+            Glide.with(this)
+                    .load(product!!.comment!![2].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage3)
+            usercomments3.text = product!!.comment!![2].user!!.name
+            comments3.text = product!!.comment!![2].content
+            datecomment3.text = timeAgo(product!!.comment!![2].time!!)
+        } else {
+            Glide.with(this)
+                    .load(product!!.comment!![0].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = product!!.comment!![0].user!!.name
+            comments1.text = product!!.comment!![0].content
+            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+            Glide.with(this)
+                    .load(product!!.comment!![1].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = product!!.comment!![1].user!!.name
+            comments2.text = product!!.comment!![1].content
+            datecomment2.text = timeAgo(product!!.comment!![0].time!!)
+            Glide.with(this)
+                    .load(product!!.comment!![2].user!!.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage3)
+            usercomments3.text = product!!.comment!![2].user!!.name
+            comments3.text = product!!.comment!![2].content
+            datecomment3.text = timeAgo(product!!.comment!![2].time!!)
+            comments_see_all.visibility = View.VISIBLE
+        }
 
 
         showAnimationBanner()
+    }
+
+    private fun timeAgo(time: String): CharSequence? {
+        var time = DateUtils.getRelativeTimeSpanString(
+                java.lang.Long.parseLong(time),
+                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+        return time
     }
 
     private fun onDownloadFailed() {

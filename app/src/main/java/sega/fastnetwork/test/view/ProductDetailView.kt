@@ -11,7 +11,4 @@ interface ProductDetailView {
     fun setErrorMessage(errorMessage: String)
     fun getProductDetail(product : Product)
 
-
-
-
 }

@@ -34,7 +34,7 @@
 
     <!-- Cast Item 1 -->
     <LinearLayout
-        android:id="@+id/movie_cast_item1"
+        android:id="@+id/comment_item1"
         style="@style/ProductCastHolderStyle">
         <!-- Image -->
         <RelativeLayout
@@ -123,7 +123,7 @@
 
     <!-- Cast Item 2 -->
     <LinearLayout
-        android:id="@+id/movie_cast_item2"
+        android:id="@+id/comment_item2"
         style="@style/ProductCastHolderStyle">
 
         <RelativeLayout
@@ -212,7 +212,7 @@
 
     <!-- Cast Item 3 -->
     <LinearLayout
-        android:id="@+id/movie_cast_item3"
+        android:id="@+id/comment_item3"
         style="@style/ProductCastHolderStyle">
         <!-- Image -->
         <RelativeLayout

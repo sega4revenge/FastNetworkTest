@@ -7,6 +7,8 @@
     <color name="top_bar">#9f556061</color>
     <color name="transparent">#00000000</color>
     <color name="bg_screen1">#ff6c70</color>
+    <color name="text_secondary">#FFFFFF</color>
+
     <!-- Screens background color-->
 
     <!-- dots inactive colors -->
