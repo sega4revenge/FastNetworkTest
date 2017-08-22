@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.activity_register.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
 import sega.fastnetwork.test.model.User
-import sega.fastnetwork.test.presenter.RegisterPresenter
+import sega.fastnetwork.test.presenter.LoginPresenter
+import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.util.Validation.validateEmail
 import sega.fastnetwork.test.util.Validation.validateFields
 
@@ -19,13 +20,23 @@ import sega.fastnetwork.test.util.Validation.validateFields
  * Created by sega4 on 23/05/2017.
  */
 
-class RegisterActivity : AppCompatActivity(), RegisterPresenter.RegisterView {
+class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
-    var mRegisterPresenter: RegisterPresenter? = null
+
+    override fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int) {
+        if(isRegisterSuccessful)
+        {
+            showSnackBarMessage(resources.getString(R.string.message_signin))
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_join).go()
+        }
+    }
+
+    var mRegisterPresenter: LoginPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        mRegisterPresenter = RegisterPresenter(this)
+        mRegisterPresenter = LoginPresenter(this)
         btn_join!!.setOnClickListener {
             CircularAnim.hide(btn_join)
                     .endRadius((progressBar.height / 2).toFloat())
@@ -82,7 +93,7 @@ class RegisterActivity : AppCompatActivity(), RegisterPresenter.RegisterView {
             user.password = password.text.toString()
             user.email = email.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
-           mRegisterPresenter!!.register(user)
+           mRegisterPresenter!!.register(user,Constants.LOCAL)
 
         } else {
             progressBar.visibility = View.GONE
@@ -109,13 +120,8 @@ class RegisterActivity : AppCompatActivity(), RegisterPresenter.RegisterView {
 
 
 
-    override fun isRegisterSuccessful(isRegisterSuccessful: Boolean) {
-        if(isRegisterSuccessful)
-        {
-            showSnackBarMessage(resources.getString(R.string.message_signin))
-            progressBar.visibility = View.GONE
-            CircularAnim.show(btn_join).go()
-        }
+    override fun isLoginSuccessful(isLoginSuccessful: Boolean) {
+
     }
 
     override fun setErrorMessage(errorMessage: String) {

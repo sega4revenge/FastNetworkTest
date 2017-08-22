@@ -77,6 +77,7 @@ class ProductListPresenter(view : ProductListView) {
 
                 })
     }
+
     interface ProductListView {
 
         fun setErrorMessage(errorMessage: String)

@@ -16,8 +16,8 @@ import sega.fastnetwork.test.presenter.DetailUserPresenter
 class ChatActivity : AppCompatActivity(),DetailUserPresenter.DetailUserView {
 
     var user : User? = null
-    var mSocket : Socket?=null
-    var mDetailUserPresenter: DetailUserPresenter? = null
+    private var mSocket : Socket?=null
+    private var mDetailUserPresenter: DetailUserPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)

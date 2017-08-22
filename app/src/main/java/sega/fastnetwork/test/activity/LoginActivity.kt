@@ -262,7 +262,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
 
-    fun gotoregister() {
+    private fun gotoregister() {
         val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
 
         startActivity(intent)
@@ -287,7 +287,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         }
     }
 
-    fun handleSignInResult(result: GoogleSignInResult) {
+    private fun handleSignInResult(result: GoogleSignInResult) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess);
         if (result.isSuccess) {
             // Signed in successfully, show authenticated UI.
