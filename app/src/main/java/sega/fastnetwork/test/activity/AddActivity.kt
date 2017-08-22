@@ -47,11 +47,10 @@ import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.presenter.AddPresenter
 import sega.fastnetwork.test.util.CompressImage
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.AddView
 import java.io.File
 import java.util.*
 
-class AddActivity : AppCompatActivity(), AddView {
+class AddActivity : AppCompatActivity(),AddPresenter.AddView {
 
     val PLACE_PICKER_REQUEST = 3
     var mNotificationManager: NotificationManager? = null

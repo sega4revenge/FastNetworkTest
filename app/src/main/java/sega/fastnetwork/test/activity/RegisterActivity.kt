@@ -14,13 +14,12 @@ import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.RegisterPresenter
 import sega.fastnetwork.test.util.Validation.validateEmail
 import sega.fastnetwork.test.util.Validation.validateFields
-import sega.fastnetwork.test.view.RegisterView
 
 /**
  * Created by sega4 on 23/05/2017.
  */
 
-class RegisterActivity : AppCompatActivity(), RegisterView {
+class RegisterActivity : AppCompatActivity(), RegisterPresenter.RegisterView {
 
     var mRegisterPresenter: RegisterPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {

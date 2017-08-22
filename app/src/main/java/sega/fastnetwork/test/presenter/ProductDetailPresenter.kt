@@ -10,11 +10,9 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import sega.fastnetwork.test.fragment.ProductDetailFragment
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.ProductDetailView
 
 
 /**

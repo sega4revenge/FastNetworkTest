@@ -10,18 +10,16 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import sega.fastnetwork.test.activity.AddActivity
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.AddView
 
 
 /**
  * Created by sega4 on 27/07/2017.
  */
 
-class AddPresenter(addActivity: AddActivity) {
-    internal var mAddView: AddView = addActivity
+class AddPresenter(view: AddView) {
+    internal var mAddView: AddView = view
   
     var createproduct = "CREATEPRODUCT"
 
@@ -95,5 +93,10 @@ class AddPresenter(addActivity: AddActivity) {
 
 
                 })
+    }
+    interface AddView {
+
+        fun isCreateSuccess(success : Boolean,productid : String, type: String)
+
     }
 }

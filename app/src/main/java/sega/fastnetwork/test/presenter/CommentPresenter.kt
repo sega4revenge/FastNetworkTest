@@ -10,19 +10,16 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import sega.fastnetwork.test.fragment.CommentFragment
-import sega.fastnetwork.test.model.Response
+import sega.fastnetwork.test.model.Comment
 import sega.fastnetwork.test.model.ResponseListComment
-import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.CommnetView
 
 /**
  * Created by cc on 8/17/2017.
  */
-class CommentPresenter(commentfragment: CommentFragment) {
+class CommentPresenter(view: CommentView) {
 
-    internal var mCommentView: CommnetView = commentfragment
+    internal var mCommentView: CommentView = view
     var register = "REGISTER"
     fun onCreate() {
         // initialization
@@ -158,5 +155,13 @@ class CommentPresenter(commentfragment: CommentFragment) {
 
 
                 })
+    }
+
+    interface CommentView {
+
+        fun isCommentSuccessful(isCommentSuccessful: Boolean)
+        fun setErrorMessage(errorMessage: String)
+        fun getCommentDetail(listcomment :ArrayList<Comment>)
+
     }
 }

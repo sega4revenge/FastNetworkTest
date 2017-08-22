@@ -27,14 +27,13 @@ import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DrawerPresenter
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.DrawerView
 
 
 /**
  * Created by sega4 on 08/08/2017.
  */
 
-class DrawerFragment : Fragment(), DrawerView, NavigationView.OnNavigationItemSelectedListener {
+class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.OnNavigationItemSelectedListener {
     var viewtype: Int = 1
     private val mDrawerHandler = Handler()
     private var mPrevSelectedId: Int = 0

@@ -9,25 +9,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.content_comments.*
 import kotlinx.android.synthetic.main.content_comments.view.*
-import kotlinx.android.synthetic.main.toolbar_twoline.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.CommentAdapter
-import sega.fastnetwork.test.model.Comment
-import sega.fastnetwork.test.model.Product
-import sega.fastnetwork.test.presenter.CommentPresenter
-import sega.fastnetwork.test.presenter.ProductDetailPresenter
-import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.CommnetView
-import android.view.inputmethod.InputMethodManager
 import sega.fastnetwork.test.manager.AppManager
+import sega.fastnetwork.test.model.Comment
+import sega.fastnetwork.test.presenter.CommentPresenter
+import sega.fastnetwork.test.util.Constants
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, CommnetView,ProductDetailPresenter.ProductDetailView {
+class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, CommentPresenter.CommentView {
 
 
 
@@ -46,7 +42,7 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Commn
     }
 
 
-    var mProductDetailPresenter: ProductDetailPresenter? = null
+
     var mCommentPresenter: CommentPresenter? = null
 
     override fun oncommentClicked(position: Int) {
@@ -56,19 +52,6 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Commn
         println(errorMessage)
     }
 
-    override fun getProductDetail(product: Product) {
-        toolbar_title.text = product.productname
-        toolbar_subtitle.text = product.user!!.name
-        adapter = CommentAdapter(context, this)
-        val layoutManager = LinearLayoutManager(context)
-        layoutManager.stackFromEnd = true
-        adapter!!.commentsList = product.comment!!
-        Log.e("Adapter", product.comment!!.size.toString())
-        comments_list.layoutManager = layoutManager
-        comments_list.setHasFixedSize(true)
-        comments_list.adapter = adapter
-        adapter!!.notifyDataSetChanged()
-    }
 
     private var id: String = ""
     var adapter : CommentAdapter? = null
@@ -84,7 +67,6 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Commn
         v.comments_list.layoutManager = layoutManager
         v.comments_list.setHasFixedSize(true)
         v.comments_list.adapter = adapter
-        mProductDetailPresenter = ProductDetailPresenter(this)
         mCommentPresenter = CommentPresenter(this)
         mCommentPresenter!!.refreshcomment(id)
         v.buttoncomment.setOnClickListener {

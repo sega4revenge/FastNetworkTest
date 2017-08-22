@@ -8,18 +8,17 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import sega.fastnetwork.test.fragment.ProductListFragment
+import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.ResponseListProduct
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.ProductListView
 
 
 /**
  * Created by sega4 on 27/07/2017.
  */
 
-class ProductListPresenter(productListFragment: ProductListFragment) {
-    internal var mProductListView: ProductListView = productListFragment
+class ProductListPresenter(view : ProductListView) {
+    internal var mProductListView: ProductListView = view
     var userdetail = "USERDETAIL"
 
     fun getProductList() {
@@ -78,5 +77,13 @@ class ProductListPresenter(productListFragment: ProductListFragment) {
 
                 })
     }
+    interface ProductListView {
 
+        fun setErrorMessage(errorMessage: String)
+        fun getListProduct(productlist : ArrayList<Product>)
+
+
+
+
+    }
 }

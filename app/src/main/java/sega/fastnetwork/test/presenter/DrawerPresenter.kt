@@ -8,18 +8,16 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import sega.fastnetwork.test.fragment.DrawerFragment
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.DrawerView
 
 
 /**
  * Created by sega4 on 27/07/2017.
  */
 
-class DrawerPresenter(drawerFragment: DrawerFragment) {
-    internal var mDrawerView: DrawerView = drawerFragment
+class DrawerPresenter(view : DrawerView) {
+    internal var mDrawerView: DrawerView = view
     var userdetail = "USERDETAIL"
 
     fun getUserDetail(userid: String) {
@@ -79,5 +77,10 @@ class DrawerPresenter(drawerFragment: DrawerFragment) {
 
                 })
     }
+    interface DrawerView {
 
+        fun setErrorMessage(errorMessage: String)
+        fun     getUserDetail(user : User)
+
+    }
 }

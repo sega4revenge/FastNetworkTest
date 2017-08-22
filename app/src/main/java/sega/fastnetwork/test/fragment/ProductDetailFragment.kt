@@ -4,7 +4,6 @@ package sega.fastnetwork.test.fragment
 import android.app.Activity
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
@@ -41,7 +40,6 @@ import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.ProductDetailView
 import java.text.DecimalFormat
 import java.util.*
 

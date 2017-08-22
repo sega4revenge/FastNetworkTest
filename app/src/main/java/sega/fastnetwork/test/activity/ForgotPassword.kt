@@ -1,20 +1,17 @@
 package sega.fastnetwork.test.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import kotlinx.android.synthetic.main.activity_forgot_password.*
-import kotlinx.android.synthetic.main.activity_register.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
 import sega.fastnetwork.test.presenter.ForgotPwPresenter
 import sega.fastnetwork.test.util.Validation
-import sega.fastnetwork.test.view.ForgotPwView
 
-class ForgotPassword : AppCompatActivity(), ForgotPwView {
+class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
     override fun setErrorMessage(errorMessage: String, type: Int) {
         showSnackBarMessage(errorMessage)
         forgot_progressBar.visibility = View.GONE

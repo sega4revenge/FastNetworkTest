@@ -19,15 +19,12 @@ import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.ProductListPresenter
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.ProductListView
-
-
 
 
 /**
  * Created by Admin on 5/25/2016.
  */
-class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListView {
+class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,ProductListPresenter.ProductListView {
 
     var mProductListPresenter: ProductListPresenter? = null
     private var isLoading: Boolean = false

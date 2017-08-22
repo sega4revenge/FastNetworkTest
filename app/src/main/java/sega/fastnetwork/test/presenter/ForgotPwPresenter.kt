@@ -1,7 +1,6 @@
 package sega.fastnetwork.test.presenter
 
 import android.os.Looper
-import android.text.Editable
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.rx2androidnetworking.Rx2AndroidNetworking
@@ -11,14 +10,12 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import sega.fastnetwork.test.activity.ForgotPassword
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.ForgotPwView
 
-class ForgotPwPresenter(forgotPwActivity: ForgotPassword) {
+class ForgotPwPresenter(view : ForgotPwView) {
 
-    internal var mForgotPwView: ForgotPwView = forgotPwActivity
+    internal var mForgotPwView: ForgotPwView = view
     var forgot = "FORGOTPW"
     fun onCreate() {
         // initialization
@@ -152,5 +149,11 @@ class ForgotPwPresenter(forgotPwActivity: ForgotPassword) {
 
 
                 })
+    }
+
+    interface ForgotPwView {
+
+        fun isFotgotPwSuccessful(isForgotPwSuccessful: Boolean, type: Int)
+        fun setErrorMessage(errorMessage: String, type : Int)
     }
 }
