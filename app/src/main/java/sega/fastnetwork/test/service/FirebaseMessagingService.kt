@@ -12,6 +12,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         showNotification()
+        println(remoteMessage!!.data["message"])
+
     }
 
     private fun showNotification() {}

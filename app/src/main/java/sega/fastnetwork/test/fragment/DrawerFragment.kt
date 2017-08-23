@@ -220,7 +220,6 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
 
         if (fragment != null) {
             val transaction = activity.supportFragmentManager.beginTransaction()
-            transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             try {
                 transaction.replace(R.id.content_frame, fragment).commit()
 

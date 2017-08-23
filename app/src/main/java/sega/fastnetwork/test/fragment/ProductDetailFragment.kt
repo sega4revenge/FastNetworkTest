@@ -2,7 +2,6 @@ package sega.fastnetwork.test.fragment
 
 
 import android.app.Activity
-
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -24,11 +23,13 @@ import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
 import kotlinx.android.synthetic.main.layout_detail_crew.*
+import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
 import kotlinx.android.synthetic.main.layout_detail_overview.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
 import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
@@ -117,6 +118,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 v.fab_menu.showMenuButton(true)
             }
         }
+        v.fab_messenger.setOnClickListener {
+            val intent = Intent(activity, ChatActivity::class.java)
+            startActivity(intent)
+
+        }
         return v
 
     }
@@ -138,8 +144,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         onDownloadSuccessful()
     }
 
-    fun showAnimationBanner() {
-        for (i in 0..product!!.images!!.size - 1) {
+    private fun showAnimationBanner() {
+        for (i in 0 until product!!.images!!.size) {
             val textSliderView = TextSliderView(activity)
             // initialize a SliderLayout
             textSliderView
@@ -195,7 +201,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         progress_circle.visibility = View.GONE
         error_message.visibility = View.GONE
         product_detail_holder.visibility = View.VISIBLE
-        /*floatingActionsMenu.setVisibility(View.VISIBLE)*/
+        fab_menu.visibility = View.VISIBLE
 
         // Set title and tagline
         if (TextUtils.isEmpty(product!!.productname)) {

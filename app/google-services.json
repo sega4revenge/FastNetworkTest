@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "566281454179",
-    "firebase_url": "https://rent-177602.firebaseio.com",
-    "project_id": "rent-177602",
-    "storage_bucket": "rent-177602.appspot.com"
+    "project_number": "297176297834",
+    "firebase_url": "https://rent-92127.firebaseio.com",
+    "project_id": "rent-92127",
+    "storage_bucket": "rent-92127.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:566281454179:android:af08cf428dbccdff",
+        "mobilesdk_app_id": "1:297176297834:android:af08cf428dbccdff",
         "android_client_info": {
           "package_name": "sega.fastnetwork.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "566281454179-9ppu0vdtn7mhpgtnpub16i4d5b8fs0da.apps.googleusercontent.com",
+          "client_id": "297176297834-nrv30qvqdd6tgmlq8v2jpqg9f9raie8p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "sega.fastnetwork.test",
@@ -23,13 +23,25 @@
           }
         },
         {
-          "client_id": "566281454179-d9eqt8b6htiu2pq8nnl9l55ncejhk6g4.apps.googleusercontent.com",
+          "client_id": "297176297834-0dnj889jvr65an18o96g7okofjnrc8f5.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "297176297834-9riopj0mro3fao8jcqj4t5j31f0govsj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sega.fastnetwork.test",
+            "certificate_hash": "20a47c7f5ce94533f269e1f2a9ff3bb12c7f4a34"
+          }
+        },
+        {
+          "client_id": "297176297834-a45cr7frglg94b3t6kinqbkienr910ur.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBM-_9uRVvQOkvPbgD_K1zt6lb5XgITBO0"
+          "current_key": "AIzaSyDy44egjUVtfPn3hUG-PpiERGPWDHUNICk"
         }
       ],
       "services": {
@@ -40,7 +52,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "566281454179-d9eqt8b6htiu2pq8nnl9l55ncejhk6g4.apps.googleusercontent.com",
+              "client_id": "297176297834-0dnj889jvr65an18o96g7okofjnrc8f5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

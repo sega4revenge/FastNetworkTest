@@ -121,6 +121,13 @@ class LoginPresenter(view: LoginView) {
                 jsonObject.put("type", type)
                 jsonObject.put("tokenfirebase", user.tokenfirebase)
             }
+            else
+            {
+                jsonObject.put("name", user.name)
+                jsonObject.put("email", user.email)
+                jsonObject.put("password", user.password)
+                jsonObject.put("tokenfirebase", user.tokenfirebase)
+            }
         } catch (e: JSONException) {
             e.printStackTrace()
         }
