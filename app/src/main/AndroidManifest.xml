@@ -21,7 +21,7 @@
         android:name=".MyApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_arrow_right_white"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -106,6 +106,15 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".activity.SearchActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+           />
+        <activity android:name=".activity.Search_FilterLocationActivity"
+            />
+        <activity android:name=".activity.Search_FliterCategory_Activity"
+            />
+        <activity android:name=".activity.Search_FilterLocationSecondActivity"
+            />
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_home"

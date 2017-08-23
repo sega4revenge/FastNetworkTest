@@ -6,5 +6,6 @@ package sega.fastnetwork.test.model
 
 
 class ResponseListProduct {
+
     var listproduct : ArrayList<Product>? = ArrayList()
 }

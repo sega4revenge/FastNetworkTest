@@ -20,9 +20,9 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import kotlinx.android.synthetic.main.header.*
-import kotlinx.android.synthetic.main.toolbar.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.AddActivity
+import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DrawerPresenter
@@ -169,9 +169,6 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
                 .into(avatar_header)
         username_header.text = user.name
         email_header.text = user.email
-
-
-
     }
 
     fun switchFragment(itemId: Int) {
@@ -196,10 +193,16 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
                 toolbar_title.setText(R.string.nav_category)
                 fragment = CategoryFragment()
             }
-        //case R.id.nav_5:
-        //startActivity(new Intent(this, SettingsActivity.class));
-        //navigation_view.getMenu().findItem(mPrevSelectedId).setChecked(true);
-        //return;
+            R.id.nav_3-> {
+                mPrevSelectedId = itemId
+                toolbar_title.setText(R.string.nav_category)
+                fragment = DetailProfileFragment()
+            }
+            R.id.nav_5-> {
+                val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
+                startActivity(intent)
+            }
+
             R.id.nav_6 -> {
                 /*   startActivity(new Intent(this, AboutActivity.class));*/
                 navigation_view!!.menu.findItem(mPrevSelectedId).isChecked = true

@@ -55,8 +55,8 @@ class ProductAdapter// Constructor
         return sharedPref.getInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
+    override fun onCreateViewHolder(parent: ViewGroup, mviewType: Int): RecyclerView.ViewHolder {
+        val viewType = getItemViewType(0)
         if (viewType == Constants.VIEW_MODE_GRID) {
             // GRID MODE
             val v = LayoutInflater.from(parent.context).inflate(

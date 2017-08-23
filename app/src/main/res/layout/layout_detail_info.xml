@@ -89,7 +89,7 @@
                     android:layout_height="15dp"
                     android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@drawable/price_icon"/>
+                    android:background="@drawable/action_grid"/>
                 <sega.fastnetwork.test.view.RobotoRegularTextView
                     android:id="@+id/product_price"
                     android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_marginLeft="5dp"
-                    android:background="@drawable/view_icon"/>
+                    android:background="@drawable/action_grid"/>
 
 
                 <sega.fastnetwork.test.view.RobotoLightTextView
@@ -175,7 +175,7 @@
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:background="@drawable/date_icon"
+                    android:background="@drawable/action_grid"
                     android:layout_gravity="center_vertical"/>
                 <sega.fastnetwork.test.view.RobotoLightTextView
                     android:id="@+id/product_date"

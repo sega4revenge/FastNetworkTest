@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+            app:layout_scrollFlags="scroll|enterAlways" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/arrowBackSearch"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@mipmap/ic_arrow_left_white"/>
+                </LinearLayout>
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="75"
+                    android:id="@+id/ed_search"
+                    android:hint="Search..."
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/input_register"
+                    android:drawableLeft="@drawable/action_search"
+                    android:drawablePadding="5dp"
+                    >
+                </EditText>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:gravity="center|right">
+                    <ImageView
+                        android:id="@+id/stylelist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/action_grid"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.Toolbar>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:gravity="center"
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="33.2"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:id="@+id/tabLocation">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_location_on_black_24dp"/>
+                    <TextView
+                        android:id="@+id/txt_namelocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.1"
+                    android:background="@color/cyan"></View>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="33.2"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:id="@+id/tabCategory">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_category_black_24dp"/>
+                    <TextView
+                        android:id="@+id/txt_namecategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.1"
+                    android:background="@color/cyan"></View>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="33.2"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:id="@+id/tabArrange">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_search_xx"/>
+                    <TextView
+                        android:id="@+id/txt_namearrange"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Arrange"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_below="@+id/tab_layout"
+                android:background="@drawable/toolbar_shadow" />
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            >
+
+            <!-- To show when unable to load data -->
+            <include
+                android:id="@+id/error_message"
+                layout="@layout/layout_error_message"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/txt_notfound"
+                android:text="Product Not Found"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:visibility="gone"/>
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+               >
+
+                <!-- Recycler View -->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/product_recycleview"
+                    android:name="sega.fastnetwork.test.productGridFragment"
+                    android:layout_width="match_parent"
+                    android:background="#f8f8f9"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/recycler_view_padding"
+                    />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+            <!-- Progress Circle -->
+            <include
+                android:id="@+id/progress_circle"
+                layout="@layout/layout_progress_circle"
+                android:layout_width="@dimen/progress_circle_width"
+                android:layout_height="@dimen/progress_circle_height"
+                android:layout_centerInParent="true"
+                android:visibility="visible"
+                />
+
+            <!-- Pull to Refresh -->
+            <!-- Indicator for loading more -->
+            <include
+                android:id="@+id/loading_more"
+                layout="@layout/layout_progress_circle_white"
+                android:layout_width="@dimen/progress_circle_small_width"
+                android:layout_height="@dimen/progress_circle_small_height"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="80dp"
+                android:visibility="gone"
+                 />
+
+            <!--<include-->
+            <!--layout="@layout/layout_detail_fab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end|bottom"-->
+            <!--android:layout_marginRight="@dimen/dist_medium"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_alignEnd="@+id/progress_circle" />-->
+
+            <!--  <include
+                  layout="@layout/layout_detail_fab_main"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center|bottom"
+                  android:layout_alignParentBottom="true"
+                  android:layout_centerHorizontal="true"
+                  android:layout_marginBottom="10dp" />-->
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

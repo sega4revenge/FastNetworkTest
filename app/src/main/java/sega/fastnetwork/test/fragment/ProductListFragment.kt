@@ -40,7 +40,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,Pr
         adapter = ProductAdapter(context, this)
         mProductListPresenter = ProductListPresenter(this)
 
-        //        floatingActionsMenu.visibility = View.VISIBLE;
+
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
 
         product_recycleview.setHasFixedSize(true)

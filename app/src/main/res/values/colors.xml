@@ -56,6 +56,6 @@
     <color name="dot_light_screen2">#8cf9eb</color>
     <color name="dot_light_screen3">#93c6fd</color>
     <color name="dot_light_screen4">#e4b5fc</color>
-
+    <color name="red">#F44336</color>
     <color name="default_image_background">#d8d8d8</color>
 </resources>

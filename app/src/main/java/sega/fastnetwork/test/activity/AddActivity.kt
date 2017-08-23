@@ -311,7 +311,7 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
         mTimeRemain = 0.0
         mPercent = 0
         mRemoteView = RemoteViews(packageName, R.layout.notification_upload)
-        mRemoteView!!.setImageViewResource(R.id.image, R.mipmap.ic_launcher)
+        mRemoteView!!.setImageViewResource(R.id.image, R.mipmap.ic_arrow_right_white)
         mRemoteView!!.setTextViewText(R.id.title, getString(R.string.uploading, temp + 1, uriList!!.size))
         val mBuilder = NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.logo2)

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:gravity="center"
+        android:id="@+id/itemId"
+        android:layout_marginLeft="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtnameLocation"
+            android:text="Mien Bac"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:layout_weight="70"
+            android:layout_marginLeft="10dp"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:gravity="right">
+          <RadioButton
+              android:id="@+id/ra_button"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="10dp"
+              />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/divide"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/cyan"></View>
+</LinearLayout>
