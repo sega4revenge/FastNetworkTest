@@ -21,7 +21,7 @@ class ProductDetailActivity : AppCompatActivity() {
     internal var rate: Double? = null
     internal var userId: String = ""
     internal var session: SessionManager? = null
-
+    var fragment : Fragment?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
@@ -68,11 +68,11 @@ class ProductDetailActivity : AppCompatActivity() {
     }
 
     private fun loadproductDetailsOf(productId: String) {
-        val fragment = ProductDetailFragment()
+        fragment = ProductDetailFragment()
         val args = Bundle()
 
         args.putString(Constants.product_ID, productId)
-        fragment.arguments = args
+        (fragment as ProductDetailFragment).arguments = args
 
         supportFragmentManager.beginTransaction().replace(R.id.product_detail_container, fragment).commit()
     }
@@ -93,6 +93,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        (fragment as ProductDetailFragment).destroyfragment()
         finish()
     }
     override fun onStart() {

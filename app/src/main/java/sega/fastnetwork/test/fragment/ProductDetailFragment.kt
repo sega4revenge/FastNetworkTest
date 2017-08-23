@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_product_detail.*
 import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
@@ -223,6 +224,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_user_name.text = product!!.user?.name
         product_user_email.text = product!!.user?.email
         product_user_address.text = product!!.address
+        println(product!!._id)
+        FirebaseMessaging.getInstance().subscribeToTopic(product!!._id)
         /* val timeAgo = DateUtils.getRelativeTimeSpanString(
                  java.lang.Long.parseLong(product!!.productdate),
                  System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
@@ -338,9 +341,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         showAnimationBanner()
     }
-
+    fun destroyfragment() {
+       FirebaseMessaging.getInstance().unsubscribeFromTopic(product!!._id)
+    }
     private fun timeAgo(time: String): CharSequence? {
-        var time = DateUtils.getRelativeTimeSpanString(
+        val time = DateUtils.getRelativeTimeSpanString(
                 java.lang.Long.parseLong(time),
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
         return time
