@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <!-- Value -->
-    <com.pixplicity.fontview.FontAppCompatTextView
+    <sega.fastnetwork.test.view.RobotoRegularTextView
         android:id="@+id/product_overview"
 
         style="@style/ProductItemValueStyle"

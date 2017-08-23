@@ -35,7 +35,7 @@
     //======================================
     <color name="cyan">#50d2c2</color>
     <color name="btn_login">#EC407A</color>
-    <color name="input_register">#888888</color>
+    <color name="input_register">#81ffffff</color>
     <color name="input_register_bg">#3b4148</color>
     <color name="btn_color_login">#bbbab8</color>
     <color name="black_login">#56000000</color>

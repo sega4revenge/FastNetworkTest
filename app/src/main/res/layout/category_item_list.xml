@@ -31,7 +31,7 @@
             <!-- product Year -->
 
 
-            <com.pixplicity.fontview.FontAppCompatTextView
+            <sega.fastnetwork.test.view.RobotoRegularTextView
                 android:id="@+id/category_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

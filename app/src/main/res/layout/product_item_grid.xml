@@ -66,15 +66,17 @@
             android:padding="@dimen/small_margin">
 
             <!-- product Title -->
-            <com.pixplicity.fontview.FontAppCompatTextView
+            <sega.fastnetwork.test.view.RobotoRegularTextView
                 android:id="@+id/product_name_grid"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
+                android:layout_gravity="center_horizontal"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:maxLines="1"
+                android:textSize="18sp"
                 android:scrollHorizontally="true"
                 android:textColor="@color/black"
                 tools:text="My Awesome product Title" />
@@ -121,27 +123,28 @@
                 </LinearLayout>-->
             </LinearLayout>
 
-            <com.pixplicity.fontview.FontAppCompatTextView
+            <sega.fastnetwork.test.view.RobotoBoldTextView
                 android:id="@+id/price_grid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:paddingTop="@dimen/small_margin"
-                android:textColor="@color/colorAccent"
 
+                android:paddingTop="@dimen/dist_small"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="center_horizontal"
                 tools:text="2015" />
 
-            <com.pixplicity.fontview.FontAppCompatTextView
+    <!--        <sega.fastnetwork.test.view.RobotoLightTextView
                 android:id="@+id/area_grid"
-
+                android:layout_gravity="center_horizontal"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingTop="@dimen/small_margin"
-                android:text="Area" />
+                android:text="Area" />-->
 
         </LinearLayout>
 
