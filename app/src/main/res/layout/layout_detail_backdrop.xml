@@ -1,20 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <sega.fastnetwork.test.lib.SliderTypes.SliderLayout
-        android:id="@+id/slider"
+    <RelativeLayout
         android:layout_width="match_parent"
-        custom:pager_animation="Accordion"
-        custom:auto_cycle="true"
-        custom:indicator_visibility="visible"
-        custom:pager_animation_span="1100"
-        android:layout_height="@dimen/detail_backdrop_height"/>
+        android:layout_height="@dimen/detail_backdrop_height">
 
+        <sega.fastnetwork.test.lib.SliderTypes.SliderLayout
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_backdrop_height"
+            custom:auto_cycle="true"
+            custom:indicator_visibility="visible"
+            custom:pager_animation="Accordion"
+            custom:pager_animation_span="1100">
+
+        </sega.fastnetwork.test.lib.SliderTypes.SliderLayout>
+
+        <sega.fastnetwork.test.view.RobotoRegularTextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/product_user_address"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:text="300,000 d"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_price" />
+
+        <sega.fastnetwork.test.view.RobotoRegularTextView
+            android:id="@+id/product_user_address"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp"
+            android:layout_marginRight="5dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:text="K139 Tô Hiệu , Đà nẵng , Việt nam"
+            android:textColor="#dddddd" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_alignParentRight="true"
+            >
+            <sega.fastnetwork.test.view.RobotoRegularTextView
+                android:id="@+id/product_rentime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+                android:gravity="center"
+                android:minWidth="70dp"
+                android:padding="5dp"
+
+                android:background="@drawable/roundtextview"
+                android:layout_marginBottom="5dp"
+                android:text="1 giờ"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_small" />
+            <sega.fastnetwork.test.view.RobotoRegularTextView
+                android:id="@+id/product_date"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+
+
+
+                android:textSize="15sp"
+                android:minWidth="60dp"
+
+
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:text="12/3/1993"
+                android:textColor="#dddddd" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

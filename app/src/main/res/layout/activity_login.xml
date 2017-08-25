@@ -32,6 +32,8 @@
         android:orientation="vertical"
         android:layout_above="@+id/layout_text_social"
         android:layout_alignLeft="@+id/layout_singin"
+        android:layout_alignRight="@+id/layout_singin"
+        android:layout_alignEnd="@+id/layout_singin"
         android:layout_alignStart="@+id/layout_singin">
 
         <android.support.design.widget.TextInputLayout

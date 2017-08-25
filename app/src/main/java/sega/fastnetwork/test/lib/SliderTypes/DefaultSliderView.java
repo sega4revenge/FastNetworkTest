@@ -13,7 +13,7 @@ import sega.fastnetwork.test.R;
  *
  * just extend BaseSliderView, and implement getView() method.
  */
-class DefaultSliderView extends BaseSliderView{
+public class DefaultSliderView extends BaseSliderView{
 
     public DefaultSliderView(Context context) {
         super(context);

@@ -102,63 +102,78 @@ class ProductAdapter// Constructor
     }
 
 
-
     override fun onBindViewHolder(viewHolderParent: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(0)
         val product = productList[position]
-
+        val options = RequestOptions()
+                .centerCrop()
+                .dontAnimate()
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.img_error)
+                .priority(Priority.HIGH)
         // GRID MODE
-        if (viewType == Constants.VIEW_MODE_GRID) {
-            // GRID MODE
-            val viewHolder = viewHolderParent as ProductGridViewHolder
-            viewHolder.itemView.product_name_grid.text = product.productname
-            val temp = formatprice?.format(product.price?.toDouble()) + format
-            viewHolder.itemView.price_grid.text = temp
-            val options = RequestOptions()
-                    .centerCrop()
-                    .dontAnimate()
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.img_error)
-                    .priority(Priority.HIGH)
-            Glide.with(context)
-                    .load(Constants.BASE_URL + "?image=" + product.images?.get(0))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(viewHolder.itemView.product_poster_grid)
+        when (viewType) {
+            Constants.VIEW_MODE_GRID -> {
+                // GRID MODE
+                val viewHolder = viewHolderParent as ProductGridViewHolder
+                viewHolder.itemView.product_name_grid.text = product.productname
+                val temp = formatprice?.format(product.price?.toDouble()) + format
+                if (product.price!!.length >= 4)
+                    viewHolder.itemView.price_grid.text = temp
+                else
+                    viewHolder.itemView.price_grid.text = product.price
+                Glide.with(context)
+                        .load(Constants.BASE_URL + "?image=" + product.images?.get(0))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(viewHolder.itemView.product_poster_grid)
 
-            //            }
-        } else if (viewType == Constants.VIEW_MODE_LIST) {
-            val viewHolder = viewHolderParent as ProductListViewHolder
-            // LIST MODE
-            viewHolder.itemView.product_name_list.text = product.productname
-            viewHolder.itemView.price_list.text = product.number
-            val options = RequestOptions()
-                    .centerCrop()
-                    .dontAnimate()
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.img_error)
-                    .priority(Priority.HIGH)
-            Glide.with(context)
-                    .load(Constants.BASE_URL + "?image=" + product.images?.get(0))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(viewHolder.itemView.product_poster_list)
-        } else {
-            // COMPACT MODE
-            val viewHolder = viewHolderParent as ProductCompactViewHolder
-            viewHolder.itemView.product_name_compact.text = product.productname
-            viewHolder.itemView.timepost.text = product.created_at
-            val timeAgo = DateUtils.getRelativeTimeSpanString(
-                    java.lang.Long.parseLong(product.created_at),
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
-            viewHolder.itemView.timepost.text = timeAgo
-            viewHolder.itemView.price_compact.text = product.price
-            viewHolder.itemView.userpost.text = product.user!!.name
-            viewHolder.itemView.area_compact.text = product.address
-            viewHolder.itemView.area_compact.isSelected = true
+                //            }
+            }
+            Constants.VIEW_MODE_LIST -> {
+                val viewHolder = viewHolderParent as ProductListViewHolder
+                // LIST MODE
+                viewHolder.itemView.product_name_list.text = product.productname
+                viewHolder.itemView.price_list.text = product.price
+                Glide.with(context)
+                        .load(Constants.BASE_URL + "?image=" + product.images?.get(0))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(viewHolder.itemView.product_poster_list)
+            }
+            else -> {
+                // COMPACT MODE
+                val viewHolder = viewHolderParent as ProductCompactViewHolder
+                viewHolder.itemView.product_name_compact.text = product.productname
+                viewHolder.itemView.timepost.text = product.created_at
+                val timeAgo = DateUtils.getRelativeTimeSpanString(
+                        java.lang.Long.parseLong(product.created_at),
+                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+                viewHolder.itemView.timepost.text = timeAgo
+                val temp = formatprice?.format(product.price?.toDouble()) + format
+                if (product.price!!.length >= 4)
+                    viewHolder.itemView.price_compact.text = temp
+                else
+                    viewHolder.itemView.price_compact.text = product.price
+                viewHolder.itemView.userpost.text = product.user!!.name
+                viewHolder.itemView.area_compact.text = product.address
+                viewHolder.itemView.area_compact.isSelected = true
+                when (product.category) {
+                    "0" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_vehicle)
+                    "1" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_toy)
+                    "2" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_electronic)
+                    "3" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_furniture)
+                    "4" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_fashion)
+                    "5" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_home)
+                    "6" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_education)
+                    "7" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_music)
+                    "8" -> viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_machine)
+                    else -> { // Note the block
+                        viewHolder.itemView.product_poster_compact.setImageResource(R.drawable.cate_more)
+                    }
+                }
 
-
-
+            }
         }
 
 
@@ -170,7 +185,7 @@ class ProductAdapter// Constructor
 
         //                productViewHolder.productRating.setText(product.price+"");
         //            }
-        viewHolderParent.itemView.setOnClickListener { onproductClickListener.onproductClicked(position)}
+        viewHolderParent.itemView.setOnClickListener { onproductClickListener.onproductClicked(position) }
     }
 
 

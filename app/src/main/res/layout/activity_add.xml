@@ -157,16 +157,13 @@
                                 android:layout_height="match_parent"
                                 android:text="Title" />
 
-                            <com.rengwuxian.materialedittext.MaterialEditText
+                            <EditText
                                 android:id="@+id/productname"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
                                 android:textSize="15sp"
-                                app:met_baseColor="@android:color/black"
-                                app:met_maxCharacters="50"
-                                app:met_primaryColor="@color/black"
-                                app:met_singleLineEllipsis="true" />
+                               />
                         </LinearLayout>
 
 
@@ -192,17 +189,14 @@
                                     android:layout_height="match_parent"
                                     android:text="Price" />
 
-                                <com.rengwuxian.materialedittext.MaterialEditText
+                                <EditText
                                     android:id="@+id/price"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:inputType="numberDecimal"
                                     android:textCursorDrawable="@drawable/text_cursor_cyan"
                                     android:textSize="15sp"
-                                    app:met_baseColor="@android:color/black"
-                                    app:met_maxCharacters="10"
-                                    app:met_primaryColor="@color/black"
-                                    app:met_singleLineEllipsis="true" />
+                                    />
                             </LinearLayout>
 
                             <LinearLayout
@@ -247,7 +241,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginBottom="20dp"
                                     android:layout_marginTop="10dp"
-                                    android:gravity="center"></Spinner>
+                                    android:gravity="center" />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -267,17 +261,14 @@
                                 android:layout_height="match_parent"
                                 android:text="Number" />
 
-                            <com.rengwuxian.materialedittext.MaterialEditText
+                            <EditText
                                 android:id="@+id/number"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:inputType="number"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
                                 android:textSize="15sp"
-                                app:met_baseColor="@android:color/black"
-                                app:met_maxCharacters="10"
-                                app:met_primaryColor="@color/black"
-                                app:met_singleLineEllipsis="true" />
+                                 />
                         </LinearLayout>
 
                         <LinearLayout
@@ -301,9 +292,9 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="20dp"
                                 android:layout_marginTop="20dp"
-                                android:gravity="center"></Spinner>
+                                android:gravity="center" />
                         </LinearLayout>
-                        <!--<com.rengwuxian.materialedittext.MaterialEditText-->
+                        <!--<EditText-->
                         <!--android:id="@+id/categoryid"-->
                         <!--android:layout_width="match_parent"-->
                         <!--android:layout_height="wrap_content"-->
@@ -335,7 +326,7 @@
                                 android:layout_height="match_parent"
                                 android:text="Address" />
 
-                            <com.rengwuxian.materialedittext.MaterialEditText
+                            <EditText
                                 android:id="@+id/addressEdit"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -343,10 +334,7 @@
                                 android:focusableInTouchMode="false"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
                                 android:textSize="15sp"
-                                app:met_baseColor="@android:color/black"
-                                app:met_maxCharacters="10"
-                                app:met_primaryColor="@color/black"
-                                app:met_singleLineEllipsis="true" />
+                                />
                         </LinearLayout>
 
                         <LinearLayout
@@ -364,16 +352,13 @@
                                 android:layout_height="match_parent"
                                 android:text="Description" />
 
-                            <com.rengwuxian.materialedittext.MaterialEditText
+                            <EditText
                                 android:id="@+id/description"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
                                 android:textSize="15sp"
-                                app:met_baseColor="@android:color/black"
-                                app:met_maxCharacters="10"
-                                app:met_primaryColor="@color/black"
-                                app:met_singleLineEllipsis="false" />
+                             />
                         </LinearLayout>
                         <!--  <LinearLayout
                               android:orientation="horizontal"

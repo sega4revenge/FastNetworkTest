@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.text.TextUtils
 import android.text.format.DateUtils
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,24 +17,19 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_product_detail.*
-import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
-import kotlinx.android.synthetic.main.layout_detail_cast.view.*
-import kotlinx.android.synthetic.main.layout_detail_crew.*
 import kotlinx.android.synthetic.main.layout_detail_fab.*
-import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
-import kotlinx.android.synthetic.main.layout_detail_overview.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
-import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
+import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
+import sega.fastnetwork.test.lib.SliderTypes.DefaultSliderView
 import sega.fastnetwork.test.lib.SliderTypes.SliderLayout
-import sega.fastnetwork.test.lib.SliderTypes.TextSliderView
 import sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Product
@@ -57,34 +51,40 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 /*    internal var commentslist = ArrayList<Comments>()*/
 
 
-    internal var height: Int = 0
-    internal var width: Int = 0
     private var format: String = ""
 
     private var id: String = ""
     private var product: Product? = null
     private var seller: User? = null
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
-    var isTablet: Boolean = false
-    var mProductDetailPresenter: ProductDetailPresenter? = null
+    private var isTablet: Boolean = false
+    private var mProductDetailPresenter: ProductDetailPresenter? = null
 
     // Fragment lifecycle
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val v = inflater.inflate(R.layout.fragment_product_detail, container, false)
         isTablet = resources.getBoolean(R.bool.is_tablet)
-        val displaymetrics = DisplayMetrics()
-        activity.windowManager.defaultDisplay.getMetrics(displaymetrics)
-        height = displaymetrics.heightPixels
-        width = displaymetrics.widthPixels
         val current = Locale("vi", "VN")
         val cur = Currency.getInstance(current)
         format = cur.symbol
         mProductDetailPresenter = ProductDetailPresenter(this)
+        val data = activity.intent.data
+
+
+        back_button.setOnClickListener {
+            if (data == null) {
+                activity.finish()
+                Runtime.getRuntime().gc()
+            } else {
+                val i = Intent(activity, MainActivity::class.java)
+                startActivity(i)
+                activity.finish()
+                Runtime.getRuntime().gc()
+            }
+        }
 //=============================see all comment=======================
-        v.comments_see_all.setOnClickListener {
+        comments_see_all.setOnClickListener {
             gotoallcomment()
         }
 //===================================================================
@@ -106,33 +106,37 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
             id = savedInstanceState.getString(Constants.product_ID)
             product = savedInstanceState.get(Constants.product_OBJECT) as Product
-            Log.e("BBB",id + " " + product)
+            Log.e("BBB", id + " " + product)
             onDownloadSuccessful()
 
 
         }
 
-        v.product_detail_holder.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
+        product_detail_holder.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
             if (oldScrollY < scrollY) {
-                v.fab_menu.hideMenuButton(true)
+                fab_menu.hideMenuButton(true)
             } else {
-                v.fab_menu.showMenuButton(true)
+                fab_menu.showMenuButton(true)
             }
         }
-        v.fab_messenger.setOnClickListener {
+        fab_messenger.setOnClickListener {
             val intent = Intent(activity, ChatActivity::class.java)
             startActivity(intent)
 
         }
-        return v
+
 
     }
 
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+
+        return inflater?.inflate(R.layout.fragment_product_detail, container, false)
+    }
+
     private fun gotoallcomment() {
-       val intent = Intent(activity, CommentActivity::class.java)
-        intent.putExtra(Constants.product_ID,id)
-        intent.putExtra(Constants.product_NAME,product!!.productname)
-        intent.putExtra(Constants.seller_name,product!!.user!!.name)
+        val intent = Intent(activity, CommentActivity::class.java)
+        intent.putExtra(Constants.product_ID, id)
         startActivity(intent)
     }
 
@@ -149,7 +153,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
     private fun showAnimationBanner() {
         for (i in 0 until product!!.images!!.size) {
-            val textSliderView = TextSliderView(activity)
+            val textSliderView = DefaultSliderView(activity)
             // initialize a SliderLayout
             textSliderView
                     .image(Constants.IMAGE_URL + product!!.images!![i])
@@ -164,11 +168,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             slider!!.addSlider(textSliderView)
 
         }
-        if(product!!.images!!.size!=1)
-        {
+        if (product!!.images!!.size != 1) {
             slider!!.setPresetTransformer(SliderLayout.Transformer.Accordion)
-            slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
-            slider!!.setCustomAnimation(DescriptionAnimation())
+            slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Top)
+            /*       slider!!.setCustomAnimation(DescriptionAnimation())*/
             slider!!.setDuration(4000)
             slider!!.addOnPageChangeListener(this)
         }
@@ -218,27 +221,54 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
         product_name.text = product!!.productname
         product_overview.text = product!!.description
-
-        val temp = formatprice?.format(product!!.price?.toDouble()) + format
-        product_price.text = temp
-
-        println(product!!.user!!.name)
-        product_user_name.text = product!!.user?.name
-        product_user_email.text = product!!.user?.email
-        product_user_address.text = product!!.address
-        println(product!!._id)
-//        FirebaseMessaging.getInstance().subscribeToTopic(product!!._id)
-        /* val timeAgo = DateUtils.getRelativeTimeSpanString(
-                 java.lang.Long.parseLong(product!!.productdate),
-                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
-         product_date.setText(timeAgo)*/
-//=======================option Glide========================
+        if (product!!.price!!.length >= 4) {
+            val temp = formatprice?.format(product!!.price?.toDouble()) + format
+            product_price.text = temp
+        } else {
+            val temp = product!!.price + " " + format
+            product_price.text = temp
+        }
+        val timeAgo = DateUtils.getRelativeTimeSpanString(
+                java.lang.Long.parseLong(product!!.created_at),
+                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+        product_date.text = timeAgo
         val options = RequestOptions()
                 .centerCrop()
                 .dontAnimate()
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.img_error)
                 .priority(Priority.HIGH)
+        Glide.with(this)
+                .load(product!!.user!!.photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(productdetail_avatar)
+        product_user_name.text = product!!.user?.name
+        product_user_email.text = product!!.user?.email
+        product_user_address.text = product!!.address
+
+        FirebaseMessaging.getInstance().subscribeToTopic(product!!._id)
+
+        when (product!!.category) {
+            "0" -> product_category.setImageResource(R.drawable.cate_vehicle)
+            "1" -> product_category.setImageResource(R.drawable.cate_toy)
+            "2" -> product_category.setImageResource(R.drawable.cate_electronic)
+            "3" -> product_category.setImageResource(R.drawable.cate_furniture)
+            "4" -> product_category.setImageResource(R.drawable.cate_fashion)
+            "5" -> product_category.setImageResource(R.drawable.cate_home)
+            "6" -> product_category.setImageResource(R.drawable.cate_education)
+            "7" -> product_category.setImageResource(R.drawable.cate_music)
+            "8" -> product_category.setImageResource(R.drawable.cate_machine)
+            else -> { // Note the block
+                product_category.setImageResource(R.drawable.cate_more)
+            }
+        }
+        /* val timeAgo = DateUtils.getRelativeTimeSpanString(
+                 java.lang.Long.parseLong(product!!.productdate),
+                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+         product_date.setText(timeAgo)*/
+//=======================option Glide========================
+
 //=======================0 cmt========================
         if (product!!.comment!!.size == 0) {
             comment_item1.visibility = View.GONE
@@ -343,9 +373,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         showAnimationBanner()
     }
+
     fun destroyfragment() {
-       FirebaseMessaging.getInstance().unsubscribeFromTopic(product!!._id)
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(product!!._id)
     }
+
     private fun timeAgo(time: String): CharSequence? {
         val time = DateUtils.getRelativeTimeSpanString(
                 java.lang.Long.parseLong(time),

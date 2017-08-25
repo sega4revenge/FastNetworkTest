@@ -2,6 +2,8 @@
               xmlns:android="http://schemas.android.com/apk/res/android"
               style="@style/ProductSeeAllHolderStyle"
               android:foregroundGravity="top"
+    android:layout_marginLeft="7dp"
+    android:layout_marginRight="7dp"
               android:gravity="right|center_vertical">
 
     <sega.fastnetwork.test.view.RobotoBoldTextView

@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="theme_body">#cc22292c</color>
+
     <color name="black">#000000</color>
-    <color name="status_bar">#303135</color>
-    <color name="top_bar">#9f556061</color>
     <color name="transparent">#00000000</color>
-    <color name="bg_screen1">#ff6c70</color>
-    <color name="text_secondary">#FFFFFF</color>
-
-    <!-- Screens background color-->
-
-    <!-- dots inactive colors -->
-    <!-- dots active colors -->
-
     <color name="color_background_button">#EC407A</color>
-
-    <color name="colorBg">#EC407A</color>
-
     <color name="colorPrimary">#FFF</color>
     <color name="colorPrimaryDark">#D81B60</color>
     <!--<color name="colorAccent">#c8e8ff</color>-->
@@ -25,13 +12,10 @@
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
     <color name="colorAccent">#EC407A</color>
     <color name="white">#ffffff</color>
-    <color name="actionbar">#C51162</color>
 
-    <color name="color_toolbar">#ec407a</color>
-    <color name="color_toolbar_acce">#ed3875</color>
 
     <color name="tedbottompicker_selected">#f0f0f0</color>
-
+    <color name="text_light">#aaaaaa</color>
     //======================================
     <color name="cyan">#50d2c2</color>
     <color name="btn_login">#EC407A</color>

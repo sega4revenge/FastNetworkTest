@@ -42,19 +42,8 @@
             <!-- Section 1: Basic Info -->
 
 
-            <include layout="@layout/layout_detail_overview"
-                android:id="@+id/layout_detail_overview"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
 
-                android:layout_below="@+id/layout_detail_info"/>
 
-            <include layout="@layout/layout_detail_crew"
-                android:id="@+id/layout_detail_crew"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_below="@+id/layout_detail_overview"
-                />
             <!--<include layout="@layout/layout_detail_rating" />-->
             <!-- Section 2: Overview -->
           <!--
@@ -67,7 +56,7 @@
                 android:id="@+id/layout_detail_cast"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_below="@+id/layout_detail_crew"
+                android:layout_below="@+id/layout_detail_info"
                 />
 
 
