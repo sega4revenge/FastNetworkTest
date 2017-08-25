@@ -20,9 +20,13 @@ class CommentActivity : AppCompatActivity() {
 //            val id = savedInstanceState!!.getString(Constants.product_ID)
 //            Log.e("CMT",id)
             val id = intent.extras.getString(Constants.product_ID)
+            val product_name = intent.extras.getString(Constants.product_NAME)
+            val seller_name = intent.extras.getString(Constants.seller_name)
             Log.e("CMT",id)
             val arg = Bundle()
             arg.putString(Constants.product_ID,id)
+            arg.putString(Constants.product_NAME,product_name)
+            arg.putString(Constants.seller_name,seller_name)
             fragment.arguments = arg
             supportFragmentManager.beginTransaction().replace(R.id.comment_container,fragment).commit()
 

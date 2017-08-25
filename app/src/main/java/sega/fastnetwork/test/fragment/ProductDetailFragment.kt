@@ -131,6 +131,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     private fun gotoallcomment() {
        val intent = Intent(activity, CommentActivity::class.java)
         intent.putExtra(Constants.product_ID,id)
+        intent.putExtra(Constants.product_NAME,product!!.productname)
+        intent.putExtra(Constants.seller_name,product!!.user!!.name)
         startActivity(intent)
     }
 
@@ -225,7 +227,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_user_email.text = product!!.user?.email
         product_user_address.text = product!!.address
         println(product!!._id)
-        FirebaseMessaging.getInstance().subscribeToTopic(product!!._id)
+//        FirebaseMessaging.getInstance().subscribeToTopic(product!!._id)
         /* val timeAgo = DateUtils.getRelativeTimeSpanString(
                  java.lang.Long.parseLong(product!!.productdate),
                  System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)

@@ -116,7 +116,7 @@ class CommentPresenter(view: CommentView) {
                 .subscribe(object : Observer<ResponseListComment> {
                     override fun onNext(response: ResponseListComment?) {
                         Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-                        Log.e("Size", response?.comment!!.size.toString())
+                        Log.e("Size", response!!.comment.toString())
                         mCommentView.getCommentDetail(response.comment!!)
                     }
 
@@ -156,7 +156,70 @@ class CommentPresenter(view: CommentView) {
 
                 })
     }
+    fun deletecomment(commentid : String, productid : String) {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("commentid", commentid)
+            jsonObject.put("productid", productid)
 
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        Rx2AndroidNetworking.post(Constants.BASE_URL + "deletecomment")
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(register, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(register, " bytesSent : " + bytesSent)
+                    Log.d(register, " bytesReceived : " + bytesReceived)
+                    Log.d(register, " isFromCache : " + isFromCache)
+                }
+                .getObjectObservable(ResponseListComment::class.java)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<ResponseListComment> {
+                    override fun onNext(response: ResponseListComment?) {
+                        Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+                        Log.e("Size", response!!.comment.toString())
+                        mCommentView.getCommentDetail(response.comment!!)
+                    }
+
+
+                    override fun onComplete() {
+
+                        mCommentView.isCommentSuccessful(true)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is ANError) {
+                            val anError = e
+                            if (anError.errorCode != 0) {
+                                // received ANError from server
+                                // error.getErrorCode() - the ANError code from server
+                                // error.getErrorBody() - the ANError body from server
+                                // error.getErrorDetail() - just a ANError detail
+                                Log.d(register, "onError errorCode : " + anError.errorCode)
+                                Log.d(register, "onError errorBody : " + anError.errorBody)
+                                Log.d(register, "onError errorDetail : " + anError.errorDetail)
+                                mCommentView.setErrorMessage(anError.errorDetail)
+                            } else {
+                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                                Log.d(register, "onError errorDetail : " + anError.errorDetail)
+                                mCommentView.setErrorMessage(anError.errorDetail)
+                            }
+                        } else {
+                            Log.d(register, "onError errorMessage : " + e.message)
+                            mCommentView.setErrorMessage(e.message!!)
+                        }
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+
+                })
+    }
     interface CommentView {
 
         fun isCommentSuccessful(isCommentSuccessful: Boolean)

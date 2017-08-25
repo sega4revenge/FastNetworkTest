@@ -102,7 +102,10 @@ class CommentAdapter// Constructor
 
         //                commentViewHolder.commentRating.setText(comment.price+"");
         //            }
-        viewHolderParent.itemView.setOnClickListener { oncommentClickListener.oncommentClicked(position)}
+        viewHolderParent.itemView.setOnLongClickListener {
+            oncommentClickListener.oncommentClicked(position)
+            return@setOnLongClickListener true
+        }
     }
 
 
