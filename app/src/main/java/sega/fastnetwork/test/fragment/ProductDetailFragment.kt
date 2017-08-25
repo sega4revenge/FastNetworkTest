@@ -137,6 +137,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     private fun gotoallcomment() {
         val intent = Intent(activity, CommentActivity::class.java)
         intent.putExtra(Constants.product_ID, id)
+
+        intent.putExtra(Constants.product_NAME,product!!.productname)
+        intent.putExtra(Constants.seller_name,product!!.user!!.name)
         startActivity(intent)
     }
 
