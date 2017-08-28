@@ -2,7 +2,8 @@ package sega.fastnetwork.test.lib.SliderTypes.Transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import sega.fastnetwork.test.util.ViewHelper;
+
 
 public class RotateUpTransformer extends BaseTransformer {
 
@@ -13,10 +14,10 @@ public class RotateUpTransformer extends BaseTransformer {
 		final float width = view.getWidth();
 		final float rotation = ROT_MOD * position;
 
-		ViewHelper.setPivotX(view,width * 0.5f);
-        ViewHelper.setPivotY(view,0f);
-        ViewHelper.setTranslationX(view,0f);
-        ViewHelper.setRotation(view,rotation);
+		ViewHelper.INSTANCE.setPivotX(view,width * 0.5f);
+        ViewHelper.INSTANCE.setPivotY(view,0f);
+        ViewHelper.INSTANCE.setTranslationX(view,0f);
+        ViewHelper.INSTANCE.setRotation(view,rotation);
 	}
 	
 	@Override

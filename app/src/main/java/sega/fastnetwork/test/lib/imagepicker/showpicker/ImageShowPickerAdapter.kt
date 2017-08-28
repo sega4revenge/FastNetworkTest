@@ -120,9 +120,7 @@ import java.util.*
 
         if (isShowAnim) {
             notifyItemRemoved(position)
-            if (false) {
-                notifyItemChanged(list.size - 1)
-            } else if (list.size - 1 == 0) {
+            if (list.size - 1 == 0) {
 
                 notifyItemChanged(0)
             }
@@ -141,7 +139,7 @@ import java.util.*
             pickerListener?.picOnClickListener(list, position, if (mMaxNum > list.size)
                 mMaxNum - list.size - 1
             else
-                if (false) 1 else 0)
+                0)
         }
     }
 

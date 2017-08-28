@@ -2,7 +2,8 @@ package sega.fastnetwork.test.lib.SliderTypes.Transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import sega.fastnetwork.test.util.ViewHelper;
+
 
 public class DepthPageTransformer extends BaseTransformer {
 
@@ -11,16 +12,16 @@ public class DepthPageTransformer extends BaseTransformer {
 	@Override
 	protected void onTransform(View view, float position) {
 		if (position <= 0f) {
-            ViewHelper.setTranslationX(view,0f);
-            ViewHelper.setScaleX(view,1f);
-            ViewHelper.setScaleY(view,1f);
+            ViewHelper.INSTANCE.setTranslationX(view,0f);
+            ViewHelper.INSTANCE.setScaleX(view,1f);
+            ViewHelper.INSTANCE.setScaleY(view,1f);
 		} else if (position <= 1f) {
 			final float scaleFactor = MIN_SCALE + (1 - MIN_SCALE) * (1 - Math.abs(position));
-            ViewHelper.setAlpha(view,1-position);
-            ViewHelper.setPivotY(view,0.5f * view.getHeight());
-            ViewHelper.setTranslationX(view,view.getWidth() * - position);
-            ViewHelper.setScaleX(view,scaleFactor);
-            ViewHelper.setScaleY(view,scaleFactor);
+            ViewHelper.INSTANCE.setAlpha(view,1-position);
+            ViewHelper.INSTANCE.setPivotY(view,0.5f * view.getHeight());
+            ViewHelper.INSTANCE.setTranslationX(view,view.getWidth() * - position);
+            ViewHelper.INSTANCE.setScaleX(view,scaleFactor);
+            ViewHelper.INSTANCE.setScaleY(view,scaleFactor);
 		}
 	}
 

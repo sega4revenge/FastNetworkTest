@@ -36,8 +36,8 @@ class ImageGalleryAdapter(internal var context: Context, internal var builder: T
 
     init {
 
-        pickerTiles = ArrayList<PickerTile>()
-        selectedUriList = ArrayList<Uri>()
+        pickerTiles = ArrayList()
+        selectedUriList = ArrayList()
 
 
         var imageCursor: Cursor? = null
@@ -108,10 +108,9 @@ class ImageGalleryAdapter(internal var context: Context, internal var builder: T
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GalleryViewHolder {
         val view = View.inflate(context, R.layout.tedbottompicker_grid_item, null)
-        val holder = GalleryViewHolder(view)
 
 
-        return holder
+        return GalleryViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: GalleryViewHolder, position: Int) {

@@ -63,13 +63,13 @@ class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductCl
         SearchView = SearchPresenterImp(this)
         adapter = ProductAdapter(this, this)
         layoutManager = GridLayoutManager(this, getNumberOfColumns())
-        tabLocation.setOnClickListener(){
+        tabLocation.setOnClickListener {
             ShowLocation()
         }
-        tabCategory.setOnClickListener(){
+        tabCategory.setOnClickListener {
             ShowCategory()
         }
-        tabArrange.setOnClickListener(){
+        tabArrange.setOnClickListener {
             ShowArrange()
         }
         product_recycleview.setHasFixedSize(true)
@@ -173,7 +173,7 @@ class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductCl
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.d("ed_search: ","onTextChanged:"+p0.toString() +","+ p1 + "," + p2 + "," + p3)
             }
-        });
+        })
     }
 
     private fun onRefreshListProduct() {
@@ -243,25 +243,25 @@ class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductCl
 
             else -> view.filter_hotimg.visibility = View.VISIBLE
         }
-        view.filter_hot.setOnClickListener(){
+        view.filter_hot.setOnClickListener {
             mFilter = 0
             dialog.dismiss()
               progress_circle.visibility = View.VISIBLE
             SearchView!!.ConnectHttp(ed_search.text.toString() , Location,mCategory,mFilter)
         }
-        view.filter_new.setOnClickListener(){
+        view.filter_new.setOnClickListener {
             mFilter = 1
             dialog.dismiss()
               progress_circle.visibility = View.VISIBLE
             SearchView!!.ConnectHttp(ed_search.text.toString() ,Location,mCategory,mFilter)
         }
-        view.filter_small.setOnClickListener(){
+        view.filter_small.setOnClickListener {
             mFilter = 2
             dialog.dismiss()
               progress_circle.visibility = View.VISIBLE
             SearchView!!.ConnectHttp(ed_search.text.toString() ,Location,mCategory,mFilter)
         }
-        view.filter_hign.setOnClickListener(){
+        view.filter_hign.setOnClickListener {
             mFilter = 3
             dialog.dismiss()
               progress_circle.visibility = View.VISIBLE

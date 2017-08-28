@@ -2,7 +2,8 @@ package sega.fastnetwork.test.lib.SliderTypes.Transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import sega.fastnetwork.test.util.ViewHelper;
+
 
 public class BackgroundToForegroundTransformer extends BaseTransformer {
 
@@ -12,11 +13,11 @@ public class BackgroundToForegroundTransformer extends BaseTransformer {
 		final float width = view.getWidth();
 		final float scale = min(position < 0 ? 1f : Math.abs(1f - position), 0.5f);
 
-        ViewHelper.setScaleX(view,scale);
-        ViewHelper.setScaleY(view,scale);
-        ViewHelper.setPivotX(view,width*0.5f);
-        ViewHelper.setPivotY(view,height*0.5f);
-        ViewHelper.setTranslationX(view,position < 0 ? width * position : -width * position * 0.25f);
+        ViewHelper.INSTANCE.setScaleX(view,scale);
+        ViewHelper.INSTANCE.setScaleY(view,scale);
+        ViewHelper.INSTANCE.setPivotX(view,width*0.5f);
+        ViewHelper.INSTANCE.setPivotY(view,height*0.5f);
+        ViewHelper.INSTANCE.setTranslationX(view,position < 0 ? width * position : -width * position * 0.25f);
 	}
 
 	private static float min(float val, float min) {

@@ -20,7 +20,7 @@ package sega.fastnetwork.test
 import android.app.Application
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.support.multidex.MultiDex
+
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.ConnectionQuality
 import io.socket.client.IO
@@ -34,13 +34,11 @@ class MyApplication : Application() {
     private var mSocket: Socket? = null
 
 
-    fun getSocket(): Socket? {
-        return mSocket
-    }
+    fun getSocket(): Socket? = mSocket
     override fun onCreate() {
         super.onCreate()
         instance = this
-        MultiDex.install(this)
+
         AndroidNetworking.initialize(applicationContext)
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
@@ -49,24 +47,26 @@ class MyApplication : Application() {
 
 
         AndroidNetworking.setConnectionQualityChangeListener { connectionQuality, _ ->
-            if (connectionQuality == ConnectionQuality.EXCELLENT) {
-                System.out.println("Tot")
-                // do something
-            } else if (connectionQuality == ConnectionQuality.POOR) {
-                System.out.println("Duoc")
-                // do something
-            } else if (connectionQuality == ConnectionQuality.UNKNOWN) {
-                System.out.println("Te")
-                // do something
+            when (connectionQuality) {
+                ConnectionQuality.EXCELLENT -> System.out.println("Tot")
+            // do something
+                ConnectionQuality.POOR -> System.out.println("Duoc")
+            // do something
+
+            // do something
+                else -> {
+                    System.out.println("Te")
+                }
             }
         }
 
 
     }
 
-    protected override fun attachBaseContext(base: Context) {
+    override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
-        MultiDex.install(this)
+
+
     }
     companion object {
 

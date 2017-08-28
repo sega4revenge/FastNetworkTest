@@ -12,7 +12,7 @@ import sega.fastnetwork.test.R;
 /**
  * This is a slider with a description TextView.
  */
-public class TextSliderView extends BaseSliderView{
+class TextSliderView extends BaseSliderView{
     public TextSliderView(Context context) {
         super(context);
     }

@@ -57,20 +57,19 @@ class ForgotPwPresenter(view : ForgotPwView) {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(forgot, "onError errorCode : " + anError.errorCode)
-                                Log.d(forgot, "onError errorBody : " + anError.errorBody)
-                                Log.d(forgot, "onError errorDetail : " + anError.errorDetail)
-                                mForgotPwView.setErrorMessage(JSONObject(anError.errorBody.toString()).getString("message"),0)
+                                Log.d(forgot, "onError errorCode : " + e.errorCode)
+                                Log.d(forgot, "onError errorBody : " + e.errorBody)
+                                Log.d(forgot, "onError errorDetail : " + e.errorDetail)
+                                mForgotPwView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),0)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(forgot, "onError errorDetail : " + anError.errorDetail)
-                                mForgotPwView.setErrorMessage(anError.errorDetail,0)
+                                Log.d(forgot, "onError errorDetail : " + e.errorDetail)
+                                mForgotPwView.setErrorMessage(e.errorDetail,0)
                             }
                         } else {
                             Log.d(forgot, "onError errorMessage : " + e.message)
@@ -87,7 +86,7 @@ class ForgotPwPresenter(view : ForgotPwView) {
     }
     fun newpw(newpw: String,code : String, email: String) {
 
-        Log.e(forgot, newpw.toString() + " " + email)
+        Log.e(forgot, newpw + " " + email)
         val jsonObject = JSONObject()
         try {
             jsonObject.put("email", email)
@@ -122,20 +121,19 @@ class ForgotPwPresenter(view : ForgotPwView) {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(forgot, "onError errorCode : " + anError.errorCode)
-                                Log.d(forgot, "onError errorBody : " + anError.errorBody)
-                                Log.d(forgot, "onError errorDetail : " + anError.errorDetail)
-                                mForgotPwView.setErrorMessage(JSONObject(anError.errorBody.toString()).getString("message"),1)
+                                Log.d(forgot, "onError errorCode : " + e.errorCode)
+                                Log.d(forgot, "onError errorBody : " + e.errorBody)
+                                Log.d(forgot, "onError errorDetail : " + e.errorDetail)
+                                mForgotPwView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),1)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(forgot, "onError errorDetail : " + anError.errorDetail)
-                                mForgotPwView.setErrorMessage(anError.errorDetail,1)
+                                Log.d(forgot, "onError errorDetail : " + e.errorDetail)
+                                mForgotPwView.setErrorMessage(e.errorDetail,1)
                             }
                         } else {
                             Log.d(forgot, "onError errorMessage : " + e.message)

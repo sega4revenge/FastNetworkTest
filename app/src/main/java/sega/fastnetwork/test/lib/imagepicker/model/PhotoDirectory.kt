@@ -17,10 +17,8 @@ class PhotoDirectory {
         if (this === other) return true
         if (other !is PhotoDirectory) return false
 
-        val directory = other
-
-        if (id != directory.id) return false
-        return name == directory.name
+        if (id != other.id) return false
+        return name == other.name
     }
 
     override fun hashCode(): Int {

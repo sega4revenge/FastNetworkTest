@@ -13,9 +13,10 @@
         android:paddingBottom="32dp"
         android:paddingTop="32dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <sega.fastnetwork.test.customview.CircleImageView
             android:id="@+id/avatar_header"
             android:layout_width="42dp"
+            android:layout_gravity="center_vertical"
             android:layout_height="42dp"
             android:layout_marginLeft="15dp"
             android:src="@drawable/logo" />

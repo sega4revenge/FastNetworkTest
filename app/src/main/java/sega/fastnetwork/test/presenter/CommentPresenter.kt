@@ -65,20 +65,19 @@ class CommentPresenter(view: CommentView) {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(register, "onError errorCode : " + anError.errorCode)
-                                Log.d(register, "onError errorBody : " + anError.errorBody)
-                                Log.d(register, "onError errorDetail : " + anError.errorDetail)
-                                mCommentView.setErrorMessage(anError.errorDetail)
+                                Log.d(register, "onError errorCode : " + e.errorCode)
+                                Log.d(register, "onError errorBody : " + e.errorBody)
+                                Log.d(register, "onError errorDetail : " + e.errorDetail)
+                                mCommentView.setErrorMessage(e.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(register, "onError errorDetail : " + anError.errorDetail)
-                                mCommentView.setErrorMessage(anError.errorDetail)
+                                Log.d(register, "onError errorDetail : " + e.errorDetail)
+                                mCommentView.setErrorMessage(e.errorDetail)
                             }
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)
@@ -128,20 +127,19 @@ class CommentPresenter(view: CommentView) {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(register, "onError errorCode : " + anError.errorCode)
-                                Log.d(register, "onError errorBody : " + anError.errorBody)
-                                Log.d(register, "onError errorDetail : " + anError.errorDetail)
-                                mCommentView.setErrorMessage(anError.errorDetail)
+                                Log.d(register, "onError errorCode : " + e.errorCode)
+                                Log.d(register, "onError errorBody : " + e.errorBody)
+                                Log.d(register, "onError errorDetail : " + e.errorDetail)
+                                mCommentView.setErrorMessage(e.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(register, "onError errorDetail : " + anError.errorDetail)
-                                mCommentView.setErrorMessage(anError.errorDetail)
+                                Log.d(register, "onError errorDetail : " + e.errorDetail)
+                                mCommentView.setErrorMessage(e.errorDetail)
                             }
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)
@@ -192,20 +190,19 @@ class CommentPresenter(view: CommentView) {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(register, "onError errorCode : " + anError.errorCode)
-                                Log.d(register, "onError errorBody : " + anError.errorBody)
-                                Log.d(register, "onError errorDetail : " + anError.errorDetail)
-                                mCommentView.setErrorMessage(anError.errorDetail)
+                                Log.d(register, "onError errorCode : " + e.errorCode)
+                                Log.d(register, "onError errorBody : " + e.errorBody)
+                                Log.d(register, "onError errorDetail : " + e.errorDetail)
+                                mCommentView.setErrorMessage(e.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(register, "onError errorDetail : " + anError.errorDetail)
-                                mCommentView.setErrorMessage(anError.errorDetail)
+                                Log.d(register, "onError errorDetail : " + e.errorDetail)
+                                mCommentView.setErrorMessage(e.errorDetail)
                             }
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)

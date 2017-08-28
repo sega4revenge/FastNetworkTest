@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/dist_medium">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <sega.fastnetwork.test.customview.CircleImageView
                 android:id="@+id/userimage1"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
@@ -113,7 +113,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/dist_medium">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <sega.fastnetwork.test.customview.CircleImageView
                 android:id="@+id/userimage2"
                 android:layout_width="45dp"
 
@@ -198,7 +198,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/dist_medium">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <sega.fastnetwork.test.customview.CircleImageView
                 android:id="@+id/userimage3"
                 android:layout_width="45dp"
                 android:layout_height="45dp"

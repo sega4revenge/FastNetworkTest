@@ -85,7 +85,7 @@ class ImageShowPickerView @JvmOverloads constructor(context: Context, attrs: Att
     }
 
     private fun init(context: Context, attrs: AttributeSet) {
-        list = ArrayList<ImageShowPickerBean>()
+        list = ArrayList()
         viewTypedArray(context, attrs)
         recyclerView = RecyclerView(context)
         recyclerView!!.overScrollMode = View.OVER_SCROLL_NEVER
@@ -216,7 +216,7 @@ class ImageShowPickerView @JvmOverloads constructor(context: Context, attrs: Att
      * @param <T>
     </T> */
     fun <T : ImageShowPickerBean> setNewData(list: List<T>) {
-        this.list = ArrayList<ImageShowPickerBean>()
+        this.list = ArrayList()
         this.list!!.addAll(list)
 
         if (isShowAnim) {

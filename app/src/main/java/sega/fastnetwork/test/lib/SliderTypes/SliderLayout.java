@@ -96,59 +96,38 @@ public class SliderLayout extends RelativeLayout{
      */
     private SliderAdapter mSliderAdapter;
 
-    /**
-     * {@link sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx} indicator.
-     */
+
     private PagerIndicator mIndicator;
 
 
-    /**
-     * A timer and a TimerTask using to cycle the {@link sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx}.
-     */
+
     private Timer mCycleTimer;
     private TimerTask mCycleTask;
 
-    /**
-     * For resuming the cycle, after user touch or click the {@link sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx}.
-     */
+
     private Timer mResumingTimer;
     private TimerTask mResumingTask;
 
-    /**
-     * If {@link sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx} is Cycling
-     */
+
     private boolean mCycling;
 
-    /**
-     * Determine if auto recover after user touch the {@link sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx}
-     */
     private boolean mAutoRecover = true;
 
     private boolean mAutoCycle;
 
-    /**
-     * the duration between animation.
-     */
+
     private long mSliderDuration = 4000;
 
-    /**
-     * Visibility of {@link sega.fastnetwork.test.lib.SliderTypes.Indicators.PagerIndicator}
-     */
+
     private PagerIndicator.IndicatorVisibility mIndicatorVisibility = PagerIndicator.IndicatorVisibility.Visible;
 
-    /**
-     * {@link sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx} 's transformer
-     */
+
     private BaseTransformer mViewPagerTransformer;
 
-    /**
-     * @see sega.fastnetwork.test.lib.SliderTypes.Animations.BaseAnimationInterface
-     */
+
     private BaseAnimationInterface mCustomAnimation;
 
-    /**
-     * {@link sega.fastnetwork.test.lib.SliderTypes.Indicators.PagerIndicator} shape, rect or oval.
-     */
+
 
     public SliderLayout(Context context) {
         this(context,null);
@@ -164,10 +143,10 @@ public class SliderLayout extends RelativeLayout{
         LayoutInflater.from(context).inflate(R.layout.slider_layout, this, true);
 
         final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SliderLayout,
-                                                                                defStyle, 0);
+                defStyle, 0);
 
         /*
-      {@link sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx} transformer time span.
+      {@link com.sega.vimarket.Tricks.ViewPagerEx} transformer time span.
      */
         int mTransformerSpan = attributes.getInteger(R.styleable.SliderLayout_pager_animation_span, 1100);
         int mTransformerId = attributes.getInt(R.styleable.SliderLayout_pager_animation, Transformer.Default.ordinal());
@@ -190,7 +169,7 @@ public class SliderLayout extends RelativeLayout{
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
                 switch (action) {
-                     case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_UP:
                         recoverCycle();
                         break;
                 }
@@ -444,12 +423,7 @@ public class SliderLayout extends RelativeLayout{
         }
     }
 
-    /**
-     * Inject your custom animation into PageTransformer, you can know more details in
-     * {@link sega.fastnetwork.test.lib.SliderTypes.Animations.BaseAnimationInterface},
-     * and you can see a example in {@link sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation}
-     * @param animation
-     */
+
     public void setCustomAnimation(BaseAnimationInterface animation){
         mCustomAnimation = animation;
         if(mViewPagerTransformer != null){
@@ -542,11 +516,7 @@ public class SliderLayout extends RelativeLayout{
 
     }
 
-    /**
-     * get the {@link sega.fastnetwork.test.lib.SliderTypes.Indicators.PagerIndicator} instance.
-     * You can manipulate the properties of the indicator.
-     * @return
-     */
+
     public PagerIndicator getPagerIndicator(){
         return mIndicator;
     }

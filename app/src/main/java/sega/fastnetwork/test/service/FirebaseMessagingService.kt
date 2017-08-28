@@ -2,7 +2,6 @@ package sega.fastnetwork.test.service
 
 import android.app.Notification
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -10,7 +9,6 @@ import android.media.RingtoneManager
 import android.util.Log
 import com.google.firebase.messaging.RemoteMessage
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.activity.MainActivity
 
 /**
  * Created by Sega on 26/03/2017.

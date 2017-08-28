@@ -2,16 +2,17 @@ package sega.fastnetwork.test.lib.SliderTypes.Transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import sega.fastnetwork.test.util.ViewHelper;
+
 
 public class CubeInTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {
 		// Rotate the fragment on the left or right edge
-        ViewHelper.setPivotX(view,position > 0 ? 0 : view.getWidth());
-        ViewHelper.setPivotY(view,0);
-        ViewHelper.setRotation(view,-90f * position);
+        ViewHelper.INSTANCE.setPivotX(view,position > 0 ? 0 : view.getWidth());
+        ViewHelper.INSTANCE.setPivotY(view,0);
+        ViewHelper.INSTANCE.setRotation(view,-90f * position);
 	}
 
 	@Override

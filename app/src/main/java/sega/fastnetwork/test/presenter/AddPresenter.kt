@@ -66,19 +66,18 @@ class AddPresenter(view: AddView) {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(createproduct, "onError errorCode : " + anError.errorCode)
-                                Log.d(createproduct, "onError errorBody : " + anError.errorBody)
-                                Log.d(createproduct, "onError errorDetail : " + anError.errorDetail)
+                                Log.d(createproduct, "onError errorCode : " + e.errorCode)
+                                Log.d(createproduct, "onError errorBody : " + e.errorBody)
+                                Log.d(createproduct, "onError errorDetail : " + e.errorDetail)
                                 mAddView.isCreateSuccess(false,"","")
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(createproduct, "onError errorDetail : " + anError.errorDetail)
+                                Log.d(createproduct, "onError errorDetail : " + e.errorDetail)
                                 mAddView.isCreateSuccess(false,"","")
                             }
                         } else {

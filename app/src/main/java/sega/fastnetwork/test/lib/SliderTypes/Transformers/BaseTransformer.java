@@ -2,13 +2,12 @@ package sega.fastnetwork.test.lib.SliderTypes.Transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import sega.fastnetwork.test.lib.SliderTypes.Animations.BaseAnimationInterface;
 import sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx;
+import sega.fastnetwork.test.util.ViewHelper;
 
 /**
  * This is all transformers father.
@@ -73,20 +72,20 @@ public abstract class BaseTransformer implements ViewPagerEx.PageTransformer {
     protected void onPreTransform(View view, float position) {
         final float width = view.getWidth();
 
-        ViewHelper.setRotationX(view,0);
-        ViewHelper.setRotationY(view,0);
-        ViewHelper.setRotation(view,0);
-        ViewHelper.setScaleX(view,1);
-        ViewHelper.setScaleY(view,1);
-        ViewHelper.setPivotX(view,0);
-        ViewHelper.setPivotY(view,0);
-        ViewHelper.setTranslationY(view,0);
-        ViewHelper.setTranslationX(view,isPagingEnabled() ? 0f : -width * position);
+        ViewHelper.INSTANCE.setRotationX(view,0);
+        ViewHelper.INSTANCE.setRotationY(view,0);
+        ViewHelper.INSTANCE.setRotation(view,0);
+        ViewHelper.INSTANCE.setScaleX(view,1);
+        ViewHelper.INSTANCE.setScaleY(view,1);
+        ViewHelper.INSTANCE.setPivotX(view,0);
+        ViewHelper.INSTANCE.setPivotY(view,0);
+        ViewHelper.INSTANCE.setTranslationY(view,0);
+        ViewHelper.INSTANCE.setTranslationX(view,isPagingEnabled() ? 0f : -width * position);
 
         if (hideOffscreenPages()) {
-            ViewHelper.setAlpha(view,position <= -1f || position >= 1f ? 0f : 1f);
+            ViewHelper.INSTANCE.setAlpha(view,position <= -1f || position >= 1f ? 0f : 1f);
         } else {
-            ViewHelper.setAlpha(view,1f);
+            ViewHelper.INSTANCE.setAlpha(view,1f);
         }
         if(mCustomAnimationInterface != null){
             if(!h.containsKey(view) || h.get(view).size() == 1){

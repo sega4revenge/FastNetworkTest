@@ -52,7 +52,7 @@ import java.util.*
 
 class AddActivity : AppCompatActivity(),AddPresenter.AddView {
 
-    val PLACE_PICKER_REQUEST = 3
+    private val PLACE_PICKER_REQUEST = 3
     var mNotificationManager: NotificationManager? = null
     val TAG: String = AddActivity::class.java.simpleName
     var temp: Int = 0
@@ -61,7 +61,7 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
     var mRemoteView: RemoteViews? = null
     var mTimeRemain: Double = 0.0
     var mPercent: Int = 0
-    var mAddPresenter: AddPresenter? = null
+    private var mAddPresenter: AddPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
@@ -114,7 +114,7 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
         time.adapter = adaptertime
 
 
-        list = ArrayList<ImageBean>()
+        list = ArrayList()
         mAddPresenter = AddPresenter(this)
         Log.e("list", "======" + list!!.size)
         add_picker_view!!.setImageLoaderInterface(Loader())
@@ -136,9 +136,8 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
                         System.out.println("cho roi")
                         val bottomSheetDialogFragment = TedBottomPicker.Builder(this@AddActivity)
                                 .setOnMultiImageSelectedListener(object : TedBottomPicker.OnMultiImageSelectedListener {
-                                    override fun onImagesSelected(uriList: ArrayList<Uri>) {
-                                        showUriList(uriList)
-                                    }
+                                    override fun onImagesSelected(uriList: ArrayList<Uri>) =
+                                            showUriList(uriList)
                                 })
 
                                 //.setPeekHeight(getResources().getDisplayMetrics().heightPixels/2)
@@ -155,14 +154,13 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
 
                     }
 
-                    override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-                        Toast.makeText(this@AddActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
-                    }
+                    override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
+                            Toast.makeText(this@AddActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
                 }
 
-                TedPermission(this@AddActivity)
+                TedPermission.with(this@AddActivity)
                         .setPermissionListener(permissionlistener)
                         .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                         .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -208,47 +206,13 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
                     var lot1 = latLng.latitude.toString()
                     var lat1 = latLng.longitude.toString()
                     val add = place.address as String
-                    //                    Toast.makeText(this, add+"1"+lot+"2"+lng, Toast.LENGTH_SHORT).show();
+                    //
                     addressEdit.setText(add)
                 }
             }
 
         }
     }
-
-
-//    override fun onStateChange(process: Float, state: State?, jtb: JellyToggleButton?) {
-//        if(state!!.equals(State.LEFT)){
-//            Toast.makeText(this,"Cho thue",Toast.LENGTH_LONG).show()
-//            add_picker_view.visibility = View.VISIBLE
-//            price.visibility = View.VISIBLE
-//        }
-//        if(state!!.equals(State.RIGHT)){
-//            Toast.makeText(this,"Can thue",Toast.LENGTH_LONG).show()
-//            add_picker_view.visibility = View.GONE
-//            price.visibility = View.GONE
-//
-//        }
-//    }
-
-
-//    private fun setMultiShowButton() {
-//        println(uriList!!.size)
-//        button12345!!.setOnClickListener {
-//            if (uriList!!.size == 0) {
-//                Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
-//            }
-//            else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || description!!.text.toString().equals("")) {
-//                Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
-//            }
-//            else {
-//                temp = 0
-//                mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),description.text.toString())
-//
-//            }
-//
-//        }
-//    }
 
     fun getRealFilePath(context: Context, uri: Uri?): String? {
         if (null == uri) return null
@@ -379,18 +343,17 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(TAG + "_1", "onError errorCode : " + anError.errorCode)
-                                Log.d(TAG + "_1", "onError errorBody : " + anError.errorBody)
-                                Log.d(TAG + "_1", "onError errorDetail : " + anError.errorDetail)
+                                Log.d(TAG + "_1", "onError errorCode : " + e.errorCode)
+                                Log.d(TAG + "_1", "onError errorBody : " + e.errorBody)
+                                Log.d(TAG + "_1", "onError errorDetail : " + e.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(TAG + "_1", "onError errorDetail : " + anError.errorDetail)
+                                Log.d(TAG + "_1", "onError errorDetail : " + e.errorDetail)
                             }
                         } else {
                             Log.d(TAG + "_1", "onError errorMessage : " + e.message)

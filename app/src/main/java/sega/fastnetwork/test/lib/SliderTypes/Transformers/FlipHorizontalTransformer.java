@@ -2,17 +2,18 @@ package sega.fastnetwork.test.lib.SliderTypes.Transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import sega.fastnetwork.test.util.ViewHelper;
+
 
 public class FlipHorizontalTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {
 		final float rotation = 180f * position;
-        ViewHelper.setAlpha(view,rotation > 90f || rotation < -90f ? 0 : 1);
-        ViewHelper.setPivotY(view,view.getHeight()*0.5f);
-		ViewHelper.setPivotX(view,view.getWidth() * 0.5f);
-		ViewHelper.setRotationY(view,rotation);
+        ViewHelper.INSTANCE.setAlpha(view,rotation > 90f || rotation < -90f ? 0 : 1);
+        ViewHelper.INSTANCE.setPivotY(view,view.getHeight()*0.5f);
+		ViewHelper.INSTANCE.setPivotX(view,view.getWidth() * 0.5f);
+		ViewHelper.INSTANCE.setRotationY(view,rotation);
 	}
 
 }

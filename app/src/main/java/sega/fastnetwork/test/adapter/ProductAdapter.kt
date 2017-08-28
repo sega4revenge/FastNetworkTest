@@ -32,12 +32,12 @@ class ProductAdapter// Constructor
 
 
     private val imageWidth: Int
-    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
+    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000")
 
     init {
         imageWidth = sharedPref.getInt(Constants.THUMBNAIL_SIZE,
                 0)   // Load image width for grid view
-        productList = ArrayList<Product>()
+        productList = ArrayList()
 
         val current = Locale("vi", "VN")
         val cur = Currency.getInstance(current)
@@ -67,7 +67,7 @@ class ProductAdapter// Constructor
                         object : ViewTreeObserver.OnGlobalLayoutListener {
                             override fun onGlobalLayout() {
                                 // Update width integer and save to storage for next use
-                                val width = v.findViewById(R.id.product_poster_grid).width
+                                val width = v.product_poster_grid.width
                                 if (width > imageWidth) {
                                     val editor = sharedPref.edit()
                                     editor.putInt(Constants.THUMBNAIL_SIZE, width)

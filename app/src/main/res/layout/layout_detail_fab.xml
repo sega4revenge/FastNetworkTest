@@ -7,7 +7,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:visibility="gone"
-    app:menu_colorNormal="@color/colorAccent"
+    app:menu_colorNormal="@color/color_background_button"
     app:menu_colorPressed="@color/colorPrimaryDark"
     app:menu_icon="@drawable/fab_add"
     tools:visibility="visible">

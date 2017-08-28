@@ -288,7 +288,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     private fun handleSignInResult(result: GoogleSignInResult) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess);
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess)
         if (result.isSuccess) {
             // Signed in successfully, show authenticated UI.
 
@@ -323,7 +323,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         if (opr.isDone) {
             // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
             // and the GoogleSignInResult will be available instantly.
-            Log.d(TAG, "Got cached sign-in");
+            Log.d(TAG, "Got cached sign-in")
             val result: GoogleSignInResult = opr.get()
             handleSignInResult(result)
         } else {

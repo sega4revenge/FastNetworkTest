@@ -61,20 +61,19 @@ class ProductDetailPresenter(view : ProductDetailPresenter.ProductDetailView) {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(productdetail, "onError errorCode : " + anError.errorCode)
-                                Log.d(productdetail, "onError errorBody : " + anError.errorBody)
-                                Log.d(productdetail, "onError errorDetail : " + anError.errorDetail)
-                                mProductDetailView.setErrorMessage(anError.errorDetail)
+                                Log.d(productdetail, "onError errorCode : " + e.errorCode)
+                                Log.d(productdetail, "onError errorBody : " + e.errorBody)
+                                Log.d(productdetail, "onError errorDetail : " + e.errorDetail)
+                                mProductDetailView.setErrorMessage(e.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(productdetail, "onError errorDetail : " + anError.errorDetail)
-                                mProductDetailView.setErrorMessage(anError.errorDetail)
+                                Log.d(productdetail, "onError errorDetail : " + e.errorDetail)
+                                mProductDetailView.setErrorMessage(e.errorDetail)
                             }
                         } else {
                             Log.d(productdetail, "onError errorMessage : " + e.message)

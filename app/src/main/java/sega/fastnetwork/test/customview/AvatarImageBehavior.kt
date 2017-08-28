@@ -5,7 +5,6 @@ import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.View
-import de.hdodenhof.circleimageview.CircleImageView
 import sega.fastnetwork.test.R
 
 /**

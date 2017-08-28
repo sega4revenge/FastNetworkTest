@@ -2,13 +2,14 @@ package sega.fastnetwork.test.lib.SliderTypes.Transformers;
 
 import android.view.View;
 
-import com.nineoldandroids.view.ViewHelper;
+import sega.fastnetwork.test.util.ViewHelper;
+
 
 public class StackTransformer extends BaseTransformer {
 
 	@Override
 	protected void onTransform(View view, float position) {
-		ViewHelper.setTranslationX(view,position < 0 ? 0f : -view.getWidth() * position);
+		ViewHelper.INSTANCE.setTranslationX(view,position < 0 ? 0f : -view.getWidth() * position);
 	}
 
 }

@@ -26,14 +26,14 @@ class Search_FilterLocationActivity :AppCompatActivity() {
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
-        bt_all.setOnClickListener(){
+        bt_all.setOnClickListener {
             val intent = this.intent
             intent.putExtra("typeLocation", 405)
             this.setResult(INTENT_DATA_LOCATION, intent)
             finish()
         }
 
-        bt_bac.setOnClickListener(){
+        bt_bac.setOnClickListener {
             type = 1
             val intent = Intent(this@Search_FilterLocationActivity, Search_FilterLocationSecondActivity::class.java)
             intent.putExtra("type", 1)
@@ -41,14 +41,14 @@ class Search_FilterLocationActivity :AppCompatActivity() {
 
         }
 
-        bt_trung.setOnClickListener(){
+        bt_trung.setOnClickListener {
             type = 2
             val intent = Intent(this@Search_FilterLocationActivity, Search_FilterLocationSecondActivity::class.java)
             intent.putExtra("type", 2)
             startActivityForResult(intent,9999)
         }
 
-        bt_nam.setOnClickListener(){
+        bt_nam.setOnClickListener {
             type = 3
             val intent = Intent(this@Search_FilterLocationActivity, Search_FilterLocationSecondActivity::class.java)
             intent.putExtra("type", 3)

@@ -1,12 +1,11 @@
 package sega.fastnetwork.test.lib.SliderTypes.Animations;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.view.View;
 
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
-import com.nineoldandroids.view.ViewHelper;
-
 import sega.fastnetwork.test.R;
+import sega.fastnetwork.test.util.ViewHelper;
 
 
 /**
@@ -51,7 +50,7 @@ public class DescriptionAnimation implements BaseAnimationInterface {
 
         View descriptionLayout = view.findViewById(R.id.description_layout);
         if(descriptionLayout!=null){
-            float layoutY = ViewHelper.getY(descriptionLayout);
+            float layoutY = ViewHelper.INSTANCE.getY(descriptionLayout);
             view.findViewById(R.id.description_layout).setVisibility(View.VISIBLE);
             ValueAnimator animator = ObjectAnimator.ofFloat(
                     descriptionLayout,"y",layoutY + descriptionLayout.getHeight(),

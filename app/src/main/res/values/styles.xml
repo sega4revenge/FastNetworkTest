@@ -48,12 +48,7 @@
         <item name="android:textColorSecondary">@color/navigation_icon_color</item>
     </style>
 
-<!--    <style name="FontTextViewStyle" parent="@android:style/TextAppearance.Widget.TextView">
-        <item name="pix_font">fonts/Sofia.ttf</item>
-        &lt;!&ndash;  <item name="pix_fontBold">fonts/NunitoSans-Bold.ttf</item>
-          <item name="pix_fontItalic">fonts/NunitoSans-SemiBold.ttf</item>
-          <item name="pix_fontBoldItalic">fonts/QanelasSoft-ExtraBold.otf</item>&ndash;&gt;
-    </style>-->
+
 
     <style name="AppTheme.NavigationView">
         <item name="android:listDivider">@color/divider_color</item>
@@ -67,15 +62,9 @@
         <item name="android:textSize">@dimen/text_medium</item>
     </style>
 
-    <style name="ProductItemHeaderStyle">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/dist_medium</item>
-        <item name="android:textSize">@dimen/text_large</item>
-        <item name="android:textColor">@color/colorAccent</item>
-    </style>
 
-    <style name="ProductCrewItemValueStyle" parent="@style/ProductItemValueStyle"></style>
+
+
 
     <style name="ProductCastHolderStyle">
         <item name="android:layout_width">match_parent</item>

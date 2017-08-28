@@ -27,6 +27,7 @@ import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
 import sega.fastnetwork.test.activity.MainActivity
+import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
 import sega.fastnetwork.test.lib.SliderTypes.DefaultSliderView
 import sega.fastnetwork.test.lib.SliderTypes.SliderLayout
@@ -36,6 +37,7 @@ import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
+import java.lang.Long
 import java.text.DecimalFormat
 import java.util.*
 
@@ -56,7 +58,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     private var id: String = ""
     private var product: Product? = null
     private var seller: User? = null
-    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
+    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000")
     private var isTablet: Boolean = false
     private var mProductDetailPresenter: ProductDetailPresenter? = null
 
@@ -129,17 +131,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-
-        return inflater?.inflate(R.layout.fragment_product_detail, container, false)
-    }
+                              savedInstanceState: Bundle?): View? =
+            inflater?.inflate(R.layout.fragment_product_detail, container, false)
 
     private fun gotoallcomment() {
         val intent = Intent(activity, CommentActivity::class.java)
         intent.putExtra(Constants.product_ID, id)
-
-        intent.putExtra(Constants.product_NAME,product!!.productname)
-        intent.putExtra(Constants.seller_name,product!!.user!!.name)
+        intent.putExtra(Constants.product_NAME, product!!.productname)
+        intent.putExtra(Constants.seller_name, product!!.user!!.name)
         startActivity(intent)
     }
 
@@ -173,8 +172,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
         if (product!!.images!!.size != 1) {
             slider!!.setPresetTransformer(SliderLayout.Transformer.Accordion)
-            slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Top)
-            /*       slider!!.setCustomAnimation(DescriptionAnimation())*/
+            slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
+            slider!!.setCustomAnimation(DescriptionAnimation())
             slider!!.setDuration(4000)
             slider!!.addOnPageChangeListener(this)
         }
@@ -191,7 +190,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        if (product != null && id != null) {
+        if (product != null) {
             outState.putString(Constants.product_ID, id)
             outState.putParcelable(Constants.product_OBJECT, product)
             outState.putParcelable(Constants.seller_DETAIL, seller)
@@ -346,6 +345,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments3.text = product!!.comment!![2].content
             datecomment3.text = timeAgo(product!!.comment!![2].time!!)
         } else {
+
             Glide.with(this)
                     .load(product!!.comment!![0].user!!.photoprofile)
                     .thumbnail(0.1f)
@@ -382,10 +382,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     }
 
     private fun timeAgo(time: String): CharSequence? {
-        val time = DateUtils.getRelativeTimeSpanString(
-                java.lang.Long.parseLong(time),
+        return DateUtils.getRelativeTimeSpanString(
+                Long.parseLong(time),
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
-        return time
     }
 
     private fun onDownloadFailed() {

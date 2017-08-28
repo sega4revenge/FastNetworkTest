@@ -17,13 +17,12 @@ class CategoryAdapter// Constructor
 (private val context: Context, private val onproductClickListener: OnproductClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var productList: ArrayList<Category>
+    var productList: ArrayList<Category> = ArrayList()
 
 
     init {
 
-       productList = ArrayList<Category>()
-      productList.add(Category("Xe cộ","25",R.drawable.cate_vehicle))
+        productList.add(Category("Xe cộ","25",R.drawable.cate_vehicle))
         productList.add(Category("Đồ chơi","40",R.drawable.cate_toy))
         productList.add(Category("Điện tử","105",R.drawable.cate_electronic))
         productList.add(Category("Gia dụng","6",R.drawable.cate_furniture))

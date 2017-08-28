@@ -26,9 +26,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
     private Context mContext;
 
-    /**
-     * bind this Indicator with {@link sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx}
-     */
+
     private ViewPagerEx mPager;
 
     /**
@@ -55,11 +53,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
     private Drawable mSelectedDrawable;
     private Drawable mUnselectedDrawable;
 
-    /**
-     *This value is from {@link sega.fastnetwork.test.lib.SliderTypes.SliderAdapter} getRealCount() represent
-     *
-     * the indicator count that we should draw.
-     */
+
     private int mItemCount = 0;
 
     private IndicatorVisibility mVisibility = IndicatorVisibility.Visible;
@@ -102,7 +96,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
         final TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.PagerIndicator, 0, 0);
 
-        int visibility = attributes.getInt(R.styleable.PagerIndicator_visibility, IndicatorVisibility.Visible.ordinal());
+        int visibility = attributes.getInt(R.styleable.PagerIndicator_visibility,IndicatorVisibility.Visible.ordinal());
 
         for(IndicatorVisibility v : IndicatorVisibility.values()){
             if(v.ordinal() == visibility){
@@ -341,6 +335,7 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
 
         for(int i =0 ;i< mItemCount; i++){
+
             ImageView indicator = new ImageView(mContext);
             indicator.setImageDrawable(mUnselectedDrawable);
             indicator.setPadding((int)mUnSelectedPadding_Left,
@@ -424,7 +419,10 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
             );
             mPreviousSelectedIndicator = currentSelected;
         }
+
+
         mPreviousSelectedPosition = position;
+
     }
 
     @Override
@@ -437,9 +435,10 @@ public class PagerIndicator extends LinearLayout implements ViewPagerEx.OnPageCh
 
     @Override
     public void onPageSelected(int position) {
-         if(mItemCount == 0){
+        if(mItemCount == 0){
             return;
         }
+
         setItemAsSelected(position-1);
     }
     @Override

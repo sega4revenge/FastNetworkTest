@@ -16,7 +16,7 @@ class TedSquareImageView : android.support.v7.widget.AppCompatImageView {
     internal var fit_mode: String? = null
     private var fore: Drawable? = null
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
 

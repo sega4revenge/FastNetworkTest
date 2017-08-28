@@ -62,6 +62,8 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
                 R.string.navigation_drawer_close) {
             override fun onDrawerOpened(drawerView: View?) {
                 super.onDrawerOpened(drawerView)
+                if (user?.name.isNullOrEmpty())
+                    mDrawerPresenter!!.getUserDetail(AppManager.getAppAccountUserId(activity))
                 super.onDrawerSlide(drawerView, 0f)
             }
 
@@ -123,17 +125,14 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
 
         }
         addproduct.setOnClickListener {
-            startActivity(Intent(this@DrawerFragment.activity,AddActivity::class.java))
+            startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
         }
 
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-
-        return inflater!!.inflate(R.layout.fragment_drawer_main, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater!!.inflate(R.layout.fragment_drawer_main, container, false)
 
     fun isClosedDrawer() {
 
@@ -193,12 +192,12 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
                 toolbar_title.setText(R.string.nav_category)
                 fragment = CategoryFragment()
             }
-            R.id.nav_3-> {
+            R.id.nav_3 -> {
                 mPrevSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
                 fragment = DetailProfileFragment()
             }
-            R.id.nav_5-> {
+            R.id.nav_5 -> {
                 val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
                 startActivity(intent)
             }

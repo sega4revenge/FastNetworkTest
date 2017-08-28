@@ -59,19 +59,18 @@ class SearchPresenterImp(searchView : SearchView) : SearchInterface {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
-                                Log.d(TAG, "onError errorCode : " + anError.errorCode)
-                                Log.d(TAG, "onError errorBody : " + anError.errorBody)
-                                Log.d(TAG, "onError errorDetail : " + anError.errorDetail)
-                                if(anError.errorCode != 404)
-                                {  searchview.setErrorMessage(anError.errorBody.get(0).toString())
+                            if (e.errorCode != 0) {
+                                Log.d(TAG, "onError errorCode : " + e.errorCode)
+                                Log.d(TAG, "onError errorBody : " + e.errorBody)
+                                Log.d(TAG, "onError errorDetail : " + e.errorDetail)
+                                if(e.errorCode != 404)
+                                {  searchview.setErrorMessage(e.errorBody.get(0).toString())
 
                                 }else{
                                     searchview.setMessagerNotFound()
                                 }
                             } else {
-                                Log.d(TAG, "onError errorDetail : " + anError.errorDetail)
+                                Log.d(TAG, "onError errorDetail : " + e.errorDetail)
 
                             }
                         } else {

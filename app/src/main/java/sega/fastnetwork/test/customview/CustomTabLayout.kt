@@ -30,7 +30,7 @@ class CustomTabLayout : TabLayout {
     }
 
     private fun init() {
-        mTypeface = Typeface.createFromAsset(context.assets, "fonts/SF-UI-Display-Regular.ttf") // here you will provide fully qualified path for fonts
+        mTypeface = Typeface.createFromAsset(context.assets, "fonts/myriadpro-regular.otf") // here you will provide fully qualified path for fonts
     }
 
     override fun setupWithViewPager(viewPager: ViewPager?) {

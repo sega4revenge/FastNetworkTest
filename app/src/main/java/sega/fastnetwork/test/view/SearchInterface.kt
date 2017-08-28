@@ -5,6 +5,6 @@ package sega.fastnetwork.test.view
  */
 interface SearchInterface {
 
-   public fun ConnectHttp(key : String , mLocation : String , mCategory : Int ,mTypeArrange : Int)
+    fun ConnectHttp(key : String , mLocation : String , mCategory : Int ,mTypeArrange : Int)
 
 }

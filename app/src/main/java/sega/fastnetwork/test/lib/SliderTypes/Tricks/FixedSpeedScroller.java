@@ -12,7 +12,7 @@ public class FixedSpeedScroller extends Scroller {
         super(context);
     }
 
-    public FixedSpeedScroller(Context context, Interpolator interpolator) {
+    private FixedSpeedScroller(Context context, Interpolator interpolator) {
         super(context, interpolator);
     }
 

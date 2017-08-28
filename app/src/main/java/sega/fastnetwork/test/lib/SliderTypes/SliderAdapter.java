@@ -14,18 +14,18 @@ public class SliderAdapter extends PagerAdapter implements BaseSliderView.ImageL
 
     private ArrayList<BaseSliderView> mImageContents;
 
-    public SliderAdapter(Context context){
+    SliderAdapter(Context context){
         Context mContext = context;
         mImageContents = new ArrayList<BaseSliderView>();
     }
 
-    public <T extends BaseSliderView> void addSlider(T slider){
+    <T extends BaseSliderView> void addSlider(T slider){
         slider.setOnImageLoadListener(this);
         mImageContents.add(slider);
         notifyDataSetChanged();
     }
 
-    public BaseSliderView getSliderView(int position){
+    BaseSliderView getSliderView(int position){
         if(position < 0 || position >= mImageContents.size()){
             return null;
         }else{
@@ -38,7 +38,7 @@ public class SliderAdapter extends PagerAdapter implements BaseSliderView.ImageL
         return POSITION_NONE;
     }
 
-    public <T extends BaseSliderView> void removeSlider(T slider){
+    private <T extends BaseSliderView> void removeSlider(T slider){
         if(mImageContents.contains(slider)){
             mImageContents.remove(slider);
             notifyDataSetChanged();

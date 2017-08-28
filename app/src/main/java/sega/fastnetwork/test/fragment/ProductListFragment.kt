@@ -145,7 +145,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,Pr
     private fun onDownloadFailed() {
         isLoading = false
         if (pageToDownload == 1) {
-            progress_circle.visibility = View.GONE
+            progress_circle?.visibility = View.GONE
           loading_more.visibility = View.GONE
             product_recycleview.visibility = View.GONE
            swipe_refresh.isRefreshing = false

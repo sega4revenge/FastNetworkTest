@@ -1,9 +1,13 @@
 package sega.fastnetwork.test.fragment
 
 
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +17,6 @@ import android.view.inputmethod.InputMethodManager
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_comments.*
 import kotlinx.android.synthetic.main.content_comments.view.*
-import kotlinx.android.synthetic.main.toolbar_twoline.*
 import kotlinx.android.synthetic.main.toolbar_twoline.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.CommentAdapter
@@ -21,10 +24,6 @@ import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Comment
 import sega.fastnetwork.test.presenter.CommentPresenter
 import sega.fastnetwork.test.util.Constants
-import android.support.v4.app.NotificationCompat.getExtras
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.AlertDialogLayout
-import android.widget.Toast
 
 
 /**

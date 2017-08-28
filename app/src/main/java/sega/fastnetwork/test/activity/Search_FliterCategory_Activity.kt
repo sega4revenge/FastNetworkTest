@@ -23,31 +23,31 @@ class Search_FliterCategory_Activity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
 
-        category_all.setOnClickListener(){
+        category_all.setOnClickListener {
             IntenData(0)
         }
-        category_motorbike.setOnClickListener(){
+        category_motorbike.setOnClickListener {
             IntenData(1)
         }
-        category_electronic.setOnClickListener(){
+        category_electronic.setOnClickListener {
             IntenData(2)
         }
-        category_education.setOnClickListener(){
+        category_education.setOnClickListener {
             IntenData(3)
         }
-        category_toy.setOnClickListener(){
+        category_toy.setOnClickListener {
             IntenData(4)
         }
-        category_houseware.setOnClickListener(){
+        category_houseware.setOnClickListener {
             IntenData(5)
         }
-        category_fashion.setOnClickListener(){
+        category_fashion.setOnClickListener {
             IntenData(6)
         }
-        category_home.setOnClickListener(){
+        category_home.setOnClickListener {
             IntenData(7)
         }
-        category_different.setOnClickListener(){
+        category_different.setOnClickListener {
             IntenData(8)
         }
     }

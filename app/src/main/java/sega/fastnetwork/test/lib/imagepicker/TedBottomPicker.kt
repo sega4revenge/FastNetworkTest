@@ -101,7 +101,7 @@ class TedBottomPicker : BottomSheetDialogFragment() {
             cameraImageUri = builder!!.selectedUri
             tempUriList = builder!!.selectedUriList
         } else {
-            cameraImageUri = savedInstanceState.getParcelable<Uri>(EXTRA_CAMERA_IMAGE_URI)
+            cameraImageUri = savedInstanceState.getParcelable(EXTRA_CAMERA_IMAGE_URI)
             tempUriList = savedInstanceState.getParcelableArrayList<Uri>(EXTRA_CAMERA_SELECTED_IMAGE_URI)
         }
 
@@ -153,7 +153,7 @@ class TedBottomPicker : BottomSheetDialogFragment() {
         setRecyclerView()
         setSelectionView()
 
-        selectedUriList = ArrayList<Uri>()
+        selectedUriList = ArrayList()
 
 
         if (builder!!.onImageSelectedListener != null && cameraImageUri != null) {

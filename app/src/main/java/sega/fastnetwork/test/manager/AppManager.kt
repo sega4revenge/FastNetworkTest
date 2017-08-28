@@ -187,19 +187,18 @@ object AppManager {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
+                            if (e.errorCode != 0) {
                                 // received ANError from server
                                 // error.getErrorCode() - the ANError code from server
                                 // error.getErrorBody() - the ANError body from server
                                 // error.getErrorDetail() - just a ANError detail
-                                Log.d(userdetail, "onError errorCode : " + anError.errorCode)
-                                Log.d(userdetail, "onError errorBody : " + anError.errorBody)
-                                Log.d(userdetail, "onError errorDetail : " + anError.errorDetail)
+                                Log.d(userdetail, "onError errorCode : " + e.errorCode)
+                                Log.d(userdetail, "onError errorBody : " + e.errorBody)
+                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
 
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(userdetail, "onError errorDetail : " + anError.errorDetail)
+                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
 
                             }
                         } else {

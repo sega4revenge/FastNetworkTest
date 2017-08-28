@@ -2,24 +2,19 @@ package sega.fastnetwork.test.adapter
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.layout_comments.view.*
-import kotlinx.android.synthetic.main.product_item_compact.view.*
-import kotlinx.android.synthetic.main.toolbar_twoline.view.*
-
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.model.Comment
 import sega.fastnetwork.test.util.Constants
+import java.lang.Long
 import java.text.DecimalFormat
 import java.util.*
 
@@ -33,12 +28,12 @@ class CommentAdapter// Constructor
     var commentsList: ArrayList<Comment>
 
     private val imageWidth: Int
-    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
+    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000")
 
     init {
         imageWidth = sharedPref.getInt(Constants.THUMBNAIL_SIZE,
                 0)   // Load image width for grid view
-        commentsList = ArrayList<Comment>()
+        commentsList = ArrayList()
 
         val current = Locale("vi", "VN")
         val cur = Currency.getInstance(current)
@@ -117,10 +112,9 @@ class CommentAdapter// Constructor
         fun oncommentClicked(position: Int)
     }
     private fun timeAgo(time: String): CharSequence? {
-        var time = DateUtils.getRelativeTimeSpanString(
-                java.lang.Long.parseLong(time),
+        return DateUtils.getRelativeTimeSpanString(
+                Long.parseLong(time),
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
-        return time
     }
 
 }

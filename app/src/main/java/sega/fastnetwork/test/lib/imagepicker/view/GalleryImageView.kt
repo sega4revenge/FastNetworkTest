@@ -15,11 +15,11 @@ class GalleryImageView : android.support.v7.widget.AppCompatImageView {
 
     private val mOnImageViewListener: OnImageViewListener? = null
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {}
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     interface OnImageViewListener {
         fun onDetach()
