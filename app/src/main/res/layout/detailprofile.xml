@@ -101,7 +101,7 @@
             android:background="@color/white"
             android:minHeight="?actionBarSize"
             app:tabBackground="@color/white"
-            app:tabIndicatorColor="@color/colorAccent"
+            app:tabIndicatorColor="@color/color_background_button"
             app:tabSelectedTextColor="@color/black"
 
             app:tabTextColor="@color/black" />

@@ -2,7 +2,6 @@ package sega.fastnetwork.test.activity
 
 import android.accounts.Account
 import android.accounts.AccountManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.StrictMode
@@ -27,7 +26,6 @@ import org.json.JSONException
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
 import sega.fastnetwork.test.manager.AppManager
-import sega.fastnetwork.test.manager.SessionManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.LoginPresenter
 import sega.fastnetwork.test.util.Constants
@@ -40,7 +38,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     var user: User? = null
     var TAG = "Login Activity"
     private var callbackManager: CallbackManager? = null
-    var session: SessionManager? = null
+
     private var mGoogleApiClient: GoogleApiClient? = null
     private val RC_SIGN_IN = 7
     var mLoginPresenter: LoginPresenter? = null
@@ -48,7 +46,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FacebookSdk.sdkInitialize(applicationContext)
-        session = SessionManager(this)
+
         callbackManager = CallbackManager.Factory.create()
         setContentView(R.layout.activity_login)
         mAccountManager = AccountManager.get(this)
@@ -201,7 +199,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     override fun isLoginSuccessful(isLoginSuccessful: Boolean) {
         if (isLoginSuccessful)
             CircularAnim.fullActivity(this@LoginActivity, progressBar)
-                    .colorOrImageRes(R.color.colorAccent)
+                    .colorOrImageRes(R.color.color_background_button)
                     .go(object : CircularAnim.OnAnimationEndListener {
                         override fun onAnimationEnd() {
                             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
@@ -248,16 +246,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     override fun getUserDetail(user: User) {
-        account = Account(user.name, AppManager.ACCOUNT_TYPE)
-        if (mAccountManager!!.addAccountExplicitly(account, user.password, null)) {
-            println("tao thanh cong")
-            AppManager.saveAccountUser(this, account!!, user, type)
-        } else {
-            account = AppManager.getAppAccount(this)
-            val accountManager = this.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
-            accountManager.setUserData(account, AppManager.USER_DATA_ID, user._id)
-            accountManager.setUserData(account, AppManager.USER_TYPE, type.toString())
-        }
+        AppManager.saveAccountUser(this, user, type)
         this.user = user
     }
 

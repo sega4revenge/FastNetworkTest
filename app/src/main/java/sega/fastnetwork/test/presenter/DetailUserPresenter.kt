@@ -8,6 +8,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
 
@@ -41,6 +42,7 @@ class DetailUserPresenter(view: DetailUserPresenter.DetailUserView) {
                         Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
 
                         mDetailView.getUserDetail(user!!)
+
                     }
 
 

@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_tab1.*
+import kotlinx.android.synthetic.main.fragment_product_list.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
@@ -47,7 +47,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,Pr
         product_recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         product_recycleview.adapter = adapter
-        swipe_refresh.setColorSchemeResources(R.color.colorAccent)
+        swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
             // Toggle visibility
             error_message.visibility = View.GONE
@@ -96,7 +96,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,Pr
                               savedInstanceState: Bundle?): View? {
 
 
-        return inflater!!.inflate(R.layout.fragment_tab1, container, false)
+        return inflater!!.inflate(R.layout.fragment_product_list, container, false)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {

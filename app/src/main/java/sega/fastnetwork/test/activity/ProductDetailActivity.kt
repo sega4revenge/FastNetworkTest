@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.ProductDetailFragment
 import sega.fastnetwork.test.manager.AppManager
-import sega.fastnetwork.test.manager.SessionManager
 import sega.fastnetwork.test.util.Constants
 
 /**
@@ -20,12 +19,12 @@ import sega.fastnetwork.test.util.Constants
 class ProductDetailActivity : AppCompatActivity() {
     internal var rate: Double? = null
     internal var userId: String = ""
-    internal var session: SessionManager? = null
+
     var fragment : Fragment?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
-        session = SessionManager(this)
+
 
 
         val i = Intent(applicationContext, LoginActivity::class.java)

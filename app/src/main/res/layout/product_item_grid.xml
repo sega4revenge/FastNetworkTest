@@ -131,7 +131,7 @@
                 android:maxLines="1"
 
                 android:paddingTop="@dimen/dist_small"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/color_background_button"
                 android:layout_gravity="center_horizontal"
                 tools:text="2015" />
 

@@ -34,7 +34,7 @@
         android:gravity="center_horizontal"
         android:padding="@dimen/error_try_again_padding"
         android:text="@string/try_again"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/color_background_button"
         android:textSize="@dimen/text_xxlarge" />
 
 </LinearLayout>

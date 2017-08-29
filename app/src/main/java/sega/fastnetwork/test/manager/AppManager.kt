@@ -7,26 +7,19 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Looper
 import android.support.annotation.Nullable
 import android.util.Log
 import android.widget.Toast
-import com.androidnetworking.error.ANError
 import com.facebook.FacebookSdk.getApplicationContext
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.GoogleApiClient
-import com.rx2androidnetworking.Rx2AndroidNetworking
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import com.google.gson.Gson
 import io.socket.client.Socket
 import sega.fastnetwork.test.MyApplication
 import sega.fastnetwork.test.activity.LoginActivity
 import sega.fastnetwork.test.model.User
-import sega.fastnetwork.test.util.Constants
 
 
 /**
@@ -36,7 +29,10 @@ import sega.fastnetwork.test.util.Constants
 object AppManager {
     val ACCOUNT_TYPE = "sega.fastnetwork.test"
     val USER_DATA_ID = "USER_DATA_ID"
+    val USER_DATA = "USER_DATA"
     val USER_TYPE = "USER_TYPE"
+    val USER_NAME = "USER_NAME"
+    val USER_PHOTOPROFILE = "USER_PHOTOPROFILE"
     val USER_DATA_USERNAME = "USER_DATA_USERNAME"
     val USER_DATA_VERSION = "USER_DATA_VERSION"
     val CURRENT_USER_DATA_VERSION = "1"
@@ -53,7 +49,7 @@ object AppManager {
         val am = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
         val accountsFromFirstApp = am.getAccountsByType(AppManager.ACCOUNT_TYPE)
 
-        if (accountsFromFirstApp.size > 0) {
+        if (accountsFromFirstApp.isNotEmpty()) {
             return accountsFromFirstApp[0]
         }
         return null
@@ -66,11 +62,11 @@ object AppManager {
         val am = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
         val accountsFromFirstApp = am.getAccountsByType(AppManager.ACCOUNT_TYPE)
 
-        try {
-            return am.getUserData(accountsFromFirstApp[0], AppManager.USER_DATA_ID)
+        return try {
+            am.getUserData(accountsFromFirstApp[0], AppManager.USER_DATA_ID)
         } catch (e: IllegalArgumentException) {
 
-            return ""
+            ""
         }
 
     }
@@ -136,83 +132,24 @@ object AppManager {
      */
 
 
-    fun saveAccountUser(context: Context, account: Account, user: User,type : Int) {
-
-
+    fun saveAccountUser(context: Context, user: User,type : Int) {
         val accountManager = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
+        var account = Account(user.name, AppManager.ACCOUNT_TYPE)
+        if (accountManager.addAccountExplicitly(account, user.password, null)) {
+            println("tao thanh cong")
+        } else {
+            account = AppManager.getAppAccount(context)!!
+        }
         accountManager.setUserData(account, AppManager.USER_DATA_ID, user._id)
+        accountManager.setUserData(account, AppManager.USER_DATA, Gson().toJson(user))
         accountManager.setUserData(account, AppManager.USER_TYPE, type.toString())
-        /* accountManager.setUserData(account, AppManager.USER_DATA_USERNAME, user.name)
-         accountManager.setUserData(account, AppManager.USER_DATA_EMAIL, user.email)
-         accountManager.setUserData(account, AppManager.USER_DATA_GOOGLE_ID, user.google?.id)
-         accountManager.setUserData(account, AppManager.USER_DATA_GOOGLE_TOKEN, user.google?.token)
-         accountManager.setUserData(account, AppManager.USER_DATA_GOOGLE_NAME, user.google?.name)
-         accountManager.setUserData(account, AppManager.USER_DATA_GOOGLE_EMAIL, user.google?.email)
-         accountManager.setUserData(account, AppManager.USER_DATA_FACEBOOK_EMAIL, user.facebook?.email)
-         accountManager.setUserData(account, AppManager.USER_DATA_FACEBOOK_EMAIL, user.facebook?.email)
-         accountManager.setUserData(account, AppManager.USER_DATA_FACEBOOK_EMAIL, user.facebook?.email)
-         accountManager.setUserData(account, AppManager.USER_DATA_FACEBOOK_EMAIL, user.facebook?.email)*/
+
+
         accountManager.setUserData(account, AppManager.USER_DATA_VERSION, AppManager.CURRENT_USER_DATA_VERSION)
     }
-    fun getSocket(application : Application) : Socket? {
-        return (application as MyApplication).getSocket()
+    fun getUserDatafromAccount(context: Context,account: Account) : User{
+        val accountManager = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
+        return Gson().fromJson(accountManager.getUserData(account, AppManager.USER_DATA), User::class.java)
     }
-    fun getUserDetail(userid: String) : User? {
-        val userdetail = "USERDETAIL"
-        var userinfo : User?=null
-        Rx2AndroidNetworking.get(Constants.BASE_URL + "/data/{userid}")
-                .addPathParameter("userid",userid)
-                .build()
-                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
-                    Log.d(userdetail, " timeTakenInMillis : " + timeTakenInMillis)
-                    Log.d(userdetail, " bytesSent : " + bytesSent)
-                    Log.d(userdetail, " bytesReceived : " + bytesReceived)
-                    Log.d(userdetail, " isFromCache : " + isFromCache)
-                }
-                .getObjectObservable(User::class.java)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<User> {
-                    override fun onNext(user: User?) {
-                        Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-
-                        userinfo = user
-                    }
-
-
-                    override fun onComplete() {
-
-
-                    }
-
-                    override fun onError(e: Throwable) {
-                        if (e is ANError) {
-                            if (e.errorCode != 0) {
-                                // received ANError from server
-                                // error.getErrorCode() - the ANError code from server
-                                // error.getErrorBody() - the ANError body from server
-                                // error.getErrorDetail() - just a ANError detail
-                                Log.d(userdetail, "onError errorCode : " + e.errorCode)
-                                Log.d(userdetail, "onError errorBody : " + e.errorBody)
-                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-
-                            } else {
-                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-
-                            }
-                        } else {
-                            Log.d(userdetail, "onError errorMessage : " + e.message)
-
-                        }
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-
-                })
-        return userinfo
-    }
+    fun getSocket(application : Application) : Socket? = (application as MyApplication).getSocket()
 }

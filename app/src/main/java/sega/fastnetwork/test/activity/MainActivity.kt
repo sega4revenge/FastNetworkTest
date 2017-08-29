@@ -7,22 +7,21 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_main.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.DrawerFragment
-import sega.fastnetwork.test.manager.SessionManager
 
 /**
  * Created by sega4 on 08/08/2017.
  */
 
 class MainActivity : AppCompatActivity() {
-    internal var isTablet: Boolean = false
+    private var isTablet: Boolean = false
     internal var fragment: Fragment? = null
-    internal var session: SessionManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        session = SessionManager(this)
+
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1")
@@ -31,13 +30,13 @@ class MainActivity : AppCompatActivity() {
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
 
         if (isTablet && savedInstanceState == null) {
-            if (session!!.lastpage == "setting") {
+           /* if (session!!.lastpage == "setting") {
                 loadSettingFragment()
                 println(session!!.lastpage)
-            } else {
+            } else {*/
 
                 loadDetailFragmentWith("null")
-            }
+
         }
 
 

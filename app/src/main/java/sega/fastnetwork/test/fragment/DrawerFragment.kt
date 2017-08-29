@@ -1,5 +1,6 @@
 package sega.fastnetwork.test.fragment
 
+
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -19,13 +20,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_drawer_main.*
-import kotlinx.android.synthetic.main.header.*
+import kotlinx.android.synthetic.main.header.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.AddActivity
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
-import sega.fastnetwork.test.presenter.DrawerPresenter
 import sega.fastnetwork.test.util.Constants
 
 
@@ -33,14 +33,14 @@ import sega.fastnetwork.test.util.Constants
  * Created by sega4 on 08/08/2017.
  */
 
-class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.OnNavigationItemSelectedListener {
+class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
     var viewtype: Int = 1
     private val mDrawerHandler = Handler()
     private var mPrevSelectedId: Int = 0
     private var mSelectedId: Int = 0
-    var mDrawerPresenter: DrawerPresenter? = null
-    internal var isTablet: Boolean? = null
-    var user: User? = null
+
+    private var isTablet: Boolean? = null
+
     var fragment: Fragment? = null
 
     private var preferences: SharedPreferences? = null
@@ -49,8 +49,7 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
         preferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
         // Setup toolbar
         isTablet = resources.getBoolean(R.bool.is_tablet)
-        mDrawerPresenter = DrawerPresenter(this)
-        mDrawerPresenter!!.getUserDetail(AppManager.getAppAccountUserId(activity))
+
         if (view != null) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
         }
@@ -62,8 +61,6 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
                 R.string.navigation_drawer_close) {
             override fun onDrawerOpened(drawerView: View?) {
                 super.onDrawerOpened(drawerView)
-                if (user?.name.isNullOrEmpty())
-                    mDrawerPresenter!!.getUserDetail(AppManager.getAppAccountUserId(activity))
                 super.onDrawerSlide(drawerView, 0f)
             }
 
@@ -127,12 +124,26 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
         addproduct.setOnClickListener {
             startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
         }
-
+        var user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
+        val options = RequestOptions()
+                .centerCrop()
+                .dontAnimate()
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.img_error)
+                .priority(Priority.HIGH)
+        Glide.with(this)
+                .load(user.photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(navigation_view.getHeaderView(0).avatar_header)
+        navigation_view.getHeaderView(0).username_header.text = user.name
+        navigation_view.getHeaderView(0).email_header.text  = user.email
 
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater!!.inflate(R.layout.fragment_drawer_main, container, false)
+
 
     fun isClosedDrawer() {
 
@@ -147,28 +158,10 @@ class DrawerFragment : Fragment(), DrawerPresenter.DrawerView, NavigationView.On
         super.onResume()
 
     }
+    fun setUserDetail(user : User){
 
-    override fun setErrorMessage(errorMessage: String) {
-        println(errorMessage)
     }
 
-    override fun getUserDetail(user: User) {
-        this.user = user
-
-        val options = RequestOptions()
-                .centerCrop()
-                .dontAnimate()
-                .placeholder(R.drawable.logo)
-                .error(R.drawable.img_error)
-                .priority(Priority.HIGH)
-        Glide.with(this)
-                .load(user.photoprofile)
-                .thumbnail(0.1f)
-                .apply(options)
-                .into(avatar_header)
-        username_header.text = user.name
-        email_header.text = user.email
-    }
 
     fun switchFragment(itemId: Int) {
         mSelectedId = navigation_view!!.menu.getItem(itemId).itemId

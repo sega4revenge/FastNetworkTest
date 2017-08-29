@@ -44,14 +44,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/color_background_button"
                 android:textSize="16sp"
                 tools:text="Price" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/color_background_button"
                     android:text="đ"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/color_background_button"
                     android:text=" 1"
                     />
 

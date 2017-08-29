@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
+import android.support.v4.util.ArrayMap
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,11 +15,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import com.allattentionhere.fabulousfilter.AAH_FabulousFragment
 import kotlinx.android.synthetic.main.filter_product.view.*
 import kotlinx.android.synthetic.main.searchmain_layout.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
+import sega.fastnetwork.test.fragment.FilterFragment
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.SearchPresenterImp
 import sega.fastnetwork.test.util.Constants
@@ -30,7 +33,29 @@ import sega.fastnetwork.test.view.SearchView
 /**
  * Created by VinhNguyen on 8/9/2017.
  */
-class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductClickListener {
+class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks, AAH_FabulousFragment.AnimationListener {
+    override fun onResult(result: Any) {
+        Log.d("k9res", "onResult: " + result.toString())
+    }
+
+    override fun onOpenAnimationStart() {
+        Log.d("aah_animation", "onOpenAnimationStart: ")
+    }
+
+    override fun onOpenAnimationEnd() {
+        Log.d("aah_animation", "onOpenAnimationEnd: ")
+
+    }
+
+    override fun onCloseAnimationStart() {
+        Log.d("aah_animation", "onCloseAnimationStart: ")
+
+    }
+
+    override fun onCloseAnimationEnd() {
+        Log.d("aah_animation", "onCloseAnimationEnd: ")
+
+    }
 
 
     private val INTENT_DATA_AllLOCATION = 100
@@ -52,9 +77,13 @@ class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductCl
     private var isLoadingLocked: Boolean = false
     private var pageToDownload: Int = 0
     internal var isTablet: Boolean = false
+    private val applied_filters = ArrayMap<String, List<String>>()
     private var layoutManager: GridLayoutManager? = null
     private var adapter: ProductAdapter? = null
     private  var handler : Handler? = null
+    fun getApplied_filters(): ArrayMap<String, List<String>> {
+        return applied_filters
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.searchmain_layout)
@@ -72,11 +101,14 @@ class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductCl
         tabArrange.setOnClickListener {
             ShowArrange()
         }
+        val dialogFrag = FilterFragment.newInstance()
+        dialogFrag.setParentFab(fab_search)
+        fab_search.setOnClickListener(View.OnClickListener { dialogFrag.show(supportFragmentManager, dialogFrag.getTag()) })
         product_recycleview.setHasFixedSize(true)
         product_recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         product_recycleview.adapter = adapter
-        swipe_refresh.setColorSchemeResources(R.color.colorAccent)
+        swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
             error_message.visibility = View.GONE
             progress_circle.visibility = View.GONE

@@ -42,4 +42,7 @@
     <color name="dot_light_screen4">#e4b5fc</color>
     <color name="red">#F44336</color>
     <color name="default_image_background">#d8d8d8</color>
+
+    <color name="filters_chips">#b3e5fc</color>
+    <color name="filters_header">#303f9f</color>
 </resources>
