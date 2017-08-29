@@ -3,6 +3,7 @@ package sega.fastnetwork.test.presenter
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.rx2androidnetworking.Rx2AndroidNetworking
+import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -21,8 +22,11 @@ import sega.fastnetwork.test.view.SearchView
 class SearchPresenterImp(searchView : SearchView) : SearchInterface {
     private val  searchview = searchView
     private val TAG :String = "SearchTag"
+    var request: Observable<ResponseListProduct>? = null
     override fun ConnectHttp(key: String, mLocation: String, mCategory: Int, mTypeArrange: Int) {
         var category = ""
+
+
         if(mCategory!=0)
         {
             category = (mCategory-1).toString()
@@ -36,17 +40,22 @@ class SearchPresenterImp(searchView : SearchView) : SearchInterface {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        Rx2AndroidNetworking.post(Constants.BASE_URL + "search")
+
+      request =  Rx2AndroidNetworking.post(Constants.BASE_URL + "search")
+                .setTag("search")
                 .addJSONObjectBody(jsonObject)
                 .build()
+
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
                     Log.d(TAG, " timeTakenInMillis : " + timeTakenInMillis)
                     Log.d(TAG, " bytesSent : " + bytesSent)
                     Log.d(TAG, " bytesReceived : " + bytesReceived)
                     Log.d(TAG, " isFromCache : " + isFromCache)
                 }
+
                 .getObjectObservable(ResponseListProduct::class.java)
-                .subscribeOn(Schedulers.io())
+
+                request!!.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<ResponseListProduct> {
                     override fun onNext(response: ResponseListProduct?) {
@@ -88,8 +97,12 @@ class SearchPresenterImp(searchView : SearchView) : SearchInterface {
 
 
                 })
+
     }
 
+    fun cancelRequest(){
+        request?.unsubscribeOn(Schedulers.io())
+    }
 
 
 

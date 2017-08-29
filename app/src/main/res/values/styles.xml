@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
@@ -17,14 +18,25 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
 
+
+        <!-- No backgrounds, titles or window float -->
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
 
     </style>
-
+    <style
+        name="dialog_animation_fade" >
+        <item name="android:windowEnterAnimation">@anim/bottomsheet_enter</item>
+        <item name="android:windowExitAnimation">@anim/bottomsheet_exit</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -62,8 +74,10 @@
         <item name="android:textSize">@dimen/text_medium</item>
     </style>
 
-
-
+    <style name="SearchViewMy" parent="Widget.AppCompat.Light.SearchView">
+        <item name="submitBackground">@color/divider_color</item>
+        <item name="queryBackground">@color/divider_color</item>
+    </style>
 
 
     <style name="ProductCastHolderStyle">

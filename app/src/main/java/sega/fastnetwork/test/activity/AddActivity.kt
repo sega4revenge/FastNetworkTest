@@ -51,7 +51,7 @@ import sega.fastnetwork.test.util.Constants
 import java.io.File
 import java.util.*
 
-class AddActivity : AppCompatActivity(),AddPresenter.AddView {
+class AddActivity : AppCompatActivity(), AddPresenter.AddView {
 
     private val PLACE_PICKER_REQUEST = 3
     var mNotificationManager: NotificationManager? = null
@@ -66,20 +66,20 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
-      /*   try {
-        val info = getPackageManager().getPackageInfo(
-                "sega.fastnetwork.test",
-                PackageManager.GET_SIGNATURES);
-        for (signature in info.signatures) {
-            val md = MessageDigest.getInstance("SHA");
-            md.update(signature.toByteArray());
-            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-    } catch (e: PackageManager.NameNotFoundException) {
+        /*   try {
+          val info = getPackageManager().getPackageInfo(
+                  "sega.fastnetwork.test",
+                  PackageManager.GET_SIGNATURES);
+          for (signature in info.signatures) {
+              val md = MessageDigest.getInstance("SHA");
+              md.update(signature.toByteArray());
+              Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+              }
+      } catch (e: PackageManager.NameNotFoundException) {
 
-    } catch (e: NoSuchAlgorithmException) {
+      } catch (e: NoSuchAlgorithmException) {
 
-    }*/
+      }*/
         setSupportActionBar(toolbar_addproduct)
         toolbar_addproduct.inflateMenu(R.menu.uploadproduct_menu)
         toolbar_addproduct.setTitleTextColor(Color.BLACK)
@@ -264,9 +264,9 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
     }
 
     override fun isCreateSuccess(success: Boolean, productid: String, type: String) {
-        Log.e("PROID",productid)
-        if (success){
-            if(type == "1"){
+        Log.e("PROID", productid)
+        if (success) {
+            if (type == "1") {
                 uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])), productid)
             }
         }
@@ -315,7 +315,7 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
         val startTime = System.nanoTime()
         val observable = Rx2AndroidNetworking.upload(Constants.BASE_URL + "upload")
                 .addMultipartParameter("productid", productid)
-                .addMultipartFile("image", CompressImage.compressImage(file,this))
+                .addMultipartFile("image", CompressImage.compressImage(file, this))
                 .build()
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
                     Log.d(TAG, " timeTakenInMillis : " + timeTakenInMillis)
@@ -334,6 +334,7 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
 
                 }
                 .jsonObjectObservable
+
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<JSONObject> {
@@ -394,11 +395,13 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
 
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.uploadproduct_menu, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -407,34 +410,29 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
 
 
         if (id == R.id.action_uploadproduct) {
-            if(toggle.checkedRadioButtonId == borrow.id){
-                Toast.makeText(this, time.selectedItemPosition.toString()+" "+category.selectedItemPosition.toString(), Toast.LENGTH_LONG).show()
+            if (toggle.checkedRadioButtonId == borrow.id) {
+                Toast.makeText(this, time.selectedItemPosition.toString() + " " + category.selectedItemPosition.toString(), Toast.LENGTH_LONG).show()
                 if (uriList!!.size == 0) {
                     Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
-                }
-                else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
+                } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
-                }
-                else {
+                } else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this),productname.text.toString(),price.text.toString(),time.selectedItemPosition.toString(),number.text.toString(),category.selectedItemPosition.toString(),addressEdit.text.toString(),description.text.toString(),Constants.BORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedItemPosition.toString(), number.text.toString(), category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), Constants.BORROW)
                 }
-            }else if(toggle.checkedRadioButtonId == needborrow.id){
+            } else if (toggle.checkedRadioButtonId == needborrow.id) {
                 Toast.makeText(this, "Can thueeeeeeee", Toast.LENGTH_LONG).show()
                 if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedItemPosition.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
-                }
-
-                else {
+                } else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this),productname.text.toString(),"","",number.text.toString(),category.selectedItemPosition.toString(),addressEdit.text.toString(),description.text.toString(),Constants.NEEDBORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), Constants.NEEDBORROW)
                 }
             }
             System.out.println("upload")
 //            startActivity(Intent(applicationContext, AddActivity::class.java))
             return true
-        }
-        else if(id == android.R.id.home){
+        } else if (id == android.R.id.home) {
 //            Log.e("AaaA","AAA")
             onBackPressed()
             return true

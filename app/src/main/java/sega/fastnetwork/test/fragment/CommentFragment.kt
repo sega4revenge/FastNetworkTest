@@ -131,7 +131,7 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
         activity.unregisterReceiver(appendChatScreenMsgReceiver)
     }
 
-    var appendChatScreenMsgReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+    private var appendChatScreenMsgReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val b = intent.extras
             if (b != null) {

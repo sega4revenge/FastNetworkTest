@@ -23,11 +23,9 @@ import kotlinx.android.synthetic.main.fragment_product_detail.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
-
 import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
-
 import kotlinx.android.synthetic.main.toolbar_twoline.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
@@ -36,7 +34,6 @@ import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
 import sega.fastnetwork.test.lib.SliderTypes.DefaultSliderView
 import sega.fastnetwork.test.lib.SliderTypes.SliderLayout
-
 import sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Product
@@ -228,6 +225,20 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_user_email.text = product!!.user?.email
         product_user_address.text = product!!.address
         println(product!!._id)
+        when (product!!.category) {
+            "0" -> product_category.setImageResource(R.drawable.cate_vehicle)
+            "1" -> product_category.setImageResource(R.drawable.cate_toy)
+            "2" -> product_category.setImageResource(R.drawable.cate_electronic)
+            "3" -> product_category.setImageResource(R.drawable.cate_furniture)
+            "4" -> product_category.setImageResource(R.drawable.cate_fashion)
+            "5" -> product_category.setImageResource(R.drawable.cate_home)
+            "6" -> product_category.setImageResource(R.drawable.cate_education)
+            "7" -> product_category.setImageResource(R.drawable.cate_music)
+            "8" -> product_category.setImageResource(R.drawable.cate_machine)
+            else -> { // Note the block
+                product_category.setImageResource(R.drawable.cate_more)
+            }
+        }
 //        FirebaseMessaging.getInstance().subscribeToTopic(product!!._id)
         /* val timeAgo = DateUtils.getRelativeTimeSpanString(
                  java.lang.Long.parseLong(product!!.productdate),

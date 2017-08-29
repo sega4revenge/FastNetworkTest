@@ -10,7 +10,7 @@
     <!--<color name="colorAccent">#c8e8ff</color>-->
     <!--<color name="colorPrimary">#3F51B5</color>-->
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccent">#EC407A</color>
     <color name="white">#ffffff</color>
 
 
@@ -45,4 +45,8 @@
 
     <color name="filters_chips">#b3e5fc</color>
     <color name="filters_header">#303f9f</color>
+
+
+
+
 </resources>

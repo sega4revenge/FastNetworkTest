@@ -1,210 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:contentInsetStart="0dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="100"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp">
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
-                android:gravity="left">
-                <ImageView
-                    android:id="@+id/arrowBackSearch"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@mipmap/ic_arrow_left_white"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Search"
-                android:layout_weight="75"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-             />
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
-                android:gravity="center|right">
-                <ImageView
-                    android:id="@+id/stylelist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/action_grid"/>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="100"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
 
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="90"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar"
+            android:orientation="vertical"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignBottom="@+id/action_grid"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/white"
+                android:theme="@style/Theme.Samita.Toolbar">
+
+            </android.support.v7.widget.Toolbar>
+
+            <ImageButton
+                android:id="@+id/action_grid"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:gravity="right"
+                android:src="@drawable/action_grid" />
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:src="@drawable/back_arrow" />
+
+            <SearchView
+
                 android:id="@+id/ed_search"
-                android:hint="Search..."
-                android:textColor="@color/black"
-                android:textColorHint="@color/input_register"
-                android:drawableLeft="@drawable/action_search"
-                android:drawablePadding="15dp"
-                android:paddingLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@+id/action_grid"
+
+                android:layout_toRightOf="@+id/back_button"
                 android:background="@drawable/radius_edit"
                 android:enabled="true"
+                android:hint="Search..."
                 android:maxLines="1"
+                android:paddingBottom="5dp"
+                android:paddingLeft="0dp"
+                android:queryBackground="@color/divider_color"
+                app:queryBackground="@color/divider_color"
+                android:paddingRight="15dp"
+                android:paddingTop="5dp"
                 android:singleLine="true"
-
-                >
-            </EditText>
-
-
-        </LinearLayout>
-    </LinearLayout>
+                android:textColor="@color/black"
+                android:textColorHint="@color/divider_color"
+                tools:ignore="MissingPrefix" />
 
 
-        </android.support.v7.widget.Toolbar>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="100"
-                android:gravity="center"
-                >
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="33.2"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:id="@+id/tabLocation">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/ic_location_on_black_24dp"/>
-                    <TextView
-                        android:id="@+id/txt_namelocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Location"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="15dp"
-                        android:textColor="@color/black"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="0.1"
-                    android:background="@color/cyan"></View>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="33.2"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:id="@+id/tabCategory">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/ic_category_black_24dp"/>
-                    <TextView
-                        android:id="@+id/txt_namecategory"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Category"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="15dp"
-                        android:textColor="@color/black"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="0.1"
-                    android:background="@color/cyan"></View>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="33.2"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:id="@+id/tabArrange">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_search_xx"/>
-                    <TextView
-                        android:id="@+id/txt_namearrange"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Arrange"
-                        android:layout_marginLeft="5dp"
-                        android:textSize="15dp"
-                        android:textColor="@color/black"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_below="@+id/tab_layout"
-                android:background="@drawable/toolbar_shadow" />
-        </LinearLayout>
-
+        </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:layout_marginBottom="90dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
             <!-- To show when unable to load data -->
             <include
@@ -216,30 +105,21 @@
 
 
             <TextView
+                android:id="@+id/txt_notfound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:id="@+id/txt_notfound"
                 android:text="Product Not Found"
-                android:textSize="18dp"
                 android:textColor="@color/black"
-                android:visibility="gone"/>
+                android:textSize="18dp"
+                android:visibility="gone" />
+
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/swipe_refresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-               >
+                android:layout_height="match_parent">
 
                 <!-- Recycler View -->
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/product_recycleview"
-                    android:name="sega.fastnetwork.test.productGridFragment"
-                    android:layout_width="match_parent"
-                    android:background="#f8f8f9"
-                    android:layout_height="match_parent"
-                    android:clipToPadding="false"
-                    android:padding="@dimen/recycler_view_padding"
-                    />
 
             </android.support.v4.widget.SwipeRefreshLayout>
             <!-- Progress Circle -->
@@ -249,8 +129,7 @@
                 android:layout_width="@dimen/progress_circle_width"
                 android:layout_height="@dimen/progress_circle_height"
                 android:layout_centerInParent="true"
-                android:visibility="visible"
-                />
+                android:visibility="visible" />
 
             <!-- Pull to Refresh -->
             <!-- Indicator for loading more -->
@@ -262,8 +141,19 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="80dp"
-                android:visibility="gone"
-                 />
+                android:visibility="gone" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/product_recycleview"
+                android:name="sega.fastnetwork.test.productGridFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="#f8f8f9"
+                android:clipToPadding="false"
+                android:padding="@dimen/recycler_view_padding" />
 
             <!--<include-->
             <!--layout="@layout/layout_detail_fab"-->
@@ -284,12 +174,16 @@
                   android:layout_marginBottom="10dp" />-->
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
         android:src="@drawable/call"
+        app:layout_anchor="@+id/appBarLayout"
+        app:layout_anchorGravity="bottom|right|end"
         app:menu_colorNormal="@color/color_background_button"
-        app:menu_colorPressed="@color/colorPrimaryDark"
-        />
+        app:menu_colorPressed="@color/colorPrimaryDark" />
+
 </android.support.design.widget.CoordinatorLayout>

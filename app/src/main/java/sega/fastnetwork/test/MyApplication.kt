@@ -20,11 +20,13 @@ package sega.fastnetwork.test
 import android.app.Application
 import android.content.Context
 import android.graphics.BitmapFactory
-
+import android.support.multidex.MultiDex
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.ConnectionQuality
 import io.socket.client.IO
 import io.socket.client.Socket
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -38,12 +40,16 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-
-        AndroidNetworking.initialize(applicationContext)
+        MultiDex.install(this)
+        val okHttpClient = OkHttpClient().newBuilder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .build()
+        AndroidNetworking.initialize(applicationContext, okHttpClient)
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
         AndroidNetworking.enableLogging()
         mSocket = IO.socket("http://192.168.1.42:8080").connect()
+
 
 
         AndroidNetworking.setConnectionQualityChangeListener { connectionQuality, _ ->
@@ -64,10 +70,12 @@ class MyApplication : Application() {
     }
 
     override fun attachBaseContext(base: Context) {
+        MultiDex.install(this)
         super.attachBaseContext(base)
 
 
     }
+
     companion object {
 
 
