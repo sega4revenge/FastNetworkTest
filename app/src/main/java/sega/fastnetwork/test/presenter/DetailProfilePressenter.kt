@@ -11,32 +11,26 @@ import org.json.JSONException
 import org.json.JSONObject
 import sega.fastnetwork.test.model.ResponseListProduct
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.SearchInterface
-import sega.fastnetwork.test.view.SearchView
+import sega.fastnetwork.test.view.DetailProfileInterface
+import sega.fastnetwork.test.view.DetailProfileView
 
 /**
- * Created by VinhNguyen on 8/9/2017.
+ * Created by VinhNguyen on 8/23/2017.
  */
-
-class SearchPresenterImp(searchView : SearchView) : SearchInterface {
-    private val  searchview = searchView
+class DetailProfilePressenter(profileView : DetailProfileView) : DetailProfileInterface {
+    private val  profileview = profileView
     private val TAG :String = "SearchTag"
-    override fun ConnectHttp(key: String, mLocation: String, mCategory: Int, mTypeArrange: Int) {
-        var category = ""
-        if(mCategory!=0)
-        {
-            category = (mCategory-1).toString()
-        }
+
+
+    override fun ConnectHttp(id : String) {
+
         val jsonObject = JSONObject()
         try {
-            jsonObject.put("keysearch", key)
-            jsonObject.put("location", mLocation)
-            jsonObject.put("category", category)
-            jsonObject.put("typeArrange", mTypeArrange)
+            jsonObject.put("userid", "59939e629db5484486d1e567")
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        Rx2AndroidNetworking.post(Constants.BASE_URL + "search")
+        Rx2AndroidNetworking.post(Constants.BASE_URL + "getfullprofile")
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
@@ -51,8 +45,15 @@ class SearchPresenterImp(searchView : SearchView) : SearchInterface {
                 .subscribe(object : Observer<ResponseListProduct> {
                     override fun onNext(response: ResponseListProduct?) {
 
-                        Log.d("AAAAAAAAA", response?.listproduct!![0].toString())
-                        searchview.getListProduct(response?.listproduct!!)
+                        Log.d(TAG, response!!.user!!.email)
+                        Log.d(TAG, response!!.user!!.listproduct!!.size.toString())
+                        if(response!!.user!!.listproduct!!.size!=0)
+                        {
+                            profileview.getListProduct(response!!.user!!.listproduct!!,response!!.user!!)
+                        }else{
+                            profileview.getUser(response!!.user!!)
+                        }
+
                     }
 
 
@@ -63,18 +64,19 @@ class SearchPresenterImp(searchView : SearchView) : SearchInterface {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            if (e.errorCode != 0) {
-                                Log.d(TAG, "onError errorCode : " + e.errorCode)
-                                Log.d(TAG, "onError errorBody : " + e.errorBody)
-                                Log.d(TAG, "onError errorDetail : " + e.errorDetail)
-                                if(e.errorCode != 404)
-                                {  searchview.setErrorMessage(e.errorBody.get(0).toString())
+                            val anError = e
+                            if (anError.errorCode != 0) {
+                                Log.d(TAG, "onError errorCode : " + anError.errorCode)
+                                Log.d(TAG, "onError errorBody : " + anError.errorBody)
+                                Log.d(TAG, "onError errorDetail : " + anError.errorDetail)
+                                if(anError.errorCode != 404)
+                                {  //searchview.setErrorMessage(anError.errorBody.get(0).toString())
 
                                 }else{
-                                    searchview.setMessagerNotFound()
+                                   // searchview.setMessagerNotFound()
                                 }
                             } else {
-                                Log.d(TAG, "onError errorDetail : " + e.errorDetail)
+                                Log.d(TAG, "onError errorDetail : " + anError.errorDetail)
 
                             }
                         } else {
@@ -89,8 +91,5 @@ class SearchPresenterImp(searchView : SearchView) : SearchInterface {
 
                 })
     }
-
-
-
 
 }

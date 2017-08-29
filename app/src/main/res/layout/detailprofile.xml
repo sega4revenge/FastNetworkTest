@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/action_bar"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="#FFF"
+    android:layout_marginBottom="@dimen/action_bar">
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -19,100 +20,164 @@
         android:orientation="vertical"
         android:weightSum="100"
         >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/tab_layout"
+            android:background="@drawable/toolbar_shadow" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:layout_weight="40"
+            android:layout_weight="35"
             android:gravity="center">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:gravity="center"
-                >
+                android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="90dp"
                     android:layout_height="80dp"
-                    >
+                    android:layout_marginBottom="20dp">
 
                     <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
                         android:id="@+id/avatar_header"
-                        />
+                        android:layout_width="80dp"
+                        android:layout_height="80dp" />
+
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:background="@mipmap/ic_edit_infor"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentRight="true"
-                        />
+                        android:background="@drawable/ic_photo_camera_black_24dp" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/txt_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nguyen Vuong Vinh"
-                        android:textSize="20dp"
-                        android:textColor="@color/black"/>
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:background="@mipmap/ic_edit_infor"
                         android:layout_marginLeft="5dp"
-                        />
+                        android:background="@mipmap/ic_edit_infor" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/txt_mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="vuongvinh19893@gmail.com"
+                        android:text=""
                         android:textSize="16dp" />
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@mipmap/ic_edit_infor"
-                        />
                 </LinearLayout>
-
 
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <sega.fastnetwork.test.customview.CustomTabLayout
-            android:id="@+id/tab_layout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
-            android:background="@color/white"
-            android:minHeight="?actionBarSize"
-            app:tabBackground="@color/white"
-            app:tabIndicatorColor="@color/color_background_button"
-            app:tabSelectedTextColor="@color/black"
+            android:layout_weight="15"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            android:gravity="center">
+            <LinearLayout
+                android:id="@+id/LinGive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="#00AA8D">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cho thuê"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="35dp"
 
-            app:tabTextColor="@color/black" />
-        <!-- app:tabMode="scrollable"
-         app:tabContentStart="66dp"-->
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
+                    android:id="@+id/lent_give"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LinNeed"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@color/white">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cần thuê"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="35dp"
+                    android:id="@+id/lent_need"/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/tab_layout"
+            android:background="@drawable/toolbar_shadow" />
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="50"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
+            <android.support.v7.widget.RecyclerView
+              android:id="@+id/product_list"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+          </android.support.v7.widget.RecyclerView>
+            <TextView
+                android:id="@+id/mess_notfound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Not Found"
+                android:textSize="15dp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
     </LinearLayout>
+>
 </LinearLayout>
 </ScrollView>

@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_addproduct"
+            android:id="@+id/toolbar_editproduct"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
@@ -34,64 +34,6 @@
             android:layout_height="wrap_content"
             android:background="#eeeeee"
             android:orientation="vertical">
-
-            <RadioGroup
-                android:id="@+id/toggle"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/pink_out_line"
-                android:checkedButton="@+id/borrow"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/borrow"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle_widget_background"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="Cho thuê"
-                    android:textColor="@color/white" />
-
-                <RadioButton
-                    android:id="@+id/needborrow"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toggle_widget_background"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="Cần thuê"
-                    android:textColor="@color/white" />
-            </RadioGroup>
-            <!--<com.nightonke.jellytogglebutton.JellyToggleButton-->
-            <!--android:id="@+id/jtb"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:layout_marginBottom="5dp"-->
-
-            <!--app:jtbLeftText="Cho thuê"-->
-            <!--app:jtbRightText="Cần thuê"-->
-            <!--app:jtbLeftTextSize="10sp"-->
-            <!--app:jtbRightTextSize="10sp"-->
-            <!--app:jtbTextMarginRight="10dp"-->
-            <!--app:jtbTextMarginLeft="10dp"-->
-            <!--app:jtbBackgroundRadius="13dp"-->
-            <!--app:jtbDuration="500"-->
-            <!--/>-->
             <sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerView
                 android:id="@+id/add_picker_view"
                 android:layout_width="match_parent"
@@ -113,14 +55,25 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
 
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/activity_vertical_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    tools:context=".lib.imagepicker.MainActivity">
 
+
+                </LinearLayout>
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+                    xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dist_xlarge"
+                    android:layout_marginTop="@dimen/dist_medium"
                     android:orientation="vertical"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
@@ -154,7 +107,7 @@
                                 android:layout_height="wrap_content"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
                                 android:textSize="15sp"
-                               />
+                                />
                         </LinearLayout>
 
 
@@ -218,7 +171,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:layout_marginTop="10dp"
-                                android:layout_weight="4"
+                                android:layout_weight="5"
                                 android:orientation="vertical">
 
                                 <TextView
@@ -259,7 +212,7 @@
                                 android:inputType="number"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
                                 android:textSize="15sp"
-                                 />
+                                />
                         </LinearLayout>
 
                         <LinearLayout
@@ -285,23 +238,7 @@
                                 android:layout_marginTop="20dp"
                                 android:gravity="center" />
                         </LinearLayout>
-                        <!--<EditText-->
-                        <!--android:id="@+id/categoryid"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginLeft="20dp"-->
-                        <!--android:layout_marginRight="20dp"-->
-                        <!--android:layout_marginBottom="10dp"-->
-                        <!--android:layout_marginTop="10dp"                        android:focusable="false"-->
-                        <!--android:focusableInTouchMode="false"-->
-                        <!--android:hint="CATEGORY"-->
-                        <!--android:textCursorDrawable="@drawable/text_cursor_cyan"-->
-                        <!--android:textSize="15sp"-->
-                        <!--app:met_baseColor="@android:color/black"-->
-                        <!--app:met_floatingLabel="highlight"-->
-                        <!--app:met_maxCharacters="100"-->
-                        <!--app:met_primaryColor="?colorAccent"-->
-                        <!--app:met_singleLineEllipsis="true" />-->
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -349,72 +286,18 @@
                                 android:layout_height="match_parent"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
                                 android:textSize="15sp"
-                             />
+                                />
                         </LinearLayout>
-                        <!--  <LinearLayout
-                              android:orientation="horizontal"
-                              android:layout_width="match_parent"
-                              android:layout_height="wrap_content"
-                              android:paddingTop="10dp"
-                              android:weightSum="10">
 
-                              <TextView
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:text="@string/category"
-                                  android:layout_weight="7"/>
-
-                              <Spinner
-                                  android:layout_width="match_parent"
-                                  android:layout_height="wrap_content"
-                                  android:id="@+id/categoryid"
-                                  android:layout_weight="3"/>
-
-                          </LinearLayout>-->
-
-
-                        <!--   <com.sega.vimarket.widget.RobotoLightTextView
-
-                               android:id="@+id/selleremail"
-                               style="@style/MovieCrewItemValueStyle"
-
-                               android:ellipsize="marquee"
-                               android:focusable="true"
-                               android:focusableInTouchMode="true"
-                               android:marqueeRepeatLimit="marquee_forever"
-                               android:scrollHorizontally="true"
-                               android:singleLine="true"
-                               android:text="sega4revenge@gmail.com" />-->
 
 
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Crew Value 1 -->
 
-                <!-- See All Button -->
-
-                <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/button12345"-->
-                <!--android:text="Sell"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:background="@color/bg_screen1"-->
-                <!--android:textColor="@color/white"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_marginBottom="10dp"-->
-                <!--/>-->
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-        <!--<include-->
-        <!--layout="@layout/layout_detail_fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="end|bottom"-->
-        <!--android:layout_marginBottom="@dimen/dist_medium"-->
-        <!--android:layout_marginEnd="@dimen/dist_medium"-->
-        <!--android:layout_marginRight="@dimen/dist_medium" />-->
+
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

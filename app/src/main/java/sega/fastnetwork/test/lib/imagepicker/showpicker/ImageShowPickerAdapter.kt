@@ -112,10 +112,10 @@ import java.util.*
 
     override fun onDelClickListener(position: Int) {
         try {
-            listuri.removeAt(position)
+         //   listuri.removeAt(position)
             list.removeAt(position)
         } catch (e: ArrayIndexOutOfBoundsException) {
-            println("từ từ thôi")
+            println(e)
         }
 
         if (isShowAnim) {

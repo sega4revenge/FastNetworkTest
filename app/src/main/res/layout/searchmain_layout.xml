@@ -14,52 +14,87 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-
-            app:layout_scrollFlags="scroll|enterAlways" >
-
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:contentInsetStart="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:gravity="center"
                 android:weightSum="100"
-                android:gravity="center">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
-                    android:gravity="center">
-                    <ImageView
-                        android:id="@+id/arrowBackSearch"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@mipmap/ic_arrow_left_white"/>
-                </LinearLayout>
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="75"
-                    android:id="@+id/ed_search"
-                    android:hint="Search..."
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/input_register"
-                    android:drawableLeft="@drawable/action_search"
-                    android:drawablePadding="5dp"
-                    >
-                </EditText>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10"
-                    android:gravity="center|right">
-                    <ImageView
-                        android:id="@+id/stylelist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/action_grid"/>
-                </LinearLayout>
-
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:gravity="left">
+                <ImageView
+                    android:id="@+id/arrowBackSearch"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@mipmap/ic_arrow_left_white"/>
             </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:layout_weight="75"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+             />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:gravity="center|right">
+                <ImageView
+                    android:id="@+id/stylelist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/action_grid"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="100"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="90"
+                android:id="@+id/ed_search"
+                android:hint="Search..."
+                android:textColor="@color/black"
+                android:textColorHint="@color/input_register"
+                android:drawableLeft="@drawable/action_search"
+                android:drawablePadding="15dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/radius_edit"
+                android:enabled="true"
+                android:maxLines="1"
+                android:singleLine="true"
+
+                >
+            </EditText>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
 
         </android.support.v7.widget.Toolbar>
         <LinearLayout
@@ -161,6 +196,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:layout_marginBottom="90dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 

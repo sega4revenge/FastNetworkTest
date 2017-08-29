@@ -13,6 +13,7 @@ class User() : Parcelable {
     var name: String? = null
     var email: String? = null
     var photoprofile: String? = null
+    var listproduct: ArrayList<Product>? = null
     var password: String? = null
     var tokenfirebase: String? = null
     val created_at: String? = null

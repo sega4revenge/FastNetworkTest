@@ -195,11 +195,12 @@ class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductCl
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.d("ed_search: ","beforeTextChanged:"+p0.toString() +","+ p1 + "," + p2 + "," + p3)
                 if(progress_circle.visibility != View.VISIBLE)
-                {progress_circle.visibility = View.VISIBLE}
-                loading_more.visibility = View.GONE
-                product_recycleview.visibility = View.GONE
-                swipe_refresh.isRefreshing = false
-                swipe_refresh.visibility = View.GONE
+                {
+                    progress_circle.visibility = View.VISIBLE}
+                    loading_more.visibility = View.GONE
+                    product_recycleview.visibility = View.GONE
+                    swipe_refresh.isRefreshing = false
+                    swipe_refresh.visibility = View.GONE
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -226,11 +227,7 @@ class SearchActivity : AppCompatActivity(),SearchView,ProductAdapter.OnproductCl
 
 
         } else {
-            // Change from compact to grid
-
             stylelist.setImageResource(R.drawable.action_compact)
-
-
         }
     }
     fun getStatusBarHeight(): Int {

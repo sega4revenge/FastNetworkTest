@@ -12,7 +12,5 @@ interface SearchView {
     fun getListProduct(productlist : ArrayList<Product>)
     fun setMessagerNotFound()
     fun ShowCategory()
-
-
     fun ShowArrange()
 }

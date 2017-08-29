@@ -134,7 +134,7 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
             override fun addOnClickListener(remainNum: Int) {
                 val permissionlistener = object : PermissionListener {
                     override fun onPermissionGranted() {
-                        System.out.println("cho roi")
+
                         val bottomSheetDialogFragment = TedBottomPicker.Builder(this@AddActivity)
                                 .setOnMultiImageSelectedListener(object : TedBottomPicker.OnMultiImageSelectedListener {
                                     override fun onImagesSelected(uriList: ArrayList<Uri>) =
