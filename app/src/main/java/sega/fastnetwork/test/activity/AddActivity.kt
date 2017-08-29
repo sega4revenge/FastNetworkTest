@@ -28,6 +28,7 @@ import com.androidnetworking.error.ANError
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.google.firebase.messaging.FirebaseMessaging
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.rx2androidnetworking.Rx2AndroidNetworking
@@ -263,6 +264,7 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
     }
 
     override fun isCreateSuccess(success: Boolean, productid: String, type: String) {
+        Log.e("PROID",productid)
         if (success){
             if(type == "1"){
                 uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])), productid)
@@ -383,6 +385,7 @@ class AddActivity : AppCompatActivity(),AddPresenter.AddView {
                             mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")
                             mRemoteView!!.setTextViewText(R.id.timeremain, getString(R.string.uploaded_title, temp, uriList!!.size))
                             Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded successfully", Snackbar.LENGTH_SHORT).show()
+                            FirebaseMessaging.getInstance().subscribeToTopic(productid)
                             mNotificationManager?.cancel(1)
                             mNotificationManager?.notify(1, notification)
                         }

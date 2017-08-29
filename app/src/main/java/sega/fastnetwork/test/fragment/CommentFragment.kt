@@ -58,13 +58,13 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
         if(AppManager.getAppAccountUserId(activity) == adapter!!.commentsList[position].user!!._id){
             val alertDialogBuilder = AlertDialog.Builder(activity)
             alertDialogBuilder.setMessage("Are you sure you want to delete this comment?")
-            alertDialogBuilder.setPositiveButton("DELETE", { _, _ ->
+            alertDialogBuilder.setPositiveButton("DELETEE", { _, _ ->
                 run {
 //                    Toast.makeText(activity, "DELETED", Toast.LENGTH_LONG).show()
                     mCommentPresenter!!.deletecomment(adapter!!.commentsList[position]._id.toString(), id)
                 }
             })
-            alertDialogBuilder.setNegativeButton("NO", { _, _ ->
+            alertDialogBuilder.setNegativeButton("NOOO", { _, _ ->
                 run {
 //                    Toast.makeText(activity, "NO", Toast.LENGTH_LONG).show()
                 }
