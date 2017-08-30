@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/product_item_compact"
@@ -11,18 +10,18 @@
     android:foreground="?attr/selectableItemBackground"
     cardview:cardBackgroundColor="@color/white"
     cardview:cardPreventCornerOverlap="false"
-    cardview:cardUseCompatPadding="true"
-    >
+    cardview:cardUseCompatPadding="true">
 
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_margin="10dp"
-           >
+            android:orientation="vertical">
+
             <sega.fastnetwork.test.view.RobotoRegularTextView
                 android:id="@+id/product_name_compact"
                 android:layout_width="wrap_content"
@@ -31,101 +30,73 @@
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_large"
-                tools:text="My Awesome product Title"
-                />
+                tools:text="My Awesome product Title" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:orientation="horizontal">
-            <TextView
-                android:id="@+id/price_compact"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:textColor="@color/color_background_button"
-                android:textSize="16sp"
-                tools:text="Price" />
+
                 <TextView
+                    android:id="@+id/price_compact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/color_background_button"
                     android:textSize="16sp"
-                    android:textColor="@color/color_background_button"
-                    android:text="đ"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
-                    android:text="  cho"/>
-
-                <TextView
-                    android:id="@+id/product_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="@color/color_background_button"
-                    android:text=" 1"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
-                    android:text=" giờ"/>
+                    tools:text="Price" />
 
 
 
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-
                 android:layout_marginTop="3dp"
-               >
+
+                android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/userpostlayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:id="@+id/userpostlayout"
                     android:layout_gravity="right"
-                    >
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
                     <sega.fastnetwork.test.view.RobotoLightTextView
                         android:id="@+id/userpost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:layout_marginRight="10dp"
-                        tools:text="Sieu Gò Vấp"
-                        android:textSize="@dimen/text_small"/>
+                        android:textSize="@dimen/text_small"
+                        tools:text="Sieu Gò Vấp" />
+
                     <ImageView
                         android:id="@+id/product_poster_compact"
                         android:layout_width="13dp"
                         android:layout_height="13dp"
 
-                        android:src="@drawable/cate_home"
                         android:layout_gravity="center_horizontal"
+                        android:src="@drawable/cate_home"
 
                         />
 
 
                 </LinearLayout>
+
                 <LinearLayout
+                    android:id="@+id/timelayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_toLeftOf="@+id/userpostlayout"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="10dp"
-                    android:id="@+id/timelayout"
-                    >
+                    android:layout_toLeftOf="@+id/userpostlayout"
+                    android:orientation="horizontal">
 
                     <sega.fastnetwork.test.view.RobotoLightTextView
                         android:id="@+id/timepost"
@@ -135,21 +106,23 @@
                         android:maxLines="1"
                         android:textSize="@dimen/text_small"
                         tools:text="2016" />
+
                     <sega.fastnetwork.test.view.RobotoLightTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:ellipsize="end"
-                        android:textSize="@dimen/text_small"
-                        android:text="   |   " />
+                        android:text="   |   "
+                        android:textSize="@dimen/text_small" />
+
                     <sega.fastnetwork.test.view.RobotoLightTextView
                         android:id="@+id/area_compact"
                         style="?android:textAppearanceSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
                         android:ellipsize="marquee"
                         android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
 
                         android:textSize="@dimen/text_small"
                         tools:text="AreyiiiytiaAreyiiiytiaAreyiiiAreyiiiytiaAreyiiiytiaAreyiiiytiaAreyiiiytiaytiaAreyiiiytia" />
@@ -158,94 +131,87 @@
 
         </LinearLayout>
 
-            <!--<ImageView-->
-                <!--android:id="@+id/product_poster_default_compact"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--android:src="@drawable/logo"-->
-                <!--android:visibility="gone"-->
-                <!--tools:ignore="ContentDescription" />-->
+        <!--<ImageView-->
+        <!--android:id="@+id/product_poster_default_compact"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/logo"-->
+        <!--android:visibility="gone"-->
+        <!--tools:ignore="ContentDescription" />-->
 
-            <!--&lt;!&ndash; Poster image &ndash;&gt;-->
-            <!--<ImageView-->
-                <!--android:id="@+id/product_poster_compact"-->
-                <!--android:layout_width="@dimen/product_compact_image_size"-->
-                <!--android:layout_height="@dimen/product_compact_image_size"-->
-                <!--android:background="@color/default_image_background"-->
-                <!--android:scaleType="centerCrop"-->
-                <!--tools:ignore="ContentDescription" />-->
+        <!--&lt;!&ndash; Poster image &ndash;&gt;-->
+        <!--<ImageView-->
+        <!--android:id="@+id/product_poster_compact"-->
+        <!--android:layout_width="@dimen/product_compact_image_size"-->
+        <!--android:layout_height="@dimen/product_compact_image_size"-->
+        <!--android:background="@color/default_image_background"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--tools:ignore="ContentDescription" />-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/overlaytext_compact"-->
-                <!--style="?android:textAppearanceSmallInverse"-->
-                <!--android:layout_width="@dimen/product_compact_image_size"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignBottom="@+id/product_poster_compact"-->
+        <!--<TextView-->
+        <!--android:id="@+id/overlaytext_compact"-->
+        <!--style="?android:textAppearanceSmallInverse"-->
+        <!--android:layout_width="@dimen/product_compact_image_size"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/product_poster_compact"-->
 
-                <!--android:background="@color/black"-->
-                <!--android:gravity="center"-->
-                <!--android:padding="@dimen/tiny_margin"-->
-                <!--tools:text="Overlay" />-->
+        <!--android:background="@color/black"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="@dimen/tiny_margin"-->
+        <!--tools:text="Overlay" />-->
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="@dimen/product_compact_text_margin"-->
-                <!--android:layout_marginStart="@dimen/product_compact_text_margin"-->
-                <!--android:layout_toEndOf="@+id/product_poster_compact"-->
-                <!--android:layout_toRightOf="@+id/product_poster_compact"-->
-                <!--android:orientation="vertical">-->
-
-
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/product_compact_text_margin"-->
+        <!--android:layout_marginStart="@dimen/product_compact_text_margin"-->
+        <!--android:layout_toEndOf="@+id/product_poster_compact"-->
+        <!--android:layout_toRightOf="@+id/product_poster_compact"-->
+        <!--android:orientation="vertical">-->
 
 
+        <!--<LinearLayout-->
+        <!--android:id="@+id/product_rating_holder_compact"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/cardview_default_elevation"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<sega.fastnetwork.test.view.RobotoLightTextView-->
+        <!--android:id="@+id/product_rating_compact"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="@dimen/dist_small"-->
+        <!--android:layout_marginRight="@dimen/dist_small"-->
+        <!--android:maxLines="1"-->
+        <!--android:text="8.76"-->
+        <!--android:textColor="@color/input_register"-->
+        <!--android:textSize="@dimen/text_medium" />-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/rating_icon_compact"-->
+        <!--android:layout_width="@dimen/product_compact_rating_icon_size"-->
+        <!--android:layout_height="@dimen/product_compact_rating_icon_size"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:src="@drawable/logo"-->
+        <!--tools:ignore="contentDescription" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBottom="@+id/product_poster_compact"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_toRightOf="@+id/product_poster_compact"-->
+
+        <!--android:orientation="horizontal">-->
 
 
-                <!--<LinearLayout-->
-                    <!--android:id="@+id/product_rating_holder_compact"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginTop="@dimen/cardview_default_elevation"-->
-                    <!--android:orientation="horizontal">-->
-
-                    <!--<sega.fastnetwork.test.view.RobotoLightTextView-->
-                        <!--android:id="@+id/product_rating_compact"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginEnd="@dimen/dist_small"-->
-                        <!--android:layout_marginRight="@dimen/dist_small"-->
-                        <!--android:maxLines="1"-->
-                        <!--android:text="8.76"-->
-                        <!--android:textColor="@color/input_register"-->
-                        <!--android:textSize="@dimen/text_medium" />-->
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/rating_icon_compact"-->
-                        <!--android:layout_width="@dimen/product_compact_rating_icon_size"-->
-                        <!--android:layout_height="@dimen/product_compact_rating_icon_size"-->
-                        <!--android:scaleType="fitCenter"-->
-                        <!--android:src="@drawable/logo"-->
-                        <!--tools:ignore="contentDescription" />-->
-
-                <!--</LinearLayout>-->
-
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignBottom="@+id/product_poster_compact"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_toRightOf="@+id/product_poster_compact"-->
-
-                <!--android:orientation="horizontal">-->
-
-
-
-
-
-            <!--</LinearLayout>-->
-        </RelativeLayout>
+        <!--</LinearLayout>-->
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

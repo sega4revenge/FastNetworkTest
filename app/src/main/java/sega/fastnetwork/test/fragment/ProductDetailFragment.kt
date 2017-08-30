@@ -158,18 +158,17 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             textSliderView.bundle(Bundle())
             textSliderView.bundle
                     ?.putInt("index", i)
-
             slider!!.addSlider(textSliderView)
 
+
         }
-        if(product!!.images!!.size!=1)
-        {
+
             slider!!.setPresetTransformer(SliderLayout.Transformer.Accordion)
             slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
             slider!!.setCustomAnimation(DescriptionAnimation())
             slider!!.setDuration(4000)
             slider!!.addOnPageChangeListener(this)
-        }
+
 
 
     }

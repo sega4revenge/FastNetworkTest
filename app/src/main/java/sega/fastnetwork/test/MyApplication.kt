@@ -40,9 +40,10 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        MultiDex.install(this)
+        MultiDex.install(this);
         val okHttpClient = OkHttpClient().newBuilder()
-                .connectTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(2,TimeUnit.SECONDS)
                 .build()
         AndroidNetworking.initialize(applicationContext, okHttpClient)
         val options = BitmapFactory.Options()
@@ -70,7 +71,7 @@ class MyApplication : Application() {
     }
 
     override fun attachBaseContext(base: Context) {
-        MultiDex.install(this)
+        MultiDex.install(this);
         super.attachBaseContext(base)
 
 

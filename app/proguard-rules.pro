@@ -39,7 +39,9 @@
 -keepclassmembers class com.sothree.slidinguppanel.** {
 *;
 }
-
+-keepclassmembers class sega.fastnetwork.test.model.** {
+*;
+}
 -dontwarn okio.**
 
 
@@ -93,3 +95,5 @@
 -keepclassmembers class com.google.android.gms.gcm.GcmListenerService {
     public void handleIntent(android.content.Intent);
 }
+
+-dontwarn javax.annotation.**

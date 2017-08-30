@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.androidnetworking.AndroidNetworking
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
@@ -25,7 +26,7 @@ import sega.fastnetwork.test.util.Constants
 /**
  * Created by Admin on 5/25/2016.
  */
-class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListener,ProductListPresenter.ProductListView {
+class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView {
 
     var mProductListPresenter: ProductListPresenter? = null
     private var isLoading: Boolean = false
@@ -34,26 +35,27 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
     internal var isTablet: Boolean = false
     private var layoutManager: GridLayoutManager? = null
     private var adapter: ProductAdapter? = null
-
+    private var isDestroy = false
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isTablet = resources.getBoolean(R.bool.is_tablet)
-        adapter = ProductAdapter(context, this)
+
         mProductListPresenter = ProductListPresenter(this)
-        Log.e("haha","need")
+        Log.e("haha", "need")
 
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
-
+        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
         product_recycleview.setHasFixedSize(true)
         product_recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         product_recycleview.adapter = adapter
+
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
             // Toggle visibility
             error_message.visibility = View.GONE
-            progress_circle.visibility = View.GONE
-            product_recycleview.visibility = View.GONE
+
+
             // Remove cache
 
             // Download again
@@ -73,14 +75,14 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
             // Download again if stopped, else show list
             if (isLoading) {
                 if (pageToDownload == 1) {
-                    progress_circle.visibility = View.VISIBLE
+
                     loading_more.visibility = View.GONE
-                    product_recycleview.visibility = View.GONE
+
                     swipe_refresh.visibility = View.GONE
                 } else {
-                    progress_circle.visibility = View.GONE
+
                     loading_more.visibility = View.VISIBLE
-                    product_recycleview.visibility = View.VISIBLE
+
                     swipe_refresh.visibility = View.VISIBLE
                 }
 
@@ -98,6 +100,13 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
 
 
         return inflater!!.inflate(R.layout.fragment_product_list, container, false)
+    }
+
+    override fun onDestroyView() {
+        AndroidNetworking.cancelAll()
+        isDestroy = true
+        super.onDestroyView()
+
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -124,44 +133,49 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
     }
 
     private fun onDownloadSuccessful() {
-        if (isTablet && adapter?.productList?.size!! > 0) {
-            /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
+        if (!isDestroy) {
+            if (isTablet && adapter?.productList?.size!! > 0) {
+                /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
+            }
+            isLoading = false
+
+            error_message.visibility = View.GONE
+
+            loading_more.visibility = View.GONE
+
+            swipe_refresh.visibility = View.VISIBLE
+            swipe_refresh.isRefreshing = false
+            swipe_refresh.isEnabled = true
+
+
+            adapter?.notifyDataSetChanged()
         }
-        isLoading = false
-
-        error_message.visibility = View.GONE
-        progress_circle.visibility = View.GONE
-        loading_more.visibility = View.GONE
-        product_recycleview.visibility = View.VISIBLE
-        swipe_refresh.visibility = View.VISIBLE
-        swipe_refresh.isRefreshing = false
-        swipe_refresh.isEnabled = true
-
-
-        adapter?.notifyDataSetChanged()
 
 
     }
 
     private fun onDownloadFailed() {
-        isLoading = false
-        if (pageToDownload == 1) {
-            progress_circle?.visibility = View.GONE
-          loading_more.visibility = View.GONE
-            product_recycleview.visibility = View.GONE
-           swipe_refresh.isRefreshing = false
-            swipe_refresh.visibility = View.GONE
-            error_message.visibility = View.VISIBLE
-        } else {
-            progress_circle.visibility = View.GONE
-            loading_more.visibility = View.GONE
-            error_message.visibility = View.GONE
-            product_recycleview.visibility = View.VISIBLE
-            swipe_refresh.visibility = View.VISIBLE
-            swipe_refresh.isRefreshing = false
-            swipe_refresh.isEnabled = true
-            isLoadingLocked = true
+        if (!isDestroy) {
+            isLoading = false
+            if (pageToDownload == 1) {
+
+                loading_more.visibility = View.GONE
+
+                swipe_refresh.isRefreshing = false
+                swipe_refresh.visibility = View.GONE
+                error_message.visibility = View.VISIBLE
+            } else {
+
+                loading_more.visibility = View.GONE
+                error_message.visibility = View.GONE
+
+                swipe_refresh.visibility = View.VISIBLE
+                swipe_refresh.isRefreshing = false
+                swipe_refresh.isEnabled = true
+                isLoadingLocked = true
+            }
         }
+
     }
 
     override fun setErrorMessage(errorMessage: String) {
@@ -177,12 +191,12 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
         println("da nhan")
         if (isTablet) {
             //                Toast.makeText(getActivity(),"3",Toast.LENGTH_LONG).show();
-           
+
             (activity as MainActivity).loadDetailFragmentWith(adapter!!.productList[position]._id!!)
         } else {
             //                Toast.makeText(getActivity(),"4",Toast.LENGTH_LONG).show();
             val intent = Intent(context, ProductDetailActivity::class.java)
-            intent.putExtra(Constants.product_ID,adapter!!.productList[position]._id!!)
+            intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
             startActivity(intent)
         }
     }

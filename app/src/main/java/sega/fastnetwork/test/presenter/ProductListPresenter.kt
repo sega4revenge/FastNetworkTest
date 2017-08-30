@@ -2,6 +2,7 @@ package sega.fastnetwork.test.presenter
 
 import android.os.Looper
 import android.util.Log
+import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.rx2androidnetworking.Rx2AndroidNetworking
 import io.reactivex.Observer
@@ -19,11 +20,10 @@ import sega.fastnetwork.test.util.Constants
  * Created by sega4 on 27/07/2017.
  */
 
-class ProductListPresenter(view : ProductListView) {
+class ProductListPresenter(view: ProductListView) {
     internal var mProductListView: ProductListView = view
     var userdetail = "USERDETAIL"
-
-    fun getProductList(type : Int) {
+    fun getProductList(type: Int) {
         Log.e(userdetail, type.toString())
         val jsonObject = JSONObject()
         try {
@@ -33,6 +33,7 @@ class ProductListPresenter(view : ProductListView) {
             e.printStackTrace()
         }
         Rx2AndroidNetworking.post(Constants.BASE_URL + "/allproduct")
+                .setTag("listproduct")
                 .addJSONObjectBody(jsonObject)
                 .build()
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
@@ -45,6 +46,10 @@ class ProductListPresenter(view : ProductListView) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<ResponseListProduct> {
+                    override fun onSubscribe(d: Disposable?) {
+
+                    }
+
                     override fun onNext(response: ResponseListProduct?) {
                         Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
 
@@ -79,21 +84,22 @@ class ProductListPresenter(view : ProductListView) {
                         }
                     }
 
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
 
                 })
+
+
     }
 
     interface ProductListView {
 
         fun setErrorMessage(errorMessage: String)
-        fun getListProduct(productlist : ArrayList<Product>)
+        fun getListProduct(productlist: ArrayList<Product>)
 
 
+    }
 
-
+    fun stopRequest() {
+        AndroidNetworking.cancel(this)
+        println("cancel")
     }
 }

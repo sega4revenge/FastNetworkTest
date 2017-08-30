@@ -69,9 +69,9 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         preferences = this.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
-        adapter = ProductAdapter(this, this)
-        layoutManager = GridLayoutManager(this, getNumberOfColumns())
 
+        layoutManager = GridLayoutManager(this, getNumberOfColumns())
+        adapter = ProductAdapter(this, this,product_recycleview, layoutManager!!)
         dialogFrag = FilterFragment.newInstance()
         dialogFrag!!.setParentFab(fab_search)
         fab_search.setOnClickListener {
@@ -82,7 +82,7 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
             ed_search.clearFocus()
             val v = this.currentFocus
             if (v != null)
-            inputManager.hideSoftInputFromWindow(v!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+            inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             dialogFrag!!.show(supportFragmentManager, dialogFrag!!.tag)
         }
         product_recycleview.setHasFixedSize(true)

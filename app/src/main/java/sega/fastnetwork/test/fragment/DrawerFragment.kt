@@ -90,37 +90,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
         }
 
-        onRefreshToolbarMenu()
-        action_grid.setOnClickListener {
 
-            when (viewtype) {
-                1 -> {
-
-                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_LIST).apply()
-
-                    onRefreshToolbarMenu()
-                    onRefreshFragmentLayout()
-
-
-                }
-                2 -> {
-                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_COMPACT).apply()
-                    onRefreshToolbarMenu()
-                    onRefreshFragmentLayout()
-
-
-                }
-                3 -> {
-                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID).apply()
-                    onRefreshToolbarMenu()
-                    onRefreshFragmentLayout()
-
-
-                }
-            }
-
-
-        }
         addproduct.setOnClickListener {
             startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
         }
@@ -263,37 +233,6 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         private val SELECTED_ITEM_ID = "SELECTED_ITEM_ID"
     }
 
-    private fun onRefreshToolbarMenu() {
-        viewtype = preferences?.getInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID)!!
-        if (viewtype == Constants.VIEW_MODE_GRID) {
-            // Change from grid to list
-
-            action_grid.setImageResource(R.drawable.action_grid)
-
-
-        } else if (viewtype == Constants.VIEW_MODE_LIST) {
-
-            action_grid.setImageResource(R.drawable.action_list)
-
-
-        } else {
-            // Change from compact to grid
-
-            action_grid.setImageResource(R.drawable.action_compact)
-
-
-        }
-    }
-
-
-    private fun onRefreshFragmentLayout() {
-        if (fragment is HomeFragment) {
-
-            (fragment as HomeFragment).refresh()
-        } /*else if (fragment instanceof productSavedFragment) {
-            ((productSavedFragment) fragment).refreshLayout();
-        }*/
-    }
 
     private fun setSelectedDrawerItem() {
 

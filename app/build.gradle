@@ -12,6 +12,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
+
     }
     buildTypes {
         release {
@@ -60,10 +61,12 @@ dependencies {
         exclude group: 'com.android.support'
     }
     compile 'com.android.support:multidex:1.0.1'
-
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.android.gms:play-services-places:11.0.4'
     compile 'com.google.android.gms:play-services-auth:11.0.4'
-    compile 'com.sothree.slidinguppanel:library:3.3.1'
+    compile('com.sothree.slidinguppanel:library:3.3.1') {
+        exclude group: 'com.android.support',module : 'support-v4'
+    }
     compile 'gun0912.ted:tedpermission:2.0.0'
     compile 'com.github.clans:fab:1.6.4'
 

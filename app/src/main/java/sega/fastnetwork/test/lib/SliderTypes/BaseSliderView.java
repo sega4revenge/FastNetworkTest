@@ -251,10 +251,8 @@ public abstract class BaseSliderView {
                 options.centerInside();
                 break;
         }
-
         Glide.with(mContext)
                 .load(temp)
-                .thumbnail(0.1f)
                 .apply(options)
                 .listener(new RequestListener<Drawable>() {
                     @Override
@@ -273,6 +271,7 @@ public abstract class BaseSliderView {
                         if (v.findViewById(R.id.loading_bar) != null) {
                             v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
                         }
+
                         return false;
                     }
                 })

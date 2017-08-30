@@ -64,17 +64,6 @@
                         android:layout_toLeftOf="@+id/action_grid"
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@+id/action_grid" />
-                    <ImageButton
-                        android:id="@+id/action_grid"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@color/white"
-                        android:gravity="right"
-                        android:src="@drawable/action_grid"
-                       />
                 </LinearLayout>
 
 

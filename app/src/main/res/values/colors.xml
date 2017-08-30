@@ -2,6 +2,8 @@
 <resources>
 
 
+    <color name="shimmer_color">#a2878787</color>
+    <color name="shimmer_background_color">#b1b1b1</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
     <color name="color_background_button">#EC407A</color>

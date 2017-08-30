@@ -14,20 +14,14 @@
         android:visibility="gone" />
 
     <!-- Progress Circle -->
-    <include
-        android:id="@+id/progress_circle"
-        layout="@layout/layout_progress_circle"
-        android:layout_width="@dimen/progress_circle_width"
-        android:layout_height="@dimen/progress_circle_height"
-        android:layout_centerInParent="true"
-        android:visibility="visible" />
+
 
     <!-- Pull to Refresh -->
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <!-- Recycler View -->
         <android.support.v7.widget.RecyclerView
@@ -38,7 +32,7 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:padding="@dimen/recycler_view_padding"
-            android:visibility="gone" />
+            />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
