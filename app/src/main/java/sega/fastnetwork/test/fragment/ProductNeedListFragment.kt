@@ -25,7 +25,7 @@ import sega.fastnetwork.test.util.Constants
 /**
  * Created by Admin on 5/25/2016.
  */
-class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,ProductListPresenter.ProductListView {
+class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListener,ProductListPresenter.ProductListView {
 
     var mProductListPresenter: ProductListPresenter? = null
     private var isLoading: Boolean = false
@@ -40,8 +40,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,Pr
         isTablet = resources.getBoolean(R.bool.is_tablet)
         adapter = ProductAdapter(context, this)
         mProductListPresenter = ProductListPresenter(this)
-        Log.e("haha","list")
-
+        Log.e("haha","need")
 
         layoutManager = GridLayoutManager(context, getNumberOfColumns())
 
@@ -60,12 +59,12 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,Pr
             // Download again
             pageToDownload = 1
             adapter!!.productList.clear()
-            mProductListPresenter!!.getProductList(Constants.BORROW)
+            mProductListPresenter!!.getProductList(Constants.NEEDBORROW)
         })
         pageToDownload = 1
         if (savedInstanceState == null || !savedInstanceState.containsKey(Constants.product_LIST)) {
 
-            mProductListPresenter!!.getProductList(Constants.BORROW)
+            mProductListPresenter!!.getProductList(Constants.NEEDBORROW)
         } else {
             adapter!!.productList = savedInstanceState.getParcelableArrayList(Constants.product_LIST)
             /*   pageToDownload = savedInstanceState.getInt(Constants.PAGE_TO_DOWNLOAD)
@@ -85,7 +84,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener,Pr
                     swipe_refresh.visibility = View.VISIBLE
                 }
 
-                mProductListPresenter!!.getProductList(Constants.BORROW)
+                mProductListPresenter!!.getProductList(Constants.NEEDBORROW)
 
             } else {
                 onDownloadSuccessful()

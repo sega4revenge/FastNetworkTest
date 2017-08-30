@@ -8,6 +8,8 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import org.json.JSONException
+import org.json.JSONObject
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.ResponseListProduct
 import sega.fastnetwork.test.util.Constants
@@ -21,9 +23,17 @@ class ProductListPresenter(view : ProductListView) {
     internal var mProductListView: ProductListView = view
     var userdetail = "USERDETAIL"
 
-    fun getProductList() {
+    fun getProductList(type : Int) {
+        Log.e(userdetail, type.toString())
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("type", type)
 
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
         Rx2AndroidNetworking.post(Constants.BASE_URL + "/allproduct")
+                .addJSONObjectBody(jsonObject)
                 .build()
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
                     Log.d(userdetail, " timeTakenInMillis : " + timeTakenInMillis)

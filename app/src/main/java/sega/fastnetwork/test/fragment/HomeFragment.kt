@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
     fun refresh() {
 
         val fragment = childFragmentManager.findFragmentByTag(getFragmentTag(R.id.pager, 0)) as ProductListFragment
-        val fragment2 = childFragmentManager.findFragmentByTag(getFragmentTag(R.id.pager, 1)) as ProductListFragment
+        val fragment2 = childFragmentManager.findFragmentByTag(getFragmentTag(R.id.pager, 1)) as ProductNeedListFragment
         fragment.refreshLayout()
         fragment2.refreshLayout()
     }
@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
         override fun getItem(i: Int): Fragment? {
             when (i) {
                 0 -> return ProductListFragment()
-                1 -> return ProductListFragment()
+                1 -> return ProductNeedListFragment()
             }
             return null
         }
