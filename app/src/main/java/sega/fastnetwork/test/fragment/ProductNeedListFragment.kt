@@ -61,12 +61,12 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
             // Download again
             pageToDownload = 1
             adapter!!.productList.clear()
-            mProductListPresenter!!.getProductList(Constants.NEEDBORROW)
+            mProductListPresenter!!.getProductList(Constants.NEEDBORROW,pageToDownload)
         })
         pageToDownload = 1
         if (savedInstanceState == null || !savedInstanceState.containsKey(Constants.product_LIST)) {
 
-            mProductListPresenter!!.getProductList(Constants.NEEDBORROW)
+            mProductListPresenter!!.getProductList(Constants.NEEDBORROW,pageToDownload)
         } else {
             adapter!!.productList = savedInstanceState.getParcelableArrayList(Constants.product_LIST)
             /*   pageToDownload = savedInstanceState.getInt(Constants.PAGE_TO_DOWNLOAD)
@@ -86,7 +86,7 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
                     swipe_refresh.visibility = View.VISIBLE
                 }
 
-                mProductListPresenter!!.getProductList(Constants.NEEDBORROW)
+                mProductListPresenter!!.getProductList(Constants.NEEDBORROW,pageToDownload)
 
             } else {
                 onDownloadSuccessful()

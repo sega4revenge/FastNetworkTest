@@ -53,22 +53,23 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
             adapter!!.isLoading = false
             isFirstLoad = true
             AndroidNetworking.cancelAll()
-            mProductListPresenter!!.getProductList(Constants.BORROW)
+            mProductListPresenter!!.getProductList(Constants.BORROW,adapter!!.pageToDownload)
 
         })
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
-        mProductListPresenter!!.getProductList(Constants.BORROW)
+
 
 
         adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
+
             val a = Product()
             a.productname = ""
             adapter!!.productList.add(a)
             product_recycleview.post({
                 adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
             })
-            mProductListPresenter!!.getProductList(Constants.BORROW)
+            mProductListPresenter!!.getProductList(Constants.BORROW,adapter!!.pageToDownload)
         })
     }
 
@@ -120,7 +121,8 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
                 swipe_refresh.visibility = View.GONE
                 error_message.visibility = View.VISIBLE
             } else {
-
+                adapter!!.productList.removeAt(adapter!!.productList.size - 1)
+                adapter!!.notifyItemRemoved(adapter!!.productList.size)
                 loading_more.visibility = View.GONE
                 error_message.visibility = View.GONE
 

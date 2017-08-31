@@ -73,7 +73,7 @@ class FilterFragment : AAH_FabulousFragment() {
             for (tv in textviews) {
                 tv.tag = "unselected"
                 tv.setBackgroundResource(R.drawable.chip_unselected)
-                tv.setTextColor(ContextCompat.getColor(context, R.color.dot_light_screen2))
+                tv.setTextColor(ContextCompat.getColor(context, R.color.color_background_button))
             }
             applied_filters!!.clear()
         }
@@ -159,12 +159,12 @@ class FilterFragment : AAH_FabulousFragment() {
                 if (tv.tag != null && tv.tag == "selected") {
                     tv.tag = "unselected"
                     tv.setBackgroundResource(R.drawable.chip_unselected)
-                    tv.setTextColor(ContextCompat.getColor(context, R.color.filters_chips))
+                    tv.setTextColor(ContextCompat.getColor(context, R.color.color_background_button))
                     removeFromSelectedMap(filter_category, finalKeys[i])
                 } else {
                     tv.tag = "selected"
                     tv.setBackgroundResource(R.drawable.chip_selected)
-                    tv.setTextColor(ContextCompat.getColor(context, R.color.filters_header))
+                    tv.setTextColor(ContextCompat.getColor(context, R.color.white))
                     addToSelectedMap(filter_category, finalKeys[i])
                 }
             }

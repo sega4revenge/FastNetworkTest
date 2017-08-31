@@ -27,11 +27,12 @@ class ProductListPresenter(view: ProductListView) {
     var userdetail = "USERDETAIL"
     private val jsonObject = JSONObject()
     private val disposables = CompositeDisposable()
-    fun getProductList(type: Int) {
+    fun getProductList(type: Int,page :Int) {
         Log.e(userdetail, type.toString())
 
         try {
             jsonObject.put("type", type)
+            jsonObject.put("page", page)
 
         } catch (e: JSONException) {
             e.printStackTrace()

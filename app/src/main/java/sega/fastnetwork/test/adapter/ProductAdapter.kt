@@ -24,7 +24,7 @@ internal class ProductAdapter// Constructor
     private var mOnLoadMoreListener: OnLoadMoreListener? = null
     var productList: ArrayList<Product> = ArrayList()
     var isLoading: Boolean = false
-    var isLoadingLocked: Boolean = true
+    var isLoadingLocked: Boolean = false
     private var lastVisibleItem: Int = 0
     private var totalItemCount: Int = 0
      var pageToDownload: Int = 0
@@ -42,6 +42,7 @@ internal class ProductAdapter// Constructor
                 if (!isLoading && !isLoadingLocked && lastVisibleItem == productList.size - 1 ) {
                     if (mOnLoadMoreListener != null && pageToDownload < TOTAL_PAGES) {
                         mOnLoadMoreListener!!.onLoadMore()
+                        println(pageToDownload.toString() + " tong so")
                     }
                     isLoading = true
                 }
@@ -137,7 +138,6 @@ internal class ProductAdapter// Constructor
     }
 
     fun initShimmer() {
-        isLoadingLocked=true
         Collections.addAll(productList, Product(),Product(),Product())
     }
 
