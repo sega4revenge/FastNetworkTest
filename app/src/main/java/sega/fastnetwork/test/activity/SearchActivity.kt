@@ -1,7 +1,6 @@
 package sega.fastnetwork.test.activity
 
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -16,7 +15,6 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import kotlinx.android.synthetic.main.filter_product.view.*
 import kotlinx.android.synthetic.main.searchmain_layout.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.ProductAdapter
@@ -231,24 +229,6 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         }
     }
 
-    fun getStatusBarHeight(): Int {
-        var result = 0
-        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            result = resources.getDimensionPixelSize(resourceId)
-        }
-        return result
-    }
-
-    override fun ShowLocation() {
-        val intent = Intent(this@SearchActivity, Search_FilterLocationActivity::class.java)
-        startActivityForResult(intent, INTENT_DATA_LOCATION)
-    }
-
-    override fun ShowCategory() {
-        val intent = Intent(this@SearchActivity, Search_FliterCategory_Activity::class.java)
-        startActivityForResult(intent, INTENT_DATA_CATEGORY)
-    }
 
     //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     //  }
@@ -259,49 +239,6 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         swipe_refresh.isRefreshing = false
         swipe_refresh.visibility = View.GONE
         txt_notfound.visibility = View.VISIBLE
-    }
-
-    override fun ShowArrange() {
-        val builder = AlertDialog.Builder(this@SearchActivity)
-        var view = layoutInflater.inflate(R.layout.filter_product, null)
-        builder.setView(view)
-        val dialog = builder.create()
-        when (mFilter) {
-            1 -> view.filter_newimg.visibility = View.VISIBLE
-
-            2 -> view.filter_smallimg.visibility = View.VISIBLE
-
-            3 -> view.filter_hignimg.visibility = View.VISIBLE
-
-            else -> view.filter_hotimg.visibility = View.VISIBLE
-        }
-        view.filter_hot.setOnClickListener {
-            mFilter = 0
-            dialog.dismiss()
-            progress_circle.visibility = View.VISIBLE
-            SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
-        }
-        view.filter_new.setOnClickListener {
-            mFilter = 1
-            dialog.dismiss()
-            progress_circle.visibility = View.VISIBLE
-            SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
-        }
-        view.filter_small.setOnClickListener {
-            mFilter = 2
-            dialog.dismiss()
-            progress_circle.visibility = View.VISIBLE
-            SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
-        }
-        view.filter_hign.setOnClickListener {
-            mFilter = 3
-            dialog.dismiss()
-            progress_circle.visibility = View.VISIBLE
-            SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
-        }
-        dialog.show()
-
-
     }
 
     override fun onproductClicked(position: Int) {

@@ -8,9 +8,7 @@ import sega.fastnetwork.test.model.Product
 interface SearchView {
 
     fun setErrorMessage(errorMessage: String)
-    fun ShowLocation()
+
     fun getListProduct(productlist : ArrayList<Product>)
     fun setMessagerNotFound()
-    fun ShowCategory()
-    fun ShowArrange()
 }

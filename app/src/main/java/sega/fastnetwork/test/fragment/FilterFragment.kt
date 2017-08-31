@@ -109,7 +109,10 @@ class FilterFragment : AAH_FabulousFragment() {
             val layout = inflater.inflate(R.layout.view_filters_sorters, collection, false) as ViewGroup
             val fbl = layout.findViewById<FlexboxLayout>(R.id.fbl)
             when (position) {
-                0 -> inflateLayoutWithFilters("genre", fbl)
+                0 -> inflateLayoutWithFilters("Danh mục", fbl)
+                1 -> inflateLayoutWithFilters("Địa điểm", fbl)
+                2 -> inflateLayoutWithFilters("Lọc", fbl)
+                3 -> inflateLayoutWithFilters("Sắp xếp", fbl)
             }
             collection.addView(layout)
             return layout
@@ -120,13 +123,14 @@ class FilterFragment : AAH_FabulousFragment() {
             collection.removeView(view as View)
         }
 
-        override fun getCount(): Int {
-            return 4
-        }
+        override fun getCount(): Int = 4
 
         override fun getPageTitle(position: Int): CharSequence {
             when (position) {
-                0 -> return "GENRE"
+                0 -> return "Danh mục"
+                1 -> return "Địa điểm"
+                2 -> return "Lọc"
+                3 -> return "Sắp xếp"
             }
             return ""
         }
@@ -140,7 +144,10 @@ class FilterFragment : AAH_FabulousFragment() {
     private fun inflateLayoutWithFilters(filter_category: String, fbl: FlexboxLayout) {
         var keys: List<String> = ArrayList()
         when (filter_category) {
-            "genre" -> keys = Arrays.asList(*resources.getStringArray(R.array.mCategory))
+            "Danh mục" -> keys = Arrays.asList(*resources.getStringArray(R.array.mCategory))
+            "Địa điểm" -> keys = Arrays.asList(*resources.getStringArray(R.array.mLocation))
+            "Lọc" -> keys = Arrays.asList(*resources.getStringArray(R.array.mCategory))
+            "Sắp xếp" -> keys = Arrays.asList(*resources.getStringArray(R.array.mCategory))
         }
 
         for (i in keys.indices) {

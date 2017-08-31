@@ -43,9 +43,8 @@ class MyApplication : Application() {
         MultiDex.install(this);
         val okHttpClient = OkHttpClient().newBuilder()
                 .connectTimeout(5, TimeUnit.SECONDS)
-                .readTimeout(2,TimeUnit.SECONDS)
                 .build()
-        AndroidNetworking.initialize(applicationContext, okHttpClient)
+        AndroidNetworking.initialize(applicationContext,okHttpClient)
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
         AndroidNetworking.enableLogging()
@@ -56,11 +55,8 @@ class MyApplication : Application() {
         AndroidNetworking.setConnectionQualityChangeListener { connectionQuality, _ ->
             when (connectionQuality) {
                 ConnectionQuality.EXCELLENT -> System.out.println("Tot")
-            // do something
-                ConnectionQuality.POOR -> System.out.println("Duoc")
-            // do something
 
-            // do something
+                ConnectionQuality.POOR -> System.out.println("Duoc")
                 else -> {
                     System.out.println("Te")
                 }
@@ -73,13 +69,9 @@ class MyApplication : Application() {
     override fun attachBaseContext(base: Context) {
         MultiDex.install(this);
         super.attachBaseContext(base)
-
-
     }
 
     companion object {
-
-
         var instance: MyApplication? = null
             private set
     }

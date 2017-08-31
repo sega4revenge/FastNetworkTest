@@ -28,6 +28,4 @@ public class GlideConfiguration extends AppGlideModule {
         builder.setMemoryCache( new LruResourceCache( customMemoryCacheSize ));
         builder.setBitmapPool( new LruBitmapPool( customBitmapPoolSize ));
     }
-
-
 }
