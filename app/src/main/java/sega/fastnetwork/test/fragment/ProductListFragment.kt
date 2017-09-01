@@ -30,7 +30,6 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
     private var isTablet: Boolean = false
     private var layoutManager: LinearLayoutManager? = null
     private var adapter: ProductAdapter? = null
-    private var isDestroy = false
     var isFirstLoad = true
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,7 +52,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
             adapter!!.isLoading = false
             isFirstLoad = true
             AndroidNetworking.cancelAll()
-            mProductListPresenter!!.getProductList(Constants.BORROW,adapter!!.pageToDownload)
+            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload)
 
         })
         adapter!!.pageToDownload = 1
@@ -62,14 +61,16 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
 
 
         adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
+            if (!isFirstLoad) {
+                val a = Product()
+                a.productname = ""
+                adapter!!.productList.add(a)
+                product_recycleview.post({
+                    adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
+                })
+            }
 
-            val a = Product()
-            a.productname = ""
-            adapter!!.productList.add(a)
-            product_recycleview.post({
-                adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
-            })
-            mProductListPresenter!!.getProductList(Constants.BORROW,adapter!!.pageToDownload)
+            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload)
         })
     }
 
@@ -86,7 +87,6 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
 
     override fun onDestroyView() {
         mProductListPresenter?.stopRequest()
-        isDestroy = true
         super.onDestroyView()
 
     }
@@ -96,42 +96,41 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
     }
 
     private fun onDownloadSuccessful() {
-        if (!isDestroy) {
-            if (isTablet && adapter?.productList?.size!! > 0) {
-                /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
-            }
-            error_message.visibility = View.GONE
-            loading_more.visibility = View.GONE
-            swipe_refresh.isRefreshing = false
-            swipe_refresh.isEnabled = true
 
-
-            adapter?.notifyDataSetChanged()
+        if (isTablet && adapter?.productList?.size!! > 0) {
+            /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
         }
+        error_message.visibility = View.GONE
+        loading_more.visibility = View.GONE
+        swipe_refresh.isRefreshing = false
+        swipe_refresh.isEnabled = true
+
+
+        adapter?.notifyDataSetChanged()
 
 
     }
 
     private fun onDownloadFailed() {
-        if (!isDestroy) {
-            if (adapter!!.pageToDownload == 1) {
 
-                loading_more.visibility = View.GONE
-                swipe_refresh.isRefreshing = false
-                swipe_refresh.visibility = View.GONE
-                error_message.visibility = View.VISIBLE
-            } else {
-                adapter!!.productList.removeAt(adapter!!.productList.size - 1)
-                adapter!!.notifyItemRemoved(adapter!!.productList.size)
-                loading_more.visibility = View.GONE
-                error_message.visibility = View.GONE
+        if (adapter!!.pageToDownload == 1) {
 
-                swipe_refresh.visibility = View.VISIBLE
-                swipe_refresh.isRefreshing = false
-                swipe_refresh.isEnabled = true
-                adapter!!.isLoadingLocked = true
-            }
+            loading_more.visibility = View.GONE
+            swipe_refresh.isRefreshing = false
+            swipe_refresh.visibility = View.GONE
+            error_message.visibility = View.VISIBLE
+        } else {
+            adapter!!.productList.removeAt(adapter!!.productList.size - 1)
+            adapter!!.notifyItemRemoved(adapter!!.productList.size)
+            loading_more.visibility = View.GONE
+            error_message.visibility = View.GONE
+
+            swipe_refresh.visibility = View.VISIBLE
+            swipe_refresh.isRefreshing = false
+            swipe_refresh.isEnabled = true
+            adapter!!.isLoadingLocked = true
         }
+
 
     }
 

@@ -55,10 +55,6 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
             // Toggle visibility
             error_message.visibility = View.GONE
 
-
-            // Remove cache
-
-            // Download again
             pageToDownload = 1
             adapter!!.productList.clear()
             mProductListPresenter!!.getProductList(Constants.NEEDBORROW,pageToDownload)

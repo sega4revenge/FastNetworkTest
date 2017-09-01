@@ -66,20 +66,6 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
-        /*   try {
-          val info = getPackageManager().getPackageInfo(
-                  "sega.fastnetwork.test",
-                  PackageManager.GET_SIGNATURES);
-          for (signature in info.signatures) {
-              val md = MessageDigest.getInstance("SHA");
-              md.update(signature.toByteArray());
-              Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-              }
-      } catch (e: PackageManager.NameNotFoundException) {
-
-      } catch (e: NoSuchAlgorithmException) {
-
-      }*/
         setSupportActionBar(toolbar_addproduct)
         toolbar_addproduct.inflateMenu(R.menu.uploadproduct_menu)
         toolbar_addproduct.setTitleTextColor(Color.BLACK)
@@ -87,7 +73,6 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
         supportActionBar!!.title = "Add product"
-//        Log.e("Radio",toggle.checkedRadioButtonId.toString())
 ///=======================Cho thue/ Can thue=========================
 
         toggle.setOnCheckedChangeListener { _, checkedId ->
