@@ -6,11 +6,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
 import android.support.v4.util.ArrayMap
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
@@ -32,33 +30,28 @@ import sega.fastnetwork.test.view.SearchView
 /**
  * Created by VinhNguyen on 8/9/2017.
  */
-class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks, AAH_FabulousFragment.AnimationListener {
+class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks {
 
 
-    private val INTENT_DATA_AllLOCATION = 100
-    private val INTENT_DATA_CATEGORY = 10001
-    private val INTENT_DATA_LOCATION = 1000
+
     var SearchView: SearchPresenterImp? = null
-    var typeLocation = 0
-    var mLocation = 0
+
     var mCategory = 0
     var mFilter = 0
-    var styleList = 0
-    var viewtype: Int = 1
+
     var Location = ""
-    var thread: Thread? = null
+
     var dialogFrag: FilterFragment? = null
-    private var countdowntime: CountDownTimer? = null
-    private var bool_search = false
+
     private var preferences: SharedPreferences? = null
     private var isLoading: Boolean = false
     private var isLoadingLocked: Boolean = false
     private var pageToDownload: Int = 0
     internal var isTablet: Boolean = false
     private val applied_filters = ArrayMap<String, MutableList<String>>()
-    private var layoutManager: GridLayoutManager? = null
+    private var layoutManager: LinearLayoutManager? = null
     private var adapter: ProductAdapter? = null
-    private var handler: Handler? = null
+
     fun getApplied_filters(): ArrayMap<String, MutableList<String>> = applied_filters
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,10 +61,10 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
 
-        layoutManager = GridLayoutManager(this, getNumberOfColumns())
+        layoutManager = LinearLayoutManager(this)
         adapter = ProductAdapter(this, this,product_recycleview, layoutManager!!)
         dialogFrag = FilterFragment.newInstance()
-        dialogFrag!!.setParentFab(fab_search)
+
         fab_search.setOnClickListener {
             val inputManager = this
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -123,34 +116,7 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
                 onDownloadSuccessful()
             }
         }
-        action_grid.setOnClickListener {
 
-            when (viewtype) {
-                1 -> {
-
-                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_LIST).apply()
-
-                    onRefreshToolbarMenu()
-                    onRefreshListProduct()
-
-
-                }
-                2 -> {
-                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_COMPACT).apply()
-                    onRefreshToolbarMenu()
-                    onRefreshListProduct()
-
-
-                }
-                3 -> {
-                    preferences!!.edit().putInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID).apply()
-                    onRefreshToolbarMenu()
-                    onRefreshListProduct()
-
-
-                }
-            }
-        }
         ed_search.setIconifiedByDefault(false)
         ed_search.isFocusable = true
         ed_search.isIconified = false
@@ -176,26 +142,13 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
     }
     override fun onResult(result : Any?) {
         Log.d("k9res", "onResult: " + result.toString())
-    }
-
-    override fun onOpenAnimationStart() {
-        Log.d("aah_animation", "onOpenAnimationStart: ")
-    }
-
-    override fun onOpenAnimationEnd() {
-        Log.d("aah_animation", "onOpenAnimationEnd: ")
+        println(applied_filters["category"])
+        println(applied_filters["location"])
+        println(applied_filters["filter"])
+        SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
 
     }
 
-    override fun onCloseAnimationStart() {
-        Log.d("aah_animation", "onCloseAnimationStart: ")
-
-    }
-
-    override fun onCloseAnimationEnd() {
-        Log.d("aah_animation", "onCloseAnimationEnd: ")
-
-    }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -206,28 +159,7 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
 
 
     }
-    private fun onRefreshListProduct() {
-        ed_search.clearFocus()
-        adapter?.notifyDataSetChanged()
-    }
 
-    private fun onRefreshToolbarMenu() {
-        viewtype = preferences?.getInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID)!!
-        if (viewtype == Constants.VIEW_MODE_GRID) {
-            // Change from grid to list
-
-            action_grid.setImageResource(R.drawable.action_grid)
-
-
-        } else if (viewtype == Constants.VIEW_MODE_LIST) {
-
-            action_grid.setImageResource(R.drawable.action_list)
-
-
-        } else {
-            action_grid.setImageResource(R.drawable.action_compact)
-        }
-    }
 
 
     //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -304,25 +236,6 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         }
     }
 
-    fun getNumberOfColumns(): Int {
-        // Get screen width
-        val displayMetrics = resources.displayMetrics
-        var widthPx = displayMetrics.widthPixels.toFloat()
-        if (isTablet) {
-            widthPx /= 3
-        }
-        // Calculate desired width
-        preferences = this.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
-        if (preferences!!.getInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID) == Constants.VIEW_MODE_GRID) {
-            val desiredPx = resources.getDimensionPixelSize(R.dimen.product_card_width).toFloat()
-            val columns = Math.round(widthPx / desiredPx)
-            return if (columns > 2) columns else 2
-        } else {
-            val desiredPx = resources.getDimensionPixelSize(R.dimen.product_list_card_width).toFloat()
-            val columns = Math.round(widthPx / desiredPx)
-            return if (columns > 1) columns else 1
-        }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)

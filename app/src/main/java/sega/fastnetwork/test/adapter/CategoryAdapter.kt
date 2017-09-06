@@ -59,14 +59,14 @@ class CategoryAdapter// Constructor
         // GRID MODE
         if(category.selected)
         {
-            viewHolder.itemView.category_card.setBackgroundResource(R.drawable.chip_selected)
+            viewHolder.itemView.category_card.setBackgroundResource(R.drawable.category_selected)
             viewHolder.itemView.category_name.text = category.name
-            viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.white))
+            viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.black))
             viewHolder.itemView.category_line.setBackgroundResource(category.color)
         }
         else
         {
-            viewHolder.itemView.category_card.setBackgroundResource(R.drawable.chip_unselected)
+            viewHolder.itemView.category_card.setBackgroundResource(R.drawable.category_unselected)
             viewHolder.itemView.category_name.text = category.name
             viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.black))
             viewHolder.itemView.category_line.setBackgroundResource(category.color)

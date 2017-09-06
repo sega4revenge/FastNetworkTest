@@ -19,6 +19,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.google.android.flexbox.FlexboxLayout
+import kotlinx.android.synthetic.main.filter_product.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.adapter.CategoryAdapter
@@ -33,7 +34,7 @@ import java.util.*
 
 class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickListener {
     var adapter: CategoryAdapter? = null
-    private var keysCategory : List<String> = ArrayList()
+    private var keysCategory: List<String> = ArrayList()
     internal var applied_filters: ArrayMap<String, MutableList<String>>? = ArrayMap()
     internal var textviews: MutableList<TextView> = ArrayList()
 
@@ -84,17 +85,16 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
 
 
         mAdapter = SectionsPagerAdapter()
-        vp_types.offscreenPageLimit = 4
+        vp_types.offscreenPageLimit = 3
         vp_types.adapter = mAdapter
         mAdapter!!.notifyDataSetChanged()
         tabs_types!!.setupWithViewPager(vp_types)
 
 
         //params to set
-        setAnimationDuration(400) //optional; default 500ms
+
         setPeekHeight(300) // optional; default 400dp
         setCallbacks(activity as AAH_FabulousFragment.Callbacks) //optional; to get back result
-        setAnimationListener(activity as AAH_FabulousFragment.AnimationListener) //optional; to get animation callbacks
         setViewgroupStatic(ll_buttons) // optional; layout to stick at bottom on slide
         setViewPager(vp_types) //optional; if you use viewpager that has scrollview
         setViewMain(rl_content) //necessary; main bottomsheet view
@@ -116,21 +116,21 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
                     resId = R.layout.category_fragment
                     view = inflater.inflate(resId, collection, false)
                     val fbl = view.findViewById<RecyclerView>(R.id.category_grid)
-                    inflateLayoutCategory("Danh mục", fbl)
+                    inflateLayoutCategory(fbl)
                     (collection as ViewPager).addView(view, 0)
                 }
                 1 -> {
                     resId = R.layout.view_filters_sorters
                     view = inflater.inflate(resId, collection, false)
                     val fbl = view.findViewById<FlexboxLayout>(R.id.fbl)
-                    inflateLayoutWithFilters("Địa điểm", fbl)
+                    inflateLayoutWithFilters(fbl)
                     (collection as ViewPager).addView(view, 0)
                 }
                 2 -> {
-                    resId = R.layout.view_filters_sorters
+                    resId = R.layout.filter_product
                     view = inflater.inflate(resId, collection, false)
-                    val fbl = view.findViewById<FlexboxLayout>(R.id.fbl)
-                    inflateLayoutWithFilters("Lọc", fbl)
+
+                    inflateLayoutProduct(view)
                     (collection as ViewPager).addView(view, 0)
                 }
             }
@@ -151,14 +151,13 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
             collection.removeView(view as View)
         }
 
-        override fun getCount(): Int = 4
+        override fun getCount(): Int = 3
 
         override fun getPageTitle(position: Int): CharSequence {
             when (position) {
                 0 -> return "Danh mục"
                 1 -> return "Địa điểm"
                 2 -> return "Lọc"
-                3 -> return "Sắp xếp"
             }
             return ""
         }
@@ -169,14 +168,8 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
 
     }
 
-    private fun inflateLayoutWithFilters(filter_category: String, fbl: FlexboxLayout) {
-        var keys: List<String> = ArrayList()
-        when (filter_category) {
-            "Danh mục" -> keys = Arrays.asList(*resources.getStringArray(R.array.category))
-            "Địa điểm" -> keys = Arrays.asList(*resources.getStringArray(R.array.mLocation))
-            "Lọc" -> keys = Arrays.asList(*resources.getStringArray(R.array.category))
-            "Sắp xếp" -> keys = Arrays.asList(*resources.getStringArray(R.array.category))
-        }
+    private fun inflateLayoutWithFilters(fbl: FlexboxLayout) {
+        var keys: List<String> = Arrays.asList(*resources.getStringArray(R.array.mLocation))
 
         for (i in keys.indices) {
             val subchild = activity.layoutInflater.inflate(R.layout.single_chip, null)
@@ -188,30 +181,21 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
                     tv.tag = "unselected"
                     tv.setBackgroundResource(R.drawable.chip_unselected)
                     tv.setTextColor(ContextCompat.getColor(context, R.color.color_background_button))
-                    removeFromSelectedMap(filter_category, finalKeys[i])
+                    removeFromSelectedMap("location", finalKeys[i])
                 } else {
                     tv.tag = "selected"
                     tv.setBackgroundResource(R.drawable.chip_selected)
                     tv.setTextColor(ContextCompat.getColor(context, R.color.white))
-                    addToSelectedMap(filter_category, finalKeys[i])
+                    addToSelectedMap("location", finalKeys[i])
                 }
             }
-            try {
-                Log.d("k9res", "key: " + filter_category + " |val:" + keys[i])
-                Log.d("k9res", "applied_filters != null: " + (applied_filters != null))
-                Log.d("k9res", "applied_filters.get(key) != null: " + (applied_filters!![filter_category] != null))
-                Log.d("k9res", "applied_filters.get(key).contains(keys.get(finalI)): " + applied_filters!![filter_category]!!.contains(keys[i]))
-            } catch (e: Exception) {
-
-            }
-
-            if (applied_filters != null && applied_filters!![filter_category] != null && applied_filters!![filter_category]!!.contains(keys[i])) {
+            if (applied_filters != null && applied_filters!!["location"] != null && applied_filters!!["location"]!!.contains(keys[i])) {
                 tv.tag = "selected"
                 tv.setBackgroundResource(R.drawable.chip_selected)
-                tv.setTextColor(ContextCompat.getColor(context, R.color.filters_header))
+                tv.setTextColor(ContextCompat.getColor(context, R.color.white))
             } else {
                 tv.setBackgroundResource(R.drawable.chip_unselected)
-                tv.setTextColor(ContextCompat.getColor(context, R.color.filters_chips))
+                tv.setTextColor(ContextCompat.getColor(context, R.color.color_background_button))
             }
             textviews.add(tv)
 
@@ -221,7 +205,7 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
 
     }
 
-    private fun inflateLayoutCategory(filter_category: String, recycleview: RecyclerView) {
+    private fun inflateLayoutCategory(recycleview: RecyclerView) {
         keysCategory = Arrays.asList(*resources.getStringArray(R.array.category))
         adapter = CategoryAdapter(context, this)
 
@@ -233,12 +217,76 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
         recycleview.adapter = adapter
 
         for (i in keysCategory.indices) {
-            if (applied_filters != null && applied_filters!!["category"] != null && applied_filters!!["category"]!!.contains(keysCategory[i])) {
+            if (applied_filters != null && applied_filters!!["category"] != null && applied_filters!!["category"]!!.contains(i.toString())) {
                 adapter!!.categoryList[i].selected = true
                 adapter!!.notifyItemChanged(i)
+
             }
         }
         adapter!!.notifyDataSetChanged()
+
+
+    }
+
+    private fun inflateLayoutProduct(view: View) {
+        if (applied_filters != null && applied_filters!!["filter"] != null) {
+            when(applied_filters!!["filter"]!![0])
+            {
+                "1" -> view.filter_newimg.visibility = View.VISIBLE
+
+                "2" -> view.filter_smallimg.visibility = View.VISIBLE
+
+                "3"-> view.filter_hignimg.visibility = View.VISIBLE
+
+                else -> view.filter_hotimg.visibility = View.VISIBLE
+            }
+
+        }
+
+        view.filter_hot.setOnClickListener {
+
+            val temp = ArrayList<String>()
+            temp.add("0")
+            applied_filters!!.remove("filter")
+            applied_filters!!.put("filter", temp)
+            view.filter_hotimg.visibility = View.VISIBLE
+            view.filter_newimg.visibility = View.GONE
+            view.filter_smallimg.visibility = View.GONE
+            view.filter_hignimg.visibility = View.GONE
+        }
+        view.filter_new.setOnClickListener {
+            val temp = ArrayList<String>()
+            temp.add("1")
+            applied_filters!!.remove("filter")
+            applied_filters!!.put("filter", temp)
+            view.filter_hotimg.visibility = View.GONE
+            view.filter_newimg.visibility = View.VISIBLE
+            view.filter_smallimg.visibility = View.GONE
+            view.filter_hignimg.visibility = View.GONE
+
+        }
+        view.filter_small.setOnClickListener {
+            val temp = ArrayList<String>()
+            temp.add("2")
+            applied_filters!!.remove("filter")
+            applied_filters!!.put("filter", temp)
+            view.filter_hotimg.visibility = View.GONE
+            view.filter_newimg.visibility = View.GONE
+            view.filter_smallimg.visibility = View.VISIBLE
+            view.filter_hignimg.visibility = View.GONE
+        }
+        view.filter_hign.setOnClickListener {
+            val temp = ArrayList<String>()
+            temp.add("3")
+            applied_filters!!.remove("filter")
+            applied_filters!!.put("filter", temp)
+            view.filter_hotimg.visibility = View.GONE
+            view.filter_newimg.visibility = View.GONE
+            view.filter_smallimg.visibility = View.GONE
+            view.filter_hignimg.visibility = View.VISIBLE
+        }
+
+
 
 
     }
@@ -264,11 +312,11 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
         if (adapter!!.categoryList[position].selected) {
             adapter!!.categoryList[position].selected = false
             adapter!!.notifyItemChanged(position)
-            removeFromSelectedMap("category", keysCategory[position])
+            removeFromSelectedMap("category", position.toString())
         } else {
             adapter!!.categoryList[position].selected = true
             adapter!!.notifyItemChanged(position)
-            addToSelectedMap("category", keysCategory[position])
+            addToSelectedMap("category",position.toString())
         }
     }
 

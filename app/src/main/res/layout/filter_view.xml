@@ -7,65 +7,62 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:background="@color/white"
-        tools:visibility="visible"
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:visibility="invisible"
-        tools:ignore="MissingPrefix">
+        android:background="@color/white"
+        tools:ignore="MissingPrefix"
+        tools:visibility="visible">
 
         <android.support.design.widget.TabLayout
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@color/black"
-            android:background="@color/color_background_button"
             android:id="@+id/tabs_types"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@android:color/white"
+            app:tabBackground="@color/white"
+            app:tabIndicatorColor="@color/color_background_button"
             app:tabIndicatorHeight="2dp"
-            app:tabMode="scrollable"
             app:tabPaddingBottom="0dp"
             app:tabPaddingEnd="0dp"
             app:tabPaddingStart="0dp"
-            app:tabPaddingTop="0dp" />
+            app:tabPaddingTop="0dp"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/black" />
 
         <android.support.v4.view.ViewPager
-            android:layout_below="@+id/tabs_types"
             android:id="@+id/vp_types"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_below="@+id/tabs_types"
             android:layout_marginBottom="56dp"
+            android:layout_marginTop="0dp"
             android:elevation="-4dp" />
-
 
 
         <LinearLayout
             android:id="@+id/ll_buttons"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+
             android:orientation="horizontal"
             android:weightSum="2">
 
             <ImageButton
-                android:background="@drawable/states_fab_button"
                 android:id="@+id/imgbtn_refresh"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/states_fab_button"
                 android:src="@drawable/action_search"
                 android:tint="@android:color/white" />
 
             <ImageButton
-                android:background="@drawable/states_fab_button"
                 android:id="@+id/imgbtn_apply"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/states_fab_button"
                 android:src="@drawable/select_icon_done"
                 android:tint="@android:color/white" />
 

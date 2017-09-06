@@ -8,7 +8,7 @@
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     cardview:cardBackgroundColor="@color/white"
-    cardview:cardCornerRadius="0dp">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,25 +42,10 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
-                android:textColor="@color/black"
+                android:textColor="@color/text_light"
                 android:textSize="20sp"
                 tools:text="Hàng hóa" />
 
-            <TextView
-                android:id="@+id/category_number"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="center"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:textSize="13sp"
-                tools:text="25 Items" />
 
             <ImageView
                 android:id="@+id/category_line"
