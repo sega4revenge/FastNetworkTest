@@ -74,7 +74,6 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
         supportActionBar!!.title = "Add product"
 ///=======================Cho thue/ Can thue=========================
-
         toggle.setOnCheckedChangeListener { _, checkedId ->
             run {
                 if (checkedId == R.id.borrow) {

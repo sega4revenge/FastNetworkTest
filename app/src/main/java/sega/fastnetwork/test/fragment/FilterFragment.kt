@@ -7,6 +7,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.util.ArrayMap
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,20 +21,19 @@ import android.widget.TextView
 import com.google.android.flexbox.FlexboxLayout
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.SearchActivity
+import sega.fastnetwork.test.adapter.CategoryAdapter
+import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.FabiousFilter.AAH_FabulousFragment
 import java.util.*
-
-
-
 
 
 /**
  * Created by sega4 on 28/08/2017.
  */
 
-class FilterFragment : AAH_FabulousFragment() {
-
-
+class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickListener {
+    var adapter: CategoryAdapter? = null
+    private var keysCategory : List<String> = ArrayList()
     internal var applied_filters: ArrayMap<String, MutableList<String>>? = ArrayMap()
     internal var textviews: MutableList<TextView> = ArrayList()
 
@@ -104,18 +105,45 @@ class FilterFragment : AAH_FabulousFragment() {
 
     private inner class SectionsPagerAdapter : PagerAdapter() {
 
-        override fun instantiateItem(collection: ViewGroup, position: Int): Any {
+        override fun instantiateItem(collection: ViewGroup, position: Int): View? {
             val inflater = LayoutInflater.from(context)
-            val layout = inflater.inflate(R.layout.view_filters_sorters, collection, false) as ViewGroup
-            val fbl = layout.findViewById<FlexboxLayout>(R.id.fbl)
+            /*  val layout = inflater.inflate(R.layout.view_filters_sorters, collection, false) as ViewGroup
+              val fbl = layout.findViewById<FlexboxLayout>(R.id.fbl)*/
+            var resId: Int
+            var view: View? = null
             when (position) {
-                0 -> inflateLayoutWithFilters("Danh mục", fbl)
-                1 -> inflateLayoutWithFilters("Địa điểm", fbl)
-                2 -> inflateLayoutWithFilters("Lọc", fbl)
-                3 -> inflateLayoutWithFilters("Sắp xếp", fbl)
+                0 -> {
+                    resId = R.layout.category_fragment
+                    view = inflater.inflate(resId, collection, false)
+                    val fbl = view.findViewById<RecyclerView>(R.id.category_grid)
+                    inflateLayoutCategory("Danh mục", fbl)
+                    (collection as ViewPager).addView(view, 0)
+                }
+                1 -> {
+                    resId = R.layout.view_filters_sorters
+                    view = inflater.inflate(resId, collection, false)
+                    val fbl = view.findViewById<FlexboxLayout>(R.id.fbl)
+                    inflateLayoutWithFilters("Địa điểm", fbl)
+                    (collection as ViewPager).addView(view, 0)
+                }
+                2 -> {
+                    resId = R.layout.view_filters_sorters
+                    view = inflater.inflate(resId, collection, false)
+                    val fbl = view.findViewById<FlexboxLayout>(R.id.fbl)
+                    inflateLayoutWithFilters("Lọc", fbl)
+                    (collection as ViewPager).addView(view, 0)
+                }
             }
-            collection.addView(layout)
-            return layout
+            /*  when (position) {
+                  0 -> inflateLayoutCategory("Danh mục", fbl)
+                  1 -> inflateLayoutWithFilters("Địa điểm", fbl)
+                  2 -> inflateLayoutWithFilters("Lọc", fbl)
+                  3 -> inflateLayoutWithFilters("Sắp xếp", fbl)
+              }
+              collection.addView(layout)
+              return layout*/
+
+            return view
 
         }
 
@@ -144,10 +172,10 @@ class FilterFragment : AAH_FabulousFragment() {
     private fun inflateLayoutWithFilters(filter_category: String, fbl: FlexboxLayout) {
         var keys: List<String> = ArrayList()
         when (filter_category) {
-            "Danh mục" -> keys = Arrays.asList(*resources.getStringArray(R.array.mCategory))
+            "Danh mục" -> keys = Arrays.asList(*resources.getStringArray(R.array.category))
             "Địa điểm" -> keys = Arrays.asList(*resources.getStringArray(R.array.mLocation))
-            "Lọc" -> keys = Arrays.asList(*resources.getStringArray(R.array.mCategory))
-            "Sắp xếp" -> keys = Arrays.asList(*resources.getStringArray(R.array.mCategory))
+            "Lọc" -> keys = Arrays.asList(*resources.getStringArray(R.array.category))
+            "Sắp xếp" -> keys = Arrays.asList(*resources.getStringArray(R.array.category))
         }
 
         for (i in keys.indices) {
@@ -191,6 +219,57 @@ class FilterFragment : AAH_FabulousFragment() {
         }
 
 
+    }
+
+    private fun inflateLayoutCategory(filter_category: String, recycleview: RecyclerView) {
+        keysCategory = Arrays.asList(*resources.getStringArray(R.array.category))
+        adapter = CategoryAdapter(context, this)
+
+        val layoutManager = GridLayoutManager(context, getNumberOfColumns())
+        recycleview.setHasFixedSize(true)
+        recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
+
+        recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 1))
+        recycleview.adapter = adapter
+
+        for (i in keysCategory.indices) {
+            if (applied_filters != null && applied_filters!!["category"] != null && applied_filters!!["category"]!!.contains(keysCategory[i])) {
+                adapter!!.categoryList[i].selected = true
+                adapter!!.notifyItemChanged(i)
+            }
+        }
+        adapter!!.notifyDataSetChanged()
+
+
+    }
+
+    private fun getNumberOfColumns(): Int {
+        // Get screen width
+        val displayMetrics = resources.displayMetrics
+        val widthPx = displayMetrics.widthPixels.toFloat()
+        /* if (isTablet) {
+             widthPx = widthPx / 3
+         }*/
+        // Calculate desired width
+
+
+        val desiredPx = resources.getDimensionPixelSize(R.dimen.product_card_width).toFloat()
+        val columns = Math.round(widthPx / desiredPx)
+        return if (columns > 2) columns else 2
+
+    }
+
+    override fun oncategoryClicked(position: Int, view: View) {
+
+        if (adapter!!.categoryList[position].selected) {
+            adapter!!.categoryList[position].selected = false
+            adapter!!.notifyItemChanged(position)
+            removeFromSelectedMap("category", keysCategory[position])
+        } else {
+            adapter!!.categoryList[position].selected = true
+            adapter!!.notifyItemChanged(position)
+            addToSelectedMap("category", keysCategory[position])
+        }
     }
 
     private fun addToSelectedMap(key: String, value: String) {

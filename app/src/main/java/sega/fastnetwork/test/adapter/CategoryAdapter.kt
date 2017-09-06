@@ -1,6 +1,7 @@
 package sega.fastnetwork.test.adapter
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,30 +15,30 @@ import java.util.*
  * Created by sega4 on 07/08/2017.
  */
 class CategoryAdapter// Constructor
-(private val context: Context, private val onproductClickListener: OnproductClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+(private val context: Context, private val oncategoryClickListener: OncategoryClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    var productList: ArrayList<Category> = ArrayList()
+    var categoryList: ArrayList<Category> = ArrayList()
 
 
     init {
 
-        productList.add(Category("Xe cộ","25",R.drawable.cate_vehicle))
-        productList.add(Category("Đồ chơi","40",R.drawable.cate_toy))
-        productList.add(Category("Điện tử","105",R.drawable.cate_electronic))
-        productList.add(Category("Gia dụng","6",R.drawable.cate_furniture))
-        productList.add(Category("Thời trang","216",R.drawable.cate_fashion))
-        productList.add(Category("Nhà cửa","42",R.drawable.cate_home))
-        productList.add(Category("Giáo dục","15",R.drawable.cate_education))
-        productList.add(Category("Âm nhạc","15",R.drawable.cate_music))
-        productList.add(Category("Máy móc","6",R.drawable.cate_machine))
-        productList.add(Category("Khác","8",R.drawable.cate_more))
+        categoryList.add(Category("Xe cộ","25",R.drawable.cate_vehicle,false))
+        categoryList.add(Category("Đồ chơi","40",R.drawable.cate_toy,false))
+        categoryList.add(Category("Điện tử","105",R.drawable.cate_electronic,false))
+        categoryList.add(Category("Gia dụng","6",R.drawable.cate_furniture,false))
+        categoryList.add(Category("Thời trang","216",R.drawable.cate_fashion,false))
+        categoryList.add(Category("Nhà cửa","42",R.drawable.cate_home,false))
+        categoryList.add(Category("Giáo dục","15",R.drawable.cate_education,false))
+        categoryList.add(Category("Âm nhạc","15",R.drawable.cate_music,false))
+        categoryList.add(Category("Máy móc","6",R.drawable.cate_machine,false))
+        categoryList.add(Category("Khác","8",R.drawable.cate_more,false))
     }
 
     // RecyclerView methods
     override fun getItemCount(): Int {
 
-        return productList.size
+        return categoryList.size
     }
 
 
@@ -53,22 +54,33 @@ class CategoryAdapter// Constructor
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
 
-        val product = productList[position]
+        val category = categoryList[position]
 
         // GRID MODE
+        if(category.selected)
+        {
+            viewHolder.itemView.category_card.setBackgroundResource(R.drawable.chip_selected)
+            viewHolder.itemView.category_name.text = category.name
+            viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.white))
+            viewHolder.itemView.category_line.setBackgroundResource(category.color)
+        }
+        else
+        {
+            viewHolder.itemView.category_card.setBackgroundResource(R.drawable.chip_unselected)
+            viewHolder.itemView.category_name.text = category.name
+            viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.black))
+            viewHolder.itemView.category_line.setBackgroundResource(category.color)
+
+        }
 
 
 
-
-
-        viewHolder.itemView.category_name.text = product.name
-        viewHolder.itemView.category_number.text = product.number
-        viewHolder.itemView.category_line.setBackgroundResource(product.color)
 
         // Title and year
 
-        //                productViewHolder.productRating.setText(product.price+"");
+        //                categoryViewHolder.categoryRating.setText(category.price+"");
         //            }
+        viewHolder.itemView.setOnClickListener { oncategoryClickListener.oncategoryClicked(position,viewHolder.itemView) }
     }
 
 
@@ -76,7 +88,7 @@ class CategoryAdapter// Constructor
     inner class ProductGridViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     // Click listener interface
-    interface OnproductClickListener {
-        fun onproductClicked(position: Int)
+    interface OncategoryClickListener {
+        fun oncategoryClicked(position: Int,view : View)
     }
 }

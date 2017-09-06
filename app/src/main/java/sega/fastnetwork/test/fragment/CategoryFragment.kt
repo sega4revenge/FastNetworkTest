@@ -17,7 +17,7 @@ import sega.fastnetwork.test.customview.DividerItemDecoration
  * Created by Admin on 3/15/2017.
  */
 
-class CategoryFragment : Fragment(), CategoryAdapter.OnproductClickListener {
+class CategoryFragment : Fragment(), CategoryAdapter.OncategoryClickListener {
 
     private var layoutManager: GridLayoutManager? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,7 +34,7 @@ class CategoryFragment : Fragment(), CategoryAdapter.OnproductClickListener {
         return view
     }
 
-    override fun onproductClicked(position: Int) {
+    override fun oncategoryClicked(position: Int,view : View) {
 
     }
 

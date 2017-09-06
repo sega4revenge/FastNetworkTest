@@ -105,7 +105,6 @@ class ProductListPresenter(view: ProductListView) {
 
 
     }
-
     fun stopRequest() {
         disposables.clear()
         println("cancel")
