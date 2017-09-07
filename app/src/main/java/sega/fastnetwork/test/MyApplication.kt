@@ -67,7 +67,6 @@ class MyApplication : Application() {
     }
 
     override fun attachBaseContext(base: Context) {
-        MultiDex.install(this);
         super.attachBaseContext(base)
     }
 

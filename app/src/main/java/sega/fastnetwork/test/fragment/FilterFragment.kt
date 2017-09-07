@@ -77,6 +77,8 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
                 tv.setBackgroundResource(R.drawable.chip_unselected)
                 tv.setTextColor(ContextCompat.getColor(context, R.color.color_background_button))
             }
+            adapter!!.refreshFilter()
+            adapter!!.notifyDataSetChanged()
             applied_filters!!.clear()
         }
 

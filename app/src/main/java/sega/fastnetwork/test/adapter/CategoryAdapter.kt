@@ -40,7 +40,11 @@ class CategoryAdapter// Constructor
 
         return categoryList.size
     }
-
+    fun refreshFilter(){
+        for (tv in categoryList) {
+            tv.selected = false
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductGridViewHolder {
 
