@@ -65,7 +65,7 @@ internal class ProductAdapter// Constructor
             val shimmerViewHolder = ShimmerViewHolder(inflater, parent, R.layout.layout_demo_grid)
             shimmerViewHolder.setShimmerColor(R.color.shimmer_color)
             shimmerViewHolder.setShimmerAngle(20)
-            shimmerViewHolder.setShimmerViewHolderBackground(context.getDrawable(R.drawable.bg_card))
+            shimmerViewHolder.setShimmerViewHolderBackground(context.resources.getDrawable(R.drawable.bg_card))
             shimmerViewHolder
         } else {
 
