@@ -14,10 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import com.google.android.flexbox.FlexboxLayout
 import kotlinx.android.synthetic.main.filter_product.view.*
 import sega.fastnetwork.test.R
@@ -184,7 +181,9 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
                     tv.setBackgroundResource(R.drawable.chip_unselected)
                     tv.setTextColor(ContextCompat.getColor(context, R.color.color_background_button))
                     removeFromSelectedMap("location", finalKeys[i])
-                } else {
+                }else if (applied_filters!!["location"]?.size == 5) {
+                    Toast.makeText(activity," da du 5 truong", Toast.LENGTH_LONG).show()
+                }   else {
                     tv.tag = "selected"
                     tv.setBackgroundResource(R.drawable.chip_selected)
                     tv.setTextColor(ContextCompat.getColor(context, R.color.white))
@@ -232,13 +231,12 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
 
     private fun inflateLayoutProduct(view: View) {
         if (applied_filters != null && applied_filters!!["filter"] != null) {
-            when(applied_filters!!["filter"]!![0])
-            {
+            when (applied_filters!!["filter"]!![0]) {
                 "1" -> view.filter_newimg.visibility = View.VISIBLE
 
                 "2" -> view.filter_smallimg.visibility = View.VISIBLE
 
-                "3"-> view.filter_hignimg.visibility = View.VISIBLE
+                "3" -> view.filter_hignimg.visibility = View.VISIBLE
 
                 else -> view.filter_hotimg.visibility = View.VISIBLE
             }
@@ -289,8 +287,6 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
         }
 
 
-
-
     }
 
     private fun getNumberOfColumns(): Int {
@@ -315,10 +311,12 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
             adapter!!.categoryList[position].selected = false
             adapter!!.notifyItemChanged(position)
             removeFromSelectedMap("category", position.toString())
-        } else {
+        }else if (applied_filters!!["category"]?.size == 5) {
+            Toast.makeText(activity," da du 5 truong", Toast.LENGTH_LONG).show()
+        }  else  {
             adapter!!.categoryList[position].selected = true
             adapter!!.notifyItemChanged(position)
-            addToSelectedMap("category",position.toString())
+            addToSelectedMap("category", position.toString())
         }
     }
 

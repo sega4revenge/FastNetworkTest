@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.androidnetworking.AndroidNetworking
 import kotlinx.android.synthetic.main.fragment_product_list.*
+
+
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
@@ -101,7 +103,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
             /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
         }
         error_message.visibility = View.GONE
-        loading_more.visibility = View.GONE
+
         swipe_refresh.isRefreshing = false
         swipe_refresh.isEnabled = true
 
@@ -115,14 +117,14 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
 
         if (adapter!!.pageToDownload == 1) {
 
-            loading_more.visibility = View.GONE
+
             swipe_refresh.isRefreshing = false
             swipe_refresh.visibility = View.GONE
             error_message.visibility = View.VISIBLE
         } else {
             adapter!!.productList.removeAt(adapter!!.productList.size - 1)
             adapter!!.notifyItemRemoved(adapter!!.productList.size)
-            loading_more.visibility = View.GONE
+
             error_message.visibility = View.GONE
 
             swipe_refresh.visibility = View.VISIBLE

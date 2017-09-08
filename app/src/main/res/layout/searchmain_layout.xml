@@ -123,25 +123,9 @@
 
             </android.support.v4.widget.SwipeRefreshLayout>
             <!-- Progress Circle -->
-            <include
-                android:id="@+id/progress_circle"
-                layout="@layout/layout_progress_circle"
-                android:layout_width="@dimen/progress_circle_width"
-                android:layout_height="@dimen/progress_circle_height"
-                android:layout_centerInParent="true"
-                android:visibility="visible" />
 
             <!-- Pull to Refresh -->
             <!-- Indicator for loading more -->
-            <include
-                android:id="@+id/loading_more"
-                layout="@layout/layout_progress_circle_white"
-                android:layout_width="@dimen/progress_circle_small_width"
-                android:layout_height="@dimen/progress_circle_small_height"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="80dp"
-                android:visibility="gone" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/product_recycleview"

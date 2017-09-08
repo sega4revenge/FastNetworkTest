@@ -1,23 +1,22 @@
 package sega.fastnetwork.test.fragment
 
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.androidnetworking.AndroidNetworking
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
+import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.ProductListPresenter
 import sega.fastnetwork.test.util.Constants
@@ -28,14 +27,14 @@ import sega.fastnetwork.test.util.Constants
  */
 class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView {
 
-    var mProductListPresenter: ProductListPresenter? = null
-    private var isLoading: Boolean = false
-    private var isLoadingLocked: Boolean = false
-    private var pageToDownload: Int = 0
-    internal var isTablet: Boolean = false
-    private var layoutManager: GridLayoutManager? = null
+    private var mProductListPresenter: ProductListPresenter? = null
+
+
+    private var isTablet: Boolean = false
+    private var layoutManager: LinearLayoutManager? = null
+    var isFirstLoad = true
     private var adapter: ProductAdapter? = null
-    private var isDestroy = false
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isTablet = resources.getBoolean(R.bool.is_tablet)
@@ -43,7 +42,7 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
         mProductListPresenter = ProductListPresenter(this)
         Log.e("haha", "need")
 
-        layoutManager = GridLayoutManager(context, getNumberOfColumns())
+        layoutManager = LinearLayoutManager(activity)
         adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
         product_recycleview.setHasFixedSize(true)
         product_recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
@@ -55,39 +54,28 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
             // Toggle visibility
             error_message.visibility = View.GONE
 
-            pageToDownload = 1
+            adapter!!.pageToDownload = 1
             adapter!!.productList.clear()
-            mProductListPresenter!!.getProductList(Constants.NEEDBORROW,pageToDownload)
+            adapter!!.initShimmer()
+            adapter!!.isLoading = false
+            isFirstLoad = true
+            mProductListPresenter!!.getProductList(Constants.NEEDBORROW,adapter!!.pageToDownload)
         })
-        pageToDownload = 1
-        if (savedInstanceState == null || !savedInstanceState.containsKey(Constants.product_LIST)) {
+        adapter!!.pageToDownload = 1
+        adapter!!.initShimmer()
+        adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
 
-            mProductListPresenter!!.getProductList(Constants.NEEDBORROW,pageToDownload)
-        } else {
-            adapter!!.productList = savedInstanceState.getParcelableArrayList(Constants.product_LIST)
-            /*   pageToDownload = savedInstanceState.getInt(Constants.PAGE_TO_DOWNLOAD)
-               isLoadingLocked = savedInstanceState.getBoolean(Constants.IS_LOCKED)
-               isLoading = savedInstanceState.getBoolean(Constants.IS_LOADING)*/
-            // Download again if stopped, else show list
-            if (isLoading) {
-                if (pageToDownload == 1) {
-
-                    loading_more.visibility = View.GONE
-
-                    swipe_refresh.visibility = View.GONE
-                } else {
-
-                    loading_more.visibility = View.VISIBLE
-
-                    swipe_refresh.visibility = View.VISIBLE
-                }
-
-                mProductListPresenter!!.getProductList(Constants.NEEDBORROW,pageToDownload)
-
-            } else {
-                onDownloadSuccessful()
+            if (!isFirstLoad) {
+                val a = Product()
+                a.productname = ""
+                adapter!!.productList.add(a)
+                product_recycleview.post({
+                    adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
+                })
             }
-        }
+
+            mProductListPresenter!!.getProductList(Constants.NEEDBORROW, adapter!!.pageToDownload)
+        })
 
     }
 
@@ -99,45 +87,25 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
     }
 
     override fun onDestroyView() {
-        AndroidNetworking.cancelAll()
-        isDestroy = true
+        mProductListPresenter?.stopRequest()
         super.onDestroyView()
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-
-        if (layoutManager != null && adapter != null) {
-            outState!!.putBoolean(Constants.IS_LOADING, isLoading)
-            outState.putBoolean(Constants.IS_LOCKED, isLoadingLocked)
-            outState.putInt(Constants.PAGE_TO_DOWNLOAD, pageToDownload)
-            outState.putParcelableArrayList(Constants.product_LIST, adapter!!.productList)
 
 
-        }
-        super.onSaveInstanceState(outState)
-    }
 
-    fun refreshLayout() {
-        val state = layoutManager!!.onSaveInstanceState()
-        layoutManager = GridLayoutManager(context, getNumberOfColumns())
-        product_recycleview.layoutManager = layoutManager
-        layoutManager!!.onRestoreInstanceState(state)
-        product_recycleview.performClick()
-
-
-    }
 
     private fun onDownloadSuccessful() {
-        if (!isDestroy) {
+
             if (isTablet && adapter?.productList?.size!! > 0) {
                 /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
             }
-            isLoading = false
+            adapter!!.isLoading = false
 
             error_message.visibility = View.GONE
 
-            loading_more.visibility = View.GONE
+
 
             swipe_refresh.visibility = View.VISIBLE
             swipe_refresh.isRefreshing = false
@@ -145,32 +113,33 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
 
 
             adapter?.notifyDataSetChanged()
-        }
+
 
 
     }
 
     private fun onDownloadFailed() {
-        if (!isDestroy) {
-            isLoading = false
-            if (pageToDownload == 1) {
 
-                loading_more.visibility = View.GONE
+        adapter!!.isLoading = false
+            if (adapter!!.pageToDownload == 1) {
+
+
 
                 swipe_refresh.isRefreshing = false
                 swipe_refresh.visibility = View.GONE
                 error_message.visibility = View.VISIBLE
             } else {
+                adapter!!.productList.removeAt(adapter!!.productList.size - 1)
+                adapter!!.notifyItemRemoved(adapter!!.productList.size)
 
-                loading_more.visibility = View.GONE
                 error_message.visibility = View.GONE
 
                 swipe_refresh.visibility = View.VISIBLE
                 swipe_refresh.isRefreshing = false
                 swipe_refresh.isEnabled = true
-                isLoadingLocked = true
+                adapter!!.isLoadingLocked = true
             }
-        }
+
 
     }
 
@@ -179,7 +148,16 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
     }
 
     override fun getListProduct(productlist: ArrayList<Product>) {
-        adapter!!.productList = productlist
+        adapter!!.productList.removeAt(adapter!!.productList.size - 1)
+        adapter!!.notifyItemRemoved(adapter!!.productList.size)
+        if (isFirstLoad) {
+            adapter!!.productList.clear()
+            isFirstLoad = false
+        }
+        adapter!!.productList.addAll(productlist)
+        adapter!!.pageToDownload++
+        adapter!!.isLoading = false
+        adapter!!.isLoadingLocked = false
         onDownloadSuccessful()
     }
 
@@ -198,26 +176,7 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
     }
 
 
-    fun getNumberOfColumns(): Int {
-        // Get screen width
-        val displayMetrics = resources.displayMetrics
-        var widthPx = displayMetrics.widthPixels.toFloat()
-        if (isTablet) {
-            widthPx /= 3
-        }
-        // Calculate desired width
-        val preferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
-        if (preferences.getInt(Constants.VIEW_MODE, Constants.VIEW_MODE_GRID) == Constants.VIEW_MODE_GRID) {
-            val desiredPx = resources.getDimensionPixelSize(R.dimen.product_card_width).toFloat()
-            val columns = Math.round(widthPx / desiredPx)
-            return if (columns > 2) columns else 2
-        } else {
-            val desiredPx = resources.getDimensionPixelSize(R.dimen.product_list_card_width).toFloat()
-            val columns = Math.round(widthPx / desiredPx)
-            return if (columns > 1) columns else 1
-        }
 
-    }
 
 
 }

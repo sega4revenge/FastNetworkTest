@@ -4,7 +4,6 @@ package sega.fastnetwork.test.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.util.ArrayMap
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +12,8 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+
+
 import kotlinx.android.synthetic.main.searchmain_layout.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.ProductAdapter
@@ -25,13 +26,10 @@ import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.view.SearchView
 
 
-
-
 /**
  * Created by VinhNguyen on 8/9/2017.
  */
 class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks {
-
 
 
     var SearchView: SearchPresenterImp? = null
@@ -62,7 +60,7 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         SearchView = SearchPresenterImp(this)
 
         layoutManager = LinearLayoutManager(this)
-        adapter = ProductAdapter(this, this,product_recycleview, layoutManager!!)
+        adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
         dialogFrag = FilterFragment.newInstance()
 
         fab_search.setOnClickListener {
@@ -73,7 +71,7 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
             ed_search.clearFocus()
             val v = this.currentFocus
             if (v != null)
-            inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             dialogFrag!!.show(supportFragmentManager, dialogFrag!!.tag)
         }
         product_recycleview.setHasFixedSize(true)
@@ -82,40 +80,15 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         product_recycleview.adapter = adapter
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
-            error_message.visibility = View.GONE
-            progress_circle.visibility = View.GONE
+
+
             product_recycleview.visibility = View.GONE
             pageToDownload = 1
             SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
 
         })
         pageToDownload = 1
-        if (savedInstanceState == null || !savedInstanceState.containsKey(Constants.product_LIST)) {
-            progress_circle.visibility = View.VISIBLE
-            SearchView!!.ConnectHttp(ed_search.query.toString(), "", mCategory, mFilter)
-        } else {
-            adapter!!.productList = savedInstanceState.getParcelableArrayList(Constants.product_LIST)
 
-            if (isLoading) {
-                if (pageToDownload == 1) {
-                    progress_circle.visibility = View.VISIBLE
-                    loading_more.visibility = View.GONE
-                    product_recycleview.visibility = View.GONE
-                    swipe_refresh.visibility = View.GONE
-                } else {
-                    progress_circle.visibility = View.GONE
-                    loading_more.visibility = View.VISIBLE
-                    product_recycleview.visibility = View.VISIBLE
-                    swipe_refresh.visibility = View.VISIBLE
-                }
-
-                progress_circle.visibility = View.VISIBLE
-                SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
-
-            } else {
-                onDownloadSuccessful()
-            }
-        }
 
         ed_search.setIconifiedByDefault(false)
         ed_search.isFocusable = true
@@ -140,7 +113,8 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         })
 
     }
-    override fun onResult(result : Any?) {
+
+    override fun onResult(result: Any?) {
         Log.d("k9res", "onResult: " + result.toString())
         println(applied_filters["category"])
         println(applied_filters["location"])
@@ -150,23 +124,11 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
     }
 
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        if (dialogFrag!!.isAdded) {
-            dialogFrag!!.dismiss()
-            dialogFrag!!.show(supportFragmentManager, dialogFrag!!.tag)
-        }
-
-
-    }
-
-
-
     //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     //  }
     override fun setMessagerNotFound() {
-        progress_circle.visibility = View.GONE
-        loading_more.visibility = View.GONE
+
+
         product_recycleview.visibility = View.GONE
         swipe_refresh.isRefreshing = false
         swipe_refresh.visibility = View.GONE
@@ -204,8 +166,8 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
         }
         isLoading = false
         error_message.visibility = View.GONE
-        progress_circle.visibility = View.GONE
-        loading_more.visibility = View.GONE
+
+
         product_recycleview.visibility = View.VISIBLE
         swipe_refresh.visibility = View.VISIBLE
         swipe_refresh.isRefreshing = false
@@ -218,15 +180,15 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
     private fun onDownloadFailed() {
         isLoading = false
         if (pageToDownload == 1) {
-            progress_circle.visibility = View.GONE
-            loading_more.visibility = View.GONE
+
+
             product_recycleview.visibility = View.GONE
             swipe_refresh.isRefreshing = false
             swipe_refresh.visibility = View.GONE
             error_message.visibility = View.VISIBLE
         } else {
-            progress_circle.visibility = View.GONE
-            loading_more.visibility = View.GONE
+
+
             error_message.visibility = View.GONE
             product_recycleview.visibility = View.VISIBLE
             swipe_refresh.visibility = View.VISIBLE
@@ -237,9 +199,4 @@ class SearchActivity : AppCompatActivity(), SearchView, ProductAdapter.Onproduct
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-
-    }
 }
