@@ -4,21 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_addproduct"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/white"
+        app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_addproduct"
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="@dimen/action_bar"
+            android:orientation="vertical"
+            >
 
-        </android.support.v7.widget.Toolbar>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_addproduct"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:theme="@style/Theme.Samita.Toolbar"
+                android:layout_centerVertical="true"
+                >
+            </android.support.v7.widget.Toolbar>
+
+
+
+        </RelativeLayout>
+
+
 
     </android.support.design.widget.AppBarLayout>
 
@@ -26,13 +43,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="?attr/actionBarSize">
+        android:paddingTop="@dimen/action_bar">
 
         <LinearLayout
             android:id="@+id/base"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#eeeeee"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <RadioGroup
@@ -94,17 +111,16 @@
             <!--/>-->
             <sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerView
                 android:id="@+id/add_picker_view"
-                android:layout_width="match_parent"
+                android:layout_width="360dp"
                 android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
                 app:is_show_del="true" />
         </LinearLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,7 +128,6 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
-
 
 
                 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -153,8 +168,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                android:textSize="15sp"
-                               />
+                                android:textSize="15sp" />
                         </LinearLayout>
 
 
@@ -186,8 +200,7 @@
                                     android:layout_height="match_parent"
                                     android:inputType="numberDecimal"
                                     android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                    android:textSize="15sp"
-                                    />
+                                    android:textSize="15sp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -258,8 +271,7 @@
                                 android:layout_height="match_parent"
                                 android:inputType="number"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                android:textSize="15sp"
-                                 />
+                                android:textSize="15sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -324,8 +336,7 @@
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                android:textSize="15sp"
-                                />
+                                android:textSize="15sp" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -348,8 +359,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                android:textSize="15sp"
-                             />
+                                android:textSize="15sp" />
                         </LinearLayout>
                         <!--  <LinearLayout
                               android:orientation="horizontal"

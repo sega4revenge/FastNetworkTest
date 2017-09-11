@@ -29,7 +29,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
@@ -319,11 +321,15 @@ class TedBottomPicker : BottomSheetDialogFragment() {
         selectedUriList!!.add(uri)
 
         val rootView = LayoutInflater.from(activity).inflate(R.layout.tedbottompicker_selected_item, null)
-     
-       
-        rootView.setTag(uri)
+
+
+        rootView.tag = uri
 
         contentView!!.selected_photos_container?.addView(rootView, selectedUriList!!.size - 1)
+
+
+
+// Set only target params:
 
 
         val px = resources.getDimension(R.dimen.tedbottompicker_selected_image_height).toInt()

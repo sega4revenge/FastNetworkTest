@@ -32,10 +32,10 @@ import java.util.*
 class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickListener {
     var adapter: CategoryAdapter? = null
     private var keysCategory: List<String> = ArrayList()
-    internal var applied_filters: ArrayMap<String, MutableList<String>>? = ArrayMap()
-    internal var textviews: MutableList<TextView> = ArrayList()
+    private var applied_filters: ArrayMap<String, MutableList<String>>? = ArrayMap()
+    private var textviews: MutableList<TextView> = ArrayList()
 
-    internal var tabs_types: TabLayout? = null
+    private var tabs_types: TabLayout? = null
 
     internal var imgbtn_refresh: ImageButton? = null
     internal var imgbtn_apply: ImageButton? = null

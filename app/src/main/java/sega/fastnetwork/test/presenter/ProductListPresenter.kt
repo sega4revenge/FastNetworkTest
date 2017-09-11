@@ -31,6 +31,7 @@ class ProductListPresenter(view: ProductListView) {
         Log.e(userdetail, type.toString())
 
         try {
+
             jsonObject.put("type", type)
             jsonObject.put("page", page)
 

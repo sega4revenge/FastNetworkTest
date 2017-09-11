@@ -65,7 +65,7 @@
 
                 android:layout_toRightOf="@+id/back_button"
                 android:background="@drawable/radius_edit"
-                android:enabled="true"
+                android:enabled="false"
                 android:hint="Search..."
                 android:maxLines="1"
                 android:paddingBottom="5dp"
@@ -82,12 +82,26 @@
 
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/layout_map"
+        android:fillViewport="true"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            />
+    </RelativeLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
@@ -114,18 +128,7 @@
                 android:textSize="18dp"
                 android:visibility="gone" />
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <!-- Recycler View -->
-
-            </android.support.v4.widget.SwipeRefreshLayout>
-            <!-- Progress Circle -->
-
-            <!-- Pull to Refresh -->
-            <!-- Indicator for loading more -->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/product_recycleview"
@@ -139,23 +142,7 @@
                 android:clipToPadding="false"
                 android:padding="@dimen/recycler_view_padding" />
 
-            <!--<include-->
-            <!--layout="@layout/layout_detail_fab"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="end|bottom"-->
-            <!--android:layout_marginRight="@dimen/dist_medium"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_alignEnd="@+id/progress_circle" />-->
 
-            <!--  <include
-                  layout="@layout/layout_detail_fab_main"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_gravity="center|bottom"
-                  android:layout_alignParentBottom="true"
-                  android:layout_centerHorizontal="true"
-                  android:layout_marginBottom="10dp" />-->
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
