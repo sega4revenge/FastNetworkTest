@@ -47,6 +47,7 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -89,7 +90,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
 
         <!--
         <activity android:name=".lib.imagepicker.MainActivity">
@@ -144,6 +144,7 @@
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.DetailNeedProductActivity" />
+        <activity android:name=".activity.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

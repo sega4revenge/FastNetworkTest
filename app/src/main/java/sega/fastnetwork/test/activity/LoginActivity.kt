@@ -241,7 +241,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
     }
 
-    override fun setErrorMessage(errorMessage: String) {
+    override fun setErrorMessage(errorMessage: String, type: Int) {
 
     }
 

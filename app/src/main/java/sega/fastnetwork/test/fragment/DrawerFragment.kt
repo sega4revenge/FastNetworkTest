@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import kotlinx.android.synthetic.main.header.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.AddActivity
+import sega.fastnetwork.test.activity.ChangePasswordActivity
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
@@ -200,6 +201,12 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 if(categorylist.visibility != View.GONE){
                     categorylist.visibility = View.GONE
                 }
+            }
+            R.id.nav_4 -> {
+//                mPrevSelectedId = itemId
+//                toolbar_title.setText("ChangePassword")
+//                val intent = Intent((activity as AppCompatActivity), ChangePasswordActivity::class.java)
+//                startActivity(intent)
             }
             R.id.nav_5 -> {
                 val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)

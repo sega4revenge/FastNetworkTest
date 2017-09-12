@@ -73,17 +73,17 @@ class LoginPresenter(view: LoginView) {
                                 Log.d(login, "onError errorBody : " + e.errorBody)
                                 Log.d(login, "onError errorDetail : " + e.errorDetail)
                                 mLoginView.isLoginSuccessful(false)
-                                mLoginView.setErrorMessage(e.errorDetail)
+                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),3)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(login, "onError errorDetail : " + e.errorDetail)
                                 mLoginView.isLoginSuccessful(false)
-                                mLoginView.setErrorMessage(e.errorDetail)
+                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),3)
                             }
                         } else {
                             Log.d(login, "onError errorMessage : " + e.message)
                             mLoginView.isLoginSuccessful(false)
-                            mLoginView.setErrorMessage(e.message!!)
+                            mLoginView.setErrorMessage(e.message!!,3)
                         }
                     }
 
@@ -119,11 +119,10 @@ class LoginPresenter(view: LoginView) {
                 jsonObject.put("photoprofile", user.google!!.photoprofile)
                 jsonObject.put("type", type)
                 jsonObject.put("tokenfirebase", user.tokenfirebase)
-            }
-            else
-            {
+            } else {
                 jsonObject.put("name", user.name)
                 jsonObject.put("email", user.email)
+                    jsonObject.put("type", type)
                 jsonObject.put("password", user.password)
                 jsonObject.put("tokenfirebase", user.tokenfirebase)
             }
@@ -151,7 +150,7 @@ class LoginPresenter(view: LoginView) {
 
                     override fun onComplete() {
 
-                        mLoginView.isRegisterSuccessful(true,type)
+                        mLoginView.isRegisterSuccessful(true, type)
                     }
 
                     override fun onError(e: Throwable) {
@@ -164,15 +163,15 @@ class LoginPresenter(view: LoginView) {
                                 Log.d(register, "onError errorCode : " + e.errorCode)
                                 Log.d(register, "onError errorBody : " + e.errorBody)
                                 Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.setErrorMessage(e.errorDetail)
+                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),1)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.setErrorMessage(e.errorDetail)
+                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),1)
                             }
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)
-                            mLoginView.setErrorMessage(e.message!!)
+                            mLoginView.setErrorMessage(e.message!!,1)
                         }
                     }
 
@@ -183,11 +182,79 @@ class LoginPresenter(view: LoginView) {
 
                 })
     }
+
+    fun register_finish(email: String, code: String) {
+
+
+        val jsonObject = JSONObject()
+        try {
+
+            jsonObject.put("email", email)
+            jsonObject.put("code", code)
+
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        Rx2AndroidNetworking.post(Constants.BASE_URL + "registerfinish")
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(register, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(register, " bytesSent : " + bytesSent)
+                    Log.d(register, " bytesReceived : " + bytesReceived)
+                    Log.d(register, " isFromCache : " + isFromCache)
+                }
+                .getObjectObservable(Response::class.java)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Response> {
+                    override fun onNext(response: Response?) {
+                        Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+                        mLoginView.getUserDetail(response!!.user!!)
+                    }
+
+
+                    override fun onComplete() {
+
+                        mLoginView.isRegisterSuccessful(true,3)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is ANError) {
+                            if (e.errorCode != 0) {
+                                // received ANError from server
+                                // error.getErrorCode() - the ANError code from server
+                                // error.getErrorBody() - the ANError body from server
+                                // error.getErrorDetail() - just a ANError detail
+                                Log.d(register, "onError errorCode : " + e.errorCode)
+                                Log.d(register, "onError errorBody : " + e.errorBody)
+                                Log.d(register, "onError errorDetail : " + e.errorDetail)
+                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),2)
+                            } else {
+                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                                Log.d(register, "onError errorDetail : " + e.errorDetail)
+                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),2)
+                            }
+                        } else {
+                            Log.d(register, "onError errorMessage : " + e.message)
+                            mLoginView.setErrorMessage(e.message!!,2)
+                        }
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+
+                })
+    }
+
     interface LoginView {
 
         fun isLoginSuccessful(isLoginSuccessful: Boolean)
-        fun isRegisterSuccessful(isRegisterSuccessful: Boolean,type : Int)
-        fun setErrorMessage(errorMessage: String)
-        fun getUserDetail(user : User)
+        fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int)
+        fun setErrorMessage(errorMessage: String, type: Int)
+        fun getUserDetail(user: User)
     }
 }

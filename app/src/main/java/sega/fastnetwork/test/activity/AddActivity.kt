@@ -62,6 +62,9 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
     var mRemoteView: RemoteViews? = null
     var mTimeRemain: Double = 0.0
     var mPercent: Int = 0
+    var lat1: String = ""
+    var lot1: String = ""
+
     private var mAddPresenter: AddPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -188,8 +191,8 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                 val place = PlacePicker.getPlace(this@AddActivity, data)
                 if (place != null) {
                     val latLng = place.latLng
-                    var lot1 = latLng.latitude.toString()
-                    var lat1 = latLng.longitude.toString()
+                    lat1 = latLng.latitude.toString()
+                    lot1 = latLng.longitude.toString()
                     val add = place.address as String
                     //
                     addressEdit.setText(add)
@@ -402,7 +405,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 } else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedItemPosition.toString(), number.text.toString(), category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), Constants.BORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedItemPosition.toString(), number.text.toString(), category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
                 }
             } else if (toggle.checkedRadioButtonId == needborrow.id) {
                 Toast.makeText(this, "Can thueeeeeeee", Toast.LENGTH_LONG).show()
@@ -410,7 +413,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 } else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), Constants.NEEDBORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(),lat1,lot1, Constants.NEEDBORROW)
                 }
             }
             System.out.println("upload")

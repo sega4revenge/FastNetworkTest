@@ -23,7 +23,7 @@ class AddPresenter(view: AddView) {
   
     var createproduct = "CREATEPRODUCT"
 
-    fun createProduct(userid: String, productname : String, price : String, time: String, number : String, category: String, address: String, description: String, type: Int){
+    fun createProduct(userid: String, productname : String, price : String, time: String, number : String, category: String, address: String, description: String,lat: String, lot: String, type: Int){
 
         val jsonObject = JSONObject()
         try {
@@ -35,6 +35,8 @@ class AddPresenter(view: AddView) {
             jsonObject.put("category",category)
             jsonObject.put("address",address)
             jsonObject.put("description", description)
+            jsonObject.put("lat",lat)
+            jsonObject.put("lot",lot)
             jsonObject.put("type", type)
             Log.e("AAAAA",userid + " " + productname+ " " + price + " " + time  + " " + number  + " " + category  + " " + address+ " " + description+ " "+ type)
         } catch (e: JSONException) {

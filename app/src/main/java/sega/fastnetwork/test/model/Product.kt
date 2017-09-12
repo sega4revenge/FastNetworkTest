@@ -21,6 +21,8 @@ class Product() : Parcelable {
     var description: String? = null
     var type: String? = null
     var created_at: String? = null
+    var lat : String? = null
+    var lot : String? = null
     var images : ArrayList<String>? = ArrayList()
     var comment : ArrayList<Comment>? = ArrayList()
     var bundle: Bundle = Bundle()
@@ -36,6 +38,8 @@ class Product() : Parcelable {
         description = parcel.readString()
         type = parcel.readString()
         created_at = parcel.readString()
+        lat = parcel.readString()
+        lot = parcel.readString()
 
     }
 
@@ -51,6 +55,8 @@ class Product() : Parcelable {
         parcel.writeString(description)
         parcel.writeString(type)
         parcel.writeString(created_at)
+        parcel.writeString(lat)
+        parcel.writeString(lot)
 
 
     }

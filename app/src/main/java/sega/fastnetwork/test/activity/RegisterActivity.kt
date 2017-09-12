@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_register.*
@@ -26,9 +27,24 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     override fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int) {
         if(isRegisterSuccessful)
         {
-            showSnackBarMessage(resources.getString(R.string.message_signin))
+            Log.e("toi day roi", "ne")
+            layoutname.visibility = View.GONE
+            layoutemail.visibility = View.GONE
+            layoutpass.visibility = View.GONE
+            layoutrepassword.visibility = View.GONE
+            btn_join.visibility = View.GONE
+
+            layoutcode.visibility = View.VISIBLE
+            btn_finish.visibility = View.VISIBLE
+
+            showSnackBarMessage("Check Email")
             progressBar.visibility = View.GONE
-            CircularAnim.show(btn_join).go()
+//            CircularAnim.show(btn_join).go()
+        }
+        if(type == 3){
+            showSnackBarMessage("Register Success")
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_finish).go()
         }
     }
 
@@ -48,10 +64,38 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
                             register()
                         }
                     })
-
+        }
+        btn_finish!!.setOnClickListener {
+            CircularAnim.hide(btn_finish)
+                    .endRadius((progressBar.height / 2).toFloat())
+                    .go(object : CircularAnim.OnAnimationEndListener {
+                        override fun onAnimationEnd() {
+                            progressBar.visibility = View.VISIBLE
+                            /*
+                                }*/
+                            register_finish()
+                        }
+                    })
         }
         btn_backtologin!!.setOnClickListener {
             gotologin()
+        }
+    }
+
+    private fun register_finish() {
+        setError()
+        var err = 0
+        if (!validateFields(code!!.text.toString())) {
+            err++
+            password!!.error = "Code should not be empty !"
+        }
+        if (err == 0) {
+            mRegisterPresenter!!.register_finish(email!!.text.toString(),code!!.text.toString())
+
+        } else {
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_join).go()
+            showSnackBarMessage("Enter Valid Details !")
         }
     }
 
@@ -116,6 +160,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         email!!.error = null
         password!!.error = null
         repassword!!.error = null
+        code!!.error = null
     }
 
 
@@ -124,12 +169,21 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
     }
 
-    override fun setErrorMessage(errorMessage: String) {
+    override fun setErrorMessage(errorMessage: String, type: Int) {
         showSnackBarMessage(errorMessage)
+
+        if(type == 1){
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_join).go()
+        }
+        else if (type == 2 ){
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_finish).go()
+        }
+
     }
 
     override fun getUserDetail(user: User) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 
