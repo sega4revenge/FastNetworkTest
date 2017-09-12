@@ -54,7 +54,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
             adapter!!.isLoading = false
             isFirstLoad = true
             AndroidNetworking.cancelAll()
-            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload)
+            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload,0)
 
         })
         adapter!!.pageToDownload = 1
@@ -72,7 +72,7 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
                 })
             }
 
-            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload)
+            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload,0)
         })
     }
 

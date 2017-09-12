@@ -1,0 +1,168 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar"
+        android:background="@color/white"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:gravity="center"
+         >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_centerVertical="true"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetRight="0dp"
+            app:contentInsetEnd="0dp"
+            >
+            <include layout="@layout/toolbar_twoline" />
+
+        </android.support.v7.widget.Toolbar>
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/product_detail_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/action_bar"
+        >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/white"
+    >
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="5dp"-->
+            <!--android:layout_below="@+id/tab_layout"-->
+            <!--android:background="@drawable/toolbar_shadow" />-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_margin="5dp"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--android:id="@+id/productname"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:maxLines="2"-->
+                <!--android:text="Can thue Xe Honda"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="18dp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_marginBottom="2dp"/>-->
+            <!--<TextView-->
+                <!--android:id="@+id/create_at"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Ngay 29 thang 08 08:14"-->
+                <!--android:textSize="12dp"/>-->
+        <!--</LinearLayout>-->
+
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.1dp"-->
+            <!--android:background="@color/tab_profile"-->
+            <!--android:layout_margin="5dp"></View>-->
+
+        <TextView
+            android:id="@+id/detailproduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="Ngay tham gia: 31/12/2014 Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia:Ngay tham gia: 31/12/2014 Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/Ngay tham gia: 31/12/2014 Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/Ngay tham gia: 31/12/2014 Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/Ngay tham gia: 31/12/2014 Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/ 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014Ngay tham gia: 31/12/2014"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/tab_profile"
+            android:layout_margin="5dp"></View>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            >
+            <sega.fastnetwork.test.customview.CircleImageView
+                android:id="@+id/avata"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription"
+                android:background="@drawable/common_google_signin_btn_text_light"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/nameUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nguyen Vuong Vinh"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:textSize="17dp"
+                    android:singleLine="true"/>
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="246 Nguyen van linh"
+                    android:textSize="12dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:maxLines="1"
+                    android:singleLine="true"/>
+                <TextView
+                    android:id="@+id/joindate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ngay tham gia: 31/12/2014"
+                    android:textSize="12dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0.1dp"-->
+            <!--android:background="@color/shimmer_color"-->
+            <!--android:layout_margin="5dp"></View>-->
+        <include
+            layout="@layout/layout_detail_cast"
+            android:id="@+id/layout_detail_cast"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

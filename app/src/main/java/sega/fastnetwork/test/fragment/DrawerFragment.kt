@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -38,7 +39,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     private val mDrawerHandler = Handler()
     private var mPrevSelectedId: Int = 0
     private var mSelectedId: Int = 0
-
+    private var morecategory = false
     private var isTablet: Boolean? = null
 
     var fragment: Fragment? = null
@@ -68,7 +69,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 super.onDrawerSlide(drawerView, 0f)
             }
         }
-
+        moreCategory.setImageResource(R.mipmap.ic_launcher)
         drawer_layout!!.addDrawerListener(mDrawerToggle)
         mDrawerToggle.syncState()
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
@@ -108,7 +109,23 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .into(navigation_view.getHeaderView(0).avatar_header)
         navigation_view.getHeaderView(0).username_header.text = user.name
         navigation_view.getHeaderView(0).email_header.text  = user.email
-
+        linMotobike.setOnClickListener(){
+            ChangeCategory(0)
+        }
+        moreCategory.setOnClickListener(){
+           if(!morecategory)
+           {
+               linmore.visibility = View.VISIBLE
+               divide.visibility = View.VISIBLE
+               morecategory = true
+               moreCategory.setImageResource(R.mipmap.ic_hidecategory)
+           }else{
+               moreCategory.setImageResource(R.mipmap.ic_launcher)
+               linmore.visibility = View.GONE
+               divide.visibility = View.GONE
+               morecategory = false
+           }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
@@ -131,7 +148,22 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     fun setUserDetail(user : User){
 
     }
+    fun ChangeCategory(mCategory: Int){
+        Log.d("Runnnnnnn",mCategory.toString())
+         if (fragment != null) {
+             if(fragment == HomeFragment()){
+             val bundle = Bundle()
+                 bundle.putInt("Category",mCategory)
+             val transaction = activity.supportFragmentManager.beginTransaction()
+             try {
+                 fragment?.arguments =  bundle
+                 transaction.replace(R.id.content_frame, fragment).commit()
+             } catch (ignored: IllegalStateException) {
+             }
 
+         }
+     }
+    }
 
     fun switchFragment(itemId: Int) {
         mSelectedId = navigation_view!!.menu.getItem(itemId).itemId
@@ -149,16 +181,25 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 mPrevSelectedId = itemId
                 toolbar_title.setText(R.string.nav_home)
                 fragment = HomeFragment()
+                if(categorylist.visibility != View.VISIBLE){
+                    categorylist.visibility = View.VISIBLE
+                }
             }
             R.id.nav_2 -> {
                 mPrevSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
                 fragment = CategoryFragment()
+                if(categorylist.visibility != View.GONE){
+                    categorylist.visibility = View.GONE
+                }
             }
             R.id.nav_3 -> {
                 mPrevSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
                 fragment = DetailProfileFragment()
+                if(categorylist.visibility != View.GONE){
+                    categorylist.visibility = View.GONE
+                }
             }
             R.id.nav_5 -> {
                 val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
@@ -183,6 +224,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         if (fragment != null) {
             val transaction = activity.supportFragmentManager.beginTransaction()
             try {
+                val bundle = Bundle()
+                bundle.putInt("Category",999)
+                fragment?.arguments =  bundle
                 transaction.replace(R.id.content_frame, fragment).commit()
 
                 //elevation shadow

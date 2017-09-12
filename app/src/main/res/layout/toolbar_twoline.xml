@@ -19,7 +19,7 @@
             android:minWidth="250dp"
             android:textColor="@color/black"
             android:gravity="center_horizontal"
-            android:textSize="@dimen/text_xlarge"
+            android:textSize="20dp"
             android:ellipsize="end"
             tools:text="Movie Name" />
 
@@ -36,7 +36,7 @@
             android:scrollHorizontally="true"
             android:maxLines="1"
             android:textColor="@color/text_light"
-            android:textSize="@dimen/text_medium"
+            android:textSize="17dp"
             tools:text="Tagline" />
     </LinearLayout>
 
@@ -46,7 +46,6 @@
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-
         android:layout_centerVertical="true"
         android:background="@color/white"
         android:src="@drawable/back_arrow"/>

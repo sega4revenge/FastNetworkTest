@@ -1,25 +1,43 @@
 package sega.fastnetwork.test.activity
 
+import android.Manifest
 import android.app.Activity
+import android.app.Notification
+import android.app.ProgressDialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.StrictMode
 import android.provider.MediaStore
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.NotificationCompat
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.RemoteViews
 import android.widget.Toast
+import com.androidnetworking.error.ANError
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.google.firebase.messaging.FirebaseMessaging
 import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
+import com.rx2androidnetworking.Rx2AndroidNetworking
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_product.*
+import org.json.JSONObject
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.lib.imagepicker.TedBottomPicker
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageBean
@@ -27,20 +45,36 @@ import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerBean
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerListener
 import sega.fastnetwork.test.lib.imagepicker.showpicker.Loader
 import sega.fastnetwork.test.model.Product
+import sega.fastnetwork.test.presenter.EditProductPresenter
+import sega.fastnetwork.test.util.CompressImage
 import sega.fastnetwork.test.util.Constants
+import sega.fastnetwork.test.view.EditProductView
+import java.io.File
 import java.net.URL
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class EditProductActivity : AppCompatActivity() {
+class EditProductActivity : AppCompatActivity(),EditProductView {
+
+
     val PLACE_PICKER_REQUEST = 3
+    val TAG: String = EditProductActivity::class.java.simpleName
     internal var list: List<ImageBean>? = null
     var temp: Int = 0
     var imgBean : ImageBean? = null
     var data: ArrayList<Product>? = null
     var mProduct: Product? =null
+    var mRemoteView: RemoteViews? = null
+    var mTimeRemain: Double = 0.0
+    var mPercent: Int = 0
     var uriList: ArrayList<Uri>? = ArrayList()
     var uriImage: ArrayList<ImageBean>? = ArrayList()
     var imglist: ArrayList<String>? = ArrayList()
+    var imglistDel = ""
+    var mType = 0
+    var progress : ProgressDialog? = null
+    private var editProduct: EditProductPresenter? =null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_product)
@@ -51,9 +85,11 @@ class EditProductActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
         supportActionBar!!.title = "Edit product"
+        editProduct = EditProductPresenter(this)
         addressEdit.setOnClickListener {
             locationPlacesIntent()
         }
+
         ///=======================Spinner danh muc=========================
         val adaptercategory = ArrayAdapter.createFromResource(this@EditProductActivity, R.array.category, android.R.layout.simple_spinner_item)
         adaptercategory.setDropDownViewResource(android.R.layout.simple_list_item_checked)
@@ -64,25 +100,26 @@ class EditProductActivity : AppCompatActivity() {
         time.adapter = adaptertime
         // ================= get product ===============================================//
         var i:Intent = intent
-        mProduct = i.getParcelableExtra("data")
-        imglist = i.getStringArrayListExtra("imglist")
-
-        setDataToView(mProduct)
-
-        list = ArrayList<ImageBean>()
-
-        for(i in 0..imglist?.size!!)
+        mType = i.getIntExtra("type",1)
+        if(mType!=2)
         {
-            if(i!=imglist?.size!!) {
-                Log.d("sssss", Constants.IMAGE_URL+imglist!![i])
-                imgBean = ImageBean(Constants.IMAGE_URL+imglist!![i])
-                uriImage?.add(imgBean!!)
+            imglist = i.getStringArrayListExtra("imglist")
+            for(i in 0..imglist?.size!!)
+            {
+                if(i!=imglist?.size!!) {
+                    Log.d("sssss", Constants.IMAGE_URL+imglist!![i])
+                    imgBean = ImageBean(Constants.IMAGE_URL+imglist!![i])
+                    uriImage?.add(imgBean!!)
+                }
             }
+        }else{
+            price_and_time.visibility = View.GONE
+            add_picker_view!!.visibility = View.GONE
         }
-
-        Log.d("sssss", uriList?.size.toString())
+        mProduct = i.getParcelableExtra("data")
+        setDataToView(mProduct)
+        list = ArrayList<ImageBean>()
         list = uriImage
-
         add_picker_view!!.setImageLoaderInterface(Loader())
         add_picker_view!!.setNewData(list!!)
         add_picker_view!!.setMaxNum(4)
@@ -99,12 +136,12 @@ class EditProductActivity : AppCompatActivity() {
 
                         val bottomSheetDialogFragment = TedBottomPicker.Builder(this@EditProductActivity)
                                 .setOnMultiImageSelectedListener(object : TedBottomPicker.OnMultiImageSelectedListener {
-                                    override fun onImagesSelected(uriList: ArrayList<Uri>) {
-                                        for(i in 0..(uriList.size-1))
+                                    override fun onImagesSelected(uriListselect: ArrayList<Uri>) {
+                                        for(i in 0..(uriListselect.size-1))
                                         {
-                                            add_picker_view!!.addData(ImageBean(getRealFilePath(this@EditProductActivity, uriList[i])!!))
+                                            add_picker_view!!.addData(ImageBean(getRealFilePath(this@EditProductActivity, uriListselect[i])!!))
                                         }
-                                     //   showUriList(uriList)
+                                        uriList = uriListselect
                                     }
                                 })
 
@@ -129,35 +166,77 @@ class EditProductActivity : AppCompatActivity() {
 
                 }
 
-             /*   TedPermission(this@EditProductActivity)
-                  //      .setPermissionListener(permissionlistener)
+                TedPermission.with(this@EditProductActivity)
+                        .setPermissionListener(permissionlistener)
                         .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                         .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .check()
-                // */
+                //
             }
 
             override fun picOnClickListener(list: List<ImageShowPickerBean>, position: Int, remainNum: Int) {
-
             }
 
             override fun delOnClickListener(position: Int, remainNum: Int) {
-
+                if((imglist?.size!!-1) >= position) {
+                    if (!imglistDel.equals("")) {
+                        imglistDel = imglistDel + " , " + imglist?.get(position)
+                        imglist?.remove(imglist?.get(position)!!)
+                    } else {
+                        imglistDel = imglist?.get(position)!!
+                        imglist?.remove(imglist?.get(position)!!)
+                    }
+                }else {
+                    var listup = position - imglist?.size!!
+                    uriList?.remove(uriList?.get(listup))
+                }
             }
         })
         add_picker_view!!.show()
 
     }
+    override fun isCreateSuccess(success: Boolean,mType: Int) {
+        if(success)
+        {
 
+            if(uriList?.size!! > 0) {
+                uploadImage(File(getRealFilePath(this@EditProductActivity, uriList!![temp])), mProduct?._id.toString())
+            }else{
+                progress?.dismiss()
+                if(mType!=0) {
+                    val intent = this.intent
+                    this.setResult(0,intent)
+               }else{
+                    val intent = this.intent
+                    this.setResult(1, intent)
+                }
+                finish()
+            }
+        }
+
+    }
     private fun setDataToView(mProduct: Product?) {
         productname.setText(mProduct?.productname)
-        price.setText(mProduct?.price)
-        time.setSelection(mProduct?.time!!.toInt())
+
+        if(mProduct?.price != null && mProduct?.price.toString() != "")
+        {
+            price.setText(mProduct?.price)
+        }
+        if(mProduct?.time != null && mProduct?.time.toString() != "")
+        {
+            time.setSelection(mProduct?.time!!.toInt())
+        }
         number.setText(mProduct?.number)
         category.setSelection(mProduct?.category!!.toInt())
         addressEdit.setText(mProduct?.address)
         description.setText(mProduct?.description)
 
+    }
+
+    override fun onBackPressed() {
+        setResult(999)
+        finish()
+        super.onBackPressed()
     }
 
     fun getUriFromUrl(thisUrl: String): Uri {
@@ -168,28 +247,130 @@ class EditProductActivity : AppCompatActivity() {
                 .appendPath(url.path)
         return builder!!.build()
     }
-    private fun showUriList(uriList: ArrayList<Uri>) {
-        add_picker_view!!.clear()
-        temp = 0
-        this.uriList = uriList
+
+    fun uploadImage(file: File, productid: String) {
+
+        mTimeRemain = 0.0
+        mPercent = 0
+        mRemoteView = RemoteViews(packageName, R.layout.notification_upload)
+        mRemoteView!!.setImageViewResource(R.id.image, R.mipmap.ic_arrow_right_white)
+        mRemoteView!!.setTextViewText(R.id.title, getString(R.string.uploading, temp + 1, uriList!!.size))
+        val mBuilder = NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.logo2)
+                .setContent(mRemoteView)
+        val notification = mBuilder.build()
+        notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL
+
+     //   mNotificationManager?.notify(1, notification)
 
 
-        if (uriList.size == 1) {
-            add_picker_view!!.listUri = uriList
-            add_picker_view!!.addData(ImageBean(getRealFilePath(this@EditProductActivity, uriList[0])!!))
+        val task = object : TimerTask() {
+            private val mHandler = Handler(Looper.getMainLooper())
 
-        } else {
-            val list = uriList.map { ImageBean(getRealFilePath(this@EditProductActivity, it)!!) }
+            override fun run() {
+                mHandler.post({
 
-            add_picker_view!!.addData(list)
-            add_picker_view!!.listUri = uriList
+                    mRemoteView!!.setProgressBar(R.id.progressbarupload, 100, mPercent, false)
+                    System.out.println(mTimeRemain)
+                    if (mTimeRemain.toInt() / 60 > 0) {
+
+                        mRemoteView!!.setTextViewText(R.id.timeremain, String.format(resources.getString(R.string.remain_time_minute), mTimeRemain.toInt() / 60))
+                    } else {
+                        mRemoteView!!.setTextViewText(R.id.timeremain, String.format(resources.getString(R.string.remain_time_second), mTimeRemain.toInt()))
+                    }
 
 
+
+                   // mNotificationManager?.notify(1, notification)
+                })
+            }
         }
+
+        val timer = Timer()
+        timer.scheduleAtFixedRate(task, 0, 500)
+        val startTime = System.nanoTime()
+        val observable = Rx2AndroidNetworking.upload(Constants.BASE_URL + "upload")
+                .addMultipartParameter("productid", productid)
+                .addMultipartFile("image", CompressImage.compressImage(file,this))
+                .build()
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(TAG, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(TAG, " bytesSent : " + bytesSent)
+                    Log.d(TAG, " bytesReceived : " + bytesReceived)
+                    Log.d(TAG, " isFromCache : " + isFromCache)
+                }
+                .setUploadProgressListener { bytesUploaded, totalBytes ->
+
+                    val elapsedTime = System.nanoTime() - startTime
+                    val allTimeForDownloading = elapsedTime * totalBytes / bytesUploaded
+                    val remainingTime = allTimeForDownloading - elapsedTime
+                    mTimeRemain = remainingTime.toDouble() / 1000000000.0
+                    mPercent = (bytesUploaded * 100 / totalBytes).toInt()
+
+
+                }
+                .jsonObjectObservable
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<JSONObject> {
+                    override fun onComplete() {
+                        progress?.dismiss()
+                        Log.d(TAG + "_1", "onComplete Detail : uploadImage completed")
+                        setResult(1)
+                        finish()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is ANError) {
+                            if (e.errorCode != 0) {
+                                // received ANError from server
+                                // error.getErrorCode() - the ANError code from server
+                                // error.getErrorBody() - the ANError body from server
+                                // error.getErrorDetail() - just a ANError detail
+                                Log.d(TAG + "_1", "onError errorCode : " + e.errorCode)
+                                Log.d(TAG + "_1", "onError errorBody : " + e.errorBody)
+                                Log.d(TAG + "_1", "onError errorDetail : " + e.errorDetail)
+                            } else {
+                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                                Log.d(TAG + "_1", "onError errorDetail : " + e.errorDetail)
+                            }
+                        } else {
+                            Log.d(TAG + "_1", "onError errorMessage : " + e.message)
+                        }
+                        timer.cancel()
+                        timer.purge()
+                        //mNotificationManager?.cancel(1)
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onNext(response: JSONObject) {
+                        mRemoteView!!.setProgressBar(R.id.progressbarupload, 100, 100, false)
+                        mRemoteView!!.setTextViewText(R.id.timeremain, "")
+                        timer.cancel()
+                        timer.purge()
+
+                        Log.d(TAG + "_1", "Image upload Completed" + temp)
+                        Log.d(TAG + "_1", "onResponse object : " + response.toString())
+                        temp++
+                        if (temp + 1 <= uriList!!.size) {
+                            uploadImage(File(getRealFilePath(this@EditProductActivity, uriList?.get(temp))), productid)
+                        } else {
+                            mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
+                            mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")
+                            mRemoteView!!.setTextViewText(R.id.timeremain, getString(R.string.uploaded_title, temp, uriList!!.size))
+                       //     Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded successfully", Snackbar.LENGTH_SHORT).show()
+                            FirebaseMessaging.getInstance().subscribeToTopic(productid)
+                         //   mNotificationManager?.cancel(1)
+                      //      mNotificationManager?.notify(1, notification)
+                        }
+                    }
+                })
 
 
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_editproduct, menu)
         return true
@@ -201,6 +382,38 @@ class EditProductActivity : AppCompatActivity() {
         if (ids == android.R.id.home) {
             onBackPressed()
         }
+        if (ids == R.id.menu_editproduct) {
+            if(productname.text.equals("") || price.text.equals("") || number.text.equals("") || addressEdit.text.equals(""))
+            {
+                Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded Faile!! Nhap du thong tin", Snackbar.LENGTH_SHORT).show()
+            }else{
+           //     Log.d("AAAAAAAAA",productname.text.toString() + price.text.toString() + time.selectedItem.toString()+ number.text.toString() + category.selectedItem.toString()+ addressEdit.text.toString()+ description.text.toString()+ mProduct?._id.toString()+imglistDel )
+                if(imglistDel?.equals(""))
+                {imglistDel="0"}
+                progress  =  ProgressDialog.show(this, "", "Loading...", true)
+                progress?.show()
+                editProduct!!.ConnectHttp("", productname.text.toString() , price.text.toString() , time.selectedItemPosition.toString(), number.text.toString() , category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), mProduct?._id.toString(),imglistDel)
+            }
+
+        }else if (ids == R.id.menu_delproduct){
+            imglistDel = ""
+            uriList?.clear()
+            if(imglist != null && imglist?.size!! >0) {
+                for (i in 0..(imglist?.size!! - 1)) {
+                    if (!imglistDel.equals("")) {
+                        imglistDel = imglistDel + " , " + imglist?.get(i)
+                    } else {
+                        imglistDel = imglist?.get(i).toString()
+                    }
+                }
+            }
+            if(imglistDel?.equals(""))
+            {imglistDel="0"}
+            progress  =  ProgressDialog.show(this, "", "Loading...", true)
+            progress?.show()
+            editProduct!!.ConnectHttpDeleteProduct(mProduct?._id.toString(),imglistDel)
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

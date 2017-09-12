@@ -2,6 +2,7 @@ package sega.fastnetwork.test.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
@@ -36,7 +38,7 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = Product_ProfileAdapter(activity, this)
+        adapter = Product_ProfileAdapter(this!!.activity, this)
         layoutManager = GridLayoutManager(context, 1)
         product_list.setHasFixedSize(true)
         product_list.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
@@ -44,10 +46,18 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
         product_list.adapter = adapter
         detailprofile = DetailProfilePressenter(this)
         detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
-        LinGive.setOnClickListener{
+
+
+    }
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater!!.inflate(R.layout.detailprofile, container, false)
+
+        var lingive : LinearLayout =view.findViewById(R.id.LinGive)
+        var linneed : LinearLayout =view.findViewById(R.id.LinNeed)
+        lingive.setOnClickListener{
             lent_need.setTextColor(resources.getColor(R.color.black))
             lent_give.setTextColor(resources.getColor(R.color.white))
-            LinGive.setBackgroundColor(resources.getColor(R.color.menu_background))
+            LinGive.setBackgroundColor(resources.getColor(R.color.tab_profile))
             LinNeed.setBackgroundColor(resources.getColor(R.color.white))
             if(productGive.size!= 0)
             {
@@ -60,13 +70,15 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
                 mess_notfound.visibility = View.VISIBLE
             }
         }
-        LinNeed.setOnClickListener{
+        linneed.setOnClickListener{
             lent_give.setTextColor(resources.getColor(R.color.black))
             lent_need.setTextColor(resources.getColor(R.color.white))
-            LinNeed.setBackgroundColor(resources.getColor(R.color.menu_background))
+            LinNeed.setBackgroundColor(resources.getColor(R.color.tab_profile))
             LinGive.setBackgroundColor(resources.getColor(R.color.white))
             if(productNeed.size!= 0)
             {
+                product_list.visibility = View.VISIBLE
+                mess_notfound.visibility = View.GONE
                 adapter?.productList = productNeed
                 adapter?.notifyDataSetChanged()
             }else{
@@ -75,10 +87,6 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
             }
         }
 
-
-    }
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.detailprofile, container, false)
         return view
     }
 
@@ -90,7 +98,14 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
         getUser(user)
         if (adapter!!.productList.size > 0) {
             adapter!!.productList.clear()
-            Log.d("test", "clear")
+        }
+        if(productGive.size!=0)
+        {
+            productGive.clear()
+        }
+        if(productNeed.size!=0)
+        {
+            productNeed.clear()
         }
         var numGive = 0
         var numNeed = 0
@@ -105,12 +120,14 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
                 numNeed++
             }
         }
+        Log.d("SearchTag",productlist.size.toString()+" give" +productGive.size+" need"+productNeed.size )
         adapter!!.mUser = user
         lent_give.text = numGive.toString()
         lent_need.text = numNeed.toString()
         product_list.visibility = View.VISIBLE
         if(productGive.size!= 0)
         {
+            mess_notfound.visibility = View.GONE
             adapter?.productList = productGive
             adapter?.notifyDataSetChanged()
         }else{
@@ -119,7 +136,18 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
         }
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        lent_need.setTextColor(resources.getColor(R.color.black))
+        lent_give.setTextColor(resources.getColor(R.color.white))
+        LinGive.setBackgroundColor(resources.getColor(R.color.tab_profile))
+        LinNeed.setBackgroundColor(resources.getColor(R.color.white))
+        detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
+    }
+
     override fun getUser(user: User) {
+        root_addproduct.visibility = View.VISIBLE
         product_list.visibility = View.GONE
         mess_notfound.visibility = View.VISIBLE
         txt_name.text = user.name
@@ -146,12 +174,33 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
     override fun setMessagerNotFound() {
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 909)
+        {
+            if(resultCode == 0)
+            {   Snackbar.make(activity.findViewById(R.id.root_addproduct), "Delete Product successfully", Snackbar.LENGTH_SHORT).show()
+            }else  if(resultCode == 1){
+                Snackbar.make(activity.findViewById(R.id.root_addproduct), "Edit Product successfully", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
     override fun onproductClicked(position: Int) {
-        val intent = Intent(context, EditProductActivity::class.java)
-        intent.putExtra("data",adapter!!.productList[position])
-        intent.putExtra("imglist",adapter!!.productList[position].images)
-        Log.d("tttttt2", adapter!!.productList[position].images?.size.toString())
-        startActivity(intent)
+            var mtype = 0
+            val intent = Intent(context, EditProductActivity::class.java)
+            if(adapter!!.productList[position].type!!.equals("2")){
+                mtype = 2
+            }else{
+                mtype = 1
+                intent.putExtra("imglist",adapter!!.productList[position].images)
+            }
+            intent.putExtra("type",mtype)
+            intent.putExtra("data",adapter!!.productList[position])
+            startActivityForResult(intent,909)
+
     }
 //    fun refresh() {
 //

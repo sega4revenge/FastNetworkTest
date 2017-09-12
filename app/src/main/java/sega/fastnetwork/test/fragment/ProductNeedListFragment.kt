@@ -12,8 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.DetailNeedProductActivity
 import sega.fastnetwork.test.activity.MainActivity
-import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
@@ -59,7 +59,7 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
             adapter!!.initShimmer()
             adapter!!.isLoading = false
             isFirstLoad = true
-            mProductListPresenter!!.getProductList(Constants.NEEDBORROW,adapter!!.pageToDownload)
+            mProductListPresenter!!.getProductList(Constants.NEEDBORROW,adapter!!.pageToDownload,0)
         })
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
@@ -74,7 +74,7 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
                 })
             }
 
-            mProductListPresenter!!.getProductList(Constants.NEEDBORROW, adapter!!.pageToDownload)
+            mProductListPresenter!!.getProductList(Constants.NEEDBORROW, adapter!!.pageToDownload,0)
         })
 
     }
@@ -168,10 +168,9 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
 
             (activity as MainActivity).loadDetailFragmentWith(adapter!!.productList[position]._id!!)
         } else {
-            //                Toast.makeText(getActivity(),"4",Toast.LENGTH_LONG).show();
-            val intent = Intent(context, ProductDetailActivity::class.java)
-            intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
-            startActivity(intent)
+             val intent = Intent(context, DetailNeedProductActivity::class.java)
+             intent.putExtra("product", adapter!!.productList[position])
+             startActivity(intent)
         }
     }
 

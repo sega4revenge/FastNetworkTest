@@ -94,8 +94,13 @@ internal class ProductAdapter// Constructor
 
         } else if (viewHolderParent is ProductCompactViewHolder) {
             val product = productList[position]
+            if(product.type.equals("1"))
+            {
+                viewHolderParent.itemView.product_name_compact.text = "[cho thuê] "+product.productname
+            }else{
+                viewHolderParent.itemView.product_name_compact.text = "[cần thuê] "+product.productname
+            }
 
-            viewHolderParent.itemView.product_name_compact.text = product.productname
             viewHolderParent.itemView.timepost.text = product.created_at
             if (product.created_at != null) {
                 val timeAgo = DateUtils.getRelativeTimeSpanString(
@@ -110,12 +115,12 @@ internal class ProductAdapter// Constructor
             viewHolderParent.itemView.area_compact.text = product.address
             viewHolderParent.itemView.area_compact.isSelected = true
             when (product.category) {
-                "0" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_vehicle)
+                "0" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.automobile)
                 "1" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_toy)
                 "2" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_electronic)
-                "3" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_furniture)
-                "4" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_fashion)
-                "5" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_home)
+                "3" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.desk2)
+                "4" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.shirt)
+                "5" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.housecolor)
                 "6" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_education)
                 "7" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_music)
                 "8" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_machine)
