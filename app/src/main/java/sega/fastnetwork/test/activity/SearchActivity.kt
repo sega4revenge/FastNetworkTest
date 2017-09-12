@@ -1,10 +1,12 @@
 package sega.fastnetwork.test.activity
 
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.util.ArrayMap
 import android.support.v7.app.AppCompatActivity
@@ -13,11 +15,14 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.activity_add.*
 
 
 import kotlinx.android.synthetic.main.searchmain_layout.*
@@ -26,6 +31,7 @@ import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.fragment.FilterFragment
 import sega.fastnetwork.test.lib.FabiousFilter.AAH_FabulousFragment
+import sega.fastnetwork.test.lib.imagepicker.TedBottomPicker
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.SearchPresenterImp
 import sega.fastnetwork.test.util.Constants
@@ -46,7 +52,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     var Location = ""
 
     var dialogFrag: FilterFragment? = null
-
+    var mylocation : LatLng? = null
     private var preferences: SharedPreferences? = null
     private var isLoading: Boolean = false
     private var isLoadingLocked: Boolean = false
@@ -61,6 +67,22 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.searchmain_layout)
+
+        val permissionlistener = object : PermissionListener {
+            override fun onPermissionGranted() {
+
+            }
+
+            override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
+                    Toast.makeText(this@SearchActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+
+        }
+        TedPermission.with(this@SearchActivity)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .check()
         preferences = this.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
