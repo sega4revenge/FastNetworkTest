@@ -3,23 +3,37 @@ package sega.fastnetwork.test.activity
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_main.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.DrawerFragment
 
+
 /**
  * Created by sega4 on 08/08/2017.
  */
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),OnMapReadyCallback {
     private var isTablet: Boolean = false
     internal var fragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Thread(Runnable {
+            try {
+                val mf = SupportMapFragment.newInstance()
+                supportFragmentManager.beginTransaction()
+                        .add(R.id.dummy_map_view, mf)
+                        .commit()
+                runOnUiThread { mf.getMapAsync(this@MainActivity) }
+            } catch (ignored: Exception) {
 
+            }
+        }).start()
 
 
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
@@ -42,6 +56,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        // Do nothing because we only want to pre-load map.
+
+    }
     override fun onBackPressed() {
 
 

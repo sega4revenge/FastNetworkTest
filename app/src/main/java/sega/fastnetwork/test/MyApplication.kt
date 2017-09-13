@@ -26,6 +26,7 @@ import com.androidnetworking.common.ConnectionQuality
 import io.socket.client.IO
 import io.socket.client.Socket
 import okhttp3.OkHttpClient
+import sega.fastnetwork.test.manager.GoogleApiHelper
 import java.util.concurrent.TimeUnit
 
 
@@ -34,7 +35,7 @@ import java.util.concurrent.TimeUnit
  */
 class MyApplication : Application() {
     private var mSocket: Socket? = null
-
+    private var googleApiHelper : GoogleApiHelper?=null
 
     fun getSocket(): Socket? = mSocket
     override fun onCreate() {
@@ -62,6 +63,7 @@ class MyApplication : Application() {
                 }
             }
         }
+        googleApiHelper = GoogleApiHelper(instance)
 
 
     }
@@ -70,9 +72,14 @@ class MyApplication : Application() {
         super.attachBaseContext(base)
     }
 
+    fun getGoogleApiHelperInstance(): GoogleApiHelper? = this.googleApiHelper
     companion object {
         var instance: MyApplication? = null
             private set
+
+
+        fun getGoogleApiHelper(): GoogleApiHelper? = instance!!.getGoogleApiHelperInstance()
     }
+
 
 }

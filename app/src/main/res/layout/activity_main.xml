@@ -1,7 +1,18 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_fragment"
-    android:name="sega.fastnetwork.test.fragment.DrawerFragment"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout="@layout/fragment_drawer_main" />
+    android:orientation="horizontal">
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_fragment"
+        android:name="sega.fastnetwork.test.fragment.DrawerFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_drawer_main" />
+    <FrameLayout
+        android:id="@+id/dummy_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
+</LinearLayout>
+

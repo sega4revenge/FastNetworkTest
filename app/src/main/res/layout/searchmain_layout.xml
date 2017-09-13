@@ -82,10 +82,10 @@
 
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:id="@+id/layout_map"
-        android:fillViewport="true"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
