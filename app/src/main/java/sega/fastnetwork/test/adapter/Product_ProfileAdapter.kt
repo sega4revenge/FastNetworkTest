@@ -64,7 +64,7 @@ class Product_ProfileAdapter
             viewHolder.itemView.timepost.text = timeAgo
             viewHolder.itemView.price_compact.text = product.price
             viewHolder.itemView.userpost.text = mUser.name
-            viewHolder.itemView.area_compact.text = product.address
+            viewHolder.itemView.area_compact.text = product.location!!.address
             viewHolder.itemView.area_compact.isSelected = true
         viewHolderParent.itemView.setOnClickListener { onproductClickListener.onproductClicked(position)}
     }

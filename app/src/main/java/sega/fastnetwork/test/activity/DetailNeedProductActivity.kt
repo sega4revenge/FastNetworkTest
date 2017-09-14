@@ -49,7 +49,7 @@ class DetailNeedProductActivity : AppCompatActivity() {
                 .apply(options)
                 .into(avata)
         nameUser.text = user?.name
-        address.text = mProduct?.address
+        address.text = mProduct?.location!!.address
         joindate.text = user?.created_at
     }
 }

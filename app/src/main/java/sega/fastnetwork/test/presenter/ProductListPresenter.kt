@@ -70,23 +70,15 @@ class ProductListPresenter(view: ProductListView) {
 
                 mProductListView.getListProduct(response?.listproduct!!)
             }
-
             override fun onError(e: Throwable) {
                 if (e is ANError) {
-                    if (e.errorCode != 0) {
-                        // received ANError from server
-                        // error.getErrorCode() - the ANError code from server
-                        // error.getErrorBody() - the ANError body from server
-                        // error.getErrorDetail() - just a ANError detail
-                        Log.d(userdetail, "onError errorCode : " + e.errorCode)
-                        Log.d(userdetail, "onError errorBody : " + e.errorBody)
-                        Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-                        mProductListView.setErrorMessage(e.errorDetail)
-                    } else {
-                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-                        mProductListView.setErrorMessage(e.errorDetail)
-                    }
+
+
+                    Log.d(userdetail, "onError errorCode : " + e.errorCode)
+                    Log.d(userdetail, "onError errorBody : " + e.errorBody)
+                    Log.d(userdetail, e.errorDetail + " : " + e.message)
+                    mProductListView.setErrorMessage(e.errorDetail)
+
                 } else {
                     Log.d(userdetail, "onError errorMessage : " + e.message)
                     mProductListView.setErrorMessage(e.message!!)

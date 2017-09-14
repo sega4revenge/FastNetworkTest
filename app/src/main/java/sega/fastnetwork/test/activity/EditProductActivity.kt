@@ -228,7 +228,7 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
         }
         number.setText(mProduct?.number)
         category.setSelection(mProduct?.category!!.toInt())
-        addressEdit.setText(mProduct?.address)
+        addressEdit.setText(mProduct?.location!!.address)
         description.setText(mProduct?.description)
 
     }

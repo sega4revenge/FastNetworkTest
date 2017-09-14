@@ -112,7 +112,7 @@ internal class ProductAdapter// Constructor
 
             viewHolderParent.itemView.price_compact.text = product.price + " cho 1 gio"
             viewHolderParent.itemView.userpost.text = product.user!!.name
-            viewHolderParent.itemView.area_compact.text = product.address
+            viewHolderParent.itemView.area_compact.text = product.location!!.address
             viewHolderParent.itemView.area_compact.isSelected = true
             when (product.category) {
                 "0" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.automobile)

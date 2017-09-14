@@ -13,7 +13,16 @@
 
     <!-- Cast Header -->
 
+    <sega.fastnetwork.test.view.RobotoBoldTextView
+        android:id="@+id/no_cmt"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="No comment"
+        android:visibility="gone">
 
+    </sega.fastnetwork.test.view.RobotoBoldTextView>
     <!-- Cast Item 1 -->
     <LinearLayout
         android:id="@+id/comment_item1"
@@ -21,6 +30,8 @@
         android:layout_marginRight="7dp"
         style="@style/ProductCastHolderStyle">
         <!-- Image -->
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -270,10 +281,60 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <!-- See All Button -->
-    <include
-        android:id="@+id/comments_see_all"
 
-        layout="@layout/layout_detail_see_all" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:clickable="true">
+
+            <Button
+                android:id="@+id/comments_see_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See more"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textAllCaps="false"
+                android:background="@drawable/drawable_seecomment_button"
+
+        />
+
+    <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+                <!--android:id="@+id/comments_see_all"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="See more" />-->
+
+            <Button
+                android:id="@+id/add_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textAllCaps="false"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Add Comment"
+                android:background="@drawable/drawable_seecomment_button"/>
+            <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+                <!--android:id="@+id/add_comment"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:text="Add Comment"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true" />-->
+
+    </RelativeLayout>
+    <!-- See All Button -->
+    <!--<include-->
+        <!--android:id="@+id/comments_see_all"-->
+
+        <!--layout="@layout/layout_detail_see_all" />-->
 
 </LinearLayout>

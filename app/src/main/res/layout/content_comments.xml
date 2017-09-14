@@ -17,7 +17,17 @@
        >
 
     </android.support.v7.widget.RecyclerView>
+    <sega.fastnetwork.test.view.RobotoBoldTextView
+        android:id="@+id/no_cmt"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:text="No comment"
+        android:gravity="center"
+        android:visibility="gone">
 
+    </sega.fastnetwork.test.view.RobotoBoldTextView>
     <RelativeLayout
         android:id="@+id/writelayout"
         android:layout_width="match_parent"

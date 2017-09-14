@@ -85,6 +85,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         v.comments_see_all.setOnClickListener {
             gotoallcomment()
         }
+        //=============================add comment=======================
+        v.add_comment.setOnClickListener {
+            gotoallcomment()
+        }
 //===================================================================
         // Download product details if new instance, else restore from saved instance
         if (savedInstanceState == null || !(savedInstanceState.containsKey(Constants.product_ID)
@@ -222,7 +226,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         println(product!!.user!!.name)
         product_user_name.text = product!!.user?.name
         product_user_email.text = product!!.user?.email
-        product_user_address.text = product!!.address
+        product_user_address.text = product!!.location!!.address
         println(product!!._id)
         when (product!!.category) {
             "0" -> product_category.setImageResource(R.drawable.cate_vehicle)
@@ -256,6 +260,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comment_item2.visibility = View.GONE
             comment_item3.visibility = View.GONE
             comments_see_all.visibility = View.GONE
+            no_cmt.visibility = View.VISIBLE
         }
 //=======================1 cmt========================
 
@@ -349,6 +354,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments3.text = product!!.comment!![2].content
             datecomment3.text = timeAgo(product!!.comment!![2].time!!)
             comments_see_all.visibility = View.VISIBLE
+            comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
         }
 
 

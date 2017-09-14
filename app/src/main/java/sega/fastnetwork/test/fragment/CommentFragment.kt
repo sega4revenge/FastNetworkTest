@@ -34,11 +34,19 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
 
 
     override fun getCommentDetail(listcomment: ArrayList<Comment>) {
+        if(listcomment.size == 0){
+            no_cmt.visibility = View.VISIBLE
+            comments_list.visibility = View.GONE
+        }
+        else{
+            adapter!!.commentsList.clear()
+            adapter!!.commentsList = listcomment
+            adapter!!.notifyDataSetChanged()
+            comments_list.scrollToPosition(adapter!!.commentsList.size-1)
+            no_cmt.visibility = View.GONE
+            comments_list.visibility = View.VISIBLE
+        }
 
-        adapter!!.commentsList.clear()
-        adapter!!.commentsList = listcomment
-        adapter!!.notifyDataSetChanged()
-        comments_list.scrollToPosition(adapter!!.commentsList.size-1)
 
     }
 
