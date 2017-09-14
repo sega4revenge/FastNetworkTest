@@ -9,6 +9,9 @@ import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
@@ -128,7 +131,7 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
                 2 -> {
                     resId = R.layout.filter_product
                     view = inflater.inflate(resId, collection, false)
-
+                    inflaterRangeProduct(view)
                     inflateLayoutProduct(view)
                     (collection as ViewPager).addView(view, 0)
                 }
@@ -285,6 +288,47 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
             view.filter_smallimg.visibility = View.GONE
             view.filter_hignimg.visibility = View.VISIBLE
         }
+
+
+    }
+    private fun inflaterRangeProduct(view: View) {
+//        if (applied_filters != null && applied_filters!!["filter"] != null) {
+//            when (applied_filters!!["filter"]!![0]) {
+//                "1" -> view.filter_newimg.visibility = View.VISIBLE
+//
+//                "2" -> view.filter_smallimg.visibility = View.VISIBLE
+//
+//                "3" -> view.filter_hignimg.visibility = View.VISIBLE
+//
+//                else -> view.filter_hotimg.visibility = View.VISIBLE
+//            }
+//
+//        }
+        view.edt_range.text = SpannableStringBuilder(view.seek_range.progress.toString())
+        view.seek_range.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                view.edt_range.text =SpannableStringBuilder(p1.toString())
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+            }
+
+        })
+        view.edt_range.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                view.seek_range.progress = p0.toString().toInt()
+            }
+
+        })
 
 
     }
