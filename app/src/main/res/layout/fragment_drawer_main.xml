@@ -63,14 +63,60 @@
                         android:layout_below="@id/pintop"
                         android:animateLayoutChanges="true"
                         >
-
                         <LinearLayout
+                            android:id="@+id/linInfor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_margin="5dp"
+                            android:visibility="gone"
+                            >
+
+                            <sega.fastnetwork.test.customview.CircleImageView
+                                android:id="@+id/imgAvatar"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_margin="5dp"
+                                android:background="@drawable/img_error"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:layout_margin="5dp">
+                                <TextView
+                                    android:id="@+id/txtname"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Nguyen Vuong Vinh"
+                                    android:textColor="@color/black"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:maxLines="2"
+                                    android:ellipsize="end"
+                                    />
+                                <TextView
+                                    android:id="@+id/txtemail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="vuongvinh1993@gmail.com"
+                                    android:textSize="14sp"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    android:ellipsize="end"
+                                    />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/linCate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:orientation="horizontal"
                             android:weightSum="100"
-                            android:gravity="center">
+                            android:gravity="center"
+                            >
 
                             <LinearLayout
                                 android:id="@+id/linMotobike"
@@ -162,6 +208,82 @@
                             android:layout_width="match_parent"
                             android:layout_height="0.2dp"
                             android:background="@color/colorDivide"></View>
+                        <LinearLayout
+                            android:id="@+id/linmoreInfor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:orientation="horizontal"
+                            android:weightSum="100"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            >
+
+                            <LinearLayout
+                                android:id="@+id/changeInfor"
+                                android:layout_width="0dp"
+                                android:layout_height="100dp"
+                                android:layout_weight="33"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Thay đổi thông tin tài khoản"
+                                    android:textColor="@color/black"
+                                    android:textSize="13dp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0.2dp"
+                                android:layout_height="60dp"
+                                android:background="@color/colorDivide"></View>
+
+                            <LinearLayout
+                                android:id="@+id/changePass"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="33"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Thay đổi mật khẩu"
+                                    android:textColor="@color/black"
+                                    android:textSize="13dp" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0.2dp"
+                                android:layout_height="60dp"
+                                android:background="@color/colorDivide"></View>
+
+                            <LinearLayout
+                                android:id="@+id/save"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="33"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingTop="10dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Thông báo"
+                                    android:textColor="@color/black"
+                                    android:textSize="13dp" />
+                            </LinearLayout>
+                        </LinearLayout>
                        <LinearLayout
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
