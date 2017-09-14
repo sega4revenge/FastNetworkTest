@@ -37,18 +37,19 @@
                     app:layout_collapseMode="parallax"
                     android:id="@+id/categorylist"
                     >
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:background="@drawable/radiusbottomview"
                         android:id="@+id/linearLayout2"
-                        android:orientation="vertical"></LinearLayout>
+                        android:orientation="vertical" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:id="@+id/pintop"
-                        android:orientation="horizontal"
-                        ></LinearLayout>
+                        android:orientation="horizontal" />
 
                     <LinearLayout
                         android:id="@+id/linCategory"
@@ -100,7 +101,7 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
 
                             <LinearLayout
                                 android:id="@+id/linelectronic"
@@ -129,7 +130,7 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
 
                             <LinearLayout
                                 android:id="@+id/linfashion"
@@ -161,7 +162,7 @@
                             android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="0.2dp"
-                            android:background="@color/colorDivide"></View>
+                            android:background="@color/colorDivide" />
                        <LinearLayout
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
@@ -197,10 +198,11 @@
                                     android:gravity="center"
                                     android:layout_margin="5dp"/>
                             </LinearLayout>
+
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
                             <LinearLayout
                                 android:id="@+id/linmombaby"
                                 android:layout_width="0dp"
@@ -225,10 +227,11 @@
                                     android:gravity="center"
                                     android:layout_margin="5dp"/>
                             </LinearLayout>
+
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
                             <LinearLayout
                                 android:id="@+id/lingdnt"
                                 android:layout_width="0dp"
@@ -252,11 +255,11 @@
                             </LinearLayout>
 
                         </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.2dp"
-                            android:background="@color/colorDivide"
-                            ></View>
+
+                           <View
+                               android:layout_width="match_parent"
+                               android:layout_height="0.2dp"
+                               android:background="@color/colorDivide" />
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
@@ -285,10 +288,11 @@
                                     android:gravity="center"
                                     android:layout_margin="5dp"/>
                             </LinearLayout>
+
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
                             <LinearLayout
                                 android:id="@+id/linvpnn"
                                 android:layout_width="0dp"
@@ -312,10 +316,11 @@
                                     android:gravity="center"
                                     android:layout_margin="5dp"/>
                             </LinearLayout>
+
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
                             <LinearLayout
                                 android:id="@+id/lindeff"
                                 android:layout_width="0dp"

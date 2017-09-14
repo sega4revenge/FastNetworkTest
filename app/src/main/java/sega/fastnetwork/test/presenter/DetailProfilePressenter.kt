@@ -55,7 +55,7 @@ class DetailProfilePressenter(profileView : DetailProfileView) : DetailProfileIn
 
                     override fun onComplete() {
 
-//                        Log.e("Responseeeee", "AAAA")
+
                     }
                     override fun onError(e: Throwable) {
                         if (e is ANError) {

@@ -68,7 +68,7 @@ class ProductListPresenter(view: ProductListView) {
             override fun onNext(response: ResponseListProduct) {
                 Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
 
-                mProductListView.getListProduct(response?.listproduct!!)
+                mProductListView.getListProduct(response.listproduct!!)
             }
             override fun onError(e: Throwable) {
                 if (e is ANError) {

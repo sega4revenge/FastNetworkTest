@@ -42,7 +42,7 @@ import sega.fastnetwork.test.view.SearchView
 class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks {
 
 
-    private var mLocationPicker: Marker? = null
+
     internal var mLocation: Marker? = null
     var SearchView: SearchPresenterImp? = null
     private var mMap: GoogleMap? = null
@@ -52,8 +52,9 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     var Location = ""
     var loca = ""
     var cate = ""
+    val mLocationRequestwithBalanced = LocationRequest()
     var dialogFrag: FilterFragment? = null
-    private var myOldLocation: LatLng? = null
+
     private var myLocation: LatLng? = null
     private var isLoading: Boolean = false
     private var isLoadingLocked: Boolean = false
@@ -74,7 +75,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
 
         val permissionlistener = object : PermissionListener {
             override fun onPermissionGranted() {
-                val mLocationRequestwithBalanced = LocationRequest()
+
                 mLocationRequestwithBalanced.interval = 30000
                 mLocationRequestwithBalanced.fastestInterval = 10000
                 mLocationRequestwithBalanced.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
@@ -87,7 +88,9 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
                     result.locationSettingsStates
                     when (status.statusCode) {
                         LocationSettingsStatusCodes.SUCCESS -> {
-                            startService(Intent(this@SearchActivity, LocationService::class.java))
+                            val intent = Intent(this@SearchActivity, LocationService::class.java)
+                            intent.putExtra("locationrequest",mLocationRequestwithBalanced)
+                            startService(intent)
                             Toast.makeText(this@SearchActivity, "started", Toast.LENGTH_SHORT).show()
                         }
                         LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
@@ -128,7 +131,11 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         fab_search.setOnClickListener {
+
             dialogFrag = FilterFragment.newInstance()
+            val args =  Bundle()
+            args.putBoolean("isMap", isMap)
+            dialogFrag!!.arguments = args
             val inputManager = this
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
@@ -148,6 +155,8 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
                     isMap = true
                     nestedScrollView.visibility = View.GONE
                     layout_map.visibility = View.VISIBLE
+
+
                 }
                 else -> {
                     println("list")
@@ -214,19 +223,11 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
             val longitude = intent.getStringExtra("longitude")
 
             myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
-
-
-
-
             mMap!!.animateCamera(myLocation?.let { CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f) })
-
             val circleOptions = CircleOptions().center(myLocation).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
             circle?.remove()
             circle = mMap!!.addCircle(circleOptions)
             mLocation!!.position = myLocation
-
-
-
             Toast.makeText(this@SearchActivity, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
         }
@@ -356,7 +357,9 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
         when (requestCode) {
             1000 -> when (resultCode) {
                 Activity.RESULT_OK -> {
-                    startService(Intent(this@SearchActivity, LocationService::class.java))
+                    val intent = Intent(this@SearchActivity, LocationService::class.java)
+                    intent.putExtra("locationrequest",mLocationRequestwithBalanced)
+                    startService(intent)
                     Toast.makeText(this@SearchActivity, "started", Toast.LENGTH_SHORT).show()
                 }
                 else -> Toast.makeText(this@SearchActivity, "loi roi", Toast.LENGTH_SHORT).show()

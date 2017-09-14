@@ -49,7 +49,7 @@ class MyApplication : Application() {
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
         AndroidNetworking.enableLogging()
-        mSocket = IO.socket("http://192.168.1.42:8080").connect()
+        mSocket = IO.socket("http://45.77.36.109:8080").connect()
 
 
 
@@ -63,7 +63,7 @@ class MyApplication : Application() {
                 }
             }
         }
-        googleApiHelper = GoogleApiHelper(instance)
+        googleApiHelper = GoogleApiHelper(instance!!)
 
 
     }

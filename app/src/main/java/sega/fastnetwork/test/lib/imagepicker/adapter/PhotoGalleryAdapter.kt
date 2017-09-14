@@ -75,9 +75,7 @@ class PhotoGalleryAdapter(val context: Context) : RecyclerView.Adapter<PhotoGall
         return directories.size
     }
 
-    fun getItem(position: Int): PhotoDirectory {
-        return this.directories[position]
-    }
+    fun getItem(position: Int): PhotoDirectory = this.directories[position]
 
     private fun changeSelect(position: Int) {
         this.selected = position

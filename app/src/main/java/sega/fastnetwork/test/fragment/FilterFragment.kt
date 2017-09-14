@@ -108,7 +108,7 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
             val inflater = LayoutInflater.from(context)
             /*  val layout = inflater.inflate(R.layout.view_filters_sorters, collection, false) as ViewGroup
               val fbl = layout.findViewById<FlexboxLayout>(R.id.fbl)*/
-            var resId: Int
+            val resId: Int
             var view: View? = null
             when (position) {
                 0 -> {
@@ -119,11 +119,19 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
                     (collection as ViewPager).addView(view, 0)
                 }
                 1 -> {
-                    resId = R.layout.view_filters_sorters
-                    view = inflater.inflate(resId, collection, false)
-                    val fbl = view.findViewById<FlexboxLayout>(R.id.fbl)
-                    inflateLayoutWithFilters(fbl)
-                    (collection as ViewPager).addView(view, 0)
+                    if (arguments.getBoolean("isMap")) {
+                        resId = R.layout.filter_product
+                        view = inflater.inflate(resId, collection, false)
+
+                        inflateLayoutProduct(view)
+                        (collection as ViewPager).addView(view, 0)
+                    } else {
+                        resId = R.layout.view_filters_sorters
+                        view = inflater.inflate(resId, collection, false)
+                        val fbl = view.findViewById<FlexboxLayout>(R.id.fbl)
+                        inflateLayoutWithFilters(fbl)
+                        (collection as ViewPager).addView(view, 0)
+                    }
                 }
                 2 -> {
                     resId = R.layout.filter_product
@@ -150,12 +158,12 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
             collection.removeView(view as View)
         }
 
-        override fun getCount(): Int = 3
+        override fun getCount(): Int =   if (arguments.getBoolean("isMap")) 2 else 3
 
         override fun getPageTitle(position: Int): CharSequence {
             when (position) {
                 0 -> return "Danh mục"
-                1 -> return "Địa điểm"
+                1 -> return   if (arguments.getBoolean("isMap")) "Lọc" else "Địa điểm"
                 2 -> return "Lọc"
             }
             return ""
@@ -181,9 +189,9 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
                     tv.setBackgroundResource(R.drawable.chip_unselected)
                     tv.setTextColor(ContextCompat.getColor(context, R.color.color_background_button))
                     removeFromSelectedMap("location", finalKeys[i])
-                }else if (applied_filters!!["location"]?.size == 5) {
-                    Toast.makeText(activity," da du 5 truong", Toast.LENGTH_LONG).show()
-                }   else {
+                } else if (applied_filters!!["location"]?.size == 5) {
+                    Toast.makeText(activity, " da du 5 truong", Toast.LENGTH_LONG).show()
+                } else {
                     tv.tag = "selected"
                     tv.setBackgroundResource(R.drawable.chip_selected)
                     tv.setTextColor(ContextCompat.getColor(context, R.color.white))
@@ -311,9 +319,9 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
             adapter!!.categoryList[position].selected = false
             adapter!!.notifyItemChanged(position)
             removeFromSelectedMap("category", position.toString())
-        }else if (applied_filters!!["category"]?.size == 5) {
-            Toast.makeText(activity," da du 5 truong", Toast.LENGTH_LONG).show()
-        }  else  {
+        } else if (applied_filters!!["category"]?.size == 5) {
+            Toast.makeText(activity, " da du 5 truong", Toast.LENGTH_LONG).show()
+        } else {
             adapter!!.categoryList[position].selected = true
             adapter!!.notifyItemChanged(position)
             addToSelectedMap("category", position.toString())

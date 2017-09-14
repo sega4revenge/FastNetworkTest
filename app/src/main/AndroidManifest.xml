@@ -53,6 +53,9 @@
             android:name=".service.LocationService"
             android:exported="true"
             android:stopWithTask="true">
+            <intent-filter >
+                <action android:name="sega.fastnetwork.test.service.LocationService" />
+            </intent-filter>
             </service>
 
         <meta-data
