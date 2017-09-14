@@ -41,7 +41,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:background="@drawable/radiusbottomview"
-                        ></LinearLayout>
+                        android:id="@+id/linearLayout2"
+                        android:orientation="vertical"></LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
@@ -60,6 +61,7 @@
                         android:background="@drawable/radius_all_view"
                         android:orientation="vertical"
                         android:layout_below="@id/pintop"
+                        android:animateLayoutChanges="true"
                         >
 
                         <LinearLayout
@@ -98,9 +100,10 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="#dfe3ee"></View>
+                                android:background="@color/colorDivide"></View>
 
                             <LinearLayout
+                                android:id="@+id/linelectronic"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
@@ -126,9 +129,10 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="#dfe3ee"></View>
+                                android:background="@color/colorDivide"></View>
 
                             <LinearLayout
+                                android:id="@+id/linfashion"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
@@ -153,9 +157,17 @@
                         </LinearLayout>
 
                         <View
+                            android:id="@+id/divide"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="0.2dp"
-                            android:background="#dfe3ee"></View>
+                            android:background="@color/colorDivide"></View>
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:orientation="vertical"
+                           android:id="@+id/linmore"
+                           android:visibility="gone">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
@@ -164,6 +176,7 @@
                             android:gravity="center">
 
                             <LinearLayout
+                                android:id="@+id/linhome"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
@@ -187,8 +200,9 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="#dfe3ee"></View>
+                                android:background="@color/colorDivide"></View>
                             <LinearLayout
+                                android:id="@+id/linmombaby"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
@@ -214,8 +228,9 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="#dfe3ee"></View>
+                                android:background="@color/colorDivide"></View>
                             <LinearLayout
+                                android:id="@+id/lingdnt"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
@@ -238,20 +253,18 @@
 
                         </LinearLayout>
                         <View
-                            android:id="@+id/divide"
                             android:layout_width="match_parent"
                             android:layout_height="0.2dp"
-                            android:background="#dfe3ee"
-                            android:visibility="gone"></View>
+                            android:background="@color/colorDivide"
+                            ></View>
                         <LinearLayout
-                            android:id="@+id/linmore"
                             android:layout_width="match_parent"
                             android:layout_height="100dp"
                             android:orientation="horizontal"
-                            android:visibility="gone"
                             android:gravity="center">
 
                             <LinearLayout
+                                android:id="@+id/linshort"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
@@ -275,8 +288,9 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="#dfe3ee"></View>
+                                android:background="@color/colorDivide"></View>
                             <LinearLayout
+                                android:id="@+id/linvpnn"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
@@ -301,8 +315,9 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="#dfe3ee"></View>
+                                android:background="@color/colorDivide"></View>
                             <LinearLayout
+                                android:id="@+id/lindeff"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
@@ -322,7 +337,7 @@
                                     android:gravity="center"
                                     android:layout_margin="5dp"/>
                             </LinearLayout>
-
+                            </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -331,8 +346,7 @@
                         android:layout_width="50dp"
                         android:layout_height="40dp"
                         android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        />
+                        android:layout_centerHorizontal="true" />
 
                 </RelativeLayout>
 
@@ -382,11 +396,13 @@
                                 <!--android:textSize="20sp" />-->
                         <ImageButton
                             android:id="@+id/addproduct"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:background="#37474F"
-                            android:src="@drawable/action_search"
+                            android:src="@mipmap/ic_add_product"
                             android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
                              />
 
                         </RelativeLayout>
@@ -433,6 +449,8 @@
         app:itemIconTint="@color/menu_icon_color"
         app:itemTextColor="@color/menu_text_color"
         android:theme="@style/AppTheme.NavigationView"
-        app:menu="@menu/activity_main_drawer" />
-
+        app:menu="@menu/activity_main_drawer"
+         >
+    </android.support.design.widget.NavigationView>
+    <!---->
 </android.support.v4.widget.DrawerLayout>

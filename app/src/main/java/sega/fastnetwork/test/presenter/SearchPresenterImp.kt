@@ -23,19 +23,13 @@ class SearchPresenterImp(searchView : SearchView) : SearchInterface {
     private val  searchview = searchView
     private val TAG :String = "SearchTag"
     var request: Observable<ResponseListProduct>? = null
-    override fun ConnectHttp(key: String, mLocation: String, mCategory: Int, mTypeArrange: Int) {
-        var category = ""
+    override fun ConnectHttp(key: String, mLocation: String, mCategory: String, mTypeArrange: Int) {
 
-
-        if(mCategory!=0)
-        {
-            category = (mCategory-1).toString()
-        }
         val jsonObject = JSONObject()
         try {
             jsonObject.put("keysearch", key)
             jsonObject.put("location", mLocation)
-            jsonObject.put("category", category)
+            jsonObject.put("category", mCategory)
             jsonObject.put("typeArrange", mTypeArrange)
         } catch (e: JSONException) {
             e.printStackTrace()

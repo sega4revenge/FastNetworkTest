@@ -50,7 +50,8 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     var mFilter = 0
     internal var circle: Circle? = null
     var Location = ""
-
+    var loca = ""
+    var cate = ""
     var dialogFrag: FilterFragment? = null
     private var myOldLocation: LatLng? = null
     private var myLocation: LatLng? = null
@@ -167,7 +168,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 SearchView!!.cancelRequest()
-                SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
+                SearchView!!.ConnectHttp(ed_search.query.toString(), loca, cate, mFilter)
                 ed_search.clearFocus()
                 return true
             }
@@ -232,11 +233,36 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     }
 
     override fun onResult(result: Any?) {
+         loca = ""
+         cate = ""
         Log.d("k9res", "onResult: " + result.toString())
         println(applied_filters["category"])
         println(applied_filters["location"])
         println(applied_filters["filter"])
-        SearchView!!.ConnectHttp(ed_search.query.toString(), Location, mCategory, mFilter)
+        if(applied_filters["category"]?.size!! > 0){
+            for( i in 0..(applied_filters["category"]?.size!!-1)){
+                if(cate.equals(""))
+                {
+                    cate = applied_filters["category"]!![i]
+                }else{
+
+                    cate = cate +" , "+applied_filters["category"]!![i]
+                }
+            }
+        }
+        if(applied_filters["location"]?.size!! > 0){
+            for( i in 0..(applied_filters["location"]?.size!!-1)){
+                if(loca.equals(""))
+                {
+                    loca = applied_filters["location"]!![i]
+                }else{
+
+                    loca = loca +" , "+applied_filters["location"]!![i]
+                }
+            }
+        }
+        Log.d("k9res", loca + cate)
+        SearchView!!.ConnectHttp(ed_search.query.toString(), loca, cate, 0)
 
     }
 

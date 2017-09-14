@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import kotlinx.android.synthetic.main.header.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.AddActivity
-import sega.fastnetwork.test.activity.ChangePasswordActivity
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
@@ -111,18 +110,44 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         navigation_view.getHeaderView(0).username_header.text = user.name
         navigation_view.getHeaderView(0).email_header.text  = user.email
         linMotobike.setOnClickListener(){
-            ChangeCategory(0)
+            ChangeCategory(0,HomeFragment())
+        }
+        linelectronic.setOnClickListener(){
+            ChangeCategory(1,HomeFragment())
+        }
+        linfashion.setOnClickListener(){
+            ChangeCategory(2,HomeFragment())
+        }
+        linhome.setOnClickListener(){
+            ChangeCategory(3,HomeFragment())
+        }
+        linmombaby.setOnClickListener(){
+            ChangeCategory(4,HomeFragment())
+        }
+        lingdnt.setOnClickListener(){
+            ChangeCategory(5,HomeFragment())
+        }
+        linshort.setOnClickListener(){
+            ChangeCategory(6,HomeFragment())
+        }
+        linvpnn.setOnClickListener(){
+            ChangeCategory(7,HomeFragment())
+        }
+        lindeff.setOnClickListener(){
+            ChangeCategory(999,HomeFragment())
         }
         moreCategory.setOnClickListener(){
            if(!morecategory)
            {
                linmore.visibility = View.VISIBLE
                divide.visibility = View.VISIBLE
-               morecategory = true
                moreCategory.setImageResource(R.mipmap.ic_hidecategory)
+               morecategory = true
+
            }else{
+
+               linmore.setVisibility(View.GONE)
                moreCategory.setImageResource(R.mipmap.ic_launcher)
-               linmore.visibility = View.GONE
                divide.visibility = View.GONE
                morecategory = false
            }
@@ -149,16 +174,17 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     fun setUserDetail(user : User){
 
     }
-    fun ChangeCategory(mCategory: Int){
+    fun ChangeCategory(mCategory: Int,mFragment: Fragment){
         Log.d("Runnnnnnn",mCategory.toString())
          if (fragment != null) {
-             if(fragment == HomeFragment()){
+             if(mPrevSelectedId == R.id.nav_1){
              val bundle = Bundle()
                  bundle.putInt("Category",mCategory)
              val transaction = activity.supportFragmentManager.beginTransaction()
              try {
-                 fragment?.arguments =  bundle
-                 transaction.replace(R.id.content_frame, fragment).commit()
+                 var frag = mFragment
+                 frag.arguments =  bundle
+                 transaction.replace(R.id.content_frame, frag).commit()
              } catch (ignored: IllegalStateException) {
              }
 
@@ -213,17 +239,17 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 startActivity(intent)
             }
 
-            R.id.nav_6 -> {
-                /*   startActivity(new Intent(this, AboutActivity.class));*/
-                navigation_view!!.menu.findItem(mPrevSelectedId).isChecked = true
-                return
-            }
-            R.id.nav_8 -> {
-                /*   startActivity(new Intent(this, AboutActivity.class));*/
-                AppManager.removeAccount(activity)
-
-                return
-            }
+//            R.id.nav_6 -> {
+//                /*   startActivity(new Intent(this, AboutActivity.class));*/
+//                navigation_view!!.menu.findItem(mPrevSelectedId).isChecked = true
+//                return
+//            }
+//            R.id.nav_8 -> {
+//                /*   startActivity(new Intent(this, AboutActivity.class));*/
+//                AppManager.removeAccount(activity)
+//
+//                return
+//            }
         }
 
         /*  val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(4f))*/
