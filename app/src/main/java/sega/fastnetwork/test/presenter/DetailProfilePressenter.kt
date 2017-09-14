@@ -26,7 +26,7 @@ class DetailProfilePressenter(profileView : DetailProfileView) : DetailProfileIn
 
         val jsonObject = JSONObject()
         try {
-            jsonObject.put("userid", "5996621ae996410dc654dedc")
+            jsonObject.put("userid", "59b79166931d2d117abd09b4")
         } catch (e: JSONException) {
             e.printStackTrace()
         }
@@ -45,42 +45,30 @@ class DetailProfilePressenter(profileView : DetailProfileView) : DetailProfileIn
                 .subscribe(object : Observer<ResponseListProduct> {
                     override fun onNext(response: ResponseListProduct?) {
 
-                        Log.d(TAG, response!!.user!!.email)
-                        Log.d(TAG, response!!.user!!.listproduct!!.size.toString())
-                        if(response!!.user!!.listproduct!!.size!=0)
-                        {
-                            profileview.getListProduct(response!!.user!!.listproduct!!,response!!.user!!)
-                        }else{
+//                        Log.e("Responseeeee", response.toString())
+//                        Log.e("Responseeeee2", response!!.user!!.listproduct!!.size.toString())
+
                             profileview.getUser(response!!.user!!)
-                        }
 
                     }
 
 
                     override fun onComplete() {
 
-
+//                        Log.e("Responseeeee", "AAAA")
                     }
-
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            val anError = e
-                            if (anError.errorCode != 0) {
-                                Log.d(TAG, "onError errorCode : " + anError.errorCode)
-                                Log.d(TAG, "onError errorBody : " + anError.errorBody)
-                                Log.d(TAG, "onError errorDetail : " + anError.errorDetail)
-                                if(anError.errorCode != 404)
-                                {  //searchview.setErrorMessage(anError.errorBody.get(0).toString())
 
-                                }else{
-                                   // searchview.setMessagerNotFound()
-                                }
-                            } else {
-                                Log.d(TAG, "onError errorDetail : " + anError.errorDetail)
 
-                            }
+                            Log.d(TAG, "onError errorCode : " + e.errorCode)
+                            Log.d(TAG, "onError errorBody : " + e.errorBody)
+                            Log.d(TAG, e.errorDetail + " : " + e.message)
+                            profileview.setErrorMessage(e.errorDetail)
+
                         } else {
                             Log.d(TAG, "onError errorMessage : " + e.message)
+                            profileview.setErrorMessage(e.message!!)
                         }
                     }
 

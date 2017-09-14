@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.detailprofile.*
+import kotlinx.android.synthetic.main.detailprofile.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.EditProductActivity
 import sega.fastnetwork.test.adapter.Product_ProfileAdapter
@@ -35,10 +36,16 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
     var productGive : ArrayList<Product> = ArrayList<Product>()
     var productNeed : ArrayList<Product> = ArrayList<Product>()
     var numType = 0
+    val options = RequestOptions()
+            .centerCrop()
+            .dontAnimate()
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.img_error)
+            .priority(Priority.HIGH)
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = Product_ProfileAdapter(this!!.activity, this)
+        adapter = Product_ProfileAdapter(this.activity, this)
         layoutManager = GridLayoutManager(context, 1)
         product_list.setHasFixedSize(true)
         product_list.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
@@ -51,7 +58,17 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
     }
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.detailprofile, container, false)
+        var userData = AppManager.getUserDatafromAccount(activity,AppManager.getAppAccount(activity)!!)
+//        Log.e("asdasda",userData.name + " " + userData.email + " " + userData.photoprofile)
 
+            Glide.with(activity)
+                    .load(userData.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(view.avatar_header)
+
+        view.txt_name.text = userData.name
+        view.txt_mail.text = userData.email
         var lingive : LinearLayout =view.findViewById(R.id.LinGive)
         var linneed : LinearLayout =view.findViewById(R.id.LinNeed)
         lingive.setOnClickListener{
@@ -95,7 +112,7 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
     }
 
     override fun getListProduct(productlist: ArrayList<Product>,user: User) {
-        getUser(user)
+//        getUser(user)
         if (adapter!!.productList.size > 0) {
             adapter!!.productList.clear()
         }
@@ -153,12 +170,7 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
         txt_name.text = user.name
         txt_mail.text = user.email
         if(user.photoprofile != null) {
-            val options = RequestOptions()
-                    .centerCrop()
-                    .dontAnimate()
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.img_error)
-                    .priority(Priority.HIGH)
+
             Glide.with(activity)
                     .load(user.photoprofile)
                     .thumbnail(0.1f)
@@ -169,6 +181,9 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
                     .load(R.drawable.img_error)
                     .thumbnail(0.1f)
                     .into(avatar_header)
+        }
+        if(user.listproduct!!.size>0){
+            getListProduct(user.listproduct!!,user)
         }
     }
     override fun setMessagerNotFound() {
