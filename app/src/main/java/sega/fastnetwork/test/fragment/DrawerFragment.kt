@@ -137,20 +137,60 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             ChangeCategory(999,HomeFragment())
         }
         moreCategory.setOnClickListener(){
-           if(!morecategory)
-           {
-               linmore.visibility = View.VISIBLE
-               divide.visibility = View.VISIBLE
-               moreCategory.setImageResource(R.mipmap.ic_hidecategory)
-               morecategory = true
+            if(mPrevSelectedId == R.id.nav_1)
+            {
+                if(!morecategory)
+                {
+                    linmore.visibility = View.VISIBLE
+                    divide.visibility = View.VISIBLE
+                    moreCategory.setImageResource(R.mipmap.ic_hidecategory)
+                    morecategory = true
 
-           }else{
+                }else{
 
-               linmore.setVisibility(View.GONE)
-               moreCategory.setImageResource(R.mipmap.ic_launcher)
-               divide.visibility = View.GONE
-               morecategory = false
-           }
+                    linmore.setVisibility(View.GONE)
+                    moreCategory.setImageResource(R.mipmap.ic_launcher)
+                    divide.visibility = View.GONE
+                    morecategory = false
+                }
+            }else if(mPrevSelectedId == R.id.nav_3){
+                if(!morecategory)
+                {
+                    linmoreInfor.visibility = View.VISIBLE
+                    divide.visibility = View.VISIBLE
+                    moreCategory.setImageResource(R.mipmap.ic_hidecategory)
+                    morecategory = true
+
+                }else{
+
+                    linmoreInfor.setVisibility(View.GONE)
+                    moreCategory.setImageResource(R.mipmap.ic_launcher)
+                    divide.visibility = View.GONE
+                    morecategory = false
+                }
+            }
+
+        }
+        txtname.text = user.name
+        txtemail.text = user.email
+        if(AppManager.USER_PHOTOPROFILE != null  && !AppManager.USER_PHOTOPROFILE.equals(""))
+        {
+            val options = RequestOptions()
+                    .centerCrop()
+                    .dontAnimate()
+                    .placeholder(R.drawable.logo)
+                    .error(R.drawable.img_error)
+                    .priority(Priority.HIGH)
+            Glide.with(activity)
+                    .load(user.photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(imgAvatar)
+        }else{
+            Glide.with(activity)
+                    .load(R.drawable.img_error)
+                    .thumbnail(0.1f)
+                    .into(imgAvatar)
         }
     }
 
@@ -199,7 +239,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
         drawer_layout.closeDrawers()
     }
-
+    private fun hideMoreAction(){
+        linmore.visibility = View.GONE
+        linmoreInfor.visibility = View.GONE
+    }
     private fun navigate(itemId: Int) {
         /*  val elevation = findViewById(R.id.elevation)*/
 
@@ -208,25 +251,45 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 mPrevSelectedId = itemId
                 toolbar_title.setText(R.string.nav_home)
                 fragment = HomeFragment()
-                if(categorylist.visibility != View.VISIBLE){
-                    categorylist.visibility = View.VISIBLE
+
+                hideMoreAction()
+                // change status show/hide action profile => category
+                if(linInfor.visibility != View.GONE){
+                    linInfor.visibility = View.GONE
                 }
+                if(linCate.visibility != View.VISIBLE){
+                    linCate.visibility = View.VISIBLE
+                }
+                morecategory = false
             }
             R.id.nav_2 -> {
                 mPrevSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
                 fragment = CategoryFragment()
+
+                hideMoreAction()
+
                 if(categorylist.visibility != View.GONE){
                     categorylist.visibility = View.GONE
                 }
+                morecategory = false
             }
             R.id.nav_3 -> {
                 mPrevSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
                 fragment = DetailProfileFragment()
-                if(categorylist.visibility != View.GONE){
-                    categorylist.visibility = View.GONE
+
+                hideMoreAction()
+
+                // change status show/hide action category => profile
+                if(linCate.visibility != View.GONE){
+                    linCate.visibility = View.GONE
                 }
+                if(linInfor.visibility != View.VISIBLE){
+                    linInfor.visibility = View.VISIBLE
+                }
+                morecategory = false
+
             }
             R.id.nav_4 -> {
 //                mPrevSelectedId = itemId

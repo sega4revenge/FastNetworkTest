@@ -63,27 +63,40 @@ class SearchPresenterImp(searchView : SearchView) : SearchInterface {
 
 
                     }
-
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            if (e.errorCode != 0) {
-                                Log.d(TAG, "onError errorCode : " + e.errorCode)
-                                Log.d(TAG, "onError errorBody : " + e.errorBody)
-                                Log.d(TAG, "onError errorDetail : " + e.errorDetail)
-                                if(e.errorCode != 404)
-                                {  searchview.setErrorMessage(e.errorBody.get(0).toString())
 
-                                }else{
-                                    searchview.setMessagerNotFound()
-                                }
-                            } else {
-                                Log.d(TAG, "onError errorDetail : " + e.errorDetail)
 
-                            }
+                            Log.d(TAG, "onError errorCode : " + e.errorCode)
+                            Log.d(TAG, "onError errorBody : " + e.errorBody)
+                            Log.d(TAG, e.errorDetail + " : " + e.message)
+                            searchview.setErrorMessage(e.errorDetail)
+
                         } else {
                             Log.d(TAG, "onError errorMessage : " + e.message)
+                            searchview.setErrorMessage(e.message!!)
                         }
                     }
+//                    override fun onError(e: Throwable) {
+//                        if (e is ANError) {
+//                            if (e.errorCode != 0) {
+//                                Log.d(TAG, "onError errorCode : " + e.errorCode)
+//                                Log.d(TAG, "onError errorBody : " + e.errorBody)
+//                                Log.d(TAG, "onError errorDetail : " + e.errorDetail)
+//                                if(e.errorCode != 404)
+//                                {  searchview.setErrorMessage(e.errorBody.get(0).toString())
+//
+//                                }else{
+//                                    searchview.setMessagerNotFound()
+//                                }
+//                            } else {
+//                                Log.d(TAG, "onError errorDetail : " + e.errorDetail)
+//
+//                            }
+//                        } else {
+//                            Log.d(TAG, "onError errorMessage : " + e.message)
+//                        }
+//                    }
 
                     override fun onSubscribe(d: Disposable) {
 

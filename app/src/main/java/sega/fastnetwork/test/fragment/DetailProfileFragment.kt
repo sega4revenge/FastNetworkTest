@@ -11,11 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.detailprofile.*
-import kotlinx.android.synthetic.main.detailprofile.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.EditProductActivity
 import sega.fastnetwork.test.adapter.Product_ProfileAdapter
@@ -59,16 +57,7 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.detailprofile, container, false)
         var userData = AppManager.getUserDatafromAccount(activity,AppManager.getAppAccount(activity)!!)
-//        Log.e("asdasda",userData.name + " " + userData.email + " " + userData.photoprofile)
 
-            Glide.with(activity)
-                    .load(userData.photoprofile)
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(view.avatar_header)
-
-        view.txt_name.text = userData.name
-        view.txt_mail.text = userData.email
         var lingive : LinearLayout =view.findViewById(R.id.LinGive)
         var linneed : LinearLayout =view.findViewById(R.id.LinNeed)
         lingive.setOnClickListener{
@@ -167,21 +156,7 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
         root_addproduct.visibility = View.VISIBLE
         product_list.visibility = View.GONE
         mess_notfound.visibility = View.VISIBLE
-        txt_name.text = user.name
-        txt_mail.text = user.email
-        if(user.photoprofile != null) {
 
-            Glide.with(activity)
-                    .load(user.photoprofile)
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(avatar_header)
-        }else{
-            Glide.with(activity)
-                    .load(R.drawable.img_error)
-                    .thumbnail(0.1f)
-                    .into(avatar_header)
-        }
         if(user.listproduct!!.size>0){
             getListProduct(user.listproduct!!,user)
         }
