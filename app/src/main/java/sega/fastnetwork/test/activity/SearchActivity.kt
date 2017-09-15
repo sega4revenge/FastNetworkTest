@@ -191,7 +191,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterI
         if (!isMap)
             layout_map.visibility = View.GONE
         mMap = map
-        mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0,0.0)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+        mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
         mMap!!.setOnMapClickListener { latLng ->
 
 
@@ -235,32 +235,39 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterI
     override fun onResult(result: Any?) {
         loca = ""
         cate = ""
-        Log.d("k9res", "onResult: " + result.toString())
-        println(applied_filters["category"])
-        println(applied_filters["location"])
-        println(applied_filters["filter"])
-        if (applied_filters["category"]?.size!! > 0) {
-            for (i in 0..(applied_filters["category"]?.size!! - 1)) {
-                if (cate.equals("")) {
-                    cate = applied_filters["category"]!![i]
-                } else {
+        if (result.toString() != "swiped_down") {
+            println(applied_filters["category"])
+            println(applied_filters["location"])
+            println(applied_filters["filter"])
+            if (applied_filters["category"]?.size !=null && applied_filters["category"]?.size!! > 0) {
+                for (i in 0..(applied_filters["category"]?.size!! - 1)) {
+                    cate = if (cate == "") {
+                        applied_filters["category"]!![i]
+                    } else {
 
-                    cate = cate + " , " + applied_filters["category"]!![i]
+                        cate + " , " + applied_filters["category"]!![i]
+                    }
                 }
             }
-        }
-        if (applied_filters["location"]?.size!! > 0) {
-            for (i in 0..(applied_filters["location"]?.size!! - 1)) {
-                loca = if (loca == "") {
-                    applied_filters["location"]!![i]
-                } else {
 
-                    loca + " , " + applied_filters["location"]!![i]
+
+            if (!isMap) {
+                if (applied_filters["location"]?.size !=null &&applied_filters["location"]?.size!! > 0) {
+                    for (i in 0..(applied_filters["location"]?.size!! - 1)) {
+                        loca = if (loca == "") {
+                            applied_filters["location"]!![i]
+                        } else {
+
+                            loca + " , " + applied_filters["location"]!![i]
+                        }
+                    }
                 }
+                SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, 0)
+                Log.d("k9res", loca + cate)
             }
+
         }
-        Log.d("k9res", loca + cate)
-        SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, 0)
+
 
     }
 
@@ -296,13 +303,13 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterI
 
             for (i in productlist.indices) {
 
-                val PERTH = LatLng(productlist[i].location!!.coordinates!![0], productlist[i].location!!.coordinates!![1])
-                listProductMaker.add(mMap!!.addMarker(MarkerOptions()
+                val PERTH = LatLng(productlist[i].location!!.coordinates!![1], productlist[i].location!!.coordinates!![0])
+                mMap!!.addMarker(MarkerOptions()
                         .position(PERTH)
                         .snippet(productlist[i].category)
                         .snippet(productlist[i].price)
-                        .title(productlist[i].productname)))
-                listProductMaker[i].tag = i
+                        .title(productlist[i].productname))
+
             }
         } else {
             if (adapter!!.productList.size > 0) {
