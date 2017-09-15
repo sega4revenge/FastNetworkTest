@@ -23,7 +23,7 @@ import sega.fastnetwork.test.util.Constants
  */
 
 class ProductListPresenter(view: ProductListView) {
-    internal var mProductListView: ProductListView = view
+    internal var mProductListView = view
     var userdetail = "USERDETAIL"
     private val jsonObject = JSONObject()
     private val disposables = CompositeDisposable()

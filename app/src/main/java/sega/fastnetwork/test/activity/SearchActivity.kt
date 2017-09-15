@@ -33,14 +33,12 @@ import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.SearchPresenterImp
 import sega.fastnetwork.test.service.LocationService
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.SearchView
 
 
 /**
  * Created by VinhNguyen on 8/9/2017.
  */
-class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks {
-
+class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks {
 
 
     internal var mLocation: Marker? = null
@@ -54,7 +52,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     var cate = ""
     val mLocationRequestwithBalanced = LocationRequest()
     var dialogFrag: FilterFragment? = null
-
+    internal var listProductMaker = java.util.ArrayList<Marker>()
     private var myLocation: LatLng? = null
     private var isLoading: Boolean = false
     private var isLoadingLocked: Boolean = false
@@ -89,7 +87,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
                     when (status.statusCode) {
                         LocationSettingsStatusCodes.SUCCESS -> {
                             val intent = Intent(this@SearchActivity, LocationService::class.java)
-                            intent.putExtra("locationrequest",mLocationRequestwithBalanced)
+                            intent.putExtra("locationrequest", mLocationRequestwithBalanced)
                             startService(intent)
                             Toast.makeText(this@SearchActivity, "started", Toast.LENGTH_SHORT).show()
                         }
@@ -133,7 +131,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
         fab_search.setOnClickListener {
 
             dialogFrag = FilterFragment.newInstance()
-            val args =  Bundle()
+            val args = Bundle()
             args.putBoolean("isMap", isMap)
             dialogFrag!!.arguments = args
             val inputManager = this
@@ -177,7 +175,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 SearchView!!.cancelRequest()
-                SearchView!!.ConnectHttp(ed_search.query.toString(), loca, cate, mFilter)
+                SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
                 ed_search.clearFocus()
                 return true
             }
@@ -190,27 +188,32 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        /*  if(!isMap)
-              layout_map.visibility = View.GONE
-          map!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("Marker"))
-          mMap = map
-          if (mPerth != null) {
-              mPerth!!.remove()
-          }
-          mMap!!.setOnMapClickListener { latLng ->
-              if (mLocationPicker != null) {
-                  mLocationPicker!!.remove()
-              }
-
-
-              mMap!!.clear()
-
-              val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
-
-              circle = mMap!!.addCircle(circleOptions)
-          }*/
+        if (!isMap)
+            layout_map.visibility = View.GONE
         mMap = map
-        mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("My Location"))
+        mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0,0.0)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+        mMap!!.setOnMapClickListener { latLng ->
+
+
+            mMap!!.clear()
+            mMap!!.addMarker(MarkerOptions()
+                    .position(latLng)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                    .title("Location"))
+            mMap!!.addMarker(MarkerOptions().position(myLocation!!).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+            val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
+
+            circle = mMap!!.addCircle(circleOptions)
+
+            listProductMaker.clear()
+            SearchView!!.searchWithMap(ed_search.query.toString(), latLng, cate, 10)
+        }
+        mMap!!.isMyLocationEnabled = true
+        mMap!!.setOnMyLocationButtonClickListener({
+
+            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
+            true
+        })
 
 
     }
@@ -223,10 +226,6 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
             val longitude = intent.getStringExtra("longitude")
 
             myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
-            mMap!!.animateCamera(myLocation?.let { CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f) })
-            val circleOptions = CircleOptions().center(myLocation).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
-            circle?.remove()
-            circle = mMap!!.addCircle(circleOptions)
             mLocation!!.position = myLocation
             Toast.makeText(this@SearchActivity, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
@@ -234,36 +233,34 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     }
 
     override fun onResult(result: Any?) {
-         loca = ""
-         cate = ""
+        loca = ""
+        cate = ""
         Log.d("k9res", "onResult: " + result.toString())
         println(applied_filters["category"])
         println(applied_filters["location"])
         println(applied_filters["filter"])
-        if(applied_filters["category"]?.size!! > 0){
-            for( i in 0..(applied_filters["category"]?.size!!-1)){
-                if(cate.equals(""))
-                {
+        if (applied_filters["category"]?.size!! > 0) {
+            for (i in 0..(applied_filters["category"]?.size!! - 1)) {
+                if (cate.equals("")) {
                     cate = applied_filters["category"]!![i]
-                }else{
+                } else {
 
-                    cate = cate +" , "+applied_filters["category"]!![i]
+                    cate = cate + " , " + applied_filters["category"]!![i]
                 }
             }
         }
-        if(applied_filters["location"]?.size!! > 0){
-            for( i in 0..(applied_filters["location"]?.size!!-1)){
-                if(loca.equals(""))
-                {
-                    loca = applied_filters["location"]!![i]
-                }else{
+        if (applied_filters["location"]?.size!! > 0) {
+            for (i in 0..(applied_filters["location"]?.size!! - 1)) {
+                loca = if (loca == "") {
+                    applied_filters["location"]!![i]
+                } else {
 
-                    loca = loca +" , "+applied_filters["location"]!![i]
+                    loca + " , " + applied_filters["location"]!![i]
                 }
             }
         }
         Log.d("k9res", loca + cate)
-        SearchView!!.ConnectHttp(ed_search.query.toString(), loca, cate, 0)
+        SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, 0)
 
     }
 
@@ -294,13 +291,29 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
     }
 
     override fun getListProduct(productlist: ArrayList<Product>) {
-        if (adapter!!.productList.size > 0) {
-            adapter!!.productList.clear()
-            Log.d("test search ", "clear")
+        if (isMap) {
 
+
+            for (i in productlist.indices) {
+
+                val PERTH = LatLng(productlist[i].location!!.coordinates!![0], productlist[i].location!!.coordinates!![1])
+                listProductMaker.add(mMap!!.addMarker(MarkerOptions()
+                        .position(PERTH)
+                        .snippet(productlist[i].category)
+                        .snippet(productlist[i].price)
+                        .title(productlist[i].productname)))
+                listProductMaker[i].tag = i
+            }
+        } else {
+            if (adapter!!.productList.size > 0) {
+                adapter!!.productList.clear()
+                Log.d("test search ", "clear")
+
+            }
+            adapter!!.productList = productlist
+            onDownloadSuccessful()
         }
-        adapter!!.productList = productlist
-        onDownloadSuccessful()
+
     }
 
     private fun onDownloadSuccessful() {
@@ -358,7 +371,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchView, Prod
             1000 -> when (resultCode) {
                 Activity.RESULT_OK -> {
                     val intent = Intent(this@SearchActivity, LocationService::class.java)
-                    intent.putExtra("locationrequest",mLocationRequestwithBalanced)
+                    intent.putExtra("locationrequest", mLocationRequestwithBalanced)
                     startService(intent)
                     Toast.makeText(this@SearchActivity, "started", Toast.LENGTH_SHORT).show()
                 }
