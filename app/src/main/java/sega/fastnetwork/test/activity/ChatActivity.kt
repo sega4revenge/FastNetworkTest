@@ -3,6 +3,7 @@ package sega.fastnetwork.test.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_chat.*
@@ -48,13 +49,14 @@ class ChatActivity : AppCompatActivity(),DetailUserPresenter.DetailUserView {
     private val onLogin = Emitter.Listener { args ->
         val data = args[0] as JSONObject
 
-        val numUsers: Int
+
         try {
-            numUsers = data.getInt("numUsers")
+         var   numUsers = data.getString("username")
+            Toast.makeText(applicationContext,numUsers + " đã gia nhập phòng",Toast.LENGTH_LONG).show()
         } catch (e: JSONException) {
             return@Listener
         }
-        System.out.println(numUsers)
+
         val intent = Intent()
 
 
