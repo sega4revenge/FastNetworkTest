@@ -61,31 +61,44 @@ class LoginPresenter(view: LoginView) {
 
                         mLoginView.isLoginSuccessful(true)
                     }
-
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            if (e.errorCode != 0) {
-                                // received ANError from server
-                                // error.getErrorCode() - the ANError code from server
-                                // error.getErrorBody() - the ANError body from server
-                                // error.getErrorDetail() - just a ANError detail
-                                Log.d(login, "onError errorCode : " + e.errorCode)
-                                Log.d(login, "onError errorBody : " + e.errorBody)
-                                Log.d(login, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.isLoginSuccessful(false)
-                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),3)
-                            } else {
-                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(login, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.isLoginSuccessful(false)
-                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),3)
-                            }
+
+
+                            Log.d(login, "onError errorCode : " + e.errorCode)
+                            Log.d(login, "onError errorBody : " + e.errorBody)
+                            Log.d(login, e.errorDetail + " : " + e.message)
+                            mLoginView.setErrorMessage(e.errorDetail,3)
+
                         } else {
                             Log.d(login, "onError errorMessage : " + e.message)
-                            mLoginView.isLoginSuccessful(false)
                             mLoginView.setErrorMessage(e.message!!,3)
                         }
                     }
+//                    override fun onError(e: Throwable) {
+//                        if (e is ANError) {
+//                            if (e.errorCode != 0) {
+//                                // received ANError from server
+//                                // error.getErrorCode() - the ANError code from server
+//                                // error.getErrorBody() - the ANError body from server
+//                                // error.getErrorDetail() - just a ANError detail
+//                                Log.d(login, "onError errorCode : " + e.errorCode)
+//                                Log.d(login, "onError errorBody : " + e.errorBody)
+//                                Log.d(login, "onError errorDetail : " + e.errorDetail)
+//                                mLoginView.isLoginSuccessful(false)
+////                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),3)
+//                            } else {
+//                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+//                                Log.d(login, "onError errorDetail : " + e.errorDetail)
+//                                mLoginView.isLoginSuccessful(false)
+////                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),3)
+//                            }
+//                        } else {
+//                            Log.d(login, "onError errorMessage : " + e.message)
+//                            mLoginView.isLoginSuccessful(false)
+//                            mLoginView.setErrorMessage(e.message!!,3)
+//                        }
+//                    }
 
                     override fun onSubscribe(d: Disposable) {
 

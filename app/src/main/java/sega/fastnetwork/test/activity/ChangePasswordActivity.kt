@@ -6,13 +6,11 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_change_password.*
-import kotlinx.android.synthetic.main.activity_register.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ChangePasswordPresenter
-import sega.fastnetwork.test.presenter.LoginPresenter
 import sega.fastnetwork.test.util.Validation
 
 class ChangePasswordActivity : AppCompatActivity(), ChangePasswordPresenter.ChangePasswordView {
@@ -28,7 +26,7 @@ class ChangePasswordActivity : AppCompatActivity(), ChangePasswordPresenter.Chan
     override fun isgetUserDetailSuccess(success: Boolean) {
 //        finish()
         showSnackBarMessage("Change Success")
-
+        CircularAnim.show(btnChangePassword).go()
     }
 
     var mChangePasswordPresenter: ChangePasswordPresenter? = null
