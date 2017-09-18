@@ -38,7 +38,7 @@ import sega.fastnetwork.test.util.Constants
 /**
  * Created by VinhNguyen on 8/9/2017.
  */
-class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks {
+class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks {
 
 
     internal var mLocation: Marker? = null
@@ -71,9 +71,40 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterI
         super.onCreate(savedInstanceState)
         setContentView(R.layout.searchmain_layout)
 
-        val permissionlistener = object : PermissionListener {
-            override fun onPermissionGranted() {
+        val permissionlistener = object : PermissionListener, OnMapReadyCallback {
+            override fun onMapReady(map: GoogleMap?) {
+                if (!isMap)
+                    layout_map.visibility = View.GONE
+                mMap = map
+                mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+                mMap!!.setOnMapClickListener { latLng ->
 
+
+                    mMap!!.clear()
+                    mMap!!.addMarker(MarkerOptions()
+                            .position(latLng)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                            .title("Location"))
+                    mMap!!.addMarker(MarkerOptions().position(myLocation!!).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+                    val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
+
+                    circle = mMap!!.addCircle(circleOptions)
+
+                    listProductMaker.clear()
+                    SearchView!!.searchWithMap(ed_search.query.toString(), latLng, cate, 10)
+                }
+                mMap!!.isMyLocationEnabled = true
+                mMap!!.setOnMyLocationButtonClickListener({
+
+                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
+                    true
+                })
+
+            }
+
+            override fun onPermissionGranted() {
+                val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+                mapFragment.getMapAsync(this)
                 mLocationRequestwithBalanced.interval = 30000
                 mLocationRequestwithBalanced.fastestInterval = 10000
                 mLocationRequestwithBalanced.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
@@ -126,8 +157,6 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterI
         SearchView = SearchPresenterImp(this)
         layoutManager = LinearLayoutManager(this)
         adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
         fab_search.setOnClickListener {
 
             dialogFrag = FilterFragment.newInstance()
@@ -184,39 +213,8 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterI
 
 
         })
-
     }
 
-    override fun onMapReady(map: GoogleMap?) {
-        if (!isMap)
-            layout_map.visibility = View.GONE
-        mMap = map
-        mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
-        mMap!!.setOnMapClickListener { latLng ->
-
-
-            mMap!!.clear()
-            mMap!!.addMarker(MarkerOptions()
-                    .position(latLng)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                    .title("Location"))
-            mMap!!.addMarker(MarkerOptions().position(myLocation!!).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
-            val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
-
-            circle = mMap!!.addCircle(circleOptions)
-
-            listProductMaker.clear()
-            SearchView!!.searchWithMap(ed_search.query.toString(), latLng, cate, 10)
-        }
-        mMap!!.isMyLocationEnabled = true
-        mMap!!.setOnMyLocationButtonClickListener({
-
-            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
-            true
-        })
-
-
-    }
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -239,7 +237,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterI
             println(applied_filters["category"])
             println(applied_filters["location"])
             println(applied_filters["filter"])
-            if (applied_filters["category"]?.size !=null && applied_filters["category"]?.size!! > 0) {
+            if (applied_filters["category"]?.size != null && applied_filters["category"]?.size!! > 0) {
                 for (i in 0..(applied_filters["category"]?.size!! - 1)) {
                     cate = if (cate == "") {
                         applied_filters["category"]!![i]
@@ -252,7 +250,7 @@ class SearchActivity : AppCompatActivity(), OnMapReadyCallback, SearchPresenterI
 
 
             if (!isMap) {
-                if (applied_filters["location"]?.size !=null &&applied_filters["location"]?.size!! > 0) {
+                if (applied_filters["location"]?.size != null && applied_filters["location"]?.size!! > 0) {
                     for (i in 0..(applied_filters["location"]?.size!! - 1)) {
                         loca = if (loca == "") {
                             applied_filters["location"]!![i]
