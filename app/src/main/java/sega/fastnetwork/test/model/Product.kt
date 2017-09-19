@@ -21,9 +21,11 @@ class Product() : Parcelable {
     var type: String? = null
     var created_at: String? = null
     var location : Location? = null
+    var statussave: Boolean? = null
     var images : ArrayList<String>? = ArrayList()
     var comment : ArrayList<Comment>? = ArrayList()
     var bundle: Bundle = Bundle()
+
     constructor(parcel: Parcel) : this() {
         _id = parcel.readString()
         user = parcel.readParcelable(User::class.java.classLoader)

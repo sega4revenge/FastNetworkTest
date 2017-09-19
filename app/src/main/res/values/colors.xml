@@ -15,7 +15,7 @@
     <color name="colorAccent">#EC407A</color>
     <color name="white">#ffffff</color>
 
-
+    <color name="actionBarColor">#37474F</color>
     <color name="tedbottompicker_selected">#f0f0f0</color>
     <color name="text_light">#aaaaaa</color>
     //======================================
@@ -48,7 +48,7 @@
     <color name="filters_chips">#b3e5fc</color>
     <color name="filters_header">#303f9f</color>
 
-
+    <color name="blur">#80000000</color>
 
     <color name="tab_profile">#00AA8D</color>
 </resources>

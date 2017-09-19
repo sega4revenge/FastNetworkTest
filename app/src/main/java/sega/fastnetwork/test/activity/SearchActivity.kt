@@ -213,6 +213,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
 
         })
+        SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
     }
 
 

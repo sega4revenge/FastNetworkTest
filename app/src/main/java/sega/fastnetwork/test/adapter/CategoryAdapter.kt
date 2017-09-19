@@ -23,15 +23,15 @@ class CategoryAdapter// Constructor
 
     init {
 
-        categoryList.add(Category("Xe cộ","25",R.drawable.cate_vehicle,false))
-        categoryList.add(Category("Đồ chơi","40",R.drawable.cate_toy,false))
-        categoryList.add(Category("Điện tử","105",R.drawable.cate_electronic,false))
-        categoryList.add(Category("Gia dụng","6",R.drawable.cate_furniture,false))
-        categoryList.add(Category("Thời trang","216",R.drawable.cate_fashion,false))
-        categoryList.add(Category("Nhà cửa","42",R.drawable.cate_home,false))
-        categoryList.add(Category("Giáo dục","15",R.drawable.cate_education,false))
-        categoryList.add(Category("Âm nhạc","15",R.drawable.cate_music,false))
-        categoryList.add(Category("Máy móc","6",R.drawable.cate_machine,false))
+        categoryList.add(Category("Xe cộ","25",R.drawable.automobile,false))
+        categoryList.add(Category("Điện tử","40",R.drawable.macbook,false))
+        categoryList.add(Category("Thời trang","105",R.drawable.shirt,false))
+        categoryList.add(Category("Nhà","6",R.drawable.housecolor,false))
+        categoryList.add(Category("Mẹ và bé","216",R.drawable.mother,false))
+        categoryList.add(Category("Đồ gia dụng,nội thất","42",R.drawable.desk2,false))
+        categoryList.add(Category("Giải trí,thể thao,sở thích","15",R.drawable.cup,false))
+        categoryList.add(Category("Đồ văn phòng,nông nghiệp","15",R.drawable.printer,false))
+       // categoryList.add(Category("Máy móc","6",R.drawable.cate_machine,false))
         categoryList.add(Category("Khác","8",R.drawable.cate_more,false))
     }
 
@@ -63,14 +63,16 @@ class CategoryAdapter// Constructor
         // GRID MODE
         if(category.selected)
         {
-            viewHolder.itemView.category_card.setBackgroundResource(R.drawable.category_selected)
+            viewHolder.itemView.selected.visibility = View.VISIBLE
+          //  viewHolder.itemView.category_card.setBackgroundResource(R.drawable.category_selected)
             viewHolder.itemView.category_name.text = category.name
             viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.black))
             viewHolder.itemView.category_line.setBackgroundResource(category.color)
         }
         else
         {
-            viewHolder.itemView.category_card.setBackgroundResource(R.drawable.category_unselected)
+            viewHolder.itemView.selected.visibility = View.GONE
+          //  viewHolder.itemView.category_card.setBackgroundResource(R.drawable.category_unselected)
             viewHolder.itemView.category_name.text = category.name
             viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.black))
             viewHolder.itemView.category_line.setBackgroundResource(category.color)

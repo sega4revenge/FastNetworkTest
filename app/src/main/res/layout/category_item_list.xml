@@ -1,39 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/category_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     cardview:cardBackgroundColor="@color/white"
     >
 
     <RelativeLayout
+        android:id="@+id/category_card_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minHeight="@dimen/product_info_height">
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/product_info_height"
+        android:minWidth="@dimen/image_width"
+        android:background="@drawable/radius_all_view"
+        android:layout_margin="3dp">
 
-        <!-- product Poster -->
-
-        <!-- product Title and Year -->
         <LinearLayout
             android:id="@+id/layout_item_category"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical"
-            android:padding="@dimen/product_info_padding">
-
-            <!-- product Title -->
-
-            <!-- product Year -->
+            android:padding="@dimen/product_info_padding"
+            android:gravity="center">
 
 
             <sega.fastnetwork.test.view.RobotoRegularTextView
                 android:id="@+id/category_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -57,9 +56,27 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/selected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/blur"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:minHeight="@dimen/product_info_height"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Đã chọn"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+        </LinearLayout>
 
-        <!-- product Rating -->
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</LinearLayout>

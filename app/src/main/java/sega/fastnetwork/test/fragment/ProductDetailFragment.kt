@@ -20,12 +20,14 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_product_detail.*
 import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
+import kotlinx.android.synthetic.main.fragment_product_detail.view.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
 import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
+import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
@@ -37,6 +39,7 @@ import sega.fastnetwork.test.lib.SliderTypes.SliderLayout
 import sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Product
+import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
@@ -44,9 +47,7 @@ import java.text.DecimalFormat
 import java.util.*
 
 
-/**
- * Created by sega4 on 10/08/2017.
- */
+
 
 class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
@@ -65,7 +66,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
     var isTablet: Boolean = false
     var mProductDetailPresenter: ProductDetailPresenter? = null
-
+    var s = 0
+    var mTypeSave = "0"
+    var doubleClick = false
+    var statussave = false
     // Fragment lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -108,7 +112,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
             id = savedInstanceState.getString(Constants.product_ID)
             product = savedInstanceState.get(Constants.product_OBJECT) as Product
-            Log.e("BBB",id + " " + product)
+            Log.e("BBB", id + " " + product)
             onDownloadSuccessful()
 
 
@@ -126,15 +130,56 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             startActivity(intent)
 
         }
+
+        // share
+        v.im_share.setOnClickListener {
+            val sendIntent = Intent()
+            val linkapp = "https://www.facebook.com/groups/727189854084530/"
+            val numberFormat = DecimalFormat("###,###")
+            val gia = numberFormat.format(product!!.price!!.toLong()).toString()
+
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(Intent.EXTRA_TEXT,
+                    "- Productname(tên sản phẩm): ${product!!.productname}\n"+
+                            "- Category(thể loại): ${product!!.category}\n"+
+                            "- Price(giá): ${gia} VNĐ\n"+
+                            "- Number(Số lượng): ${product!!.price}\n"+
+                            "- Address(địa chỉ): ${product!!.location!!.address}\n"+
+                            "- Time(thời gian): ${product!!.time} giờ\n"+
+                            "- Description(Mô tả): ${product!!.description}\n"+
+                            "- Tham khảo thêm tại: ${linkapp}")
+            sendIntent.type = "text/plain"
+            startActivity(sendIntent)
+        }
+        // star
+        v.im_star.setOnClickListener{
+         //   s = s + 1
+            if(statussave){
+                mTypeSave = "1"
+                mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
+            }else if(!statussave){
+                mTypeSave = "0"
+                mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
+            }
+        }
+        v.layout_detail_user.setOnClickListener{
+//            val intent = Intent(activity, DetailProfile_Activity::class.java)
+////            intent.putExtra(Constants.product_ID, id)
+////            intent.putExtra(Constants.product_NAME, product!!.productname)
+////            intent.putExtra(Constants.seller_name, product!!.user!!.name)
+//            intent.putExtra("data",product!!.user!!)
+//            startActivity(intent)
+        }
+
         return v
 
     }
 
     private fun gotoallcomment() {
-       val intent = Intent(activity, CommentActivity::class.java)
-        intent.putExtra(Constants.product_ID,id)
-        intent.putExtra(Constants.product_NAME,product!!.productname)
-        intent.putExtra(Constants.seller_name,product!!.user!!.name)
+        val intent = Intent(activity, CommentActivity::class.java)
+        intent.putExtra(Constants.product_ID, id)
+        intent.putExtra(Constants.product_NAME, product!!.productname)
+        intent.putExtra(Constants.seller_name, product!!.user!!.name)
         startActivity(intent)
     }
 
@@ -142,10 +187,32 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         println(errorMessage)
         onDownloadFailed()
     }
+    override fun getStatusSave(bool: Boolean) {
 
-    override fun getProductDetail(product: Product) {
+      //  if(bool)
+     //   { doubleClick = true}
+        statussave = !statussave
+        if (statussave) {
+            im_star.setImageResource(R.drawable.ic_start_on)
+        } else {
+            im_star.setImageResource(R.drawable.ic_start_off)
+        }
 
-        this.product = product
+    }
+    override fun getProductDetail(response: Response) {
+        try {
+            statussave = response?.product!!.statussave!!
+            Log.d("sssssss",statussave.toString())
+            if (statussave) {
+                Log.d("sssssss1111",statussave.toString())
+                im_star.setImageResource(R.drawable.ic_start_on)
+            } else {
+                im_star.setImageResource(R.drawable.ic_start_off)
+            }
+        }catch (e: Exception){
+            im_star.visibility = View.GONE
+        }
+        this.product = response.product
         onDownloadSuccessful()
     }
 
@@ -167,12 +234,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         }
 
-            slider!!.setPresetTransformer(SliderLayout.Transformer.Accordion)
-            slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
-            slider!!.setCustomAnimation(DescriptionAnimation())
-            slider!!.setDuration(4000)
-            slider!!.addOnPageChangeListener(this)
-
+        slider!!.setPresetTransformer(SliderLayout.Transformer.Accordion)
+        slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
+        slider!!.setCustomAnimation(DescriptionAnimation())
+        slider!!.setDuration(4000)
+        slider!!.addOnPageChangeListener(this)
 
 
     }
@@ -201,6 +267,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 
     private fun onDownloadSuccessful() {
+        // status save product
+
+
         // Toggle visibility
         progress_circle.visibility = View.GONE
         error_message.visibility = View.GONE
@@ -360,10 +429,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         showAnimationBanner()
     }
+
     fun destroyfragment() {
-        if(AppManager.getAppAccountUserId(activity) != product!!.user!!._id)
-       FirebaseMessaging.getInstance().unsubscribeFromTopic(product!!._id)
+        if (AppManager.getAppAccountUserId(activity) != product!!.user!!._id)
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(product!!._id)
     }
+
     private fun timeAgo(time: String): CharSequence? {
         val time = DateUtils.getRelativeTimeSpanString(
                 java.lang.Long.parseLong(time),

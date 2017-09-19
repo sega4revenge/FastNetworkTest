@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.filter_product.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.adapter.CategoryAdapter
-import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.FabiousFilter.AAH_FabulousFragment
 import java.util.*
 
@@ -221,11 +220,11 @@ class FilterFragment : AAH_FabulousFragment(), CategoryAdapter.OncategoryClickLi
         keysCategory = Arrays.asList(*resources.getStringArray(R.array.category))
         adapter = CategoryAdapter(context, this)
 
-        val layoutManager = GridLayoutManager(context, getNumberOfColumns())
+        val layoutManager = GridLayoutManager(context, 3)
         recycleview.setHasFixedSize(true)
         recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
 
-        recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 1))
+       // recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 1))
         recycleview.adapter = adapter
 
         for (i in keysCategory.indices) {

@@ -10,7 +10,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.util.Constants
 
@@ -50,7 +49,7 @@ class ProductDetailPresenter(view : ProductDetailPresenter.ProductDetailView) {
                     override fun onNext(response: Response?) {
                         Log.d(productdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
 
-                        mProductDetailView.getProductDetail(response?.product!!)
+                        mProductDetailView.getProductDetail(response!!)
                     }
 
 
@@ -83,11 +82,79 @@ class ProductDetailPresenter(view : ProductDetailPresenter.ProductDetailView) {
                 })
     }
 
+    fun SaveProduct(productid : String, userid : String,type: String) {
+
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("productid", productid)
+            jsonObject.put("userid", userid)
+            jsonObject.put("type", type)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        Log.d("sssssssss",productid+"//"+userid+"//"+type)
+        Rx2AndroidNetworking.post(Constants.BASE_URL + "saveproduct")
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(productdetail, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(productdetail, " bytesSent : " + bytesSent)
+                    Log.d(productdetail, " bytesReceived : " + bytesReceived)
+                    Log.d(productdetail, " isFromCache : " + isFromCache)
+                }
+                .getObjectObservable(Response::class.java)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Response> {
+                    override fun onNext(response: Response?) {
+                        Log.d(productdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+
+                         mProductDetailView.getStatusSave(true)
+                    }
+
+
+                    override fun onComplete() {
+
+
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is ANError) {
+                            if (e.errorCode != 0) {
+                                // received ANError from server
+                                // error.getErrorCode() - the ANError code from server
+                                // error.getErrorBody() - the ANError body from server
+                                // error.getErrorDetail() - just a ANError detail
+                                Log.d(productdetail, "onError errorCode : " + e.errorCode)
+                                Log.d(productdetail, "onError errorBody : " + e.errorBody)
+                                Log.d(productdetail, "onError errorDetail : " + e.errorDetail)
+                                mProductDetailView.setErrorMessage(e.errorDetail)
+                            } else {
+                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                                Log.d(productdetail, "onError errorDetail : " + e.errorDetail)
+                                mProductDetailView.setErrorMessage(e.errorDetail)
+                                //mProductDetailView.getStatusSave(false)
+                            }
+                        } else {
+                            Log.d(productdetail, "onError errorMessage : " + e.message)
+                            mProductDetailView.setErrorMessage(e.message!!)
+                           // mProductDetailView.getStatusSave(true)
+                        }
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+
+                })
+    }
+
     interface ProductDetailView {
 
         fun setErrorMessage(errorMessage: String)
-        fun getProductDetail(product : Product)
-
+        fun getProductDetail(response: Response)
+        fun getStatusSave(boll: Boolean)
 
 
 

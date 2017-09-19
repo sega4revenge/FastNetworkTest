@@ -147,7 +147,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
         }
 
-        if(user!!.photoprofile!!.startsWith("http")){
+      /*  if(user!!.photoprofile!!.startsWith("http")){
             photoprofile = user!!.photoprofile
         }
         else{
@@ -157,7 +157,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .load(photoprofile)
                 .thumbnail(0.1f)
                 .apply(options)
-                .into(navigation_view.getHeaderView(0).avatar_header)
+                .into(navigation_view.getHeaderView(0).avatar_header)*/
         navigation_view.getHeaderView(0).username_header.text = user!!.name
         navigation_view.getHeaderView(0).email_header.text  = user!!.email
         linMotobike.setOnClickListener(){

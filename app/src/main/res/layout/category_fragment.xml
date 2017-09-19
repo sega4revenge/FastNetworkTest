@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/category_grid"
-        android:background="@color/white"
+        android:background="#eeeeee"
         android:name="sega.fastnetwork.test.fragment.CategoryFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -12,4 +12,5 @@ class Response {
     val token: String? = null
     var product : Product? =null
 
+
 }
