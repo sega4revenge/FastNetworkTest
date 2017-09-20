@@ -126,12 +126,12 @@
 
                     <sega.fastnetwork.test.view.RobotoLightTextView
                         android:id="@+id/area_compact"
-                        style="?android:textAppearanceSmall"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
                         android:marqueeRepeatLimit="marquee_forever"
-                        android:maxLines="1"
+                        android:singleLine="true"
 
                         android:textSize="@dimen/text_small"
                         tools:text="AreyiiiytiaAreyiiiytiaAreyiiiAreyiiiytiaAreyiiiytiaAreyiiiytiaAreyiiiytiaytiaAreyiiiytia" />

@@ -35,10 +35,7 @@ class CategoryAdapter// Constructor
     }
 
     // RecyclerView methods
-    override fun getItemCount(): Int {
-
-        return categoryList.size
-    }
+    override fun getItemCount(): Int = categoryList.size
     fun refreshFilter(){
         for (tv in categoryList) {
             tv.selected = false
@@ -66,7 +63,7 @@ class CategoryAdapter// Constructor
           //  viewHolder.itemView.category_card.setBackgroundResource(R.drawable.category_selected)
             viewHolder.itemView.category_name.text = category.name
             viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.black))
-            viewHolder.itemView.category_line.setBackgroundResource(category.color)
+/*            viewHolder.itemView.category_line.setBackgroundResource(category.color)*/
         }
         else
         {
@@ -74,7 +71,7 @@ class CategoryAdapter// Constructor
           //  viewHolder.itemView.category_card.setBackgroundResource(R.drawable.category_unselected)
             viewHolder.itemView.category_name.text = category.name
             viewHolder.itemView.category_card.category_name.setTextColor(ContextCompat.getColor(context, R.color.black))
-            viewHolder.itemView.category_line.setBackgroundResource(category.color)
+        /*    viewHolder.itemView.category_line.setBackgroundResource(category.color)*/
 
         }
 

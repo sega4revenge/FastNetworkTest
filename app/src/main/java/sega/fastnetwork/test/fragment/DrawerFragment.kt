@@ -5,12 +5,10 @@ import android.Manifest
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.StrictMode
-import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -54,10 +52,10 @@ import java.util.*
 
 class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener,DrawerPresenter.DrawerView {
     override fun changeAvatarSuccess(t: Response) {
-        AppManager.saveAccountUser(context, t!!.user!!, 0)
-                        Log.e("pic",Constants.IMAGE_URL+t!!.user!!.photoprofile)
+        AppManager.saveAccountUser(context, t.user!!, 0)
+                        Log.e("pic",Constants.IMAGE_URL+ t.user!!.photoprofile)
                         Glide.with(context)
-                                .load(Constants.IMAGE_URL+t!!.user!!.photoprofile)
+                                .load(Constants.IMAGE_URL+ t.user!!.photoprofile)
                                 .thumbnail(0.1f)
                                 .apply(options)
                                 .into(navigation_view.getHeaderView(0).avatar_header)
@@ -73,20 +71,18 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         txtname.text  = response.user!!.name
     }
 
-    var viewtype: Int = 1
+
     private val mDrawerHandler = Handler()
-    private var mPrevSelectedId: Int = 0
     private var mSelectedId: Int = 0
     private var morecategory = false
     private var isTablet: Boolean? = null
     var temp: Int = 0
     var uriList: Uri? = null
     internal var list: List<ImageBean>? = null
-    var mTimeRemain: Double = 0.0
-    var mPercent: Int = 0
+
     var fragment: Fragment? = null
     var user :User?=null
-    private var preferences: SharedPreferences? = null
+
     var photoprofile : String? = null
     private var mDrawerPresenter: DrawerPresenter? = null
     val options = RequestOptions()
@@ -94,9 +90,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             .dontAnimate()
             .placeholder(R.drawable.logo)
             .error(R.drawable.img_error)
-            .priority(Priority.HIGH)
+            .priority(Priority.HIGH)!!
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        preferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
+     
         // Setup toolbar
         isTablet = resources.getBoolean(R.bool.is_tablet)
         mDrawerPresenter = DrawerPresenter(this)
@@ -123,41 +119,14 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         moreCategory.setImageResource(R.mipmap.ic_launcher)
         drawer_layout!!.addDrawerListener(mDrawerToggle)
         mDrawerToggle.syncState()
-        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
-        mSelectedId = navigation_view!!.menu.getItem(prefs.getInt("default_view", 0)).itemId
-        mSelectedId = savedInstanceState?.getInt(SELECTED_ITEM_ID) ?: mSelectedId
-        mPrevSelectedId = mSelectedId
-        navigation_view!!.menu.findItem(mSelectedId).isChecked = true
 
-        if (savedInstanceState == null) {
-            mDrawerHandler.removeCallbacksAndMessages(null)
-            mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
-
-            val openDrawer = prefs.getBoolean("open_drawer", false)
-
-            if (openDrawer)
-                drawer_layout!!.openDrawer(GravityCompat.START)
-            else
-                drawer_layout!!.closeDrawers()
-
-        }
-
-
+        navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true
+        navigate(R.id.nav_1)
         addproduct.setOnClickListener {
             startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
         }
 
-      /*  if(user!!.photoprofile!!.startsWith("http")){
-            photoprofile = user!!.photoprofile
-        }
-        else{
-            photoprofile = Constants.IMAGE_URL+user!!.photoprofile
-        }
-        Glide.with(this)
-                .load(photoprofile)
-                .thumbnail(0.1f)
-                .apply(options)
-                .into(navigation_view.getHeaderView(0).avatar_header)*/
+
         navigation_view.getHeaderView(0).username_header.text = user!!.name
         navigation_view.getHeaderView(0).email_header.text  = user!!.email
         linMotobike.setOnClickListener(){
@@ -188,7 +157,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             ChangeCategory(999,HomeFragment())
         }
         moreCategory.setOnClickListener(){
-            if(mPrevSelectedId == R.id.nav_1)
+            if(mSelectedId == R.id.nav_1)
             {
                 if(!morecategory)
                 {
@@ -204,7 +173,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                     divide.visibility = View.GONE
                     morecategory = false
                 }
-            }else if(mPrevSelectedId == R.id.nav_3){
+            }else if(mSelectedId == R.id.nav_3){
                 if(!morecategory)
                 {
                     linmoreInfor.visibility = View.VISIBLE
@@ -224,34 +193,26 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         }
         txtname.text = user!!.name
         txtemail.text = user!!.email
-        if(AppManager.USER_PHOTOPROFILE != null  && !AppManager.USER_PHOTOPROFILE.equals(""))
-        {
-            val options = RequestOptions()
-                    .centerCrop()
-                    .dontAnimate()
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.img_error)
-                    .priority(Priority.HIGH)
-            Glide.with(activity)
-                    .load(photoprofile)
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(imgAvatar)
-        }else{
-            Glide.with(activity)
-                    .load(R.drawable.img_error)
-                    .thumbnail(0.1f)
-                    .into(imgAvatar)
-        }
+        val options = RequestOptions()
+                .centerCrop()
+                .dontAnimate()
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.img_error)
+                .priority(Priority.HIGH)
+        Glide.with(activity)
+                .load(photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(imgAvatar)
         changePass.setOnClickListener {
             val intentchangepw = Intent(activity,ChangePasswordActivity::class.java)
             startActivity(intentchangepw)
         }
         changeInfor.setOnClickListener {
-            var aleftdialog = AlertDialog.Builder(activity)
+            val aleftdialog = AlertDialog.Builder(activity)
             aleftdialog.setMessage("Enter new name:")
-            var input = EditText(activity)
-            var lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT)
+            val input = EditText(activity)
+            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT)
             input.layoutParams = lp
             aleftdialog.setView(input)
             aleftdialog.setIcon(R.drawable.com_facebook_button_icon)
@@ -315,7 +276,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
 
     }
-    fun getRealFilePath(context: Context, uri: Uri?): String? {
+    private fun getRealFilePath(context: Context, uri: Uri?): String? {
         if (null == uri) return null
         val scheme = uri.scheme
         var data: String? = null
@@ -370,10 +331,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         super.onResume()
 
     }
-    fun ChangeCategory(mCategory: Int,mFragment: Fragment){
+    private fun ChangeCategory(mCategory: Int, mFragment: Fragment){
         Log.d("Runnnnnnn",mCategory.toString())
          if (fragment != null) {
-             if(mPrevSelectedId == R.id.nav_1){
+             if(mSelectedId == R.id.nav_1){
              val bundle = Bundle()
                  bundle.putInt("Category",mCategory)
              val transaction = activity.supportFragmentManager.beginTransaction()
@@ -388,13 +349,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
      }
     }
 
-    fun switchFragment(itemId: Int) {
-        mSelectedId = navigation_view!!.menu.getItem(itemId).itemId
-        navigation_view!!.menu.findItem(mSelectedId).isChecked = true
-        mDrawerHandler.removeCallbacksAndMessages(null)
-        mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
-        drawer_layout.closeDrawers()
-    }
+
     private fun hideMoreAction(){
         linmore.visibility = View.GONE
         linmoreInfor.visibility = View.GONE
@@ -404,7 +359,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
         when (itemId) {
             R.id.nav_1 -> {
-                mPrevSelectedId = itemId
+                mSelectedId = itemId
                 toolbar_title.setText(R.string.nav_home)
                 fragment = HomeFragment()
 
@@ -419,7 +374,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 morecategory = false
             }
             R.id.nav_2 -> {
-                mPrevSelectedId = itemId
+                mSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
                 fragment = CategoryFragment()
 
@@ -431,7 +386,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 morecategory = false
             }
             R.id.nav_3 -> {
-                mPrevSelectedId = itemId
+                mSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
                 fragment = DetailProfileFragment()
 
@@ -448,7 +403,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
             }
             R.id.nav_4 -> {
-//                mPrevSelectedId = itemId
+//                mSelectedId = itemId
 //                toolbar_title.setText("ChangePassword")
 //                val intent = Intent((activity as AppCompatActivity), ChangePasswordActivity::class.java)
 //                startActivity(intent)
@@ -463,7 +418,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
 //            R.id.nav_6 -> {
 //                /*   startActivity(new Intent(this, AboutActivity.class));*/
-//                navigation_view!!.menu.findItem(mPrevSelectedId).isChecked = true
+//                navigation_view!!.menu.findItem(mSelectedId).isChecked = true
 //                return
 //            }
 //            R.id.nav_8 -> {
@@ -481,6 +436,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             try {
                 val bundle = Bundle()
                 bundle.putInt("Category",999)
+                println("chuan bi")
                 fragment?.arguments =  bundle
                 transaction.replace(R.id.content_frame, fragment).commit()
 
@@ -502,28 +458,19 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         }
     }
 
-    fun dp(value: Float): Int {
-        val density = activity.resources.displayMetrics.density
-
-        if (value == 0f) {
-            return 0
-        }
-        return Math.ceil((density * value).toDouble()).toInt()
-    }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         menuItem.isChecked = true
         mSelectedId = menuItem.itemId
         mDrawerHandler.removeCallbacksAndMessages(null)
         mDrawerHandler.postDelayed({ navigate(mSelectedId) }, 250)
-
         drawer_layout.closeDrawers()
         return true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(SELECTED_ITEM_ID, mSelectedId)
+      
     }
 
 

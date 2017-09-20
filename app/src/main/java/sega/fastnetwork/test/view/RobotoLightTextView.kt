@@ -10,14 +10,17 @@ import android.widget.TextView
 class RobotoLightTextView : TextView {
     constructor(context: Context) : super(context) {
         applyCustomFont(context)
+        isSelected = true
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         applyCustomFont(context)
+        isSelected = true
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
         applyCustomFont(context)
+        isSelected = true
     }
 
     private fun applyCustomFont(context: Context) {

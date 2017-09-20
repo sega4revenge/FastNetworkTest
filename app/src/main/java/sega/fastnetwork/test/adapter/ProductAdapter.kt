@@ -123,6 +123,7 @@ internal class ProductAdapter// Constructor
             viewHolderParent.itemView.userpost.text = product.user!!.name
             viewHolderParent.itemView.area_compact.text = product.location!!.address
             viewHolderParent.itemView.area_compact.isSelected = true
+
             if (product.type == "1")
                 viewHolderParent.itemView.type_view.setText("Cho thuê")
                         .setTextColor(Color.WHITE)
