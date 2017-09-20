@@ -147,7 +147,7 @@
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="5dp"
-                                    android:background="@drawable/automobile" />
+                                    android:background="@drawable/cate_vehicle" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
                                     android:layout_marginBottom="5dp"
-                                    android:background="@drawable/macbook" />
+                                    android:background="@drawable/cate_electronic" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -191,7 +191,7 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
 
                             <LinearLayout
                                 android:id="@+id/linfashion"
@@ -205,7 +205,7 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:background="@drawable/shirt" />
+                                    android:background="@drawable/cate_fashion" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -325,7 +325,7 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:background="@drawable/housecolor"
+                                    android:background="@drawable/cate_home"
                                     android:layout_marginBottom="5dp"/>
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -379,7 +379,7 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:background="@drawable/desk2"/>
+                                    android:background="@drawable/cate_furniture"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -518,13 +518,18 @@
                             >
                             <TextView
                                 android:id="@+id/toolbar_title"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Toolbar Title"
                                 android:textColor="@color/white"
                                 android:textSize="22sp"
+                                android:gravity="center"
                                 android:layout_centerInParent="true"
-                                />
+                                android:layout_marginRight="42dp"
+                                android:layout_marginEnd="42dp"
+                                android:layout_toLeftOf="@+id/addproduct"
+                                android:layout_toStartOf="@+id/addproduct"
+                               />
                             <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
                                 <!--android:id="@+id/toolbar_title"-->
                                 <!--android:layout_width="wrap_content"-->
@@ -535,13 +540,14 @@
                                 <!--android:textSize="20sp" />-->
                         <ImageButton
                             android:id="@+id/addproduct"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:background="#37474F"
+
                             android:src="@mipmap/ic_add_product"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="13dp"
                              />
 
                         </RelativeLayout>

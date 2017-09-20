@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/product_item_compact"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -15,7 +16,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/layout_item"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,6 +77,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textSize="@dimen/text_small"
@@ -79,13 +86,12 @@
 
                     <ImageView
                         android:id="@+id/product_poster_compact"
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
 
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/cate_home"
 
-                        />
+                        android:src="@drawable/cate_home" />
 
 
                 </LinearLayout>
@@ -95,6 +101,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/userpostlayout"
                     android:orientation="horizontal">
@@ -132,90 +140,23 @@
 
         </LinearLayout>
 
-        <!--<ImageView-->
-        <!--android:id="@+id/product_poster_default_compact"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--android:src="@drawable/logo"-->
-        <!--android:visibility="gone"-->
-        <!--tools:ignore="ContentDescription" />-->
 
-        <!--&lt;!&ndash; Poster image &ndash;&gt;-->
-        <!--<ImageView-->
-        <!--android:id="@+id/product_poster_compact"-->
-        <!--android:layout_width="@dimen/product_compact_image_size"-->
-        <!--android:layout_height="@dimen/product_compact_image_size"-->
-        <!--android:background="@color/default_image_background"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--tools:ignore="ContentDescription" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/overlaytext_compact"-->
-        <!--style="?android:textAppearanceSmallInverse"-->
-        <!--android:layout_width="@dimen/product_compact_image_size"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignBottom="@+id/product_poster_compact"-->
-
-        <!--android:background="@color/black"-->
-        <!--android:gravity="center"-->
-        <!--android:padding="@dimen/tiny_margin"-->
-        <!--tools:text="Overlay" />-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/product_compact_text_margin"-->
-        <!--android:layout_marginStart="@dimen/product_compact_text_margin"-->
-        <!--android:layout_toEndOf="@+id/product_poster_compact"-->
-        <!--android:layout_toRightOf="@+id/product_poster_compact"-->
-        <!--android:orientation="vertical">-->
-
-
-        <!--<LinearLayout-->
-        <!--android:id="@+id/product_rating_holder_compact"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/cardview_default_elevation"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<sega.fastnetwork.test.view.RobotoLightTextView-->
-        <!--android:id="@+id/product_rating_compact"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginEnd="@dimen/dist_small"-->
-        <!--android:layout_marginRight="@dimen/dist_small"-->
-        <!--android:maxLines="1"-->
-        <!--android:text="8.76"-->
-        <!--android:textColor="@color/input_register"-->
-        <!--android:textSize="@dimen/text_medium" />-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/rating_icon_compact"-->
-        <!--android:layout_width="@dimen/product_compact_rating_icon_size"-->
-        <!--android:layout_height="@dimen/product_compact_rating_icon_size"-->
-        <!--android:scaleType="fitCenter"-->
-        <!--android:src="@drawable/logo"-->
-        <!--tools:ignore="contentDescription" />-->
-
-        <!--</LinearLayout>-->
-
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignBottom="@+id/product_poster_compact"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_toRightOf="@+id/product_poster_compact"-->
-
-        <!--android:orientation="horizontal">-->
-
-
-        <!--</LinearLayout>-->
     </RelativeLayout>
+    <sega.fastnetwork.test.customview.SlantedTextView
+        android:id="@+id/type_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:slantedBackgroundColor="@color/actionBarColor"
+        app:slantedMode="right_triangle"
+        app:slantedLength="28dp"
+        app:slantedTextSize="10sp"
+        app:slantedText="C"
+        android:layout_alignTop="@id/layout_item"
+        android:layout_alignEnd="@id/layout_item"
+        android:layout_alignRight="@id/layout_item" />
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
-        android:background="@color/btn_color_login"></View>
-</LinearLayout>
+        android:background="@color/btn_color_login"
+        android:id="@+id/view2"></View>
+</RelativeLayout>

@@ -23,15 +23,14 @@ class CategoryAdapter// Constructor
 
     init {
 
-        categoryList.add(Category("Xe cộ","25",R.drawable.automobile,false))
-        categoryList.add(Category("Điện tử","40",R.drawable.macbook,false))
-        categoryList.add(Category("Thời trang","105",R.drawable.shirt,false))
-        categoryList.add(Category("Nhà","6",R.drawable.housecolor,false))
-        categoryList.add(Category("Mẹ và bé","216",R.drawable.mother,false))
-        categoryList.add(Category("Đồ gia dụng,nội thất","42",R.drawable.desk2,false))
-        categoryList.add(Category("Giải trí,thể thao,sở thích","15",R.drawable.cup,false))
-        categoryList.add(Category("Đồ văn phòng,nông nghiệp","15",R.drawable.printer,false))
-       // categoryList.add(Category("Máy móc","6",R.drawable.cate_machine,false))
+        categoryList.add(Category("Xe cộ","25",R.drawable.cate_vehicle,false))
+        categoryList.add(Category("Đồ chơi","216",R.drawable.cate_toy,false))
+        categoryList.add(Category("Điện tử","40",R.drawable.cate_electronic,false))
+        categoryList.add(Category("Đồ gia dụng,nội thất","42",R.drawable.cate_furniture,false))
+        categoryList.add(Category("Thời trang","105",R.drawable.cate_fashion,false))
+        categoryList.add(Category("Nhà","6",R.drawable.cate_home,false))
+        categoryList.add(Category("Giáo dục","15",R.drawable.cate_education,false))
+        categoryList.add(Category("Giải trí","15",R.drawable.cate_music,false))
         categoryList.add(Category("Khác","8",R.drawable.cate_more,false))
     }
 

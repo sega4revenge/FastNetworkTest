@@ -1,6 +1,7 @@
 package sega.fastnetwork.test.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
@@ -10,28 +11,38 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.layout_demo_grid.view.*
 import kotlinx.android.synthetic.main.product_item_compact.view.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.customview.SlantedTextView
 import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
 import sega.fastnetwork.test.lib.ShimmerRecycleView.ShimmerViewHolder
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.util.Constants
+import java.text.DecimalFormat
 import java.util.*
 
 /**
  * Created by sega4 on 07/08/2017.
  */
 internal class ProductAdapter// Constructor
-(private val context: Context, private val onproductClickListener: OnproductClickListener, mRecyclerView: RecyclerView,linearLayoutManager : LinearLayoutManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+(private val context: Context, private val onproductClickListener: OnproductClickListener, mRecyclerView: RecyclerView, linearLayoutManager: LinearLayoutManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mOnLoadMoreListener: OnLoadMoreListener? = null
     var productList: ArrayList<Product> = ArrayList()
     var isLoading: Boolean = false
     var isLoadingLocked: Boolean = false
     private var lastVisibleItem: Int = 0
     private var totalItemCount: Int = 0
-     var pageToDownload: Int = 0
+    var pageToDownload: Int = 0
     private val TOTAL_PAGES = 999
+    internal var formatprice: DecimalFormat? = null
+
+
+    private var format: String?
+
     init {
 
-
+        formatprice = DecimalFormat("#0,000")
+        val current = Locale("vi", "VN")
+        val cur = Currency.getInstance(current)
+        format = cur.symbol
         println(mRecyclerView.layoutManager)
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -39,7 +50,7 @@ internal class ProductAdapter// Constructor
 
                 totalItemCount = linearLayoutManager.itemCount
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
-                if (!isLoading && !isLoadingLocked && lastVisibleItem == productList.size - 1 ) {
+                if (!isLoading && !isLoadingLocked && lastVisibleItem == productList.size - 1) {
                     if (mOnLoadMoreListener != null && pageToDownload < TOTAL_PAGES) {
                         mOnLoadMoreListener!!.onLoadMore()
                         println(pageToDownload.toString() + " tong so")
@@ -85,7 +96,6 @@ internal class ProductAdapter// Constructor
     override fun onBindViewHolder(viewHolderParent: RecyclerView.ViewHolder, position: Int) {
 
 
-
         if (viewHolderParent is ShimmerViewHolder) {
 
 
@@ -94,11 +104,10 @@ internal class ProductAdapter// Constructor
 
         } else if (viewHolderParent is ProductCompactViewHolder) {
             val product = productList[position]
-            if(product.type.equals("1"))
-            {
-                viewHolderParent.itemView.product_name_compact.text = "[cho thuê] "+product.productname
-            }else{
-                viewHolderParent.itemView.product_name_compact.text = "[cần thuê] "+product.productname
+            if (product.type.equals("1")) {
+                viewHolderParent.itemView.product_name_compact.text = product.productname
+            } else {
+                viewHolderParent.itemView.product_name_compact.text = product.productname
             }
 
             viewHolderParent.itemView.timepost.text = product.created_at
@@ -109,18 +118,30 @@ internal class ProductAdapter// Constructor
                 viewHolderParent.itemView.timepost.text = timeAgo
             }
 
-
-            viewHolderParent.itemView.price_compact.text = product.price + " cho 1 gio"
+            if (!product.price.isNullOrEmpty())
+                viewHolderParent.itemView.price_compact.text = formatprice!!.format(product.price?.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()]
             viewHolderParent.itemView.userpost.text = product.user!!.name
             viewHolderParent.itemView.area_compact.text = product.location!!.address
             viewHolderParent.itemView.area_compact.isSelected = true
+            if (product.type == "1")
+                viewHolderParent.itemView.type_view.setText("Cho thuê")
+                        .setTextColor(Color.WHITE)
+                        .setSlantedBackgroundColor(context.getColor(R.color.btn_login))
+                        .setTextSize(15)
+                        .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
+            else
+                viewHolderParent.itemView.type_view.setText("Cần thuê")
+                        .setTextColor(Color.WHITE)
+                        .setSlantedBackgroundColor(context.getColor(R.color.actionBarColor))
+                        .setTextSize(15)
+                        .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
             when (product.category) {
-                "0" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.automobile)
+                "0" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_vehicle)
                 "1" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_toy)
                 "2" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_electronic)
-                "3" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.desk2)
-                "4" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.shirt)
-                "5" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.housecolor)
+                "3" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_furniture)
+                "4" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_fashion)
+                "5" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_home)
                 "6" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_education)
                 "7" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_music)
                 "8" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_machine)
@@ -134,8 +155,6 @@ internal class ProductAdapter// Constructor
     }
 
 
-
-
     inner class ProductCompactViewHolder(view: View) : RecyclerView.ViewHolder(view)
     // Click listener interface
     interface OnproductClickListener {
@@ -143,7 +162,7 @@ internal class ProductAdapter// Constructor
     }
 
     fun initShimmer() {
-        Collections.addAll(productList, Product(),Product(),Product())
+        Collections.addAll(productList, Product(), Product(), Product())
     }
 
 

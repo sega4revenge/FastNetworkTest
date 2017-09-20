@@ -71,87 +71,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         super.onCreate(savedInstanceState)
         setContentView(R.layout.searchmain_layout)
 
-        val permissionlistener = object : PermissionListener, OnMapReadyCallback {
-            override fun onMapReady(map: GoogleMap?) {
-                if (!isMap)
-                    layout_map.visibility = View.GONE
-                mMap = map
-                mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
-                mMap!!.setOnMapClickListener { latLng ->
 
-
-                    mMap!!.clear()
-                    mMap!!.addMarker(MarkerOptions()
-                            .position(latLng)
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                            .title("Location"))
-                    mMap!!.addMarker(MarkerOptions().position(myLocation!!).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
-                    val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
-
-                    circle = mMap!!.addCircle(circleOptions)
-
-                    listProductMaker.clear()
-                    SearchView!!.searchWithMap(ed_search.query.toString(), latLng, cate, 10)
-                }
-                mMap!!.isMyLocationEnabled = true
-                mMap!!.setOnMyLocationButtonClickListener({
-
-                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
-                    true
-                })
-
-            }
-
-            override fun onPermissionGranted() {
-                val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-                mapFragment.getMapAsync(this)
-                mLocationRequestwithBalanced.interval = 30000
-                mLocationRequestwithBalanced.fastestInterval = 10000
-                mLocationRequestwithBalanced.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-                val builder = LocationSettingsRequest.Builder().addLocationRequest(mLocationRequestwithBalanced)
-                val result = LocationServices.SettingsApi.checkLocationSettings(MyApplication.getGoogleApiHelper()?.googleApiClient, builder.build())
-
-                result.setResultCallback { result ->
-                    val status = result.status
-
-                    result.locationSettingsStates
-                    when (status.statusCode) {
-                        LocationSettingsStatusCodes.SUCCESS -> {
-                            val intent = Intent(this@SearchActivity, LocationService::class.java)
-                            intent.putExtra("locationrequest", mLocationRequestwithBalanced)
-                            startService(intent)
-                            Toast.makeText(this@SearchActivity, "started", Toast.LENGTH_SHORT).show()
-                        }
-                        LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
-
-                            try {
-
-                                status.startResolutionForResult(
-                                        this@SearchActivity,
-                                        REQUEST_CHECK_SETTINGS)
-                            } catch (e: IntentSender.SendIntentException) {
-
-                            }
-
-                        LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
-                        }
-                    }
-                }
-
-
-            }
-
-
-            override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
-                    Toast.makeText(this@SearchActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
-
-
-        }
-        TedPermission.with(this@SearchActivity)
-                .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
-                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                .check()
 
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
@@ -182,7 +102,87 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                     isMap = true
                     nestedScrollView.visibility = View.GONE
                     layout_map.visibility = View.VISIBLE
+                    val permissionlistener = object : PermissionListener, OnMapReadyCallback {
+                        override fun onMapReady(map: GoogleMap?) {
+                            if (!isMap)
+                                layout_map.visibility = View.GONE
+                            mMap = map
+                            mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+                            mMap!!.setOnMapClickListener { latLng ->
 
+
+                                mMap!!.clear()
+                                mMap!!.addMarker(MarkerOptions()
+                                        .position(latLng)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                        .title("Location"))
+                                mMap!!.addMarker(MarkerOptions().position(myLocation!!).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+                                val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
+
+                                circle = mMap!!.addCircle(circleOptions)
+
+                                listProductMaker.clear()
+                                SearchView!!.searchWithMap(ed_search.query.toString(), latLng, cate, 10)
+                            }
+                            mMap!!.isMyLocationEnabled = true
+                            mMap!!.setOnMyLocationButtonClickListener({
+
+                                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
+                                true
+                            })
+
+                        }
+
+                        override fun onPermissionGranted() {
+                            val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+                            mapFragment.getMapAsync(this)
+                            mLocationRequestwithBalanced.interval = 30000
+                            mLocationRequestwithBalanced.fastestInterval = 10000
+                            mLocationRequestwithBalanced.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+                            val builder = LocationSettingsRequest.Builder().addLocationRequest(mLocationRequestwithBalanced)
+                            val result = LocationServices.SettingsApi.checkLocationSettings(MyApplication.getGoogleApiHelper()?.googleApiClient, builder.build())
+
+                            result.setResultCallback { result ->
+                                val status = result.status
+
+                                result.locationSettingsStates
+                                when (status.statusCode) {
+                                    LocationSettingsStatusCodes.SUCCESS -> {
+                                        val intent = Intent(this@SearchActivity, LocationService::class.java)
+                                        intent.putExtra("locationrequest", mLocationRequestwithBalanced)
+                                        startService(intent)
+                                        Toast.makeText(this@SearchActivity, "started", Toast.LENGTH_SHORT).show()
+                                    }
+                                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
+
+                                        try {
+
+                                            status.startResolutionForResult(
+                                                    this@SearchActivity,
+                                                    REQUEST_CHECK_SETTINGS)
+                                        } catch (e: IntentSender.SendIntentException) {
+
+                                        }
+
+                                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
+                                    }
+                                }
+                            }
+
+
+                        }
+
+
+                        override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
+                                Toast.makeText(this@SearchActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+
+                    }
+                    TedPermission.with(this@SearchActivity)
+                            .setPermissionListener(permissionlistener)
+                            .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                            .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                            .check()
 
                 }
                 else -> {
@@ -225,7 +225,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             val longitude = intent.getStringExtra("longitude")
 
             myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
-            mLocation!!.position = myLocation
+            mLocation?.position = myLocation
             Toast.makeText(this@SearchActivity, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
         }

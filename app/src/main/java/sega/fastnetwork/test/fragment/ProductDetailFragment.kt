@@ -120,6 +120,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         v.product_detail_holder.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
             if (oldScrollY < scrollY) {
+                println("len")
                 v.fab_menu.hideMenuButton(true)
             } else {
                 v.fab_menu.showMenuButton(true)

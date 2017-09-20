@@ -68,11 +68,11 @@ class LoginPresenter(view: LoginView) {
                             Log.d(login, "onError errorCode : " + e.errorCode)
                             Log.d(login, "onError errorBody : " + e.errorBody)
                             Log.d(login, e.errorDetail + " : " + e.message)
-                            mLoginView.setErrorMessage(e.errorDetail,3)
+                            mLoginView.isLoginSuccessful(false)
 
                         } else {
                             Log.d(login, "onError errorMessage : " + e.message)
-                            mLoginView.setErrorMessage(e.message!!,3)
+                            mLoginView.isLoginSuccessful(false)
                         }
                     }
 //                    override fun onError(e: Throwable) {
@@ -176,7 +176,7 @@ class LoginPresenter(view: LoginView) {
                                 Log.d(register, "onError errorCode : " + e.errorCode)
                                 Log.d(register, "onError errorBody : " + e.errorBody)
                                 Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),1)
+                                mLoginView.isRegisterSuccessful(false, type)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(register, "onError errorDetail : " + e.errorDetail)
@@ -184,7 +184,7 @@ class LoginPresenter(view: LoginView) {
                             }
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)
-                            mLoginView.setErrorMessage(e.message!!,1)
+                            mLoginView.isRegisterSuccessful(false, type)
                         }
                     }
 
@@ -243,15 +243,15 @@ class LoginPresenter(view: LoginView) {
                                 Log.d(register, "onError errorCode : " + e.errorCode)
                                 Log.d(register, "onError errorBody : " + e.errorBody)
                                 Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),2)
+                                mLoginView.isRegisterSuccessful(false, 2)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),2)
+                                mLoginView.isRegisterSuccessful(false, 2)
                             }
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)
-                            mLoginView.setErrorMessage(e.message!!,2)
+                            mLoginView.isRegisterSuccessful(false, 2)
                         }
                     }
 

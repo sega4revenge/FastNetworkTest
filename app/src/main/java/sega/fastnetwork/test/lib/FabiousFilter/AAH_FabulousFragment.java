@@ -138,10 +138,10 @@ public class AAH_FabulousFragment extends ViewPagerBottomSheetDialogFragment {
                 ViewPagerBottomSheetDialog d = (ViewPagerBottomSheetDialog) dialog;
                 bottomSheet = (FrameLayout) d.findViewById(android.support.design.R.id.design_bottom_sheet);
                 ViewPagerBottomSheetBehavior.from(bottomSheet).setState(ViewPagerBottomSheetBehavior.STATE_COLLAPSED);
-                if (viewgroup_static != null) {
+             /*   if (viewgroup_static != null) {
                     int range = (int) (metrics.heightPixels - (metrics.density * peek_height));
                     viewgroup_static.animate().translationY(-range).setDuration(0).start();
-                }
+                }*/
 
                 fabAnim();
 

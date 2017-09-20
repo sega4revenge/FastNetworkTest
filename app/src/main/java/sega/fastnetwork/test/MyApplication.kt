@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit
  */
 class MyApplication : Application() {
     private var mSocket: Socket? = null
-    private var googleApiHelper : GoogleApiHelper?=null
+    private var googleApiHelper: GoogleApiHelper? = null
 
     fun getSocket(): Socket? = mSocket
     override fun onCreate() {
@@ -45,14 +45,11 @@ class MyApplication : Application() {
         val okHttpClient = OkHttpClient().newBuilder()
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .build()
-        AndroidNetworking.initialize(applicationContext,okHttpClient)
+        AndroidNetworking.initialize(applicationContext, okHttpClient)
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
         AndroidNetworking.enableLogging()
         mSocket = IO.socket("http://45.77.36.109:8080").connect()
-
-
-
         AndroidNetworking.setConnectionQualityChangeListener { connectionQuality, _ ->
             when (connectionQuality) {
                 ConnectionQuality.EXCELLENT -> System.out.println("Tot")
@@ -64,8 +61,6 @@ class MyApplication : Application() {
             }
         }
         googleApiHelper = GoogleApiHelper(instance!!)
-
-
     }
 
     override fun attachBaseContext(base: Context) {
@@ -73,13 +68,11 @@ class MyApplication : Application() {
     }
 
     fun getGoogleApiHelperInstance(): GoogleApiHelper? = this.googleApiHelper
+
     companion object {
         var instance: MyApplication? = null
             private set
 
-
         fun getGoogleApiHelper(): GoogleApiHelper? = instance!!.getGoogleApiHelperInstance()
     }
-
-
 }

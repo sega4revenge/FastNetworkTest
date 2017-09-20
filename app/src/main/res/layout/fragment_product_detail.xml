@@ -67,7 +67,7 @@
     <!--android:layout_marginBottom="@dimen/dist_medium"-->
     <!--android:layout_marginEnd="@dimen/dist_medium"-->
     <!--android:layout_marginRight="@dimen/dist_medium" />-->
-
+    <include layout="@layout/content_product_detail" />
     <include
         layout="@layout/layout_detail_fab"
         android:layout_width="wrap_content"
@@ -77,5 +77,5 @@
         android:layout_marginEnd="@dimen/dist_medium"
         android:layout_marginRight="@dimen/dist_medium" />
 
-    <include layout="@layout/content_product_detail" />
+
 </android.support.design.widget.CoordinatorLayout>

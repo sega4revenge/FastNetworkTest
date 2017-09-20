@@ -533,21 +533,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     }
 
 
-    private fun setSelectedDrawerItem() {
 
-
-        // Create and setup bundle args
-
-        fragment = ProductListFragment()
-
-
-        val transaction = activity.supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.content_frame, fragment, Constants.TAG_GRID_FRAGMENT)
-        transaction.commitAllowingStateLoss()
-        // Save selected position to preference
-
-
-    }
 
 }
 

@@ -42,8 +42,8 @@ class LocationService : Service(), LocationListener {
     }
 
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        mLocationRequest = intent.getParcelableExtra("locationrequest")
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        mLocationRequest = intent?.getParcelableExtra("locationrequest")
         println("get data" + mLocationRequest.toString())
         val context = this
         MyApplication.getGoogleApiHelper()?.setConnectionListener(object : GoogleApiHelper.ConnectionListener {
