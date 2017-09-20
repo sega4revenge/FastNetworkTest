@@ -9,7 +9,7 @@
     <uses-permission
         android:name="android.permission.MANAGE_ACCOUNTS"
         android:maxSdkVersion="22" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -53,10 +53,10 @@
             android:name=".service.LocationService"
             android:exported="true"
             android:stopWithTask="true">
-            <intent-filter >
+            <intent-filter>
                 <action android:name="sega.fastnetwork.test.service.LocationService" />
             </intent-filter>
-            </service>
+        </service>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -115,9 +115,8 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.EditProductActivity">   </activity>
-        <activity android:name=".activity.SearchActivity"
-           />
+        <activity android:name=".activity.EditProductActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_home"
@@ -154,7 +153,10 @@
         <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.DetailNeedProductActivity" />
-        <activity android:name=".activity.ChangePasswordActivity"></activity>
+        <activity android:name=".activity.ChangePasswordActivity" />
+        <activity
+            android:name=".activity.DetailProfile_Activity"
+            android:label="@string/title_activity_detail_profile_"></activity>
     </application>
 
 </manifest>

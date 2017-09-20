@@ -202,9 +202,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     override fun getProductDetail(response: Response) {
         try {
             statussave = response?.product!!.statussave!!
-            Log.d("sssssss",statussave.toString())
             if (statussave) {
-                Log.d("sssssss1111",statussave.toString())
                 im_star.setImageResource(R.drawable.ic_start_on)
             } else {
                 im_star.setImageResource(R.drawable.ic_start_off)
