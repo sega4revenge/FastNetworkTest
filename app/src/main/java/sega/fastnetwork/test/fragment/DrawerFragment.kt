@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.StrictMode
+import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -73,6 +74,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
 
     private val mDrawerHandler = Handler()
+    private var mPrevSelectedId: Int = 0
     private var mSelectedId: Int = 0
     private var morecategory = false
     private var isTablet: Boolean? = null
@@ -92,7 +94,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             .error(R.drawable.img_error)
             .priority(Priority.HIGH)!!
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-     
+
         // Setup toolbar
         isTablet = resources.getBoolean(R.bool.is_tablet)
         mDrawerPresenter = DrawerPresenter(this)
@@ -119,6 +121,11 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         moreCategory.setImageResource(R.mipmap.ic_launcher)
         drawer_layout!!.addDrawerListener(mDrawerToggle)
         mDrawerToggle.syncState()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
+        mSelectedId = navigation_view!!.menu.getItem(prefs.getInt("default_view", 0)).itemId
+        mSelectedId = savedInstanceState?.getInt(SELECTED_ITEM_ID) ?: mSelectedId
+        mPrevSelectedId = mSelectedId
+        navigation_view!!.menu.findItem(mSelectedId).isChecked = true
 
         navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true
         navigate(R.id.nav_1)
@@ -126,7 +133,17 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
         }
 
-
+       if(user!!.photoprofile!!.startsWith("http")){
+            photoprofile = user!!.photoprofile
+        }
+        else{
+            photoprofile = Constants.IMAGE_URL+user!!.photoprofile
+        }
+        Glide.with(this)
+                .load(photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(navigation_view.getHeaderView(0).avatar_header)
         navigation_view.getHeaderView(0).username_header.text = user!!.name
         navigation_view.getHeaderView(0).email_header.text  = user!!.email
         linMotobike.setOnClickListener(){
@@ -376,9 +393,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             R.id.nav_2 -> {
                 mSelectedId = itemId
                 toolbar_title.setText(R.string.nav_category)
-                fragment = CategoryFragment()
+                fragment = SavedProductFragment()
 
-                hideMoreAction()
+//                hideMoreAction()
 
                 if(categorylist.visibility != View.GONE){
                     categorylist.visibility = View.GONE
@@ -470,7 +487,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-      
+
     }
 
 

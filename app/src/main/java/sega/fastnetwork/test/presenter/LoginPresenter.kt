@@ -243,11 +243,11 @@ class LoginPresenter(view: LoginView) {
                                 Log.d(register, "onError errorCode : " + e.errorCode)
                                 Log.d(register, "onError errorBody : " + e.errorBody)
                                 Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.isRegisterSuccessful(false, 2)
+                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"), 2)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                                 Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.isRegisterSuccessful(false, 2)
+                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"), 2)
                             }
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)

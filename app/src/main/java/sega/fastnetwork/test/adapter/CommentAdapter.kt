@@ -26,6 +26,7 @@ class CommentAdapter// Constructor
     private val format: String
     private val sharedPref: SharedPreferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
     var commentsList: ArrayList<Comment>
+    var photoprofile : String? = null
 
     private val imageWidth: Int
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000")
@@ -72,14 +73,20 @@ class CommentAdapter// Constructor
         viewHolder.itemView.commentname.text = comment.user!!.name
             viewHolder.itemView.commentdata.text = comment.content
         viewHolder.itemView.commentdate.text = timeAgo(comment.time!!)
+        if(comment.user?.photoprofile?.startsWith("http")!!){
+            photoprofile = comment.user!!.photoprofile
+        }
+        else{
+            photoprofile = Constants.IMAGE_URL+comment.user!!.photoprofile
+        }
         val options = RequestOptions()
                     .centerCrop()
                     .dontAnimate()
                     .placeholder(R.drawable.logo)
-                    .error(R.drawable.img_error)
+                    .error(R.drawable.server_unreachable)
                     .priority(Priority.HIGH)
             Glide.with(context)
-                    .load(comment.user!!.photoprofile)
+                    .load(photoprofile)
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(viewHolder.itemView.commentpic)

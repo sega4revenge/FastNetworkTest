@@ -13,6 +13,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.ResponseListProduct
+import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
 
 
@@ -45,7 +46,38 @@ class ProductListPresenter(view: ProductListView) {
 
 
     }
+    fun getSavedProductList(type: Int,page :Int,userid: String) {
+//        Log.e(userdetail, page.toString()+category)
 
+        try {
+            jsonObject.put("userid", userid)
+            jsonObject.put("type", type)
+            jsonObject.put("page", page)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservableSave()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserverSaved()))
+
+
+    }
+    private fun getObservableSave(): Observable<ResponseListProduct> {
+        return  Rx2AndroidNetworking.post(Constants.BASE_URL + "/allproductsaved")
+                .setTag("listproductsaved")
+                .setTag(this)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(userdetail, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(userdetail, " bytesSent : " + bytesSent)
+                    Log.d(userdetail, " bytesReceived : " + bytesReceived)
+                    Log.d(userdetail, " isFromCache : " + isFromCache)
+                }
+                .getObjectObservable(ResponseListProduct::class.java)
+    }
     private fun getObservable(): Observable<ResponseListProduct> {
         return  Rx2AndroidNetworking.post(Constants.BASE_URL + "/allproduct")
                 .setTag("listproduct")
@@ -90,11 +122,40 @@ class ProductListPresenter(view: ProductListView) {
             }
         }
     }
+    private fun getDisposableObserverSaved(): DisposableObserver<ResponseListProduct> {
 
+        return object : DisposableObserver<ResponseListProduct>() {
+
+            override fun onNext(response: ResponseListProduct) {
+                Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+
+                mProductListView.getListSavedProduct(response.user!!)
+            }
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+
+
+                    Log.d(userdetail, "onError errorCode : " + e.errorCode)
+                    Log.d(userdetail, "onError errorBody : " + e.errorBody)
+                    Log.d(userdetail, e.errorDetail + " : " + e.message)
+                    mProductListView.setErrorMessage(e.errorDetail)
+
+                } else {
+                    Log.d(userdetail, "onError errorMessage : " + e.message)
+                    mProductListView.setErrorMessage(e.message!!)
+                }
+            }
+
+            override fun onComplete() {
+
+            }
+        }
+    }
     interface ProductListView {
 
         fun setErrorMessage(errorMessage: String)
         fun getListProduct(productlist: ArrayList<Product>)
+        fun getListSavedProduct(productsavedlist: User)
 
 
     }

@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
 import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
+import kotlinx.android.synthetic.main.toolbar_twoline.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
@@ -70,6 +71,13 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     var mTypeSave = "0"
     var doubleClick = false
     var statussave = false
+    var photoprofile : String? = null
+    val options = RequestOptions()
+            .centerCrop()
+            .dontAnimate()
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.img_error)
+            .priority(Priority.HIGH)
     // Fragment lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -92,6 +100,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         //=============================add comment=======================
         v.add_comment.setOnClickListener {
             gotoallcomment()
+        }
+        //==============================back button=================
+        v.back_button.setOnClickListener {
+            slider?.stopAutoCycle()
+            slider?.removeAllSliders()
+            activity.finish()
         }
 //===================================================================
         // Download product details if new instance, else restore from saved instance
@@ -202,13 +216,16 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     }
     override fun getProductDetail(response: Response) {
         try {
-            statussave = response?.product!!.statussave!!
+            statussave = response.statussave!!
+            Log.e("getProductDetail", statussave.toString())
+
             if (statussave) {
                 im_star.setImageResource(R.drawable.ic_start_on)
             } else {
                 im_star.setImageResource(R.drawable.ic_start_off)
             }
         }catch (e: Exception){
+            Log.e("getProductDetail", "saidjasd")
             im_star.visibility = View.GONE
         }
         this.product = response.product
@@ -292,10 +309,33 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_price.text = temp
 
         println(product!!.user!!.name)
+        if(product!!.user!!.photoprofile!!.startsWith("http")){
+            photoprofile = product!!.user!!.photoprofile
+        }
+        else{
+            photoprofile = Constants.IMAGE_URL+product!!.user!!.photoprofile
+        }
+        Glide.with(this)
+                .load(photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(productdetail_avatar)
         product_user_name.text = product!!.user?.name
         product_user_email.text = product!!.user?.email
         product_user_address.text = product!!.location!!.address
+        product_date.text = timeAgo(product!!.created_at.toString())
+        product_review.text = product!!.view.toString()
         println(product!!._id)
+        when (product!!.time){
+            "0" -> product_rentime.text = "1 giờ"
+            "1" -> product_rentime.text = "1 ngày"
+            "2" -> product_rentime.text = "1 tuần"
+            "3" -> product_rentime.text = "1 tháng"
+            else -> {
+                product_rentime.text = "1 năm"
+            }
+
+        }
         when (product!!.category) {
             "0" -> product_category.setImageResource(R.drawable.cate_vehicle)
             "1" -> product_category.setImageResource(R.drawable.cate_toy)
@@ -316,12 +356,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                  System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
          product_date.setText(timeAgo)*/
 //=======================option Glide========================
-        val options = RequestOptions()
-                .centerCrop()
-                .dontAnimate()
-                .placeholder(R.drawable.logo)
-                .error(R.drawable.img_error)
-                .priority(Priority.HIGH)
+
 //=======================0 cmt========================
         if (product!!.comment!!.size == 0) {
             comment_item1.visibility = View.GONE
@@ -337,7 +372,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comment_item2.visibility = View.GONE
             comment_item3.visibility = View.GONE
             Glide.with(this)
-                    .load(product!!.comment!![0].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage1)
@@ -352,7 +387,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comment_item3.visibility = View.GONE
 
             Glide.with(this)
-                    .load(product!!.comment!![0].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage1)
@@ -360,7 +395,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments1.text = product!!.comment!![0].content
             datecomment1.text = timeAgo(product!!.comment!![0].time!!)
             Glide.with(this)
-                    .load(product!!.comment!![1].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage2)
@@ -373,7 +408,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         else if (product!!.comment!!.size == 3) {
             comments_see_all.visibility = View.GONE
             Glide.with(this)
-                    .load(product!!.comment!![0].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage1)
@@ -381,7 +416,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments1.text = product!!.comment!![0].content
             datecomment1.text = timeAgo(product!!.comment!![0].time!!)
             Glide.with(this)
-                    .load(product!!.comment!![1].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage2)
@@ -389,7 +424,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments2.text = product!!.comment!![1].content
             datecomment2.text = timeAgo(product!!.comment!![1].time!!)
             Glide.with(this)
-                    .load(product!!.comment!![2].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage3)
@@ -398,7 +433,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             datecomment3.text = timeAgo(product!!.comment!![2].time!!)
         } else {
             Glide.with(this)
-                    .load(product!!.comment!![0].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage1)
@@ -406,7 +441,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments1.text = product!!.comment!![0].content
             datecomment1.text = timeAgo(product!!.comment!![0].time!!)
             Glide.with(this)
-                    .load(product!!.comment!![1].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage2)
@@ -414,7 +449,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments2.text = product!!.comment!![1].content
             datecomment2.text = timeAgo(product!!.comment!![1].time!!)
             Glide.with(this)
-                    .load(product!!.comment!![2].user!!.photoprofile)
+                    .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(userimage3)
@@ -439,6 +474,15 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 java.lang.Long.parseLong(time),
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
         return time
+    }
+    fun avatacmt(link: String): CharSequence?{
+        if(link.startsWith("http")){
+            photoprofile = link
+        }
+        else{
+            photoprofile = Constants.IMAGE_URL+link
+        }
+        return photoprofile
     }
 
     private fun onDownloadFailed() {

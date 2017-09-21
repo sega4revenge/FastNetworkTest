@@ -123,7 +123,9 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
             v.writecomment.clearFocus()
 
         }
-
+        v.back_button.setOnClickListener {
+            activity.finish()
+        }
         return v
 
 

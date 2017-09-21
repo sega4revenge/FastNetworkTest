@@ -26,7 +26,7 @@ class DetailProfilePressenter(profileView : DetailProfileView) : DetailProfileIn
 
         val jsonObject = JSONObject()
         try {
-            jsonObject.put("userid", "59b79166931d2d117abd09b4")
+            jsonObject.put("userid",id)
         } catch (e: JSONException) {
             e.printStackTrace()
         }

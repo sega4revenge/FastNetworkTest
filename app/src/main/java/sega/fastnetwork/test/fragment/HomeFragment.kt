@@ -18,6 +18,7 @@ import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
 import sega.fastnetwork.test.model.Product
+import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductListPresenter
 import sega.fastnetwork.test.util.Constants
 
@@ -27,6 +28,8 @@ import sega.fastnetwork.test.util.Constants
  */
 
 class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView {
+    override fun getListSavedProduct(productsavedlist: User) {
+    }
 
 
     var mProductListPresenter: ProductListPresenter? = null

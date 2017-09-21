@@ -14,6 +14,7 @@ class User() : Parcelable {
     var email: String? = null
     var photoprofile: String? = null
     var listproduct: ArrayList<Product>? = ArrayList()
+    var listsavedproduct: ArrayList<Product>? = ArrayList()
     var password: String? = null
     var tokenfirebase: String? = null
     val created_at: String? = null

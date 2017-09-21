@@ -504,7 +504,7 @@
                         android:layout_height="?attr/actionBarSize"
                         android:theme="@style/Theme.Samita.Toolbar"
                         android:layout_centerVertical="true"
-                        android:background="#37474F"
+                        android:background="@color/toolbar"
                         android:gravity="top"
                         app:layout_collapseMode="pin"
                         app:contentInsetStart="0dp"

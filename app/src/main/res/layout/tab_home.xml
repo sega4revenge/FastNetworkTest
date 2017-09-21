@@ -130,7 +130,14 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
+            <sega.fastnetwork.test.view.RobotoBoldTextView
+                android:id="@+id/nodata"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Khong co du lieu"
+                android:visibility="gone"
+                />
             <include
                 android:id="@+id/error_message"
                 layout="@layout/layout_error_message"

@@ -50,7 +50,7 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
         product_list.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         product_list.adapter = adapter
         detailprofile = DetailProfilePressenter(this)
-        detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
+    //    detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
 
 
     }

@@ -34,30 +34,30 @@
 
         <sega.fastnetwork.test.view.RobotoRegularTextView
             android:id="@+id/product_user_address"
-            android:layout_toLeftOf="@+id/layout_right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
             android:textSize="15sp"
-            android:layout_marginRight="5dp"
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
             android:text="K139 Tô Hiệu , Đà nẵng , Việt nam"
-            android:textColor="#dddddd" />
+            android:textColor="#dddddd"
+            android:layout_alignLeft="@+id/product_price"
+            android:layout_alignStart="@+id/product_price"
+            android:layout_toLeftOf="@+id/linearLayout3"
+            android:layout_toStartOf="@+id/linearLayout3" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="15dp"
-            android:id="@+id/layout_right"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="15dp"
             android:layout_alignParentRight="true"
-            >
+            android:id="@+id/linearLayout3">
             <sega.fastnetwork.test.view.RobotoRegularTextView
                 android:id="@+id/product_rentime"
                 android:layout_width="wrap_content"
@@ -78,14 +78,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-
-
-
                 android:textSize="15sp"
                 android:minWidth="60dp"
-
-
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:focusableInTouchMode="true"

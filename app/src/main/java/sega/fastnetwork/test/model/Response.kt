@@ -11,6 +11,5 @@ class Response {
     val message: String? = null
     val token: String? = null
     var product : Product? =null
-
-
+    var statussave: Boolean? = null
 }

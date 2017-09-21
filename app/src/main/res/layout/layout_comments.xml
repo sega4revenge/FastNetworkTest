@@ -32,7 +32,7 @@
             android:layout_toRightOf="@+id/commentpic"
             android:orientation="vertical">
 
-            <sega.fastnetwork.test.view.RobotoRegularTextView
+            <sega.fastnetwork.test.view.RobotoBoldTextView
                 android:id="@+id/commentname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,53 +42,22 @@
                 android:textSize="@dimen/text_large"
                 tools:text="My Awesome product Title" />
 
-            <sega.fastnetwork.test.view.RobotoRegularTextView
+            <sega.fastnetwork.test.view.RobotoLightTextView
                 android:id="@+id/commentdata"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_medium"
-                tools:text="2016" />
+                android:maxLines="1"
+                android:text="Abc"
+                android:textColor="#000000"
+                android:textSize="@dimen/text_medium" />
 
-            <RelativeLayout
-                android:id="@+id/product_rating_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/cardview_default_elevation"
-                android:orientation="horizontal">
-
-                <sega.fastnetwork.test.view.RobotoRegularTextView
-                    android:id="@+id/commentrate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="8.76"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/text_medium" />
-
-                <ImageView
-                    android:id="@+id/rating_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/commentrate"
-                    android:layout_marginTop="2dp"
-                    android:layout_toRightOf="@+id/commentrate"
-                    tools:ignore="contentDescription" />
-
-                <sega.fastnetwork.test.view.RobotoRegularTextView
+                <sega.fastnetwork.test.view.RobotoLightTextView
                     android:id="@+id/commentdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:layout_marginEnd="@dimen/dist_small"
-                    android:layout_marginRight="@dimen/dist_small"
-                    android:gravity="right"
-                    android:maxLines="1"
-                    android:text="June 22 2016"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/text_medium" />
+                    android:textSize="@dimen/text_medium"
+                    tools:text="27/01/2017" />/>
 
-            </RelativeLayout>
 
         </LinearLayout>
     </RelativeLayout>
