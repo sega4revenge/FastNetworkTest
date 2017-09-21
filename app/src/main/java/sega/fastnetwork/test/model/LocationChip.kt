@@ -1,16 +1,13 @@
 package sega.fastnetwork.test.model
 
+
 import android.graphics.drawable.Drawable
 import android.net.Uri
+
 import sega.fastnetwork.test.lib.MaterialChips.model.ChipInterface
 
-/**
- * Created by sega4 on 25/07/2017.
- */
 
-
-
-data class Category(val name : String, val avatar : Drawable, var selected : Boolean): ChipInterface {
+class LocationChip(private val name: String, private val info: String) : ChipInterface {
     override fun getId(): Any? {
         return null
     }
@@ -19,15 +16,16 @@ data class Category(val name : String, val avatar : Drawable, var selected : Boo
         return null
     }
 
+
     override fun getAvatarDrawable(): Drawable? {
-        return avatar
+        return null
     }
 
     override fun getLabel(): String {
         return name
     }
 
-    override fun getInfo(): String? {
-        return null
+    override fun getInfo(): String {
+        return info
     }
 }

@@ -55,4 +55,9 @@
     <color name="blur">#80000000</color>
 
     <color name="tab_profile">#00AA8D</color>
+
+    <color name="colorChipViewBackground">#E0E0E0</color>
+    <color name="chips_opened_bg">#009688</color>
+    <color name="colorCloseChip">#ababab</color>
+    <color name="white_transparency">#b9ffffff</color>
 </resources>

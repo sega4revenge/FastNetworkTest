@@ -27,8 +27,8 @@ import sega.fastnetwork.test.MyApplication
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
-import sega.fastnetwork.test.fragment.FilterFragment
-import sega.fastnetwork.test.lib.FabiousFilter.AAH_FabulousFragment
+import sega.fastnetwork.test.fragment.Test
+
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.SearchPresenterImp
 import sega.fastnetwork.test.service.LocationService
@@ -38,7 +38,7 @@ import sega.fastnetwork.test.util.Constants
 /**
  * Created by VinhNguyen on 8/9/2017.
  */
-class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, AAH_FabulousFragment.Callbacks {
+class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, Test.Callbacks {
 
 
     internal var mLocation: Marker? = null
@@ -51,7 +51,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     var loca = ""
     var cate = ""
     val mLocationRequestwithBalanced = LocationRequest()
-    var dialogFrag: FilterFragment? = null
+
     internal var listProductMaker = java.util.ArrayList<Marker>()
     private var myLocation: LatLng? = null
     private var isLoading: Boolean = false
@@ -79,7 +79,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
         fab_search.setOnClickListener {
 
-            dialogFrag = FilterFragment.newInstance()
+            var dialogFrag = Test.newInstance()
             val args = Bundle()
             args.putBoolean("isMap", isMap)
             dialogFrag!!.arguments = args
@@ -327,11 +327,8 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             //(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))
         }
         isLoading = false
-        error_message.visibility = View.GONE
-
-
         product_recycleview.visibility = View.VISIBLE
-
+        error_message.visibility = View.GONE
         txt_notfound.visibility = View.GONE
         adapter?.notifyDataSetChanged()
 
@@ -343,7 +340,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
 
             product_recycleview.visibility = View.GONE
-
+            layout_map.visibility=View.GONE
             error_message.visibility = View.VISIBLE
         } else {
 
