@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/dist_medium">
+
+    <sega.fastnetwork.test.view.RobotoRegularTextView
+        android:id="@+id/product_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/layout_view"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+
+        android:marqueeRepeatLimit="marquee_forever"
+        android:text="My Awesome Movie Title"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_productname"
+        android:textStyle="bold" />
+
+    <!-- Title -->
+
+
+    <LinearLayout
+        android:id="@+id/layout_view"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+
+        <sega.fastnetwork.test.view.RobotoLightTextView
+            android:id="@+id/product_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"
+            android:text="3265"
+            android:textColor="#aaaaaa"
+            android:textSize="16sp" />
+
+        <sega.fastnetwork.test.view.RobotoLightTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:text="lượt xem"
+            android:textColor="#aaaaaa"
+
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/product_category"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/layout_view"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/cate_electronic" />
+
+
+    <!-- Release date and runtime -->
+
+
+    <!-- Rating Area -->
+    <sega.fastnetwork.test.view.RobotoRegularTextView
+        android:id="@+id/product_overview"
+        style="@style/ProductItemValueStyle"
+        android:layout_below="@+id/product_name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textColor="#aaaaaa"
+        android:textSize="16sp"
+        tools:text="My movie overview goes here" />
+
+
+    <View
+        android:id="@+id/detail_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_below="@+id/product_overview"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/divider_color" />
+    <RelativeLayout
+        android:id="@+id/product_add_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detail_divider"
+        android:layout_alignLeft="@+id/product_overview"
+        android:layout_alignStart="@+id/product_overview"
+        android:layout_alignRight="@+id/detail_divider"
+        android:layout_alignEnd="@+id/detail_divider">
+
+        <sega.fastnetwork.test.view.RobotoRegularTextView
+            android:id="@+id/product_user_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="15sp"
+            android:layout_marginRight="15dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="K139 Tô Hiệu , Đà nẵng , Việt nam"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/product_date"
+            android:layout_toStartOf="@+id/product_date" />
+
+
+        <sega.fastnetwork.test.view.RobotoRegularTextView
+            android:id="@+id/product_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLines="1"
+            android:minWidth="60dp"
+            android:scrollHorizontally="true"
+            android:text="12/3/1993"
+            android:textSize="15sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <View
+        android:id="@+id/detail_divider3"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_below="@+id/product_add_time"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/divider_color" />
+    <RelativeLayout
+        android:id="@+id/layout_detail_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/detail_divider"
+        android:layout_alignStart="@+id/detail_divider"
+        android:layout_below="@+id/detail_divider3"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <sega.fastnetwork.test.customview.CircleImageView
+            android:id="@+id/productdetail_avatar"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/logo" />
+
+        <ImageButton
+            android:id="@+id/productdetail_btn_userdetail"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:src="@mipmap/ic_detail_user"
+            android:tint="@color/color_background_button" />
+
+        <LinearLayout
+            android:id="@+id/layout_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/productdetail_btn_userdetail"
+            android:layout_toRightOf="@id/productdetail_avatar"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <sega.fastnetwork.test.view.RobotoRegularTextView
+                android:id="@+id/product_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="My movie overview goes here" />
+
+            <sega.fastnetwork.test.view.RobotoRegularTextView
+                android:id="@+id/product_user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="#aaaaaa"
+                tools:text="My movie overview goes here" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/detail_divider2"
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:layout_below="@id/layout_detail_user"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/divider_color" />
+
+</RelativeLayout>
+

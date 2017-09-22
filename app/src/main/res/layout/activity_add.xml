@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="@color/white"
+        android:background="@color/toolbar"
         app:elevation="0dp"
         android:theme="@style/AppTheme.AppBarOverlay">
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,7 +25,7 @@
                 android:id="@+id/toolbar_addproduct"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
+                android:background="@color/toolbar"
                 android:theme="@style/Theme.Samita.Toolbar"
                 android:layout_centerVertical="true"
                 >

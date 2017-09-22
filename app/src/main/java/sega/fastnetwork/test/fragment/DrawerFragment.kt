@@ -125,6 +125,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         mSelectedId = navigation_view!!.menu.getItem(prefs.getInt("default_view", 0)).itemId
         mSelectedId = savedInstanceState?.getInt(SELECTED_ITEM_ID) ?: mSelectedId
         mPrevSelectedId = mSelectedId
+
         navigation_view!!.menu.findItem(mSelectedId).isChecked = true
 
         navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true

@@ -28,7 +28,7 @@ class DetailNeedProductActivity : AppCompatActivity() {
 //        supportActionBar!!.setHomeButtonEnabled(true)
 
         var intent = intent
-        product = intent.getParcelableExtra("product")
+        product = intent.getParcelableExtra("product_id")
         user = product?.user
         setDataToView(product,user)
 
