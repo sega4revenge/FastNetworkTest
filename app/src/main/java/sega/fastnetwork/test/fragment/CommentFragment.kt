@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_comments.*
 import kotlinx.android.synthetic.main.content_comments.view.*
+import kotlinx.android.synthetic.main.toolbar_twoline.*
 import kotlinx.android.synthetic.main.toolbar_twoline.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.CommentAdapter
@@ -93,42 +94,45 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
     private var seller_name: String = ""
 
     var adapter : CommentAdapter? = null
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        var v = inflater!!.inflate(R.layout.fragment_comment, container, false) as View
-        // Inflate the layout for this fragment
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         id = arguments.getString(Constants.product_ID)
         product_name = arguments.getString(Constants.product_NAME)
         seller_name = arguments.getString(Constants.seller_name)
         Log.e ("AAAAA",product_name + " " + seller_name)
-        v.toolbar_title.text = product_name
-        v.toolbar_subtitle.text = seller_name
+        toolbar_title.text = product_name
+        toolbar_subtitle.text = seller_name
         Log.e("ASD", id)
         FirebaseMessaging.getInstance().subscribeToTopic(id)
         adapter = CommentAdapter(context, this)
         val layoutManager = LinearLayoutManager(context)
-        v.comments_list.layoutManager = layoutManager
-        v.comments_list.setHasFixedSize(true)
-        v.comments_list.adapter = adapter
+        comments_list.layoutManager = layoutManager
+        comments_list.setHasFixedSize(true)
+        comments_list.adapter = adapter
         mCommentPresenter = CommentPresenter(this)
         mCommentPresenter!!.refreshcomment(id)
-        v.buttoncomment.setOnClickListener {
+        buttoncomment.setOnClickListener {
             //            Log.e("cmtttt",AppAccountManager.)
-            Log.e("cmtttt", AppManager.getAppAccountUserId(activity) + " " + id + " " + v.writecomment.text.toString())
-            mCommentPresenter!!.addcomment(AppManager.getAppAccountUserId(activity), id, v.writecomment.text.toString())
+            Log.e("cmtttt", AppManager.getAppAccountUserId(activity) + " " + id + " " + writecomment.text.toString())
+            mCommentPresenter!!.addcomment(AppManager.getAppAccountUserId(activity), id, writecomment.text.toString())
             val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(writecomment.windowToken, 0)
-            v.writecomment.setText("")
-            v.writecomment.clearFocus()
+            writecomment.setText("")
+            writecomment.clearFocus()
 
         }
-        v.back_button.setOnClickListener {
+        back_button.setOnClickListener {
             activity.finish()
         }
-        return v
 
+    }
 
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater!!.inflate(R.layout.fragment_comment, container, false)
+
+//        var v = inflater!!.inflate(R.layout.fragment_comment, container, false) as View
+        // Inflate the layout for this fragment
     }
 
     override fun onResume() {

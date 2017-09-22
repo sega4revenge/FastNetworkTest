@@ -404,6 +404,10 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
                         imglistDel = imglistDel + " , " + imglist?.get(i)
                     } else {
                         imglistDel = imglist?.get(i).toString()
+
+                        if(imglist?.size == 1){
+                            imglistDel += " , "
+                        }
                     }
                 }
             }
