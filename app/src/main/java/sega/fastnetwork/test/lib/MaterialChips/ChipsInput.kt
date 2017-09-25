@@ -151,10 +151,7 @@ class ChipsInput : ScrollViewMaxHeight {
         mChipsAdapter!!.addChip(chip)
     }
     fun setEdittextEnable(bol: Boolean) {
-        if(bol)
-            mChipsAdapter?.mEditText?.visibility = View.VISIBLE
-        false
-        mChipsAdapter?.mEditText?.visibility = View.GONE
+        mChipsAdapter?.mEditText?.isEnabled = bol
     }
 
     fun addChip(id: Any, icon: Drawable, label: String, info: String) {

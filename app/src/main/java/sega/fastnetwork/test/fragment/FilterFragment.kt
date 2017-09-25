@@ -12,7 +12,7 @@ import android.support.v4.util.ArrayMap
 import android.support.v7.widget.LinearLayoutManager
 import android.util.DisplayMetrics
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.Toast
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.filter_layout.view.*
 import sega.fastnetwork.test.R
@@ -26,13 +26,12 @@ import sega.fastnetwork.test.model.LocationChip
 import java.util.*
 
 
-class Test : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListener {
+class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListener {
 
     private var mLocationList: MutableList<LocationChip>? = ArrayList()
     private var contentView: View? = null
     private var applied_filters: ArrayMap<String, MutableList<String>>? = ArrayMap()
     private var keysCategory: List<String> = ArrayList()
-    private var linearlayout: MutableList<LinearLayout> = ArrayList()
     private var category_adapter: CategoryAdapter? = null
     private val mBottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
 
@@ -98,11 +97,11 @@ class Test : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListene
     private fun inflateLayoutWithFilters() {
         val keys: List<String> = Arrays.asList(*resources.getStringArray(R.array.mLocation))
         for (i in keys.indices) {
-            val Chip = LocationChip(keys[i], keys[i])
+            val chip = LocationChip(keys[i], keys[i])
             // add contact to the list
-            mLocationList!!.add(Chip)
+            mLocationList!!.add(chip)
             if (applied_filters != null && applied_filters!!["location"] != null && applied_filters!!["location"]!!.contains(keys[i])) {
-                contentView!!.chips_input.addChip(Chip)
+                contentView!!.chips_input.addChip(chip)
             }
         }
         contentView!!.chips_input.setFilterableList(mLocationList!!, contentView!!, getSoftButtonsBarHeight())
@@ -111,6 +110,13 @@ class Test : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListene
         contentView!!.chips_input.addChipsListener(object : ChipsInput.ChipsListener {
             override fun onChipAdded(chip: ChipInterface, newSize: Int) {
                 addToSelectedMap("location", chip.label)
+                if (applied_filters?.get("location")?.size == 5) {
+                    Toast.makeText(activity, "Đã tối đa 5 thành phố", Toast.LENGTH_LONG).show()
+                    contentView!!.chips_input.setEdittextEnable(false)
+                } else
+                    contentView!!.chips_input.setEdittextEnable(true)
+
+
             }
 
             override fun onChipRemoved(chip: ChipInterface, newSize: Int) {
@@ -136,11 +142,17 @@ class Test : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListene
         contentView!!.category_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         contentView!!.category_list.adapter = category_adapter
         for (i in keysCategory.indices) {
-            if (applied_filters != null && applied_filters!!["category"] != null && applied_filters!!["category"]!!.contains(i.toString())) {
+            if (applied_filters != null && applied_filters!!["category"] != null && applied_filters!!["category"]!!.contains(category_adapter!!.categoryList[i].name)) {
                 category_adapter!!.categoryList[i].selected = true
+                contentView!!.chips_input_category.addChip(Category(category_adapter!!.categoryList[i].name, category_adapter!!.categoryList[i].avatar, true))
                 category_adapter!!.notifyItemChanged(i)
+                println("co du lieu2")
+
 
             }
+
+            // add contact to the list
+
         }
         contentView!!.chips_input_category.addChipsListener(object : ChipsInput.ChipsListener {
             override fun onChipAdded(chip: ChipInterface, newSize: Int) {
@@ -149,6 +161,11 @@ class Test : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListene
 
             override fun onChipRemoved(chip: ChipInterface, newSize: Int) {
                 removeFromSelectedMap("category", chip.label)
+
+             /*   category_adapter!!.categoryList.indexOf(chip.label).selected = false
+                contentView!!.chips_input_category.removeChipByLabel(category_adapter!!.categoryList[position].name)
+
+                category_adapter!!.notifyItemChanged(position)*/
             }
 
             override fun onTextChanged(text: CharSequence) {
@@ -176,14 +193,19 @@ class Test : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListene
 
     override fun oncategoryClicked(position: Int, view: View) {
 
-        if (category_adapter!!.categoryList[position].selected) {
+        if (!category_adapter!!.categoryList[position].selected) {
+            if (applied_filters?.get("category")?.size == 5)
+                Toast.makeText(activity, "Đã tối đa 5 danh mục", Toast.LENGTH_LONG).show()
+            else {
+                category_adapter!!.categoryList[position].selected = true
+                contentView!!.chips_input_category.addChip(Category(category_adapter!!.categoryList[position].name, category_adapter!!.categoryList[position].avatar, true))
+                category_adapter!!.notifyItemChanged(position)
+            }
+
+        } else {
+
             category_adapter!!.categoryList[position].selected = false
             contentView!!.chips_input_category.removeChipByLabel(category_adapter!!.categoryList[position].name)
-
-            category_adapter!!.notifyItemChanged(position)
-        } else {
-            category_adapter!!.categoryList[position].selected = true
-            contentView!!.chips_input_category.addChip(Category(category_adapter!!.categoryList[position].name, category_adapter!!.categoryList[position].avatar, true))
 
             category_adapter!!.notifyItemChanged(position)
         }
@@ -277,7 +299,7 @@ class Test : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListene
     }
 
     companion object {
-        fun newInstance(): Test = Test()
+        fun newInstance(): FilterFragment = FilterFragment()
     }
 
     interface Callbacks {

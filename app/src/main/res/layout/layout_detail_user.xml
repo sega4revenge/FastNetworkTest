@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/radius_all_view"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layout_detail_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <sega.fastnetwork.test.customview.CircleImageView
+            android:id="@+id/productdetail_avatar"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/logo" />
+
+        <ImageButton
+            android:id="@+id/productdetail_btn_userdetail"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:src="@mipmap/ic_detail_user"
+            android:tint="@color/color_background_button" />
+
+        <LinearLayout
+            android:id="@+id/layout_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/productdetail_btn_userdetail"
+            android:layout_toRightOf="@id/productdetail_avatar"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <sega.fastnetwork.test.view.RobotoRegularTextView
+                android:id="@+id/product_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <sega.fastnetwork.test.view.RobotoRegularTextView
+                android:id="@+id/product_user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="#aaaaaa" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

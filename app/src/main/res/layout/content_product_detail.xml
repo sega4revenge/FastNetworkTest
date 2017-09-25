@@ -12,33 +12,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:background="#eeeeee"
         android:paddingBottom="@dimen/dist_medium"
         android:visibility="gone"
         app:layout_scrollFlags="scroll"
         tools:visibility="visible">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <!-- Header Image -->
 
 
-            <include
-                android:id="@+id/layout_detail_header"
-                layout="@layout/layout_detail_header"
-
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"/>
 
             <include
                 android:id="@+id/layout_detail_info"
                 layout="@layout/layout_detail_info"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_below="@+id/layout_detail_header"
+
+
                 />
+            <include
+                android:id="@+id/layout_detail_user"
+                layout="@layout/layout_detail_user"
+
+              />
+
             <!-- Section 1: Basic Info -->
 
 
@@ -54,13 +55,12 @@
             <!-- Section 4: Cast -->
             <include layout="@layout/layout_detail_cast"
                 android:id="@+id/layout_detail_cast"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_below="@+id/layout_detail_info"
+
+
                 />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

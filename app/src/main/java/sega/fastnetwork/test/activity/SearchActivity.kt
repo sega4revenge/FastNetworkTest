@@ -27,7 +27,7 @@ import sega.fastnetwork.test.MyApplication
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
-import sega.fastnetwork.test.fragment.Test
+import sega.fastnetwork.test.fragment.FilterFragment
 
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.SearchPresenterImp
@@ -38,7 +38,7 @@ import sega.fastnetwork.test.util.Constants
 /**
  * Created by VinhNguyen on 8/9/2017.
  */
-class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, Test.Callbacks {
+class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, FilterFragment.Callbacks {
 
 
     internal var mLocation: Marker? = null
@@ -79,7 +79,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
         fab_search.setOnClickListener {
 
-            var dialogFrag = Test.newInstance()
+            var dialogFrag = FilterFragment.newInstance()
             val args = Bundle()
             args.putBoolean("isMap", isMap)
             dialogFrag!!.arguments = args

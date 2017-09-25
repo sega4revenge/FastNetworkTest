@@ -20,16 +20,14 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_product_detail.*
 import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
-import kotlinx.android.synthetic.main.fragment_product_detail.view.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
 import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
-import kotlinx.android.synthetic.main.layout_detail_info.view.*
+import kotlinx.android.synthetic.main.layout_detail_user.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
-import kotlinx.android.synthetic.main.toolbar_twoline.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
@@ -46,8 +44,6 @@ import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
 import java.text.DecimalFormat
 import java.util.*
-
-
 
 
 class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
@@ -71,13 +67,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     var mTypeSave = "0"
     var doubleClick = false
     var statussave = false
-    var photoprofile : String? = null
+    var photoprofile: String? = null
     val options = RequestOptions()
             .centerCrop()
             .dontAnimate()
             .placeholder(R.drawable.logo)
             .error(R.drawable.img_error)
             .priority(Priority.HIGH)
+
     // Fragment lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -102,11 +99,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             gotoallcomment()
         }
         //==============================back button=================
-        v.back_button.setOnClickListener {
-            slider?.stopAutoCycle()
-            slider?.removeAllSliders()
-            activity.finish()
-        }
+        /*  v.back_button.setOnClickListener {
+              slider?.stopAutoCycle()
+              slider?.removeAllSliders()
+              activity.finish()
+          }*/
 //===================================================================
         // Download product details if new instance, else restore from saved instance
         if (savedInstanceState == null || !(savedInstanceState.containsKey(Constants.product_ID)
@@ -147,38 +144,38 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 
         // share
-        v.im_share.setOnClickListener {
-            val sendIntent = Intent()
-            val linkapp = "https://www.facebook.com/groups/727189854084530/"
-            val numberFormat = DecimalFormat("###,###")
-            val gia = numberFormat.format(product!!.price!!.toLong()).toString()
+        /* v.im_share.setOnClickListener {
+             val sendIntent = Intent()
+             val linkapp = "https://www.facebook.com/groups/727189854084530/"
+             val numberFormat = DecimalFormat("###,###")
+             val gia = numberFormat.format(product!!.price!!.toLong()).toString()
 
-            sendIntent.action = Intent.ACTION_SEND
-            sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "- Productname(tên sản phẩm): ${product!!.productname}\n"+
-                            "- Category(thể loại): ${product!!.category}\n"+
-                            "- Price(giá): ${gia} VNĐ\n"+
-                            "- Number(Số lượng): ${product!!.price}\n"+
-                            "- Address(địa chỉ): ${product!!.location!!.address}\n"+
-                            "- Time(thời gian): ${product!!.time} giờ\n"+
-                            "- Description(Mô tả): ${product!!.description}\n"+
-                            "- Tham khảo thêm tại: ${linkapp}")
-            sendIntent.type = "text/plain"
-            startActivity(sendIntent)
-        }
-        // star
-        v.im_star.setOnClickListener{
-         //   s = s + 1
-            if(statussave){
-                mTypeSave = "1"
-                mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
-            }else if(!statussave){
-                mTypeSave = "0"
-                mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
-            }
-        }
-        v.layout_detail_user.setOnClickListener{
-//            val intent = Intent(activity, DetailProfile_Activity::class.java)
+             sendIntent.action = Intent.ACTION_SEND
+             sendIntent.putExtra(Intent.EXTRA_TEXT,
+                     "- Productname(tên sản phẩm): ${product!!.productname}\n"+
+                             "- Category(thể loại): ${product!!.category}\n"+
+                             "- Price(giá): ${gia} VNĐ\n"+
+                             "- Number(Số lượng): ${product!!.price}\n"+
+                             "- Address(địa chỉ): ${product!!.location!!.address}\n"+
+                             "- Time(thời gian): ${product!!.time} giờ\n"+
+                             "- Description(Mô tả): ${product!!.description}\n"+
+                             "- Tham khảo thêm tại: ${linkapp}")
+             sendIntent.type = "text/plain"
+             startActivity(sendIntent)
+         }
+         // star
+         v.im_star.setOnClickListener{
+          //   s = s + 1
+             if(statussave){
+                 mTypeSave = "1"
+                 mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
+             }else if(!statussave){
+                 mTypeSave = "0"
+                 mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
+             }
+         }*/
+        v.layout_detail_user.setOnClickListener {
+            //            val intent = Intent(activity, DetailProfile_Activity::class.java)
 ////            intent.putExtra(Constants.product_ID, id)
 ////            intent.putExtra(Constants.product_NAME, product!!.productname)
 ////            intent.putExtra(Constants.seller_name, product!!.user!!.name)
@@ -202,31 +199,33 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         println(errorMessage)
         onDownloadFailed()
     }
+
     override fun getStatusSave(bool: Boolean) {
 
-      //  if(bool)
-     //   { doubleClick = true}
-        statussave = !statussave
-        if (statussave) {
-            im_star.setImageResource(R.drawable.ic_start_on)
-        } else {
-            im_star.setImageResource(R.drawable.ic_start_off)
-        }
+        //  if(bool)
+        //   { doubleClick = true}
+        /* statussave = !statussave
+         if (statussave) {
+             im_star.setImageResource(R.drawable.ic_start_on)
+         } else {
+             im_star.setImageResource(R.drawable.ic_start_off)
+         }*/
 
     }
+
     override fun getProductDetail(response: Response) {
         try {
             statussave = response.statussave!!
             Log.e("getProductDetail", statussave.toString())
 
-            if (statussave) {
-                im_star.setImageResource(R.drawable.ic_start_on)
-            } else {
-                im_star.setImageResource(R.drawable.ic_start_off)
-            }
-        }catch (e: Exception){
+            /*    if (statussave) {
+                    im_star.setImageResource(R.drawable.ic_start_on)
+                } else {
+                    im_star.setImageResource(R.drawable.ic_start_off)
+                }*/
+        } catch (e: Exception) {
             Log.e("getProductDetail", "saidjasd")
-            im_star.visibility = View.GONE
+            /* im_star.visibility = View.GONE*/
         }
         this.product = response.product
         onDownloadSuccessful()
@@ -291,17 +290,23 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         error_message.visibility = View.GONE
         product_detail_holder.visibility = View.VISIBLE
         fab_menu.visibility = View.VISIBLE
-
+        layout_detail_header.visibility = View.VISIBLE
         // Set title and tagline
-        if (TextUtils.isEmpty(product!!.productname)) {
-            toolbar.title = product!!.productname
-            toolbar_text_holder.visibility = View.GONE
-        } else {
-            toolbar.title = ""
-            toolbar_text_holder.visibility = View.VISIBLE
-            toolbar_title.text = product!!.productname
-            toolbar_subtitle.text = product!!.user?.name
+        appbar.addOnOffsetChangedListener { appBarLayout, i ->
+
+            var scrollRange = -1
+            scrollRange = appBarLayout.totalScrollRange
+            if (scrollRange + i == 0) {
+                collapsing_toolbar.title = product!!.user!!.name
+
+            } else
+                collapsing_toolbar.title = ""
+
+
         }
+
+
+
         product_name.text = product!!.productname
         product_overview.text = product!!.description
 
@@ -309,11 +314,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_price.text = temp
 
         println(product!!.user!!.name)
-        if(product!!.user!!.photoprofile!!.startsWith("http")){
+        if (product!!.user!!.photoprofile!!.startsWith("http")) {
             photoprofile = product!!.user!!.photoprofile
-        }
-        else{
-            photoprofile = Constants.IMAGE_URL+product!!.user!!.photoprofile
+        } else {
+            photoprofile = Constants.IMAGE_URL + product!!.user!!.photoprofile
         }
         Glide.with(this)
                 .load(photoprofile)
@@ -324,9 +328,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_user_email.text = product!!.user?.email
         product_user_address.text = product!!.location!!.address
         product_date.text = timeAgo(product!!.created_at.toString())
-        product_review.text = product!!.view.toString()
+        product_view.text = product!!.view.toString()
         println(product!!._id)
-        when (product!!.time){
+        when (product!!.time) {
             "0" -> product_rentime.text = "1 giờ"
             "1" -> product_rentime.text = "1 ngày"
             "2" -> product_rentime.text = "1 tuần"
@@ -475,12 +479,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
         return time
     }
-    fun avatacmt(link: String): CharSequence?{
-        if(link.startsWith("http")){
+
+    fun avatacmt(link: String): CharSequence? {
+        if (link.startsWith("http")) {
             photoprofile = link
-        }
-        else{
-            photoprofile = Constants.IMAGE_URL+link
+        } else {
+            photoprofile = Constants.IMAGE_URL + link
         }
         return photoprofile
     }
@@ -491,6 +495,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_detail_holder.visibility = View.GONE
         toolbar_text_holder.visibility = View.GONE
         toolbar.title = ""
+        layout_detail_header.visibility = View.GONE
     }
 
 

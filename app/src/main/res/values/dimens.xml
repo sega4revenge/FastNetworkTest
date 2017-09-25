@@ -101,9 +101,9 @@
 
     <dimen name="tiny_margin">4dp</dimen>
     <!-- General Text Sizes -->
-    <dimen name="text_price">21sp</dimen>
+    <dimen name="text_price">24sp</dimen>
     <dimen name="text_xxlarge">24sp</dimen>
-    <dimen name="text_productname">27sp</dimen>
+    <dimen name="text_productname">20sp</dimen>
     <dimen name="text_xlarge">18sp</dimen>
     <dimen name="text_large">16sp</dimen>
     <dimen name="text_medium">15sp</dimen>

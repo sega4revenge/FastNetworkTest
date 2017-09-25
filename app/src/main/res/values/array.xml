@@ -3,14 +3,14 @@
 
     <string-array name="category">
         <item>Xe cộ</item>
-        <item>Đồ chơi</item>
-        <item>Điện tử</item>
-        <item>Gia dụng</item>
-        <item>Thời trang</item>
-        <item>Nhà cửa</item>
-        <item>Giáo dục</item>
-        <item>Âm nhạc</item>
-        <item>Máy móc</item>
+        <item>Đồ điện tử</item>
+        <item>Thời trang,đồ dùng cá nhân</item>
+        <item>Nhà ở</item>
+        <item>Mẹ và bé</item>
+        <item>Đồ gia dụng,nội thất</item>
+        <item>Giải trí,thể thao,sở thích</item>
+        <item>Đồ văn phòng,nông nghiệp</item>
+        <item>Khác</item>
 
     </string-array>
     <string-array name="timeid">
