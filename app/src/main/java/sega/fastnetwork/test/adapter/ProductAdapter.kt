@@ -118,24 +118,34 @@ internal class ProductAdapter// Constructor
                 viewHolderParent.itemView.timepost.text = timeAgo
             }
 
-            if (!product.price.isNullOrEmpty())
-                viewHolderParent.itemView.price_compact.text = formatprice!!.format(product.price?.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()]
+        /*    if (!product.price.isNullOrEmpty())
+            {
+                viewHolderParent.itemView.price_compact.text = product.price!!
+                println(formatprice!!.format(product.price!!.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()] + " a " + product.productname)
+            }*/
             viewHolderParent.itemView.userpost.text = product.user!!.name
             viewHolderParent.itemView.area_compact.text = product.location!!.address
             viewHolderParent.itemView.area_compact.isSelected = true
 
             if (product.type == "1")
+            {
                 viewHolderParent.itemView.type_view.setText("Cho thuê")
                         .setTextColor(Color.WHITE)
                         .setSlantedBackgroundColor(context.getColor(R.color.btn_login))
                         .setTextSize(15)
                         .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
-            else
+                viewHolderParent.itemView.price_compact.text = formatprice!!.format(product.price!!.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()]
+            }
+
+            else{
                 viewHolderParent.itemView.type_view.setText("Cần thuê")
                         .setTextColor(Color.WHITE)
                         .setSlantedBackgroundColor(context.getColor(R.color.actionBarColor))
                         .setTextSize(15)
                         .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
+                viewHolderParent.itemView.price_compact.text = ""
+            }
+
             when (product.category) {
                 "0" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_vehicle)
                 "1" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_toy)

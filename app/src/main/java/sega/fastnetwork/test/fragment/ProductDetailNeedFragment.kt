@@ -25,28 +25,24 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.android.synthetic.main.content_product_detail.*
-import kotlinx.android.synthetic.main.content_product_detail.view.*
-import kotlinx.android.synthetic.main.fragment_product_detail.*
-import kotlinx.android.synthetic.main.fragment_product_detail.view.*
-import kotlinx.android.synthetic.main.layout_detail_backdrop.*
+import kotlinx.android.synthetic.main.content_product_detail_need.*
+import kotlinx.android.synthetic.main.content_product_detail_need.view.*
+import kotlinx.android.synthetic.main.fragment_product_need_detail.*
+import kotlinx.android.synthetic.main.fragment_product_need_detail.view.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
 import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
-import kotlinx.android.synthetic.main.layout_detail_info.*
-import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import kotlinx.android.synthetic.main.layout_detail_need_header.*
 import kotlinx.android.synthetic.main.layout_detail_need_header.view.*
+import kotlinx.android.synthetic.main.layout_detail_need_info.*
+import kotlinx.android.synthetic.main.layout_detail_need_info.view.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
 import kotlinx.android.synthetic.main.toolbar_twoline.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
-import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
-import sega.fastnetwork.test.lib.SliderTypes.DefaultSliderView
-import sega.fastnetwork.test.lib.SliderTypes.SliderLayout
 import sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Product
@@ -142,7 +138,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
         }
         //==============================back button=================
         v.back_button.setOnClickListener {
-//            slider?.stopAutoCycle()
+            //            slider?.stopAutoCycle()
 //            slider?.removeAllSliders()
             activity.finish()
         }
@@ -194,14 +190,14 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
 
             sendIntent.action = Intent.ACTION_SEND
             sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "- Productname(tên sản phẩm): ${product!!.productname}\n"+
-                            "- Category(thể loại): ${product!!.category}\n"+
-                            "- Price(giá): ${gia} VNĐ\n"+
-                            "- Number(Số lượng): ${product!!.price}\n"+
-                            "- Address(địa chỉ): ${product!!.location!!.address}\n"+
-                            "- Time(thời gian): ${product!!.time} giờ\n"+
-                            "- Description(Mô tả): ${product!!.description}\n"+
-                            "- Tham khảo thêm tại: ${linkapp}")
+                    "- Productname(tên s?n ph?m): ${product!!.productname}\n"+
+                            "- Category(th? lo?i): ${product!!.category}\n"+
+                            "- Price(giá): ${gia} VNÐ\n"+
+                            "- Number(S? lu?ng): ${product!!.price}\n"+
+                            "- Address(d?a ch?): ${product!!.location!!.address}\n"+
+                            "- Time(th?i gian): ${product!!.time} gi?\n"+
+                            "- Description(Mô t?): ${product!!.description}\n"+
+                            "- Tham kh?o thêm t?i: ${linkapp}")
             sendIntent.type = "text/plain"
             startActivity(sendIntent)
         }
@@ -271,32 +267,6 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
         onDownloadSuccessful()
     }
 
-    private fun showAnimationBanner() {
-        for (i in 0 until product!!.images!!.size) {
-            val textSliderView = DefaultSliderView(activity)
-            // initialize a SliderLayout
-            textSliderView
-                    .image(Constants.IMAGE_URL + product!!.images!![i])
-                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                    .setOnSliderClickListener(this)
-
-            //add your extra information
-            textSliderView.bundle(Bundle())
-            textSliderView.bundle
-                    ?.putInt("index", i)
-            slider!!.addSlider(textSliderView)
-
-
-        }
-
-        slider!!.setPresetTransformer(SliderLayout.Transformer.Accordion)
-        slider!!.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
-        slider!!.setCustomAnimation(DescriptionAnimation())
-        slider!!.setDuration(4000)
-        slider!!.addOnPageChangeListener(this)
-
-
-    }
 
     override fun onResume() {
         super.onResume()
@@ -367,12 +337,12 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
         println(product!!._id)
         Log.e("LatLog", product!!.location!!.coordinates.toString())
 //        when (product!!.time){
-//            "0" -> product_rentime.text = "1 giờ"
+//            "0" -> product_rentime.text = "1 gi?"
 //            "1" -> product_rentime.text = "1 ngày"
-//            "2" -> product_rentime.text = "1 tuần"
+//            "2" -> product_rentime.text = "1 tu?n"
 //            "3" -> product_rentime.text = "1 tháng"
 //            else -> {
-//                product_rentime.text = "1 năm"
+//                product_rentime.text = "1 nam"
 //            }
 //
 //        }
