@@ -21,6 +21,8 @@ internal object Constants {
     val LAST_SELECTED = "last_drawer_selection"
     val THUMBNAIL_SIZE = "thumbnail_size"
 
+    val FOTGOTPASSWORD = 1
+
 
     val MAPS_INTENT_URI = "geo:0,0?q="
 

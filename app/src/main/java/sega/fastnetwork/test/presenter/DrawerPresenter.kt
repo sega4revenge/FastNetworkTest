@@ -158,6 +158,69 @@ class DrawerPresenter(view : DrawerView) {
 
                 })
     }
+    fun editphonenumber(userid: String,phone: String) {
+        val jsonObject = JSONObject()
+        try {
+            jsonObject.put("userid", userid)
+            jsonObject.put("phone", phone)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        Rx2AndroidNetworking.post(Constants.BASE_URL + "/editphonenumber")
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(userdetail, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(userdetail, " bytesSent : " + bytesSent)
+                    Log.d(userdetail, " bytesReceived : " + bytesReceived)
+                    Log.d(userdetail, " isFromCache : " + isFromCache)
+                }
+                .getObjectObservable(Response::class.java)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Response> {
+                    override fun onNext(response: Response?) {
+                        Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+//                        Log.e(userdetail, response!!.user!!.name)
+                        mDrawerView.getUserDetail(response!!)
+                    }
+
+
+                    override fun onComplete() {
+
+
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is ANError) {
+                            if (e.errorCode != 0) {
+                                // received ANError from server
+                                // error.getErrorCode() - the ANError code from server
+                                // error.getErrorBody() - the ANError body from server
+                                // error.getErrorDetail() - just a ANError detail
+                                Log.d(userdetail, "onError errorCode : " + e.errorCode)
+                                Log.d(userdetail, "onError errorBody : " + e.errorBody)
+                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
+                                mDrawerView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"))
+                            } else {
+                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
+                                mDrawerView.setErrorMessage(e.errorDetail)
+                            }
+                        } else {
+                            Log.d(userdetail, "onError errorMessage : " + e.message)
+                            mDrawerView.setErrorMessage(e.message!!)
+                        }
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+
+                })
+    }
     interface DrawerView {
         fun changeAvatarSuccess(t: Response)
         fun setErrorMessage(errorMessage: String)

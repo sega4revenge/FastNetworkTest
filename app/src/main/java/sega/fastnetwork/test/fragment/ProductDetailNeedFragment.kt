@@ -1,8 +1,11 @@
 package sega.fastnetwork.test.fragment
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.text.TextUtils
@@ -15,6 +18,12 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_product_detail.*
 import kotlinx.android.synthetic.main.content_product_detail.view.*
@@ -27,6 +36,8 @@ import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
 import kotlinx.android.synthetic.main.layout_detail_info.view.*
+import kotlinx.android.synthetic.main.layout_detail_need_header.*
+import kotlinx.android.synthetic.main.layout_detail_need_header.view.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
 import kotlinx.android.synthetic.main.toolbar_twoline.view.*
 import sega.fastnetwork.test.R
@@ -43,13 +54,38 @@ import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
+import java.lang.Double
 import java.text.DecimalFormat
 import java.util.*
 
 /**
  * Created by cc on 9/21/2017.
  */
-class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
+    override fun onMapReady(p0: GoogleMap?) {
+        googleMap = p0
+        // For showing a move to my location button
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        googleMap!!.isMyLocationEnabled = true
+
+        // For dropping a marker at a point on the Map
+        val sydney = LatLng(Double.parseDouble(product!!.location!!.coordinates!![1].toString()), Double.parseDouble(product!!.location!!.coordinates!![0].toString()))
+        Log.e("sydney: ",sydney.toString())
+        googleMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address))
+
+        // For zooming automatically to the location of the marker
+        val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
+        googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+    }
 
 
     internal var error: Boolean = false
@@ -63,7 +99,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
     private var id: String = ""
     private var product: Product? = null
     private var seller: User? = null
-    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
+    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000")
     var isTablet: Boolean = false
     var mProductDetailPresenter: ProductDetailPresenter? = null
     var s = 0
@@ -71,6 +107,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
     var doubleClick = false
     var statussave = false
     var photoprofile : String? = null
+    var googleMap : GoogleMap? = null
     val options = RequestOptions()
             .centerCrop()
             .dontAnimate()
@@ -85,6 +122,9 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
         val v = inflater.inflate(R.layout.fragment_product_need_detail, container, false)
         isTablet = resources.getBoolean(R.bool.is_tablet)
         val displaymetrics = DisplayMetrics()
+
+        v.mapView_location.onCreate(savedInstanceState)
+        v.mapView_location.onResume()
         activity.windowManager.defaultDisplay.getMetrics(displaymetrics)
         height = displaymetrics.heightPixels
         width = displaymetrics.widthPixels
@@ -325,6 +365,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
         product_date.text = timeAgo(product!!.created_at.toString())
         product_review.text = product!!.view.toString()
         println(product!!._id)
+        Log.e("LatLog", product!!.location!!.coordinates.toString())
 //        when (product!!.time){
 //            "0" -> product_rentime.text = "1 giờ"
 //            "1" -> product_rentime.text = "1 ngày"
@@ -458,8 +499,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
             comments_see_all.visibility = View.VISIBLE
             comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
         }
-
-
+        mapView_location.getMapAsync(this)
 //        showAnimationBanner()
     }
 

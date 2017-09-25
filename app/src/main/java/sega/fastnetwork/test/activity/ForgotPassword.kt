@@ -1,5 +1,6 @@
 package sega.fastnetwork.test.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -38,15 +39,15 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
         }
         else {
             if (isForgotPwSuccessful) {
-                showSnackBarMessage("Success")
+//                showSnackBarMessage("Success")
             }
-            startActivity(Intent(this@ForgotPassword,LoginActivity::class.java))
+            setResult(Activity.RESULT_OK,Intent())
+//            startActivity(Intent(this@ForgotPassword,LoginActivity::class.java))
             finish()
             overridePendingTransition(0, 0)
         }
 
     }
-
     var mForgotPwPresenter: ForgotPwPresenter? = null
     var email : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {

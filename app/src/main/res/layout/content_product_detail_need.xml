@@ -25,12 +25,12 @@
             <!-- Header Image -->
 
 
-            <!--<include-->
-                <!--android:id="@+id/layout_detail_header"-->
-                <!--layout="@layout/layout_detail_header"-->
+            <include
+                android:id="@+id/layout_detail_header"
+                layout="@layout/layout_detail_need_header"
 
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_width="wrap_content"/>-->
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
             <!---->
 
             <include

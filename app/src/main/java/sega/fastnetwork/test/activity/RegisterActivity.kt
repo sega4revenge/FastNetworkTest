@@ -11,6 +11,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_register.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.LoginPresenter
 import sega.fastnetwork.test.util.Constants
@@ -23,6 +24,7 @@ import sega.fastnetwork.test.util.Validation.validateFields
 
 class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
+    var user: User? = null
 
     override fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int) {
         if(isRegisterSuccessful)
@@ -42,9 +44,18 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 //            CircularAnim.show(btn_join).go()
         }
         if(type == 3){
-            showSnackBarMessage("Register Success")
-            progressBar.visibility = View.GONE
-            CircularAnim.show(btn_finish).go()
+//            showSnackBarMessage("Register Success")
+//            progressBar.visibility = View.GONE
+//            CircularAnim.show(btn_finish).go()
+            CircularAnim.fullActivity(this@RegisterActivity, progressBar)
+                    .colorOrImageRes(R.color.color_background_button)
+                    .go(object : CircularAnim.OnAnimationEndListener {
+                        override fun onAnimationEnd() {
+                            startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
+                            finish()
+                        }
+                    })
+
         }
     }
 
@@ -181,9 +192,13 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             CircularAnim.show(btn_finish).go()
         }
 
+
+
     }
 
     override fun getUserDetail(user: User) {
+        AppManager.saveAccountUser(this, user, Constants.LOCAL)
+        this.user = user
     }
 
 

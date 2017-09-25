@@ -2,6 +2,7 @@ package sega.fastnetwork.test.activity
 
 import android.accounts.Account
 import android.accounts.AccountManager
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.StrictMode
@@ -261,8 +262,8 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     private fun gotoforgot() {
-        startActivity(Intent(this@LoginActivity, ForgotPassword::class.java))
-        finish()
+        startActivityForResult(Intent(this@LoginActivity, ForgotPassword::class.java),Constants.FOTGOTPASSWORD)
+//        finish()
         overridePendingTransition(0, 0)
     }
 
@@ -273,6 +274,13 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             val result: GoogleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
 
             handleSignInResult(result)
+        }
+        else if(requestCode == Constants.FOTGOTPASSWORD){
+            Log.e("requestCode: ", "OK ne")
+            if(resultCode == Activity.RESULT_OK){
+                showSnackBarMessage("Successsssss")
+
+            }
         }
     }
 

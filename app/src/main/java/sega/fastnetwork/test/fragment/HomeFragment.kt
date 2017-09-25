@@ -3,14 +3,18 @@ package sega.fastnetwork.test.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.Toast
 import com.androidnetworking.AndroidNetworking
 import kotlinx.android.synthetic.main.tab_home.*
-
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
@@ -18,27 +22,42 @@ import sega.fastnetwork.test.activity.ProductDetailNeedActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Product
+import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
+import sega.fastnetwork.test.presenter.DrawerPresenter
 import sega.fastnetwork.test.presenter.ProductListPresenter
 import sega.fastnetwork.test.util.Constants
+import sega.fastnetwork.test.util.Validation
 
 
 /**
  * Created by Admin on 3/15/2017.
  */
 
-class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView {
+class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView {
+    override fun changeAvatarSuccess(t: Response) {
+    }
+
+    override fun getUserDetail(response: Response) {
+        AppManager.saveAccountUser(context, response.user!!, 0)
+        Toast.makeText(activity,"Update phone success!",Toast.LENGTH_SHORT).show()
+    }
+
     override fun getListSavedProduct(productsavedlist: User) {
     }
 
 
     var mProductListPresenter: ProductListPresenter? = null
+    var mDrawarPresenter: DrawerPresenter? = null
     private var isTablet: Boolean = false
     private var layoutManager: LinearLayoutManager? = null
     private var adapter: ProductAdapter? = null
     var isFirstLoad = true
     var mCategory = 0
+    var user :User?=null
+    val mAleftdialog : AlertDialog?=null
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,6 +67,8 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         Log.d("Runnnnnnnnn",mCategory.toString()+"111")
         isTablet = resources.getBoolean(R.bool.is_tablet)
         mProductListPresenter = ProductListPresenter(this)
+        mDrawarPresenter = DrawerPresenter(this)
+        user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
         product_recycleview.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(activity)
         product_recycleview.layoutManager = layoutManager
@@ -68,6 +89,36 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload , mCategory)
 
         })
+        Log.e("Phone", "Name: " + user!!.name + "Email: " + user!!.email+ "Phone: " + user!!.phone)
+        if(user!!.phone.equals("") || user!!.phone == null){
+            Log.e("HERE", "Here")
+
+            val aleftdialog = AlertDialog.Builder(activity)
+                aleftdialog.setMessage("Enter phone number:")
+                val input = EditText(activity)
+                val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+                input.layoutParams = lp
+                input.inputType = InputType.TYPE_CLASS_NUMBER
+                aleftdialog.setView(input)
+                aleftdialog.setIcon(R.drawable.phone_call)
+                aleftdialog.setPositiveButton("OK",null)
+                val mAleftdialog = aleftdialog.create()
+                mAleftdialog.setOnShowListener {
+                    var b = mAleftdialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    b.setOnClickListener {
+                        if (!Validation.validateFields(input.text.toString())) {
+                            input.error = "Should not be empty !"
+                        }
+                        else{
+                            mDrawarPresenter!!.editphonenumber(user!!._id!!,input.text.toString())
+                            mAleftdialog.dismiss()
+                        }
+                    }
+                }
+            mAleftdialog.setCancelable(false)
+            mAleftdialog.show()
+
+        }
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
 

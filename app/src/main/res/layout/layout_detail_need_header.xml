@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/detail_backdrop_height"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/detail_backdrop_height">
+
+        <com.google.android.gms.maps.MapView
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mapView_location"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            map:liteMode="true"
+            />    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:visibility="visible"
+        tools:visibility="visible">
+
+    </FrameLayout>
+</RelativeLayout>

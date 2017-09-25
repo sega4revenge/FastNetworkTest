@@ -168,23 +168,13 @@ class LoginPresenter(view: LoginView) {
 
                     override fun onError(e: Throwable) {
                         if (e is ANError) {
-                            if (e.errorCode != 0) {
-                                // received ANError from server
-                                // error.getErrorCode() - the ANError code from server
-                                // error.getErrorBody() - the ANError body from server
-                                // error.getErrorDetail() - just a ANError detail
-                                Log.d(register, "onError errorCode : " + e.errorCode)
-                                Log.d(register, "onError errorBody : " + e.errorBody)
-                                Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.isRegisterSuccessful(false, type)
-                            } else {
-                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(register, "onError errorDetail : " + e.errorDetail)
-                                mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),1)
-                            }
+                            Log.d(register, "onError errorCode : " + e.errorCode)
+                            Log.d(register, "onError errorBody : " + e.errorBody)
+                            Log.d(register, e.errorDetail + " : " + e.message)
+                            mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),1)
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)
-                            mLoginView.isRegisterSuccessful(false, type)
+                            mLoginView.setErrorMessage(e.message!!,1)
                         }
                     }
 
@@ -267,7 +257,8 @@ class LoginPresenter(view: LoginView) {
 
         fun isLoginSuccessful(isLoginSuccessful: Boolean)
         fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int)
-        fun setErrorMessage(errorMessage: String, type: Int)
+        fun
+                setErrorMessage(errorMessage: String, type: Int)
         fun getUserDetail(user: User)
     }
 }
