@@ -228,12 +228,34 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
             behavior.peekHeight = 1800
 
         }
-
-
-
         contentView!!.filter_list.layoutManager = LinearLayoutManager(activity)
         val filterAdapter = FilterAdapter(activity)
         contentView!!.filter_list.adapter = filterAdapter
+        contentView!!.btn_refresh.setOnClickListener {
+            val locationSelected = contentView!!.chips_input.selectedChipList as List<LocationChip>
+            for (item: LocationChip in locationSelected) {
+                println(item.label)
+                contentView!!.chips_input.removeChipByLabel(item.label)
+            }
+            val categorySelected = contentView!!.chips_input_category.selectedChipList as List<Category>
+            for (item: Category in categorySelected) {
+                contentView!!.chips_input_category.removeChipByLabel(item.label)
+            }
+            contentView!!.filter.text = filterAdapter.getItem(0).label
+            val temp = ArrayList<String>()
+            temp.add("0")
+            applied_filters!!.remove("filter")
+            applied_filters!!.put("filter", temp)
+
+        /*    val categorySelected = contentView!!.chips_input_category.selectedChipList
+            for(j in categorySelected)
+                contentView!!.chips_input_category.removeChip(j)*/
+        }
+        contentView!!.btn_done!!.setOnClickListener {
+            (activity as Callbacks).onResult(applied_filters)
+            dismissAllowingStateLoss()
+        }
+
         if (applied_filters != null && applied_filters!!["filter"] != null) {
             when (applied_filters!!["filter"]!![0]) {
                 "1" -> contentView!!.filter.text = filterAdapter.getItem(0).label
@@ -247,6 +269,14 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
                 else -> contentView!!.filter.text = filterAdapter.getItem(3).label
 
             }
+
+        }
+        else{
+            contentView!!.filter.text = filterAdapter.getItem(0).label
+            val temp = ArrayList<String>()
+            temp.add("0")
+            applied_filters!!.remove("filter")
+            applied_filters!!.put("filter", temp)
 
         }
         filterAdapter.setOnItemClickListener(object : FilterAdapter.OnItemClickListener {
@@ -264,21 +294,14 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
 
 
 
-        setDoneButton()
+
         inflateLayoutCategory()
         inflateLayoutWithFilters()
 
     }
 
 
-    private fun setDoneButton() {
 
-
-        contentView!!.btn_done!!.setOnClickListener {
-            (activity as Callbacks).onResult(applied_filters)
-            dismissAllowingStateLoss()
-        }
-    }
 
     private fun addToSelectedMap(key: String, value: String) {
         if (applied_filters!![key] != null && !applied_filters!![key]!!.contains(value)) {

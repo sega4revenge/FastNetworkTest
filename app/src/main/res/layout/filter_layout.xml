@@ -30,7 +30,17 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/actionBarColor">
 
-
+                <Button
+                    android:id="@+id/btn_refresh"
+                    style="?borderlessButtonStyle"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/select_icon_done" />
                 <Button
                     android:id="@+id/btn_done"
                     style="?borderlessButtonStyle"
@@ -42,6 +52,7 @@
                     android:layout_marginEnd="15dp"
                     android:layout_marginRight="15dp"
                     android:background="@drawable/select_icon_done" />
+
 
             </RelativeLayout>
 

@@ -18,6 +18,8 @@ import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
+import sega.fastnetwork.test.activity.ProductDetailNeedActivity
+import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
@@ -121,7 +123,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
         search_view.setOnClickListener {
-            startActivity(Intent(activity,SearchActivity::class.java))
+            startActivity(Intent(activity, SearchActivity::class.java))
         }
 
 
