@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.DetailNeedProductActivity
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.activity.ProductDetailNeedActivity
@@ -63,8 +64,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         var mBundle = Bundle()
         mBundle = arguments
-        mCategory = mBundle.getInt("Category", 1)
-        Log.d("Runnnnnnnnn", mCategory.toString() + "111")
+        mCategory = mBundle.getInt("Category",1)
         isTablet = resources.getBoolean(R.bool.is_tablet)
         mProductListPresenter = ProductListPresenter(this)
         mDrawarPresenter = DrawerPresenter(this)
@@ -138,7 +138,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
         })
     }
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.tab_home, container, false)
 //        view.pager!!.adapter = TabsAdapter(childFragmentManager)
@@ -148,7 +147,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         setHasOptionsMenu(true)
         return view
     }
-
     override fun onDestroy() {
         super.onDestroy()
     }
@@ -162,7 +160,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     override fun onDetach() {
         super.onDetach()
     }
-
     private fun onDownloadSuccessful() {
 
         if (isTablet && adapter?.productList?.size!! > 0) {
@@ -227,7 +224,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
             (activity as MainActivity).loadDetailFragmentWith(adapter!!.productList[position]._id!!)
         } else {
-            //                Toast.makeText(getActivity(),"4",Toast.LENGTH_LONG).show();
             if (adapter!!.productList[position].type == "1") {
                 val intent = Intent(context, ProductDetailActivity::class.java)
                 intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
@@ -237,7 +233,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                 intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
                 startActivity(intent)
             }
-
         }
     }
 

@@ -21,12 +21,6 @@ class DetailNeedProductActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detailproductneed)
 
-//        toolbar.setTitle(R.string.stt_location2)
-//        toolbar.setTitleTextColor(R.color.black)
-//        setSupportActionBar(toolbar)
-//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar!!.setHomeButtonEnabled(true)
-
         var intent = intent
         product = intent.getParcelableExtra("product_id")
         user = product?.user

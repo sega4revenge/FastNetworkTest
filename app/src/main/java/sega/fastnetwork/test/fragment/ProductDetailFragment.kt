@@ -46,6 +46,8 @@ import java.text.DecimalFormat
 import java.util.*
 
 
+
+
 class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
 
@@ -74,7 +76,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             .placeholder(R.drawable.logo)
             .error(R.drawable.img_error)
             .priority(Priority.HIGH)
-
     // Fragment lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -212,7 +213,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
          }*/
 
     }
-
     override fun getProductDetail(response: Response) {
         try {
             statussave = response.statussave!!

@@ -6,9 +6,19 @@
             android:icon="@mipmap/ic_home"
             android:title="Trang chủ" />
         <item
+            android:id="@+id/nav_search"
+            android:checkable="true"
+            android:icon="@mipmap/ic_information"
+            android:title="Tìm Kiếm" />
+        <item
             android:id="@+id/nav_2"
             android:icon="@mipmap/ic_category"
             android:title="Sản phẩm đã lưu" />
+        <item
+            android:id="@+id/nav_chat"
+            android:checkable="true"
+            android:icon="@mipmap/ic_communication"
+            android:title="Tin nhắn" />
         <item
             android:id="@+id/nav_3"
             android:checkable="true"

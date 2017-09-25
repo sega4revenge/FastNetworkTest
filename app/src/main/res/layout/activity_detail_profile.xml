@@ -52,21 +52,24 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:gravity="center"
+                            android:layout_margin="10dp"
                             >
 
                             <sega.fastnetwork.test.customview.CircleImageView
                                 android:id="@+id/imgAvatar"
-                                android:layout_width="120dp"
-                                android:layout_height="120dp"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
                                 android:layout_margin="5dp"
                                 android:background="@drawable/img_error" />
 
                             <TextView
+                                android:id="@+id/txtemail"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="vuongvinh1993@gmail.com"
                                 android:textColor="@color/white"
-                                android:textSize="18sp"/>
+                                android:textSize="12sp"
+                                android:layout_marginTop="5dp"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -79,35 +82,50 @@
                          >
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_weight="40"
+                                android:layout_weight="33"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:background="@drawable/border_radius_view"
                                 android:layout_margin="5dp">
                                 <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
                                     android:background="@drawable/phone_call"
                                     android:layout_margin="10dp"
                                />
 
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="0dp"
-                                android:layout_weight="40"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="5dp"
+                                android:layout_weight="33"
+                                android:background="@drawable/border_radius_view"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_margin="10dp"
+                                    android:background="@drawable/chatting" />
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="33"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:background="@drawable/border_radius_view"
                                 android:layout_margin="5dp">
                                 <ImageView
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:background="@drawable/chatting"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:background="@drawable/share_white"
                                     android:layout_margin="10dp"
                                     />
 
                             </LinearLayout>
-
                         </LinearLayout>
 
 
@@ -127,6 +145,7 @@
                     android:theme="@style/Theme.Samita.Toolbar"
                     app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin"
+                    android:background="#42A5F5"
 
                     >
 
@@ -134,16 +153,23 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true">
-
+                        android:layout_centerInParent="true"
+                       >
+                        <ImageButton
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/previous"/>
                         <TextView
-                            android:id="@+id/toolbar_title"
+                            android:id="@+id/txtname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:text="Toolbar Title"
                             android:textColor="@color/white"
-                            android:textSize="22sp" />
+                            android:textSize="15sp"
+                            android:textStyle="bold"/>
 
                     </RelativeLayout>
 
@@ -155,145 +181,147 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/root_addproduct_ct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
-            <ScrollView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:fillViewport="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/root_addproduct_ct"
-                android:fillViewport="true"
-                >
+                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/lininfor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    >
-                    <LinearLayout
-                        android:id="@+id/lininfor"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        >
+                        android:layout_height="70dp"
+                        android:background="#42A5F5"
+                        android:orientation="vertical">
 
-
-                        <RelativeLayout
+                        <View
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
-                            android:orientation="vertical"
-                            android:background="#42A5F5"
-                            >
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="70dp"
-                                android:background="@android:color/black"
-                                android:alpha="0.3">
-                            </View>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                >
-
-                                <LinearLayout
-                                    android:id="@+id/LinGive_ct"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="50"
-                                    android:orientation="vertical"
-                                    android:gravity="center"
-                                    android:layout_margin="10dp"
-                                    >
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="0"
-                                        android:textColor="@color/white"
-                                        android:textSize="30dp"
-                                        android:textStyle="bold"
-                                        android:id="@+id/lent_give_ct"/>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Cho thuê"
-                                        android:textColor="@color/white"
-                                        android:textSize="16dp"/>
-
-                                </LinearLayout>
-                                <View
-                                    android:layout_width="0.1dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginBottom="10dp"
-                                    android:layout_marginTop="10dp"
-                                    android:background="@color/btn_color_login"></View>
-                                <LinearLayout
-                                    android:id="@+id/LinNeed_ct"
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="50"
-                                    android:orientation="vertical"
-                                    android:gravity="center"
-                                    >
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="0"
-                                        android:textColor="@color/white"
-                                        android:textSize="30dp"
-                                        android:textStyle="bold"
-                                        android:id="@+id/lent_need_ct"/>
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="Cần thuê"
-                                        android:textColor="@color/white"
-                                        android:textSize="16dp"/>
-
-                                </LinearLayout>
-                            </LinearLayout>
-
-                        </RelativeLayout>
+                            android:alpha="0.3"
+                            android:background="@android:color/black"></View>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="50"
-                            android:orientation="vertical"
+                            android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginTop="5dp"
-                            android:background="@drawable/radius_all_view">
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/product_list_ct"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            android:orientation="horizontal">
 
-                            </android.support.v7.widget.RecyclerView>
-                            <TextView
-                                android:id="@+id/mess_notfound_ct"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:id="@+id/LinGive_ct"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="Product Not Found"
-                                android:textSize="15dp"
-                                android:visibility="gone"/>
+                                android:layout_weight="50"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="5dp">
 
+                                <TextView
+                                    android:id="@+id/lent_give_ct"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/white"
+                                    android:textSize="25dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Cho thuê"
+                                    android:textColor="@color/white"
+                                    android:textSize="16dp" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="0.1dp"
+                                android:layout_height="50dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@color/btn_color_login"></View>
+
+                            <LinearLayout
+                                android:id="@+id/LinNeed_ct"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="50"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:padding="5dp">
+
+                                <TextView
+                                    android:id="@+id/lent_need_ct"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textColor="@color/white"
+                                    android:textSize="25dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Cần thuê"
+                                    android:textColor="@color/white"
+                                    android:textSize="16dp" />
+
+                            </LinearLayout>
                         </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="50"
+                        android:background="@drawable/radius_all_view"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/product_list_ct"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </android.support.v7.widget.RecyclerView>
+
+                        <TextView
+                            android:id="@+id/mess_notfound_ct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Product Not Found"
+                            android:textSize="15dp"
+                            android:visibility="gone" />
+
                     </LinearLayout>
                 </LinearLayout>
-            </ScrollView>
-        </android.support.v4.widget.NestedScrollView>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 
-
-
- </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>
 
 

@@ -131,7 +131,7 @@ internal class ProductAdapter// Constructor
             {
                 viewHolderParent.itemView.type_view.setText("Cho thuê")
                         .setTextColor(Color.WHITE)
-                        .setSlantedBackgroundColor(context.getColor(R.color.btn_login))
+                        .setSlantedBackgroundColor(context.resources.getColor(R.color.btn_login))
                         .setTextSize(15)
                         .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
                 viewHolderParent.itemView.price_compact.text = formatprice!!.format(product.price!!.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()]
@@ -140,7 +140,7 @@ internal class ProductAdapter// Constructor
             else{
                 viewHolderParent.itemView.type_view.setText("Cần thuê")
                         .setTextColor(Color.WHITE)
-                        .setSlantedBackgroundColor(context.getColor(R.color.actionBarColor))
+                        .setSlantedBackgroundColor(context.resources.getColor((R.color.actionBarColor)))
                         .setTextSize(15)
                         .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
                 viewHolderParent.itemView.price_compact.text = ""

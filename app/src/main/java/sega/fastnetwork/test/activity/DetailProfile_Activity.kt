@@ -1,5 +1,6 @@
 package sega.fastnetwork.test.activity
 
+
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -7,15 +8,17 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import android.widget.LinearLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_detail_profile.*
-import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.Product_ProfileAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DetailProfilePressenter
+import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.view.DetailProfileView
 import java.util.*
 
@@ -39,8 +42,41 @@ class DetailProfile_Activity : Activity(), DetailProfileView, Product_ProfileAda
         // USER
         txtname.setText(mUser!!.name)
         txtemail.setText(mUser!!.email)
+        LinGive_ct.setOnClickListener{
+            if(productGive_ct.size!= 0)
+            {
+                product_list_ct.visibility = View.VISIBLE
+                mess_notfound_ct.visibility = View.GONE
+                adapter?.productList = productGive_ct
+                adapter?.notifyDataSetChanged()
+            }else{
+                product_list_ct.visibility = View.GONE
+                mess_notfound_ct.visibility = View.VISIBLE
+            }
+        }
+        LinNeed_ct.setOnClickListener{
+            if(productNeed_ct.size!= 0)
+            {
+                product_list_ct.visibility = View.VISIBLE
+                mess_notfound_ct.visibility = View.GONE
+                adapter?.productList = productNeed_ct
+                adapter?.notifyDataSetChanged()
+            }else{
+                product_list_ct.visibility = View.GONE
+                mess_notfound_ct.visibility = View.VISIBLE
+            }
+        }
 
-        // adapter
+        val options = RequestOptions()
+                .centerCrop()
+                .dontAnimate()
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.img_error)
+                .priority(Priority.HIGH)
+        Glide.with(this).load(mUser?.photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(imgAvatar)
         adapter = Product_ProfileAdapter(this.applicationContext, this)
         layoutManager = GridLayoutManager(application, 1)
         product_list_ct.setHasFixedSize(true)
@@ -50,42 +86,6 @@ class DetailProfile_Activity : Activity(), DetailProfileView, Product_ProfileAda
         detailprofile = DetailProfilePressenter(this)
         detailprofile!!.ConnectHttp(mUser!!._id!!)
 
-        // type
-
-        var lingive_ct: LinearLayout = findViewById(R.id.LinGive_ct)
-        var linneed_ct: LinearLayout = findViewById(R.id.LinNeed_ct)
-
-        lingive_ct.setOnClickListener {
-            lent_need_ct.setTextColor(resources.getColor(R.color.black))
-            lent_give_ct.setTextColor(resources.getColor(R.color.white))
-            LinGive_ct.setBackgroundColor(resources.getColor(R.color.tab_profile))
-            LinNeed_ct.setBackgroundColor(resources.getColor(R.color.white))
-            if (productGive_ct.size != 0) {
-                product_list_ct.visibility = View.VISIBLE
-                mess_notfound_ct.visibility = View.GONE
-                adapter?.productList = productGive_ct
-                adapter?.notifyDataSetChanged()
-            } else {
-                product_list_ct.visibility = View.GONE
-                mess_notfound_ct.visibility = View.VISIBLE
-            }
-        }
-
-        linneed_ct.setOnClickListener {
-            lent_give_ct.setTextColor(resources.getColor(R.color.black))
-            lent_need_ct.setTextColor(resources.getColor(R.color.white))
-            LinNeed_ct.setBackgroundColor(resources.getColor(R.color.tab_profile))
-            LinGive_ct.setBackgroundColor(resources.getColor(R.color.white))
-            if (productNeed_ct.size != 0) {
-                product_list_ct.visibility = View.VISIBLE
-                mess_notfound_ct.visibility = View.GONE
-                adapter?.productList = productNeed_ct
-                adapter?.notifyDataSetChanged()
-            } else {
-                product_list_ct.visibility = View.GONE
-                mess_notfound_ct.visibility = View.VISIBLE
-            }
-        }
 
     }
 
@@ -145,26 +145,11 @@ class DetailProfile_Activity : Activity(), DetailProfileView, Product_ProfileAda
     }
 
     override fun onproductClicked(position: Int) {
-        var mtype = 0
-        val intent = Intent(this, EditProductActivity::class.java)
-        if (adapter!!.productList[position].type!!.equals("2")) {
-            mtype = 2
-        } else {
-            mtype = 1
-            intent.putExtra("imglist", adapter!!.productList[position].images)
-        }
-        intent.putExtra("type", mtype)
-        intent.putExtra("data", adapter!!.productList[position])
-        startActivityForResult(intent, 909)
+        val intent = Intent(this, ProductDetailActivity::class.java)
+        intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+        startActivity(intent)
     }
 
-    override fun onResume() {
-        super.onResume()
-        lent_need_ct.setTextColor(resources.getColor(R.color.black))
-        lent_give_ct.setTextColor(resources.getColor(R.color.white))
-        LinGive_ct.setBackgroundColor(resources.getColor(R.color.tab_profile))
-        LinNeed_ct.setBackgroundColor(resources.getColor(R.color.white))
-        detailprofile!!.ConnectHttp(mUser!!._id!!)
-    }
+
 }
 

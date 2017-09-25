@@ -8,4 +8,5 @@ package sega.fastnetwork.test.model
 class ResponseListProduct {
     var user : User? = null
     var listproduct : ArrayList<Product>? = ArrayList()
+    var listinbox : ArrayList<Chat>? = null
 }

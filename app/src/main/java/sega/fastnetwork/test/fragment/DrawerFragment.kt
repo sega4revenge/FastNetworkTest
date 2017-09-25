@@ -383,6 +383,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
                 hideMoreAction()
                 // change status show/hide action profile => category
+                if(categorylist.visibility != View.VISIBLE)
+                {
+                    categorylist.visibility = View.VISIBLE
+                }
                 if(linInfor.visibility != View.GONE){
                     linInfor.visibility = View.GONE
                 }
@@ -396,7 +400,15 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 toolbar_title.setText(R.string.nav_category)
                 fragment = SavedProductFragment()
 
-//                hideMoreAction()
+                if(categorylist.visibility != View.GONE){
+                    categorylist.visibility = View.GONE
+                }
+                morecategory = false
+            }
+            R.id.nav_chat -> {
+                mSelectedId = itemId
+                toolbar_title.setText(R.string.nav_category)
+                fragment = InboxFragment()
 
                 if(categorylist.visibility != View.GONE){
                     categorylist.visibility = View.GONE
@@ -411,6 +423,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 hideMoreAction()
 
                 // change status show/hide action category => profile
+                if(categorylist.visibility != View.VISIBLE)
+                {
+                    categorylist.visibility = View.VISIBLE
+                }
                 if(linCate.visibility != View.GONE){
                     linCate.visibility = View.GONE
                 }
@@ -421,12 +437,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
             }
             R.id.nav_4 -> {
-//                mSelectedId = itemId
-//                toolbar_title.setText("ChangePassword")
-//                val intent = Intent((activity as AppCompatActivity), ChangePasswordActivity::class.java)
-//                startActivity(intent)
-                                AppManager.removeAccount(activity)
-//
+                AppManager.removeAccount(activity)
                 return
             }
             R.id.nav_5 -> {
