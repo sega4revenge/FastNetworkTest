@@ -18,6 +18,7 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
+
     <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
 
 

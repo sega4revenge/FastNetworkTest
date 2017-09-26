@@ -33,50 +33,137 @@
             android:layout_marginBottom="5dp"
             >
             <LinearLayout
-                android:id="@+id/LinGive"
+                android:id="@+id/layout_give"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="#00AA8D">
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="0"
+                    android:id="@+id/tv_number_give"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cho thuê"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textColor="@color/white"
-                    android:textSize="35dp"
-
-                    android:id="@+id/lent_give"/>
+                    android:textColor="@color/text_light"
+                    android:textSize="13sp"
+                    android:id="@+id/tv_give"/>
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorAccent"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/color_give"/>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/LinNeed"
+                android:id="@+id/layout_need"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="50"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@color/white">
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cần thuê"
+                    android:layout_marginTop="10dp"
+                    android:text="0"
+                    android:id="@+id/tv_number_need"
                     android:textColor="@color/black"
-                    android:textSize="16dp"/>
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
                 <TextView
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Cần thuê"
+                    android:textColor="@color/text_light"
+                    android:textSize="13sp"
+                    android:id="@+id/tv_need"/>
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/actionBarColor"
+                    android:id="@+id/color_need"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_gived"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="0"
+                    android:id="@+id/tv_number_gived"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Đã thuê"
+                    android:textColor="@color/text_light"
+                    android:textSize="13sp"
+                    android:id="@+id/tv_gived"/>
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/cyan_500"
+                    android:id="@+id/color_gived"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_needed"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textColor="@color/black"
-                    android:textSize="35dp"
-                    android:id="@+id/lent_need"/>
+                    android:id="@+id/tv_number_needed"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Đang thuê"
+                    android:textColor="@color/text_light"
+                    android:textSize="13sp"
+                    android:id="@+id/tv_needed"/>
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/tab_profile"
+                    android:id="@+id/color_needed"/>
             </LinearLayout>
         </LinearLayout>
 

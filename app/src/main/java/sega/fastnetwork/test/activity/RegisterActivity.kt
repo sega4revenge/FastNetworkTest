@@ -30,13 +30,13 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         if(isRegisterSuccessful)
         {
             Log.e("toi day roi", "ne")
-            layoutname.visibility = View.GONE
-            layoutemail.visibility = View.GONE
-            layoutpass.visibility = View.GONE
-            layoutrepassword.visibility = View.GONE
+            name.visibility = View.GONE
+           email.visibility = View.GONE
+            password.visibility = View.GONE
+            repassword.visibility = View.GONE
             btn_join.visibility = View.GONE
 
-            layoutcode.visibility = View.VISIBLE
+            code.visibility = View.VISIBLE
             btn_finish.visibility = View.VISIBLE
 
             showSnackBarMessage("Check Email")

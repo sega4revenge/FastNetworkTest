@@ -10,10 +10,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.detailprofile.*
+import kotlinx.android.synthetic.main.detailprofile.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.EditProductActivity
 import sega.fastnetwork.test.adapter.Product_ProfileAdapter
@@ -58,29 +58,28 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
         val view = inflater!!.inflate(R.layout.detailprofile, container, false)
         var userData = AppManager.getUserDatafromAccount(activity,AppManager.getAppAccount(activity)!!)
 
-        var lingive : LinearLayout =view.findViewById(R.id.LinGive)
-        var linneed : LinearLayout =view.findViewById(R.id.LinNeed)
-        lingive.setOnClickListener{
-            lent_need.setTextColor(resources.getColor(R.color.black))
-            lent_give.setTextColor(resources.getColor(R.color.white))
-            LinGive.setBackgroundColor(resources.getColor(R.color.tab_profile))
-            LinNeed.setBackgroundColor(resources.getColor(R.color.white))
+
+        view.layout_give.setOnClickListener{
+            view.tv_give.setTextColor(resources.getColor(R.color.colorAccent))
+            view.tv_need.setTextColor(resources.getColor(R.color.text_light))
+            view.tv_gived.setTextColor(resources.getColor(R.color.text_light))
+            view.tv_needed.setTextColor(resources.getColor(R.color.text_light))
             if(productGive.size!= 0)
             {
-                product_list.visibility = View.VISIBLE
-                mess_notfound.visibility = View.GONE
+                view.product_list.visibility = View.VISIBLE
+                view.mess_notfound.visibility = View.GONE
                 adapter?.productList = productGive
                 adapter?.notifyDataSetChanged()
             }else{
-                product_list.visibility = View.GONE
-                mess_notfound.visibility = View.VISIBLE
+                view.product_list.visibility = View.GONE
+                view.mess_notfound.visibility = View.VISIBLE
             }
         }
-        linneed.setOnClickListener{
-            lent_give.setTextColor(resources.getColor(R.color.black))
-            lent_need.setTextColor(resources.getColor(R.color.white))
-            LinNeed.setBackgroundColor(resources.getColor(R.color.tab_profile))
-            LinGive.setBackgroundColor(resources.getColor(R.color.white))
+        view.layout_need.setOnClickListener{
+            view.tv_give.setTextColor(resources.getColor(R.color.text_light))
+            view.tv_need.setTextColor(resources.getColor(R.color.actionBarColor))
+            view.tv_gived.setTextColor(resources.getColor(R.color.text_light))
+            view.tv_needed.setTextColor(resources.getColor(R.color.text_light))
             if(productNeed.size!= 0)
             {
                 product_list.visibility = View.VISIBLE
@@ -128,8 +127,8 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
         }
         Log.d("SearchTag",productlist.size.toString()+" give" +productGive.size+" need"+productNeed.size )
         adapter!!.mUser = user
-        lent_give.text = numGive.toString()
-        lent_need.text = numNeed.toString()
+        tv_number_give.text = numGive.toString()
+        tv_number_need.text = numNeed.toString()
         product_list.visibility = View.VISIBLE
         if(productGive.size!= 0)
         {
@@ -145,10 +144,10 @@ class DetailProfileFragment: Fragment() ,DetailProfileView ,Product_ProfileAdapt
 
     override fun onResume() {
         super.onResume()
-        lent_need.setTextColor(resources.getColor(R.color.black))
+    /*    lent_need.setTextColor(resources.getColor(R.color.black))
         lent_give.setTextColor(resources.getColor(R.color.white))
         LinGive.setBackgroundColor(resources.getColor(R.color.tab_profile))
-        LinNeed.setBackgroundColor(resources.getColor(R.color.white))
+        LinNeed.setBackgroundColor(resources.getColor(R.color.white))*/
         detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
     }
 

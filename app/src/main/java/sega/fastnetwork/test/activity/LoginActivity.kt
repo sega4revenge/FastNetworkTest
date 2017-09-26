@@ -20,7 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.common.api.OptionalPendingResult
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
@@ -314,7 +313,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         Log.d(TAG, "onConnectionFailed:" + p0)
     }
 
-    override fun onStart() {
+   /* override fun onStart() {
         super.onStart()
         val opr: OptionalPendingResult<GoogleSignInResult> = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient)
         if (opr.isDone) {
@@ -331,7 +330,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             opr.setResultCallback { googleSignInResult -> handleSignInResult(googleSignInResult); }
         }
     }
-
+*/
     private fun showSnackBarMessage(message: String?) {
 
 
