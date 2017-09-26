@@ -206,7 +206,7 @@
                                     android:id="@+id/price"
                                     android:layout_width="match_parent"
                                     android:layout_height="40dp"
-                                    android:background="@drawable/roundedt_add"
+                                    android:background="@drawable/roundedt_left"
                                     android:inputType="numberDecimal"
                                     android:textColor="@color/black"
                                     android:textColorHint="@color/input_register_bg"
