@@ -88,7 +88,7 @@ class EditProductPresenter(editProductView : EditProductView) : EditProductInter
                 })
     }
 
-    override fun ConnectHttp(userid: String, productname : String, price : String, time: String, number : String, category: String, address: String, description: String, productid: String,imgdel: String){
+    override fun ConnectHttp(userid: String, productname: String, price: String, time: String, number: String, category: String, address: String, description: String, status: String, productid: String, imgdel: String){
         val jsonObject = JSONObject()
         try {
             jsonObject.put("user", userid)
@@ -99,6 +99,7 @@ class EditProductPresenter(editProductView : EditProductView) : EditProductInter
             jsonObject.put("category",category)
             jsonObject.put("address",address)
             jsonObject.put("description", description)
+            jsonObject.put("status", status)
             jsonObject.put("productid", productid)
             jsonObject.put("listimgdel", imgdel)
             Log.e("AAAAA",userid + " " + productname+ " " + price + " " + time  + " " + number  + " " + category  + " " + address+ " " + description+ " "+ productid)

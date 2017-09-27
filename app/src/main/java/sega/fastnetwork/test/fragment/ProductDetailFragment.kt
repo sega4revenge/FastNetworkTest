@@ -386,6 +386,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_date.text = timeAgo(product!!.created_at.toString())
         product_view.text = product!!.view.toString()
         println(product!!._id)
+        if(product!!.status == "1"){
+            tv_borrowed.visibility = View.VISIBLE
+        }
         when (product!!.time) {
             "0" -> product_rentime.text = "1 giờ"
             "1" -> product_rentime.text = "1 ngày"

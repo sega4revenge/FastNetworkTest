@@ -20,6 +20,31 @@
             custom:pager_animation_span="1100">
 
         </sega.fastnetwork.test.lib.SliderTypes.SliderLayout>
+        <RelativeLayout
+            android:id="@+id/tv_borrowed"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_above="@+id/product_name"
+            android:layout_marginBottom="50dp"
+            android:visibility="gone"
+            >
+            <sega.fastnetwork.test.view.RobotoBoldTextView
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/black"
+                android:alpha="0.1"
+                android:visibility="visible"
+                />
+        <sega.fastnetwork.test.view.RobotoBoldTextView
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:text="Đã được thuê"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:visibility="visible"
+           />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/product_name"

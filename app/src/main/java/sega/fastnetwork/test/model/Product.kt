@@ -20,6 +20,7 @@ class Product() : Parcelable {
     var description: String? = null
     var type: String? = null
     var created_at: String? = null
+    var status: String? = null
     var view: Int? = null
     var location : Location? = null
     var images : ArrayList<String>? = ArrayList()
@@ -37,6 +38,7 @@ class Product() : Parcelable {
         description = parcel.readString()
         type = parcel.readString()
         created_at = parcel.readString()
+        status = parcel.readString()
         location = parcel.readParcelable(Location::class.java.classLoader)
         view = parcel.readInt()
 
@@ -53,6 +55,7 @@ class Product() : Parcelable {
         parcel.writeString(description)
         parcel.writeString(type)
         parcel.writeString(created_at)
+        parcel.writeString(status)
         parcel.writeParcelable(location, flags)
         parcel.writeInt(view!!)
 

@@ -41,6 +41,7 @@
                 app:is_show_del="true" />
         </LinearLayout>
         <RelativeLayout
+            android:id="@+id/layout_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"

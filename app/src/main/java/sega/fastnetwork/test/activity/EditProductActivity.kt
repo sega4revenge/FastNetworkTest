@@ -74,6 +74,7 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
     var imglistDel = ""
     var mType = 0
     var progress : ProgressDialog? = null
+    var statusproduct : String? = null
     private var editProduct: EditProductPresenter? =null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,6 +116,7 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
         }else{
             price_and_time.visibility = View.GONE
             add_picker_view!!.visibility = View.GONE
+            layout_switch.visibility = View.GONE
         }
         mProduct = i.getParcelableExtra("data")
         setDataToView(mProduct)
@@ -139,9 +141,10 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
             run {
                 if(switch_edit.isChecked){
                     edt_switch.text = switch_edit.textOn.toString()
+//                    statusproduct = "0"
                 } else {
                     edt_switch.text = switch_edit.textOff.toString()
-
+//                    statusproduct = "1"
                 }
             }
         })
@@ -234,19 +237,20 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
     private fun setDataToView(mProduct: Product?) {
         productname.setText(mProduct?.productname)
 
-        if(mProduct?.price != null && mProduct?.price.toString() != "")
+        if(mProduct?.price != null && mProduct.price.toString() != "")
         {
-            price.setText(mProduct?.price)
+            price.setText(mProduct.price)
         }
-        if(mProduct?.time != null && mProduct?.time.toString() != "")
+        if(mProduct?.time != null && mProduct.time.toString() != "")
         {
-            time.setSelection(mProduct?.time!!.toInt())
+            time.setSelection(mProduct.time!!.toInt())
         }
         number.setText(mProduct?.number)
         category.setSelection(mProduct?.category!!.toInt())
-        addressEdit.setText(mProduct?.location!!.address)
-        description.setText(mProduct?.description)
-
+        addressEdit.setText(mProduct.location!!.address)
+        description.setText(mProduct.description)
+        switch_edit.isChecked = mProduct.status == "0"
+        Log.e("statusproduct1",mProduct.status)
     }
 
     override fun onBackPressed() {
@@ -404,11 +408,18 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
                 Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded Faile!! Nhap du thong tin", Snackbar.LENGTH_SHORT).show()
             }else{
            //     Log.d("AAAAAAAAA",productname.text.toString() + price.text.toString() + time.selectedItem.toString()+ number.text.toString() + category.selectedItem.toString()+ addressEdit.text.toString()+ description.text.toString()+ mProduct?._id.toString()+imglistDel )
-                if(imglistDel?.equals(""))
+                if(imglistDel.equals(""))
                 {imglistDel="0"}
+                if(switch_edit.isChecked){
+                    statusproduct = "0"
+                }
+                else{
+                    statusproduct = "1"
+                }
+                Log.e("statusproduct","statusproduct: "+ statusproduct)
                 progress  =  ProgressDialog.show(this, "", "Loading...", true)
                 progress?.show()
-                editProduct!!.ConnectHttp("", productname.text.toString() , price.text.toString() , time.selectedItemPosition.toString(), number.text.toString() , category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), mProduct?._id.toString(),imglistDel)
+                editProduct!!.ConnectHttp("", productname.text.toString() , price.text.toString() , time.selectedItemPosition.toString(), number.text.toString() , category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), statusproduct.toString(), mProduct?._id.toString(),imglistDel)
             }
 
         }else if (ids == R.id.menu_delproduct){
@@ -427,7 +438,7 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
                     }
                 }
             }
-            if(imglistDel?.equals(""))
+            if(imglistDel.equals(""))
             {imglistDel="0"}
             progress  =  ProgressDialog.show(this, "", "Loading...", true)
             progress?.show()
