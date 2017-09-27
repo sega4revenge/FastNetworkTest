@@ -141,7 +141,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         swipe_refresh.isRefreshing = false
         swipe_refresh.isEnabled = true
 
-
         adapter?.notifyDataSetChanged()
         Log.e("Phone", "Name: " + user!!.name + "Email: " + user!!.email + "Phone: " + user!!.phone)
         if (user!!.phone.equals("") || user!!.phone == null) {
