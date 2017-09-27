@@ -15,7 +15,6 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.activity.DetailNeedProductActivity
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.activity.ProductDetailNeedActivity
@@ -89,35 +88,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
         })
-        Log.e("Phone", "Name: " + user!!.name + "Email: " + user!!.email + "Phone: " + user!!.phone)
-        if (user!!.phone.equals("") || user!!.phone == null) {
-            Log.e("HERE", "Here")
 
-            val aleftdialog = AlertDialog.Builder(activity)
-            aleftdialog.setMessage("Enter phone number:")
-            val input = EditText(activity)
-            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-            input.layoutParams = lp
-            input.inputType = InputType.TYPE_CLASS_NUMBER
-            aleftdialog.setView(input)
-            aleftdialog.setIcon(R.drawable.phone_call)
-            aleftdialog.setPositiveButton("OK", null)
-            val mAleftdialog = aleftdialog.create()
-            mAleftdialog.setOnShowListener {
-                val b = mAleftdialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                b.setOnClickListener {
-                    if (!Validation.validateFields(input.text.toString())) {
-                        input.error = "Should not be empty !"
-                    } else {
-                        mDrawarPresenter!!.editphonenumber(user!!._id!!, input.text.toString())
-                        mAleftdialog.dismiss()
-                    }
-                }
-            }
-            mAleftdialog.setCancelable(false)
-            mAleftdialog.show()
-
-        }
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
         search_view.setOnClickListener {
@@ -172,7 +143,35 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
 
         adapter?.notifyDataSetChanged()
+        Log.e("Phone", "Name: " + user!!.name + "Email: " + user!!.email + "Phone: " + user!!.phone)
+        if (user!!.phone.equals("") || user!!.phone == null) {
+            Log.e("HERE", "Here")
 
+            val aleftdialog = AlertDialog.Builder(activity)
+            aleftdialog.setMessage("Enter phone number:")
+            val input = EditText(activity)
+            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+            input.layoutParams = lp
+            input.inputType = InputType.TYPE_CLASS_NUMBER
+            aleftdialog.setView(input)
+            aleftdialog.setIcon(R.drawable.phone_call)
+            aleftdialog.setPositiveButton("OK", null)
+            val mAleftdialog = aleftdialog.create()
+            mAleftdialog.setOnShowListener {
+                val b = mAleftdialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                b.setOnClickListener {
+                    if (!Validation.validateFields(input.text.toString())) {
+                        input.error = "Should not be empty !"
+                    } else {
+                        mDrawarPresenter!!.editphonenumber(user!!._id!!, input.text.toString())
+                        mAleftdialog.dismiss()
+                    }
+                }
+            }
+            mAleftdialog.setCancelable(false)
+            mAleftdialog.show()
+
+        }
 
     }
 
