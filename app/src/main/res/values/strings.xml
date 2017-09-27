@@ -9,7 +9,8 @@
     <string name="lg_btn_login">Login</string>
     <string name="lg_btn_forgot">Forgot Password</string>
     <string name="lg_btn_noaccount">Dont have account ?</string>
-
+    <string name="st_camera">Camera</string>
+    <string name="st_gallery">Gallery</string>
     <string name="re_title_register">Register</string>
     <string name="re_text_haveaccount">Have account ? Login now</string>
     <string name="re_hint_name">Name</string>

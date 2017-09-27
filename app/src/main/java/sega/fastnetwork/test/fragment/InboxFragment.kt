@@ -48,25 +48,25 @@ class InboxFragment : Fragment(), InboxPressenter.InboxListView {
     private fun onDownloadSuccessful() {
         Log.e("onDownloadSuccessful",mItemsData?.size.toString())
         error_message.visibility = View.GONE
+        nodata.visibility = View.GONE
         swipe_refresh.isRefreshing = false
         swipe_refresh.isEnabled = false //true
         adapter = InboxAdapter(mItemsData,activity,userTo)
         product_recycleview.adapter = adapter
     }
     override fun getListInbox(mChat: ArrayList<Chat>?) {
-//        var chat = mChat?.get(0)
-//        if(!chat?.userfrom?._id.equals(user?._id))
-//        {
-//            userTo = chat?.userfrom
-//        }else{
-//            userTo = chat?.userto
-//        }
-        mItemsData = mChat
-        onDownloadSuccessful()
+        if(mChat?.size!!>0)
+        {
+            mItemsData = mChat
+            onDownloadSuccessful()
+        }else{
+            setErrorMessage("")
+        }
+
     }
     private fun onDownloadFailed() {
-            error_message.visibility = View.GONE
-            swipe_refresh.visibility = View.VISIBLE
+            nodata.visibility = View.VISIBLE
+            swipe_refresh.visibility = View.GONE
             swipe_refresh.isRefreshing = false
             swipe_refresh.isEnabled = true
 

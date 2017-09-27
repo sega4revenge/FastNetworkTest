@@ -5,7 +5,6 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,7 @@ import sega.fastnetwork.test.customview.CircleImageView
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Chat
 import sega.fastnetwork.test.model.User
+import sega.fastnetwork.test.util.Constants
 
 /**
  * Created by VinhNguyen on 9/25/2017.
@@ -31,6 +31,13 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
     var user : User =  AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(mContext!!)!!)
     var userto : User? = mUserTo
 
+    fun avatacmt(link: String): String?{
+        var result = ""
+        if(!link.startsWith("http")){
+            result = Constants.IMAGE_URL+link
+        }
+        return result
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var item = mItems?.get(position)
         var max = item?.messages?.size
@@ -61,13 +68,14 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
                     .error(R.drawable.server_unreachable)
                     .priority(Priority.HIGH)
             Glide.with(mContext)
-                    .load(photo)
+                    .load(avatacmt(photo))
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(holder.imgAvatarFrom)
         holder.LinFrom.setOnClickListener(){
             val intent = Intent((mContext as AppCompatActivity), ChatActivity::class.java)
             intent.putExtra("iduser",id)
+            intent.putExtra("avatar","")
             mContext?.startActivity(intent)
         }
     }

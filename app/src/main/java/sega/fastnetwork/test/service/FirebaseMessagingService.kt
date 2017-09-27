@@ -27,10 +27,9 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
 
     var image: Bitmap? = null
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        Log.e("OKKKOOKOKKO", remoteMessage?.data?.toString())
+        Log.e("firebase: messager ", remoteMessage?.data?.toString())
 
         if(remoteMessage?.data?.get("productid")!= null){
-            Log.e("OKKKOOKOKKO", "Productid: "+remoteMessage?.data?.get("productid").toString() + " useridproduct: " +remoteMessage?.data?.get("useridproduct").toString() + " useridcmt: " + remoteMessage?.data?.get("useridcmt").toString())
             showNotification(remoteMessage?.data?.get("productid").toString(),remoteMessage?.data?.get("useridproduct").toString(),remoteMessage?.data?.get("useridcmt").toString())
         }else{
             showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString())
@@ -44,7 +43,6 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         return result
     }
     private fun showNotificationChat(userto : String,name: String,messager: String, avata: String, userfrom : String) {
-    //    Log.e("OKKKOOKOKKO",userfrom )
        var avata2 = avatacmt(avata)
         if (avata2.equals("") || avata2 == null) {
             image = BitmapFactory.decodeResource(applicationContext.resources,
@@ -65,6 +63,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
             val intent = Intent(this@FirebaseMessagingService, ChatActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("iduser",userfrom)
+            intent.putExtra("avater","")
             val pendingIntent = PendingIntent.getActivity(this, 100, intent,
                     PendingIntent.FLAG_ONE_SHOT)
             notif = Notification.Builder(this)

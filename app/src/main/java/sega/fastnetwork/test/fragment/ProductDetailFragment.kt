@@ -53,7 +53,6 @@ import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
-import java.lang.Double
 import java.text.DecimalFormat
 import java.util.*
 
@@ -75,7 +74,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         googleMap!!.isMyLocationEnabled = true
 
         // For dropping a marker at a point on the Map
-        val sydney = LatLng(Double.parseDouble(product!!.location!!.coordinates!![1].toString()), Double.parseDouble(product!!.location!!.coordinates!![0].toString()))
+        val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
         Log.e("sydney: ",sydney.toString())
         googleMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address))
 
@@ -92,7 +91,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     internal var height: Int = 0
     internal var width: Int = 0
     private var format: String = ""
-
+    private var userCreateProduct: String = ""
     private var id: String = ""
     private var product: Product? = null
     private var seller: User? = null
@@ -194,6 +193,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
         v.fab_messenger.setOnClickListener {
             val intent = Intent(activity, ChatActivity::class.java)
+            intent.putExtra("avatar",photoprofile)
+            intent.putExtra("iduser",userCreateProduct)
             startActivity(intent)
 
         }
@@ -273,6 +274,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         try {
             statussave = response.statussave!!
             Log.e("getProductDetail", statussave.toString())
+            userCreateProduct = response?.product?.user?._id.toString()
 
                 if (statussave) {
                     im_star.setImageResource(R.drawable.ic_start_on)

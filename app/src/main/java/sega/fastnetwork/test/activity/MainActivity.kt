@@ -7,9 +7,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.analytics.FirebaseAnalytics
+import io.socket.client.Socket
 import kotlinx.android.synthetic.main.activity_main.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.DrawerFragment
+import sega.fastnetwork.test.manager.AppManager
+import sega.fastnetwork.test.model.User
 
 
 /**
@@ -19,7 +22,8 @@ import sega.fastnetwork.test.fragment.DrawerFragment
 class MainActivity : AppCompatActivity(),OnMapReadyCallback {
     private var isTablet: Boolean = false
     internal var fragment: Fragment? = null
-
+    private var mSocket: Socket? = null
+    var user : User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,8 +38,9 @@ class MainActivity : AppCompatActivity(),OnMapReadyCallback {
 
             }
         }).start()
-
-
+        user = AppManager.getUserDatafromAccount(this, AppManager.getAppAccount(this)!!)!!
+        mSocket = AppManager.getSocket(application)
+        mSocket!!.emit("connected",user?._id)
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1")
@@ -105,6 +110,11 @@ class MainActivity : AppCompatActivity(),OnMapReadyCallback {
     public override fun onStop() {
         super.onStop()
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mSocket!!.emit("disconnected",user?._id)
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
