@@ -336,19 +336,23 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
     private fun onDownloadFailed() {
         isLoading = false
-        if (pageToDownload == 1) {
+        if(!isMap)
+        {
+            if (pageToDownload == 1) {
 
 
-            product_recycleview.visibility = View.GONE
-            layout_map.visibility=View.GONE
-            error_message.visibility = View.VISIBLE
-        } else {
+                product_recycleview.visibility = View.GONE
+                layout_map.visibility=View.GONE
+                error_message.visibility = View.VISIBLE
+            } else {
 
-            error_message.visibility = View.GONE
-            product_recycleview.visibility = View.VISIBLE
+                error_message.visibility = View.GONE
+                product_recycleview.visibility = View.VISIBLE
 
-            isLoadingLocked = true
+                isLoadingLocked = true
+            }
         }
+
     }
 
 

@@ -21,7 +21,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.RemoteViews
 import android.widget.Toast
 import com.androidnetworking.error.ANError
@@ -50,6 +49,7 @@ import sega.fastnetwork.test.util.CompressImage
 import sega.fastnetwork.test.util.Constants
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AddActivity : AppCompatActivity(), AddPresenter.AddView {
 
@@ -93,13 +93,14 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
             locationPlacesIntent()
         }
 ///=======================Spinner danh muc=========================
-        val adaptercategory = ArrayAdapter.createFromResource(this@AddActivity, R.array.category, android.R.layout.simple_spinner_item)
-        adaptercategory.setDropDownViewResource(android.R.layout.simple_list_item_checked)
-        category.adapter = adaptercategory
+
+
+
 ///=======================Spinner time=========================
-        val adaptertime = ArrayAdapter.createFromResource(this@AddActivity, R.array.timeid, android.R.layout.simple_spinner_item)
-        adaptertime.setDropDownViewResource(android.R.layout.simple_list_item_checked)
-        time.adapter = adaptertime
+        val timelist = Arrays.asList(*resources.getStringArray(R.array.timeid))
+        val categorylist = Arrays.asList(*resources.getStringArray(R.array.category))
+        time.setItems(timelist)
+        category.setItems(categorylist)
 
 
         list = ArrayList()
@@ -195,7 +196,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     lot1 = latLng.longitude.toString()
                     val add = place.address as String
                     //
-                    addressEdit.setText(add)
+                    addressText.setText(add)
                 }
             }
 
@@ -398,22 +399,22 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
 
         if (id == R.id.action_uploadproduct) {
             if (toggle.checkedRadioButtonId == borrow.id) {
-                Toast.makeText(this, time.selectedItemPosition.toString() + " " + category.selectedItemPosition.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(this, time.selectedIndex.toString() + " " + category.selectedIndex.toString(), Toast.LENGTH_LONG).show()
                 if (uriList!!.size == 0) {
                     Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
                 } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 } else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedItemPosition.toString(), number.text.toString(), category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressEdit.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
                 }
             } else if (toggle.checkedRadioButtonId == needborrow.id) {
                 Toast.makeText(this, "Can thueeeeeeee", Toast.LENGTH_LONG).show()
-                if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedItemPosition.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
+                if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedIndex.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 } else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(),lat1,lot1, Constants.NEEDBORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressEdit.text.toString(), description.text.toString(),lat1,lot1, Constants.NEEDBORROW)
                 }
             }
             System.out.println("upload")

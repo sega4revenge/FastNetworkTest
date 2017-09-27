@@ -351,17 +351,28 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         layout_detail_header.visibility = View.VISIBLE
         // Set title and tagline
         appbar.addOnOffsetChangedListener { appBarLayout, i ->
+            if (i == toolbar.height - collapsing_toolbar.height) {
 
-            var scrollRange = -1
+                if (title_name.visibility != View.VISIBLE) {
+                    title_name.visibility  =View.VISIBLE
+                    title_name.text = product!!.productname // show toolbar title
+                }
+            } else {
+                if (title_name.visibility != View.GONE) {
+                    title_name.visibility = View.GONE // hide title bar
+                }
+            }
+        }
+        /*    var scrollRange = -1
             scrollRange = appBarLayout.totalScrollRange
             if (scrollRange + i == 0) {
                 title_name.text = product!!.productname
 
             } else
-                title_name.text = ""
+                title_name.text = ""*/
 
 
-        }
+
 
 
 

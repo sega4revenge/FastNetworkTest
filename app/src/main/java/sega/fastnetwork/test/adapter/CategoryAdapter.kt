@@ -14,7 +14,7 @@ import java.util.*
  * Created by sega4 on 07/08/2017.
  */
 class CategoryAdapter// Constructor
-(private val context: Context, private val oncategoryClickListener: OncategoryClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+(context: Context, private val oncategoryClickListener: OncategoryClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     var categoryList: ArrayList<Category> = ArrayList()

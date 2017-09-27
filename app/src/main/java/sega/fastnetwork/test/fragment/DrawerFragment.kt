@@ -148,31 +148,31 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         navigation_view.getHeaderView(0).username_header.text = user!!.name
         navigation_view.getHeaderView(0).email_header.text  = user!!.email
         linMotobike.setOnClickListener(){
-            ChangeCategory(0,HomeFragment())
+            changeCategory(0,HomeFragment())
         }
         linelectronic.setOnClickListener(){
-            ChangeCategory(1,HomeFragment())
+            changeCategory(1,HomeFragment())
         }
         linfashion.setOnClickListener(){
-            ChangeCategory(2,HomeFragment())
+            changeCategory(2,HomeFragment())
         }
         linhome.setOnClickListener(){
-            ChangeCategory(3,HomeFragment())
+            changeCategory(3,HomeFragment())
         }
         linmombaby.setOnClickListener(){
-            ChangeCategory(4,HomeFragment())
+            changeCategory(4,HomeFragment())
         }
         lingdnt.setOnClickListener(){
-            ChangeCategory(5,HomeFragment())
+            changeCategory(5,HomeFragment())
         }
         linshort.setOnClickListener(){
-            ChangeCategory(6,HomeFragment())
+            changeCategory(6,HomeFragment())
         }
         linvpnn.setOnClickListener(){
-            ChangeCategory(7,HomeFragment())
+            changeCategory(7,HomeFragment())
         }
         lindeff.setOnClickListener(){
-            ChangeCategory(999,HomeFragment())
+            changeCategory(999,HomeFragment())
         }
         moreCategory.setOnClickListener(){
             if(mSelectedId == R.id.nav_1)
@@ -331,6 +331,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .thumbnail(0.1f)
                 .apply(options)
                 .into(imgAvatar)
+
         mDrawerPresenter!!.changeAvatar(File(getRealFilePath(activity, uriList)), user!!._id!!,user!!.photoprofile!!,context)
 //        uploadImage(File(getRealFilePath(activity, uriList)), user!!._id!!,user!!.photoprofile!!)
 
@@ -354,7 +355,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         super.onResume()
 
     }
-    private fun ChangeCategory(mCategory: Int, mFragment: Fragment){
+    private fun changeCategory(mCategory: Int, mFragment: Fragment){
         Log.d("Runnnnnnn",mCategory.toString())
          if (fragment != null) {
              if(mSelectedId == R.id.nav_1){

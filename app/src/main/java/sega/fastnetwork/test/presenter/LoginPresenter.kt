@@ -171,7 +171,7 @@ class LoginPresenter(view: LoginView) {
                             Log.d(register, "onError errorCode : " + e.errorCode)
                             Log.d(register, "onError errorBody : " + e.errorBody)
                             Log.d(register, e.errorDetail + " : " + e.message)
-                            mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),1)
+                            mLoginView.setErrorMessage(e.message!!,1)
                         } else {
                             Log.d(register, "onError errorMessage : " + e.message)
                             mLoginView.setErrorMessage(e.message!!,1)
