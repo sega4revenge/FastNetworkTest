@@ -9,12 +9,12 @@
         android:layout_height="@dimen/detail_backdrop_height">
 
         <!--<com.google.android.gms.maps.MapView-->
-            <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
-            <!--android:id="@+id/mapView_location"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--map:liteMode="true"-->
-            <!--/>-->
+        <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/mapView_location"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--map:liteMode="true"-->
+        <!--/>-->
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/mapView_location"
             android:layout_width="match_parent"
@@ -27,6 +27,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="110dp"
+        android:background="@drawable/gradient"
         android:clickable="true"
         android:visibility="visible"
         tools:visibility="visible"

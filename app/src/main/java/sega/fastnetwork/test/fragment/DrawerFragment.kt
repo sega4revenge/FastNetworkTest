@@ -325,7 +325,12 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         this.uriList = uriList
 
 
-        imgAvatar.setImageURI(uriList)
+//        imgAvatar.setImageURI(uriList)
+        Glide.with(this)
+                .load(uriList)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(imgAvatar)
         mDrawerPresenter!!.changeAvatar(File(getRealFilePath(activity, uriList)), user!!._id!!,user!!.photoprofile!!,context)
 //        uploadImage(File(getRealFilePath(activity, uriList)), user!!._id!!,user!!.photoprofile!!)
 

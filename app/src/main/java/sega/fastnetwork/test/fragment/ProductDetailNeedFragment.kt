@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -33,8 +34,6 @@ import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
 import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
-import kotlinx.android.synthetic.main.layout_detail_need_header.*
-import kotlinx.android.synthetic.main.layout_detail_need_header.view.*
 import kotlinx.android.synthetic.main.layout_detail_need_info.*
 import kotlinx.android.synthetic.main.layout_detail_need_info.view.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
@@ -119,8 +118,6 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
         isTablet = resources.getBoolean(R.bool.is_tablet)
         val displaymetrics = DisplayMetrics()
 
-        v.mapView_location.onCreate(savedInstanceState)
-        v.mapView_location.onResume()
         activity.windowManager.defaultDisplay.getMetrics(displaymetrics)
         height = displaymetrics.heightPixels
         width = displaymetrics.widthPixels
@@ -469,6 +466,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
             comments_see_all.visibility = View.VISIBLE
             comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
         }
+        val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
         mapView_location.getMapAsync(this)
 //        showAnimationBanner()
     }

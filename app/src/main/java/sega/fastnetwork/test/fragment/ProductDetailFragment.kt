@@ -1,9 +1,12 @@
 package sega.fastnetwork.test.fragment
 
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.text.TextUtils
@@ -16,10 +19,18 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_product_detail.*
 import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
+import kotlinx.android.synthetic.main.fragment_product_detail.view.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
@@ -42,18 +53,41 @@ import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
+import java.lang.Double
 import java.text.DecimalFormat
 import java.util.*
 
 
+class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
+    override fun onMapReady(p0: GoogleMap?) {
+        googleMap = p0
+        // For showing a move to my location button
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        googleMap!!.isMyLocationEnabled = true
 
+        // For dropping a marker at a point on the Map
+        val sydney = LatLng(Double.parseDouble(product!!.location!!.coordinates!![1].toString()), Double.parseDouble(product!!.location!!.coordinates!![0].toString()))
+        Log.e("sydney: ",sydney.toString())
+        googleMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address))
 
-class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+        // For zooming automatically to the location of the marker
+        val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
+        googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))    }
 
 
     internal var error: Boolean = false
 /*    internal var commentslist = ArrayList<Comments>()*/
 
+    var googleMap : GoogleMap? = null
 
     internal var height: Int = 0
     internal var width: Int = 0
@@ -70,12 +104,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     var doubleClick = false
     var statussave = false
     var photoprofile: String? = null
+    private var isMap: Boolean = false
     val options = RequestOptions()
             .centerCrop()
             .dontAnimate()
             .placeholder(R.drawable.logo)
             .error(R.drawable.img_error)
             .priority(Priority.HIGH)
+
     // Fragment lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -99,12 +135,30 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         v.add_comment.setOnClickListener {
             gotoallcomment()
         }
+        v.change_map.setOnClickListener {
+            when (isMap) {
+                false -> {
+                    isMap = true
+                    change_map.background = resources.getDrawable(R.drawable.printer)
+                    slider.visibility = View.GONE
+                    val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
+                    mapView_location.getMapAsync(this)
+                }
+                else -> {
+                    isMap = false
+                    change_map.background = resources.getDrawable(R.drawable.avatar)
+                    slider.visibility = View.VISIBLE
+                }
+
+
+            }
+            }
         //==============================back button=================
-        /*  v.back_button.setOnClickListener {
+          v.back_detail.setOnClickListener {
               slider?.stopAutoCycle()
               slider?.removeAllSliders()
               activity.finish()
-          }*/
+          }
 //===================================================================
         // Download product details if new instance, else restore from saved instance
         if (savedInstanceState == null || !(savedInstanceState.containsKey(Constants.product_ID)
@@ -143,9 +197,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             startActivity(intent)
 
         }
+        v.fab_call.setOnClickListener {
 
-        // share
-        /* v.im_share.setOnClickListener {
+        }
+
+         v.im_share.setOnClickListener {
              val sendIntent = Intent()
              val linkapp = "https://www.facebook.com/groups/727189854084530/"
              val numberFormat = DecimalFormat("###,###")
@@ -164,17 +220,16 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
              sendIntent.type = "text/plain"
              startActivity(sendIntent)
          }
-         // star
-         v.im_star.setOnClickListener{
-          //   s = s + 1
-             if(statussave){
-                 mTypeSave = "1"
-                 mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
-             }else if(!statussave){
-                 mTypeSave = "0"
-                 mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
-             }
-         }*/
+        v.im_star.setOnClickListener{
+         //   s = s + 1
+            if(statussave){
+                mTypeSave = "1"
+                mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
+            }else if(!statussave){
+                mTypeSave = "0"
+                mProductDetailPresenter!!.SaveProduct(id,AppManager.getAppAccountUserId(activity),mTypeSave)
+            }
+        }
         v.layout_detail_user.setOnClickListener {
             //            val intent = Intent(activity, DetailProfile_Activity::class.java)
 ////            intent.putExtra(Constants.product_ID, id)
@@ -205,27 +260,28 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         //  if(bool)
         //   { doubleClick = true}
-        /* statussave = !statussave
+         statussave = !statussave
          if (statussave) {
              im_star.setImageResource(R.drawable.ic_start_on)
          } else {
              im_star.setImageResource(R.drawable.ic_start_off)
-         }*/
+         }
 
     }
+
     override fun getProductDetail(response: Response) {
         try {
             statussave = response.statussave!!
             Log.e("getProductDetail", statussave.toString())
 
-            /*    if (statussave) {
+                if (statussave) {
                     im_star.setImageResource(R.drawable.ic_start_on)
                 } else {
                     im_star.setImageResource(R.drawable.ic_start_off)
-                }*/
+                }
         } catch (e: Exception) {
             Log.e("getProductDetail", "saidjasd")
-            /* im_star.visibility = View.GONE*/
+             im_star.visibility = View.GONE
         }
         this.product = response.product
         onDownloadSuccessful()
@@ -297,10 +353,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             var scrollRange = -1
             scrollRange = appBarLayout.totalScrollRange
             if (scrollRange + i == 0) {
-                collapsing_toolbar.title = product!!.user!!.name
+                title_name.text = product!!.productname
 
             } else
-                collapsing_toolbar.title = ""
+                title_name.text = ""
 
 
         }
@@ -463,8 +519,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments_see_all.visibility = View.VISIBLE
             comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
         }
-
-
         showAnimationBanner()
     }
 

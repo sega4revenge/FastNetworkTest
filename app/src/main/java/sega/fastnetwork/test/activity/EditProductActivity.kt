@@ -129,6 +129,22 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
             val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
         }
+//        if(switch_edit.isChecked){
+//            edt_switch.text = switch_edit.textOn.toString()
+//        } else {
+//            edt_switch.text = switch_edit.textOff.toString()
+//
+//        }
+        switch_edit.setOnCheckedChangeListener({ _, _ ->
+            run {
+                if(switch_edit.isChecked){
+                    edt_switch.text = switch_edit.textOn.toString()
+                } else {
+                    edt_switch.text = switch_edit.textOff.toString()
+
+                }
+            }
+        })
         add_picker_view!!.setPickerListener(object : ImageShowPickerListener {
             override fun addOnClickListener(remainNum: Int) {
                 val permissionlistener = object : PermissionListener {

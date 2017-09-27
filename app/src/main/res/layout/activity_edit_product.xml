@@ -40,7 +40,36 @@
                 android:layout_height="90dp"
                 app:is_show_del="true" />
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trạng thái: "/>
+            <Switch
+                android:id="@+id/switch_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:textOn="Đang cho thuê"
+                android:textOff="Đã cho thuê"
+                android:layout_alignBaseline="@+id/edt_switch"
+                android:layout_alignBottom="@+id/edt_switch"
+                android:layout_centerHorizontal="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đang cho thuê"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:id="@+id/edt_switch" />
 
+        </RelativeLayout>
         <android.support.v4.widget.NestedScrollView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
