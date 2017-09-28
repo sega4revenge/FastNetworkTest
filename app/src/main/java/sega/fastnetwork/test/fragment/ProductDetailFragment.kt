@@ -5,6 +5,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
@@ -16,6 +17,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
@@ -27,6 +29,8 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.messaging.FirebaseMessaging
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.content_product_detail.*
 import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
@@ -199,9 +203,58 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         }
         v.fab_call.setOnClickListener {
+            val permissionlistener = object : PermissionListener {
+                override fun onPermissionGranted() {
+                    val callIntent = Intent(Intent.ACTION_CALL)
+                    callIntent.data = Uri.parse("tel:" + product!!.user?.phone)
+                    try {
+                        startActivity(callIntent)
+                    } catch (ex: android.content.ActivityNotFoundException) {
+                        Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
+                    }
 
+                }
+
+                override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
+                        Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+
+            }
+            TedPermission.with(activity)
+                    .setPermissionListener(permissionlistener)
+                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                    .setPermissions(Manifest.permission.CALL_PHONE)
+                    .check()
         }
+        v.fab_sms.setOnClickListener {
+            val permissionlistener = object : PermissionListener {
+                override fun onPermissionGranted() {
+                    val smsIntent = Intent(Intent.ACTION_VIEW)
 
+                    smsIntent.data = Uri.parse("smsto:")
+                    smsIntent.type = "vnd.android-dir/mms-sms"
+                    smsIntent.putExtra("address", product!!.user?.phone)
+                    try {
+                        startActivity(smsIntent)
+                        Log.i("Finished sending SMS...", "")
+                    } catch (ex: android.content.ActivityNotFoundException) {
+                        Toast.makeText(activity,
+                                "SMS failed, please try again later.", Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+
+                override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
+                        Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+
+            }
+            TedPermission.with(activity)
+                    .setPermissionListener(permissionlistener)
+                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                    .setPermissions(Manifest.permission.SEND_SMS)
+                    .check()
+        }
          v.im_share.setOnClickListener {
              val sendIntent = Intent()
              val linkapp = "https://www.facebook.com/groups/727189854084530/"
@@ -399,9 +452,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_date.text = timeAgo(product!!.created_at.toString())
         product_view.text = product!!.view.toString()
         println(product!!._id)
-        if(product!!.status == "1"){
-            tv_borrowed.visibility = View.VISIBLE
-        }
+        if(product!!.status == "1")
         when (product!!.time) {
             "0" -> product_rentime.text = "1 giờ"
             "1" -> product_rentime.text = "1 ngày"
