@@ -148,10 +148,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         navigation_view.getHeaderView(0).username_header.text = user!!.name
         navigation_view.getHeaderView(0).email_header.text  = user!!.email
         linMotobike.setOnClickListener(){
-            ChangeCategory(0,HomeFragment())
+            changeCategory(0,HomeFragment())
         }
         linelectronic.setOnClickListener(){
-            ChangeCategory(1,HomeFragment())
+            changeCategory(1,HomeFragment())
         }
         linfashion.setOnClickListener(){
             changeCategory(2,HomeFragment())

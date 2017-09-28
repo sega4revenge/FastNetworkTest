@@ -402,19 +402,19 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                 Toast.makeText(this, time.selectedIndex.toString() + " " + category.selectedIndex.toString(), Toast.LENGTH_LONG).show()
                 if (uriList!!.size == 0) {
                     Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
-                } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
+                } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 } else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressEdit.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
                 }
             } else if (toggle.checkedRadioButtonId == needborrow.id) {
                 Toast.makeText(this, "Can thueeeeeeee", Toast.LENGTH_LONG).show()
-                if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedIndex.toString() == "" || addressEdit!!.text.toString() == "" || description!!.text.toString() == "") {
+                if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedIndex.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 } else {
                     temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressEdit.text.toString(), description.text.toString(),lat1,lot1, Constants.NEEDBORROW)
+                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(),lat1,lot1, Constants.NEEDBORROW)
                 }
             }
             System.out.println("upload")
