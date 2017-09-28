@@ -180,7 +180,7 @@
         <activity android:name=".activity.DetailNeedProductActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity
-            android:name=".activity.DetailProfile_Activity"
+            android:name=".activity.DetailProfileActivity"
             android:label="@string/title_activity_detail_profile_"></activity>
     </application>
 

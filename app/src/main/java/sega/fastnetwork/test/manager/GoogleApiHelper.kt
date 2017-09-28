@@ -3,6 +3,8 @@ package sega.fastnetwork.test.manager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -46,9 +48,13 @@ class GoogleApiHelper(private val context: Context) : GoogleApiClient.Connection
         get() = googleApiClient != null && googleApiClient!!.isConnected
 
     private fun buildGoogleApiClient() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
         googleApiClient = GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .addApi(LocationServices.API).build()
 
     }

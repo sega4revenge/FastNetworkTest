@@ -187,136 +187,202 @@
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/root_addproduct_ct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:id="@+id/root_addproduct"
+            android:fillViewport="true"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                >
                 <LinearLayout
                     android:id="@+id/lininfor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
 
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:background="#42A5F5"
-                        android:orientation="vertical">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="70dp"
-                            android:alpha="0.3"
-                            android:background="@android:color/black"></View>
-
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:background="@drawable/radius_all_view"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        >
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/layout_give"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="50"
+                            android:orientation="vertical"
                             android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:id="@+id/LinGive_ct"
-                                android:layout_width="0dp"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="50"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="5dp">
-
-                                <TextView
-                                    android:id="@+id/lent_give_ct"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0"
-                                    android:textColor="@color/white"
-                                    android:textSize="25dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Cho thuê"
-                                    android:textColor="@color/white"
-                                    android:textSize="16dp" />
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="0.1dp"
-                                android:layout_height="50dp"
-                                android:layout_marginBottom="10dp"
                                 android:layout_marginTop="10dp"
-                                android:background="@color/btn_color_login"></View>
-
-                            <LinearLayout
-                                android:id="@+id/LinNeed_ct"
-                                android:layout_width="0dp"
+                                android:text="0"
+                                android:id="@+id/tv_number_give"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="15sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="50"
-                                android:gravity="center"
-                                android:orientation="vertical"
-                                android:padding="5dp">
-
-                                <TextView
-                                    android:id="@+id/lent_need_ct"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="0"
-                                    android:textColor="@color/white"
-                                    android:textSize="25dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Cần thuê"
-                                    android:textColor="@color/white"
-                                    android:textSize="16dp" />
-
-                            </LinearLayout>
+                                android:text="Cho thuê"
+                                android:textColor="@color/text_light"
+                                android:textSize="13sp"
+                                android:id="@+id/tv_give"/>
+                            <View
+                                android:layout_width="25dp"
+                                android:layout_height="5dp"
+                                android:layout_marginTop="5dp"
+                                android:background="@color/colorAccent"
+                                android:layout_marginBottom="10dp"
+                                android:id="@+id/color_give"/>
                         </LinearLayout>
 
-                    </RelativeLayout>
+                        <LinearLayout
+                            android:id="@+id/layout_need"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="50"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="0"
+                                android:id="@+id/tv_number_need"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="15sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="Cần thuê"
+                                android:textColor="@color/text_light"
+                                android:textSize="13sp"
+                                android:id="@+id/tv_need"/>
+                            <View
+                                android:layout_width="25dp"
+                                android:layout_height="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/actionBarColor"
+                                android:id="@+id/color_need"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/layout_gived"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="50"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:text="0"
+                                android:id="@+id/tv_number_gived"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="15sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="Đã thuê"
+                                android:textColor="@color/text_light"
+                                android:textSize="13sp"
+                                android:id="@+id/tv_gived"/>
+                            <View
+                                android:layout_width="25dp"
+                                android:layout_height="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/cyan_500"
+                                android:id="@+id/color_gived"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/layout_needed"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="50"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            >
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textColor="@color/black"
+                                android:id="@+id/tv_number_needed"
+                                android:textStyle="bold"
+                                android:textSize="15sp"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:text="Đang thuê"
+                                android:textColor="@color/text_light"
+                                android:textSize="13sp"
+                                android:id="@+id/tv_needed"/>
+                            <View
+                                android:layout_width="25dp"
+                                android:layout_height="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/tab_profile"
+                                android:id="@+id/color_needed"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="5dp"
+                        android:layout_weight="50"
+                        android:orientation="vertical"
+                        android:gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp"
-                        android:layout_weight="50"
-                        android:background="@drawable/radius_all_view"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
+                        android:background="@drawable/radius_all_view">
                         <android.support.v7.widget.RecyclerView
-                            android:id="@+id/product_list_ct"
+                            android:id="@+id/product_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                         </android.support.v7.widget.RecyclerView>
-
                         <TextView
-                            android:id="@+id/mess_notfound_ct"
+                            android:id="@+id/mess_notfound"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Product Not Found"
                             android:textSize="15dp"
-                            android:visibility="gone" />
+                            android:visibility="gone"/>
 
                     </LinearLayout>
                 </LinearLayout>
+                >
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.NestedScrollView>

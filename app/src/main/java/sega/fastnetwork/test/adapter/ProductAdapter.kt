@@ -34,7 +34,7 @@ internal class ProductAdapter// Constructor
     var pageToDownload: Int = 0
     private val TOTAL_PAGES = 999
     internal var formatprice: DecimalFormat? = null
-
+    var user: String? = null
 
     private var format: String?
 
@@ -94,7 +94,7 @@ internal class ProductAdapter// Constructor
 
 
     override fun onBindViewHolder(viewHolderParent: RecyclerView.ViewHolder, position: Int) {
-        Log.e("position",position.toString())
+        Log.e("position", position.toString())
 
         if (viewHolderParent is ShimmerViewHolder) {
 
@@ -118,26 +118,27 @@ internal class ProductAdapter// Constructor
                 viewHolderParent.itemView.timepost.text = timeAgo
             }
 
-        /*    if (!product.price.isNullOrEmpty())
-            {
-                viewHolderParent.itemView.price_compact.text = product.price!!
-                println(formatprice!!.format(product.price!!.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()] + " a " + product.productname)
-            }*/
-            viewHolderParent.itemView.userpost.text = product.user!!.name
+            /*    if (!product.price.isNullOrEmpty())
+                {
+                    viewHolderParent.itemView.price_compact.text = product.price!!
+                    println(formatprice!!.format(product.price!!.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()] + " a " + product.productname)
+                }*/
+            if (product.user?.name.isNullOrEmpty())
+                viewHolderParent.itemView.userpost.text = user
+            else
+                viewHolderParent.itemView.userpost.text = product.user!!.name
             viewHolderParent.itemView.area_compact.text = product.location!!.address
             viewHolderParent.itemView.area_compact.isSelected = true
 
-            if (product.type == "1")
-            {
+            if (product.type == "1") {
+
                 viewHolderParent.itemView.type_view.setText("Cho thuê")
                         .setTextColor(Color.WHITE)
                         .setSlantedBackgroundColor(context.resources.getColor(R.color.btn_login))
                         .setTextSize(15)
                         .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
                 viewHolderParent.itemView.price_compact.text = formatprice!!.format(product.price!!.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()]
-            }
-
-            else{
+            } else {
                 viewHolderParent.itemView.type_view.setText("Cần thuê")
                         .setTextColor(Color.WHITE)
                         .setSlantedBackgroundColor(context.resources.getColor((R.color.actionBarColor)))

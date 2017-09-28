@@ -286,12 +286,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 
         v.layout_detail_user.setOnClickListener {
-//          val intent = Intent(activity, DetailProfile_Activity::class.java)
-//            intent.putExtra(Constants.product_ID, id)
-//            intent.putExtra(Constants.product_NAME, product!!.productname)
-//            intent.putExtra(Constants.seller_name, product!!.user!!.name)
-//            intent.putExtra("data",product!!.user!!)
-//            startActivity(intent)
+
         }
 
         return v

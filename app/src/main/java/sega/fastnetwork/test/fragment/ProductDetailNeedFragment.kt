@@ -210,7 +210,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
             }
         }
         v.layout_detail_user.setOnClickListener{
-            //            val intent = Intent(activity, DetailProfile_Activity::class.java)
+            //            val intent = Intent(activity, DetailProfileActivity::class.java)
 ////            intent.putExtra(Constants.product_ID, id)
 ////            intent.putExtra(Constants.product_NAME, product!!.productname)
 ////            intent.putExtra(Constants.seller_name, product!!.user!!.name)

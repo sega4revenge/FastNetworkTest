@@ -1,60 +1,47 @@
-package sega.fastnetwork.test.fragment
+package sega.fastnetwork.test.activity
 
+
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.detailprofile.*
+import kotlinx.android.synthetic.main.activity_detail_profile.*
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.activity.EditProductActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
-import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DetailProfilePressenter
+import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.view.DetailProfileView
+import java.util.*
 
-/**
- * Created by VinhNguyen on 8/22/2017.
- */
-class DetailProfileFragment : Fragment(), DetailProfileView, ProductAdapter.OnproductClickListener {
+class DetailProfileActivity : Activity(), DetailProfileView, ProductAdapter.OnproductClickListener {
 
-    private var layoutManager: GridLayoutManager? = null
-    private var adapter: ProductAdapter? = null
+    var mUser: User? = null
     var detailprofile: DetailProfilePressenter? = null
-    var productGive: ArrayList<Product> = ArrayList<Product>()
-    var productNeed: ArrayList<Product> = ArrayList<Product>()
-    var numType = 0
-    val options = RequestOptions()
-            .centerCrop()
-            .dontAnimate()
-            .placeholder(R.drawable.logo)
-            .error(R.drawable.img_error)
-            .priority(Priority.HIGH)
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private var adapter: ProductAdapter? = null
+    var productGive: ArrayList<Product> = ArrayList()
+    var productNeed: ArrayList<Product> = ArrayList()
+    private var layoutManager: GridLayoutManager? = null
 
 
-        layoutManager = GridLayoutManager(context, 1)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail_profile)
 
+        // PUT_EXTRA
+        mUser = intent.getParcelableExtra("data")
 
-        product_list.setHasFixedSize(true)
-        product_list.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
-        product_list.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        adapter = ProductAdapter(this.activity, this, product_list, layoutManager!!)
-        adapter!!.user = AppManager.getUserDatafromAccount(activity, AppManager.getAppAccount(activity)!!).name
-        product_list.adapter = adapter
-        detailprofile = DetailProfilePressenter(this)
+        // USER
+        txtname.text = mUser!!.name
+        txtemail.text = mUser!!.email
         layout_give.setOnClickListener {
             tv_give.setTextColor(resources.getColor(R.color.colorAccent))
             tv_need.setTextColor(resources.getColor(R.color.text_light))
@@ -85,24 +72,34 @@ class DetailProfileFragment : Fragment(), DetailProfileView, ProductAdapter.Onpr
                 mess_notfound.visibility = View.VISIBLE
             }
         }
-        //    detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
+
+        val options = RequestOptions()
+                .centerCrop()
+                .dontAnimate()
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.img_error)
+                .priority(Priority.HIGH)
+        Glide.with(this).load(mUser?.photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(imgAvatar)
+
+        layoutManager = GridLayoutManager(application, 1)
+        product_list.setHasFixedSize(true)
+        product_list.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
+        product_list.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
+        adapter = ProductAdapter(this.applicationContext, this,product_list, layoutManager!!)
+        adapter!!.user = mUser!!.name
+        product_list.adapter = adapter
+        detailprofile = DetailProfilePressenter(this)
+        detailprofile!!.ConnectHttp(mUser!!._id!!)
 
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-
-        return inflater!!.inflate(R.layout.detailprofile, container, false)
-    }
-
-    override fun setErrorMessage(errorMessage: String) {
-
-    }
 
     override fun getListProduct(productlist: ArrayList<Product>, user: User) {
-
-//        getUser(user)
+        //        getUser(user)
         if (adapter!!.productList.size > 0) {
             adapter!!.productList.clear()
         }
@@ -139,15 +136,6 @@ class DetailProfileFragment : Fragment(), DetailProfileView, ProductAdapter.Onpr
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        tv_give.setTextColor(resources.getColor(R.color.colorAccent))
-        tv_need.setTextColor(resources.getColor(R.color.text_light))
-        tv_gived.setTextColor(resources.getColor(R.color.text_light))
-        tv_needed.setTextColor(resources.getColor(R.color.text_light))
-        detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
-    }
-
     override fun getUser(user: User) {
         root_addproduct.visibility = View.VISIBLE
         product_list.visibility = View.GONE
@@ -158,35 +146,18 @@ class DetailProfileFragment : Fragment(), DetailProfileView, ProductAdapter.Onpr
         }
     }
 
-    override fun setMessagerNotFound() {
-
+    override fun setErrorMessage(errorMessage: String) {
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 909) {
-            if (resultCode == 0) {
-                Snackbar.make(activity.findViewById(R.id.root_addproduct), "Delete Product successfully", Snackbar.LENGTH_SHORT).show()
-            } else if (resultCode == 1) {
-                Snackbar.make(activity.findViewById(R.id.root_addproduct), "Edit Product successfully", Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
+    override fun setMessagerNotFound() {
     }
 
     override fun onproductClicked(position: Int) {
-        var mtype = 0
-        val intent = Intent(context, EditProductActivity::class.java)
-        if (adapter!!.productList[position].type!!.equals("2")) {
-            mtype = 2
-        } else {
-            mtype = 1
-            intent.putExtra("imglist", adapter!!.productList[position].images)
-        }
-        intent.putExtra("type", mtype)
-        intent.putExtra("data", adapter!!.productList[position])
-        startActivityForResult(intent, 909)
-
+        val intent = Intent(this, ProductDetailActivity::class.java)
+        intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+        startActivity(intent)
     }
 
+
 }
+

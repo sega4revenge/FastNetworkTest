@@ -16,13 +16,13 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
+import sega.fastnetwork.test.MyApplication
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
 import sega.fastnetwork.test.manager.AppManager
@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     var TAG = "Login Activity"
     private var callbackManager: CallbackManager? = null
 
-    private var mGoogleApiClient: GoogleApiClient? = null
+
     private val RC_SIGN_IN = 7
     var mLoginPresenter: LoginPresenter? = null
     var type: Int = 0
@@ -49,6 +49,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
         callbackManager = CallbackManager.Factory.create()
         setContentView(R.layout.activity_login)
+
         mAccountManager = AccountManager.get(this)
 
         val accountsFromFirstApp = mAccountManager!!.getAccountsByType(AppManager.ACCOUNT_TYPE)
@@ -99,12 +100,6 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                         Log.i("Response", response.toString())
 
                         val tokenfirebase = FirebaseInstanceId.getInstance().token
-
-
-                        /*       session.setProfilepic(response.getJSONObject().getString("picture"));
-                                String firstName = response.getJSONObject().getString("first_name");
-                                String lastName = response.getJSONObject().getString("last_name");
-                                gender = response.getJSONObject().getString("gender");*/
                         val id = response.jsonObject.getString("id")
                         val url = "https://graph.facebook.com/$id/picture?type=large"
                         val user = User()
@@ -142,15 +137,9 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         }
 
 
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build()
-        mGoogleApiClient = GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build()
+
         btn_google.setOnClickListener {
-            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(MyApplication.getGoogleApiHelper()?.googleApiClient)
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
     }
@@ -161,23 +150,16 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
 
         var err = 0
-
         if (!validateFields(email!!.text.toString())) {
-
             err++
             email!!.error = "Email should not be empty !"
-
         }
-
-
         if (!validateFields(password!!.text.toString())) {
-
             err++
             password!!.error = "Password should not be empty !"
         }
         if (err == 0) {
             val user = User()
-
             user.password = password.text.toString()
             user.email = email.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
@@ -210,7 +192,6 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             progressBar.visibility = View.GONE
             CircularAnim.show(btn_singin).go()
         }
-
     }
 
     override fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int) {
@@ -242,7 +223,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
-
+        showSnackBarMessage(errorMessage)
     }
 
     override fun getUserDetail(user: User) {
@@ -261,7 +242,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     private fun gotoforgot() {
-        startActivityForResult(Intent(this@LoginActivity, ForgotPassword::class.java),Constants.FOTGOTPASSWORD)
+        startActivityForResult(Intent(this@LoginActivity, ForgotPassword::class.java), Constants.FOTGOTPASSWORD)
 //        finish()
         overridePendingTransition(0, 0)
     }
@@ -273,10 +254,9 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             val result: GoogleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
 
             handleSignInResult(result)
-        }
-        else if(requestCode == Constants.FOTGOTPASSWORD){
+        } else if (requestCode == Constants.FOTGOTPASSWORD) {
             Log.e("requestCode: ", "OK ne")
-            if(resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 showSnackBarMessage("Successsssss")
 
             }
@@ -313,24 +293,24 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         Log.d(TAG, "onConnectionFailed:" + p0)
     }
 
-   /* override fun onStart() {
-        super.onStart()
-        val opr: OptionalPendingResult<GoogleSignInResult> = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient)
-        if (opr.isDone) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
-            Log.d(TAG, "Got cached sign-in")
-            val result: GoogleSignInResult = opr.get()
-            handleSignInResult(result)
-        } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
+    /* override fun onStart() {
+         super.onStart()
+         val opr: OptionalPendingResult<GoogleSignInResult> = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient)
+         if (opr.isDone) {
+             // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+             // and the GoogleSignInResult will be available instantly.
+             Log.d(TAG, "Got cached sign-in")
+             val result: GoogleSignInResult = opr.get()
+             handleSignInResult(result)
+         } else {
+             // If the user has not previously signed in on this device or the sign-in has expired,
+             // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+             // single sign-on will occur in this branch.
 
-            opr.setResultCallback { googleSignInResult -> handleSignInResult(googleSignInResult); }
-        }
-    }
-*/
+             opr.setResultCallback { googleSignInResult -> handleSignInResult(googleSignInResult); }
+         }
+     }
+ */
     private fun showSnackBarMessage(message: String?) {
 
 
@@ -345,21 +325,21 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         // ...
         // ...
 
-        mGoogleApiClient?.disconnect()
+        MyApplication.getGoogleApiHelper()?.googleApiClient?.disconnect()
     }
 
     override fun onStop() {
         super.onStop()
         // stop GoogleApiClient
-        if (mGoogleApiClient?.isConnected!!) {
-            mGoogleApiClient?.disconnect()
+        if (MyApplication.getGoogleApiHelper()?.googleApiClient?.isConnected!!) {
+            MyApplication.getGoogleApiHelper()?.googleApiClient?.disconnect()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (mGoogleApiClient?.isConnected!!) {
-            mGoogleApiClient?.disconnect()
+        if (MyApplication.getGoogleApiHelper()?.googleApiClient?.isConnected!!) {
+            MyApplication.getGoogleApiHelper()?.googleApiClient?.disconnect()
         }
     }
 
