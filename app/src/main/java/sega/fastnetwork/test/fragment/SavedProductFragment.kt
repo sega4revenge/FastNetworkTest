@@ -71,7 +71,7 @@ class SavedProductFragment : Fragment(), ProductAdapter.OnproductClickListener, 
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
         product_recycleview.adapter = adapter
-
+        searchbar.visibility = View.GONE
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
 

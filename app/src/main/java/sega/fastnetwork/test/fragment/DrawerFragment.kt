@@ -23,10 +23,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
@@ -85,6 +82,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
     override fun getUserDetail(response: Response) {
         showSnackBarMessage("Change info success!")
+        AppManager.saveAccountUser(context,response.user!!,0)
 //        Log.e("getUserDetail",user.name + " " + user.email)
         navigation_view.getHeaderView(0).username_header.text = response.user!!.name
         txtname.text  = response.user!!.name
@@ -244,11 +242,14 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .apply(options)
                 .into(imgAvatar)
         changeInfor.setOnClickListener {
+            user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
             val dl_changeinfo = AlertDialog.Builder(activity)
             val inflater = layoutInflater
             val v = inflater.inflate(R.layout.dialog_changeinfo, null)
             val newname = v.findViewById<EditText>(R.id.edt_newname)
             val newphone = v.findViewById<EditText>(R.id.edt_newphone)
+            newname.setText(user!!.name, TextView.BufferType.EDITABLE)
+            newphone.setText(user!!.phone, TextView.BufferType.EDITABLE)
             val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_changeinfo)
             val cancel = v.findViewById<Button>(R.id.btn_cancel_changeinfo)
             val accept = v.findViewById<Button>(R.id.btn_accept_changeinfo)
@@ -540,9 +541,13 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 }
                 morecategory = false
             }
+            R.id.nav_search -> {
+                val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
+                startActivity(intent)
+            }
             R.id.nav_2 -> {
                 mSelectedId = itemId
-                toolbar_title.setText(R.string.nav_category)
+                toolbar_title.setText("Sản phẩm đã lưu")
                 fragment = SavedProductFragment()
 
                 if(categorylist.visibility != View.GONE){
@@ -582,12 +587,11 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
             }
             R.id.nav_4 -> {
-                AppManager.removeAccount(activity)
-                return
+
             }
             R.id.nav_5 -> {
-                val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
-                startActivity(intent)
+                AppManager.removeAccount(activity)
+                return
             }
 
 //            R.id.nav_6 -> {

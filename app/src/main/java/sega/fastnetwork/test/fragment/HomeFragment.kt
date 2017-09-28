@@ -2,17 +2,17 @@ package sega.fastnetwork.test.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
@@ -20,6 +20,7 @@ import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.activity.ProductDetailNeedActivity
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
+import sega.fastnetwork.test.customview.CircularAnim
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
 import sega.fastnetwork.test.manager.AppManager
@@ -42,7 +43,8 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
     override fun getUserDetail(response: Response) {
         AppManager.saveAccountUser(context, response.user!!, 0)
-        Toast.makeText(activity, "Update phone success!", Toast.LENGTH_SHORT).show()
+        showSnackBarMessage("Update phone success!")
+//        Toast.makeText(activity, "Update phone success!", Toast.LENGTH_SHORT).show()
     }
 
     override fun getListSavedProduct(productsavedlist: User) {
@@ -148,29 +150,75 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         if (user!!.phone.equals("") || user!!.phone == null) {
             Log.e("HERE", "Here")
 
-            val aleftdialog = AlertDialog.Builder(activity)
-            aleftdialog.setMessage("Enter phone number:")
-            val input = EditText(activity)
-            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-            input.layoutParams = lp
-            input.inputType = InputType.TYPE_CLASS_NUMBER
-            aleftdialog.setView(input)
-            aleftdialog.setIcon(R.drawable.phone_call)
-            aleftdialog.setPositiveButton("OK", null)
-            val mAleftdialog = aleftdialog.create()
-            mAleftdialog.setOnShowListener {
-                val b = mAleftdialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                b.setOnClickListener {
-                    if (!Validation.validateFields(input.text.toString())) {
-                        input.error = "Should not be empty !"
-                    } else {
-                        mDrawarPresenter!!.editphonenumber(user!!._id!!, input.text.toString())
-                        mAleftdialog.dismiss()
-                    }
+                val dl_phonenumber = AlertDialog.Builder(activity)
+                val inflater = layoutInflater
+                val v = inflater.inflate(R.layout.dialog_phonenumber, null)
+                val phonenumber = v.findViewById<EditText>(R.id.edt_phonenumber)
+                val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
+                val accept = v.findViewById<Button>(R.id.btn_accept_phonenumber)
+                dl_phonenumber.setView(v)
+                dl_phonenumber.setCancelable(false)
+                val dg = dl_phonenumber.show()
+
+                accept.setOnClickListener {
+                    CircularAnim.hide(accept)
+                            .endRadius((progressBar.height / 2).toFloat())
+                            .go(object : CircularAnim.OnAnimationEndListener {
+                                override fun onAnimationEnd() {
+                                    progressBar.visibility = View.VISIBLE
+                                    phonenumber!!.error = null
+                                    var err = 0
+                                    if (!Validation.validateFields(phonenumber.text.toString())) {
+
+                                        err++
+                                        phonenumber.error = "Old password should not be empty !"
+                                    }
+
+                                    if (err == 0) {
+//                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
+//                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
+                                        mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString())
+                                        dg.dismiss()
+
+//                    val user = User()
+//                    user.name = name.text.toString()
+//                    user.password = password.text.toString()
+//                    user.email = email.text.toString()
+//                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
+//                    mRegisterPresenter!!.register(user,Constants.LOCAL)
+
+                                    } else {
+                                        progressBar.visibility = View.GONE
+                                        CircularAnim.show(accept).go()
+//                                    showSnackBarMessage("Enter Valid Details !")
+                                    }                            }
+                            })
+
                 }
-            }
-            mAleftdialog.setCancelable(false)
-            mAleftdialog.show()
+
+//            val aleftdialog = AlertDialog.Builder(activity)
+//            aleftdialog.setMessage("Enter phone number:")
+//            val input = EditText(activity)
+//            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+//            input.layoutParams = lp
+//            input.inputType = InputType.TYPE_CLASS_NUMBER
+//            aleftdialog.setView(input)
+//            aleftdialog.setIcon(R.drawable.phone_call)
+//            aleftdialog.setPositiveButton("OK", null)
+//            val mAleftdialog = aleftdialog.create()
+//            mAleftdialog.setOnShowListener {
+//                val b = mAleftdialog.getButton(AlertDialog.BUTTON_POSITIVE)
+//                b.setOnClickListener {
+//                    if (!Validation.validateFields(input.text.toString())) {
+//                        input.error = "Should not be empty !"
+//                    } else {
+//                        mDrawarPresenter!!.editphonenumber(user!!._id!!, input.text.toString())
+//                        mAleftdialog.dismiss()
+//                    }
+//                }
+//            }
+//            mAleftdialog.setCancelable(false)
+//            mAleftdialog.show()
 
         }
 
@@ -235,7 +283,15 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             }
         }
     }
+    private fun showSnackBarMessage(message: String?) {
 
+        Snackbar.make(activity.findViewById(R.id.root_home), message!!, Snackbar.LENGTH_INDEFINITE)
+                .setDuration(10000)
+                .setAction("OK", {
+                })
+                .show()
+
+    }
 //    internal inner class TabsAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 //
 //        override fun getCount(): Int {
