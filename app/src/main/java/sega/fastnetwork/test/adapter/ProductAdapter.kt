@@ -80,7 +80,6 @@ internal class ProductAdapter// Constructor
             shimmerViewHolder.setShimmerViewHolderBackground(context.resources.getDrawable(R.drawable.bg_card))
             shimmerViewHolder
         } else {
-
             val v = LayoutInflater.from(parent.context).inflate(
                     R.layout.product_item_compact, parent, false) as ViewGroup
             ProductCompactViewHolder(v)

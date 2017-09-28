@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
@@ -26,6 +29,7 @@ import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DrawerPresenter
 import sega.fastnetwork.test.presenter.ProductListPresenter
 import sega.fastnetwork.test.util.Constants
+import sega.fastnetwork.test.util.Validation
 
 
 /**
@@ -71,8 +75,12 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
         product_recycleview.adapter = adapter
 
+        adapter!!.pageToDownload = 1
+        adapter!!.initShimmer()
+
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
+
 
             adapter!!.pageToDownload = 1
             adapter!!.productList.clear()
@@ -83,9 +91,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
         })
-
-        adapter!!.pageToDownload = 1
-        adapter!!.initShimmer()
         search_view.setOnClickListener {
             startActivity(Intent(activity, SearchActivity::class.java))
         }
@@ -138,8 +143,9 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         swipe_refresh.isEnabled = true
 
         adapter?.notifyDataSetChanged()
+        user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
         Log.e("Phone", "Name: " + user!!.name + "Email: " + user!!.email + "Phone: " + user!!.phone)
-     /*   if (user!!.phone.equals("") || user!!.phone == null) {
+        if (user!!.phone.equals("") || user!!.phone == null) {
             Log.e("HERE", "Here")
 
             val aleftdialog = AlertDialog.Builder(activity)
@@ -166,7 +172,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             mAleftdialog.setCancelable(false)
             mAleftdialog.show()
 
-        }*/
+        }
 
     }
 
