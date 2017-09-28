@@ -92,13 +92,14 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
 
         adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
-
-            val a = Product()
-            a.productname = ""
-            adapter!!.productList.add(a)
-            product_recycleview.post({
-                adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
-            })
+            if (!isFirstLoad) {
+                val a = Product()
+                a.productname = ""
+                adapter!!.productList.add(a)
+                product_recycleview.post({
+                    adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
+                })
+            }
 
 
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
