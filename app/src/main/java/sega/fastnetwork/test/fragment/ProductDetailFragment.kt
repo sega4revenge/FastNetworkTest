@@ -446,14 +446,15 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_user_email.text = product!!.user?.email
         product_user_address.text = product!!.location!!.address
         product_date.text = timeAgo(product!!.created_at.toString())
-        product_view.text = product!!.view.toString()
+        product_rentime.text = product!!.view.toString() + " lượt xem"
         println(product!!._id)
         if(product!!.status == "1")
+            Log.e("time: ",product!!.time)
         when (product!!.time) {
-            "0" -> product_rentime.text = "1 giờ"
-            "1" -> product_rentime.text = "1 ngày"
-            "2" -> product_rentime.text = "1 tuần"
-            "3" -> product_rentime.text = "1 tháng"
+            "0" -> product_view.text = "1 giờ"
+            "1" -> product_view.text = "1 ngày"
+            "2" -> product_view.text = "1 tuần"
+            "3" -> product_view.text = "1 tháng"
             else -> {
                 product_rentime.text = "1 năm"
             }
