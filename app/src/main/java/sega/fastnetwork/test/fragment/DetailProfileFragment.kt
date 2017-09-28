@@ -54,6 +54,7 @@ class DetailProfileFragment : Fragment(), DetailProfileView, ProductAdapter.Onpr
         adapter = ProductAdapter(this.activity, this, product_list, layoutManager!!)
         adapter!!.user = AppManager.getUserDatafromAccount(activity, AppManager.getAppAccount(activity)!!).name
         product_list.adapter = adapter
+
         detailprofile = DetailProfilePressenter(this)
         layout_give.setOnClickListener {
             tv_give.setTextColor(resources.getColor(R.color.colorAccent))
