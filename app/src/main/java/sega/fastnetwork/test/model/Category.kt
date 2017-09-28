@@ -10,9 +10,9 @@ import sega.fastnetwork.test.lib.MaterialChips.model.ChipInterface
 
 
 
-data class Category(val name : String, val avatar : Drawable, var selected : Boolean): ChipInterface {
+data class Category(val id : Int,val name : String, val avatar : Drawable, var selected : Boolean): ChipInterface {
     override fun getId(): Any? {
-        return null
+        return id
     }
 
     override fun getAvatarUri(): Uri? {

@@ -61,7 +61,7 @@ class FilterAdapter(val context: Context) : RecyclerView.Adapter<FilterAdapter.F
 
     fun getItem(position: Int): Filter = this.filters[position]
 
-    private fun changeSelect(position: Int) {
+    fun changeSelect(position: Int) {
         this.selected = position
         notifyDataSetChanged()
     }

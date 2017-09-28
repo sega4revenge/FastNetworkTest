@@ -22,15 +22,15 @@ class CategoryAdapter// Constructor
 
     init {
 
-        categoryList.add(Category("Xe cộ", context.resources.getDrawable(R.drawable.cate_vehicle), false))
-        categoryList.add(Category("Đồ Điện tử", context.resources.getDrawable(R.drawable.cate_electronic), false))
-        categoryList.add(Category("Thời trang,đồ dùng cá nhân", context.resources.getDrawable(R.drawable.cate_fashion), false))
-        categoryList.add(Category("Nhà ở", context.resources.getDrawable(R.drawable.cate_home), false))
-        categoryList.add(Category("Mẹ và bé", context.resources.getDrawable(R.drawable.mother), false))
-        categoryList.add(Category("Đồ gia dụng,nội thất", context.resources.getDrawable(R.drawable.cate_furniture), false))
-        categoryList.add(Category("Giải trí,thể thao,sở thích", context.resources.getDrawable(R.drawable.cup), false))
-        categoryList.add(Category("Đồ văn phòng,nông nghiệp", context.resources.getDrawable(R.drawable.printer), false))
-        categoryList.add(Category("Khác", context.resources.getDrawable(R.drawable.cate_more), false))
+        categoryList.add(Category(0,"Xe cộ", context.resources.getDrawable(R.drawable.cate_vehicle), false))
+        categoryList.add(Category(1,"Đồ Điện tử", context.resources.getDrawable(R.drawable.cate_electronic), false))
+        categoryList.add(Category(2,"Thời trang,đồ dùng cá nhân", context.resources.getDrawable(R.drawable.cate_fashion), false))
+        categoryList.add(Category(3,"Nhà ở", context.resources.getDrawable(R.drawable.cate_home), false))
+        categoryList.add(Category(4,"Mẹ và bé", context.resources.getDrawable(R.drawable.mother), false))
+        categoryList.add(Category(5,"Đồ gia dụng,nội thất", context.resources.getDrawable(R.drawable.cate_furniture), false))
+        categoryList.add(Category(6,"Giải trí,thể thao,sở thích", context.resources.getDrawable(R.drawable.cup), false))
+        categoryList.add(Category(7,"Đồ văn phòng,nông nghiệp", context.resources.getDrawable(R.drawable.printer), false))
+        categoryList.add(Category(8,"Khác", context.resources.getDrawable(R.drawable.cate_more), false))
     }
 
     // RecyclerView methods

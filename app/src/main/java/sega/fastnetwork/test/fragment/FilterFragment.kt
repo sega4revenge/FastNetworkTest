@@ -24,6 +24,7 @@ import sega.fastnetwork.test.lib.MaterialChips.model.ChipInterface
 import sega.fastnetwork.test.model.Category
 import sega.fastnetwork.test.model.LocationChip
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryClickListener {
@@ -120,6 +121,8 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
             }
 
             override fun onChipRemoved(chip: ChipInterface, newSize: Int) {
+                println(chip.label)
+                println("dang xoa")
                 removeFromSelectedMap("location", chip.label)
             }
 
@@ -135,16 +138,12 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
         contentView!!.chips_input_category.setChipDeletable(true)
         contentView!!.chips_input_category.setShowChipDetailed(false)
 
-        keysCategory = Arrays.asList(*resources.getStringArray(R.array.category))
-        category_adapter = CategoryAdapter(activity, this)
-        contentView!!.category_list.setHasFixedSize(true)
 
-        contentView!!.category_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        contentView!!.category_list.adapter = category_adapter
+
         for (i in keysCategory.indices) {
-            if (applied_filters != null && applied_filters!!["category"] != null && applied_filters!!["category"]!!.contains(category_adapter!!.categoryList[i].name)) {
+            if (applied_filters != null && applied_filters!!["category"] != null && applied_filters!!["category"]!!.contains(i.toString())) {
                 category_adapter!!.categoryList[i].selected = true
-                contentView!!.chips_input_category.addChip(Category(category_adapter!!.categoryList[i].name, category_adapter!!.categoryList[i].avatar, true))
+                contentView!!.chips_input_category.addChip(Category(i,category_adapter!!.categoryList[i].name, category_adapter!!.categoryList[i].avatar, true))
                 category_adapter!!.notifyItemChanged(i)
                 println("co du lieu2")
 
@@ -156,11 +155,11 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
         }
         contentView!!.chips_input_category.addChipsListener(object : ChipsInput.ChipsListener {
             override fun onChipAdded(chip: ChipInterface, newSize: Int) {
-                addToSelectedMap("category", chip.label)
+                addToSelectedMap("category", chip.id.toString())
             }
 
             override fun onChipRemoved(chip: ChipInterface, newSize: Int) {
-                removeFromSelectedMap("category", chip.label)
+                removeFromSelectedMap("category", chip.id.toString())
 
              /*   category_adapter!!.categoryList.indexOf(chip.label).selected = false
                 contentView!!.chips_input_category.removeChipByLabel(category_adapter!!.categoryList[position].name)
@@ -198,7 +197,7 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
                 Toast.makeText(activity, "Đã tối đa 5 danh mục", Toast.LENGTH_LONG).show()
             else {
                 category_adapter!!.categoryList[position].selected = true
-                contentView!!.chips_input_category.addChip(Category(category_adapter!!.categoryList[position].name, category_adapter!!.categoryList[position].avatar, true))
+                contentView!!.chips_input_category.addChip(Category(position,category_adapter!!.categoryList[position].name, category_adapter!!.categoryList[position].avatar, true))
                 category_adapter!!.notifyItemChanged(position)
             }
 
@@ -228,28 +227,41 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
             behavior.peekHeight = 1800
 
         }
+        keysCategory = Arrays.asList(*resources.getStringArray(R.array.category))
         contentView!!.filter_list.layoutManager = LinearLayoutManager(activity)
         val filterAdapter = FilterAdapter(activity)
         contentView!!.filter_list.adapter = filterAdapter
+        category_adapter = CategoryAdapter(activity, this)
+        contentView!!.category_list.setHasFixedSize(true)
+
+        contentView!!.category_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        contentView!!.category_list.adapter = category_adapter
         contentView!!.btn_refresh.setOnClickListener {
             val locationSelected = contentView!!.chips_input.selectedChipList as List<LocationChip>
             for (item: LocationChip in locationSelected) {
                 println(item.label)
                 contentView!!.chips_input.removeChipByLabel(item.label)
             }
-            val categorySelected = contentView!!.chips_input_category.selectedChipList as List<Category>
-            for (item: Category in categorySelected) {
-                contentView!!.chips_input_category.removeChipByLabel(item.label)
+            val categorySelected = contentView!!.chips_input_category.selectedChipList
+            for (i in categorySelected.indices) {
+                contentView!!.chips_input_category.removeChipById(i)
+                if (category_adapter!!.categoryList[i].selected) {
+                    category_adapter!!.categoryList[i].selected = false
+                    category_adapter!!.notifyItemChanged(i)
+
+
+
+                }
             }
             contentView!!.filter.text = filterAdapter.getItem(0).label
+            filterAdapter.changeSelect(0)
+            filterAdapter.notifyItemChanged(0)
             val temp = ArrayList<String>()
             temp.add("0")
             applied_filters!!.remove("filter")
             applied_filters!!.put("filter", temp)
 
-        /*    val categorySelected = contentView!!.chips_input_category.selectedChipList
-            for(j in categorySelected)
-                contentView!!.chips_input_category.removeChip(j)*/
+
         }
         contentView!!.btn_done!!.setOnClickListener {
             (activity as Callbacks).onResult(applied_filters)
@@ -258,17 +270,29 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
 
         if (applied_filters != null && applied_filters!!["filter"] != null) {
             when (applied_filters!!["filter"]!![0]) {
-                "1" -> contentView!!.filter.text = filterAdapter.getItem(0).label
+                "0" -> {contentView!!.filter.text = filterAdapter.getItem(0).label
+                    filterAdapter.changeSelect(0)
+                    filterAdapter.notifyItemChanged(0)
+                }
 
-                "2" -> contentView!!.filter.text = filterAdapter.getItem(1).label
+                "1" ->{contentView!!.filter.text = filterAdapter.getItem(1).label
+                    filterAdapter.changeSelect(1)
+                    filterAdapter.notifyItemChanged(1)
+                }
 
 
-                "3" -> contentView!!.filter.text = filterAdapter.getItem(2).label
+                "2" -> {contentView!!.filter.text = filterAdapter.getItem(2).label
+                    filterAdapter.changeSelect(2)
+                    filterAdapter.notifyItemChanged(2)}
 
 
-                else -> contentView!!.filter.text = filterAdapter.getItem(3).label
+
+                else -> {contentView!!.filter.text = filterAdapter.getItem(3).label
+                    filterAdapter.changeSelect(3)
+                    filterAdapter.notifyItemChanged(3)}
 
             }
+
 
         }
         else{
