@@ -12,6 +12,7 @@ import android.os.StrictMode
 import android.preference.PreferenceManager
 import android.provider.MediaStore
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
@@ -22,8 +23,9 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -34,15 +36,17 @@ import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import kotlinx.android.synthetic.main.header.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.AddActivity
-import sega.fastnetwork.test.activity.ChangePasswordActivity
 import sega.fastnetwork.test.activity.SearchActivity
+import sega.fastnetwork.test.customview.CircularAnim
 import sega.fastnetwork.test.lib.imagepicker.TedBottomPicker
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageBean
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
+import sega.fastnetwork.test.presenter.ChangePasswordPresenter
 import sega.fastnetwork.test.presenter.DrawerPresenter
 import sega.fastnetwork.test.util.Constants
+import sega.fastnetwork.test.util.Validation.validateFields
 import java.io.File
 import java.util.*
 
@@ -51,7 +55,19 @@ import java.util.*
  * Created by sega4 on 08/08/2017.
  */
 
-class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener,DrawerPresenter.DrawerView {
+class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener,DrawerPresenter.DrawerView, ChangePasswordPresenter.ChangePasswordView {
+    override fun getUserDetail(user: User) {
+
+    }
+
+    override fun isgetUserDetailSuccess(success: Boolean) {
+//        Toast.makeText(activity,"Success nà!",Toast.LENGTH_SHORT).show()
+        showSnackBarMessage("Change password success!")
+
+//        CircularAnim.show(btn_accept_changepass).go()
+
+    }
+
     override fun changeAvatarSuccess(t: Response) {
         AppManager.saveAccountUser(context, t.user!!, 0)
                         Log.e("pic",Constants.IMAGE_URL+ t.user!!.photoprofile)
@@ -63,10 +79,12 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     }
 
     override fun setErrorMessage(errorMessage: String) {
-        Toast.makeText(activity,errorMessage,Toast.LENGTH_LONG).show()
+//        Toast.makeText(activity,errorMessage,Toast.LENGTH_LONG).show()
+        showSnackBarMessage(errorMessage)
     }
 
     override fun getUserDetail(response: Response) {
+        showSnackBarMessage("Change info success!")
 //        Log.e("getUserDetail",user.name + " " + user.email)
         navigation_view.getHeaderView(0).username_header.text = response.user!!.name
         txtname.text  = response.user!!.name
@@ -86,6 +104,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     var user :User?=null
 
     var photoprofile : String? = null
+    var mChangePasswordPresenter: ChangePasswordPresenter? = null
     private var mDrawerPresenter: DrawerPresenter? = null
     val options = RequestOptions()
             .centerCrop()
@@ -98,6 +117,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         // Setup toolbar
         isTablet = resources.getBoolean(R.bool.is_tablet)
         mDrawerPresenter = DrawerPresenter(this)
+        mChangePasswordPresenter = ChangePasswordPresenter(this)
+
 
         if (view != null) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar)
@@ -222,27 +243,146 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .thumbnail(0.1f)
                 .apply(options)
                 .into(imgAvatar)
-        changePass.setOnClickListener {
-            val intentchangepw = Intent(activity,ChangePasswordActivity::class.java)
-            startActivity(intentchangepw)
-        }
         changeInfor.setOnClickListener {
-            val aleftdialog = AlertDialog.Builder(activity)
-            aleftdialog.setMessage("Enter new name:")
-            val input = EditText(activity)
-            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT)
-            input.layoutParams = lp
-            aleftdialog.setView(input)
-            aleftdialog.setIcon(R.drawable.com_facebook_button_icon)
-            aleftdialog.setPositiveButton("OK", { _, _ ->
-//                Toast.makeText(activity,"Info Matched: "+input.text, Toast.LENGTH_SHORT).show()
-                mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),input.text.toString())
-            })
-            aleftdialog.setNegativeButton("NO", { _, _ ->
-                Toast.makeText(activity,"NO", Toast.LENGTH_SHORT).show()
-            })
-            aleftdialog.show()
+            val dl_changeinfo = AlertDialog.Builder(activity)
+            val inflater = layoutInflater
+            val v = inflater.inflate(R.layout.dialog_changeinfo, null)
+            val newname = v.findViewById<EditText>(R.id.edt_newname)
+            val newphone = v.findViewById<EditText>(R.id.edt_newphone)
+            val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_changeinfo)
+            val cancel = v.findViewById<Button>(R.id.btn_cancel_changeinfo)
+            val accept = v.findViewById<Button>(R.id.btn_accept_changeinfo)
+            dl_changeinfo.setView(v)
+            val dg = dl_changeinfo.show()
+            cancel.setOnClickListener {
+                dg.dismiss()
+            }
+            accept.setOnClickListener {
+                CircularAnim.hide(accept)
+                        .endRadius((progressBar.height / 2).toFloat())
+                        .go(object : CircularAnim.OnAnimationEndListener {
+                            override fun onAnimationEnd() {
+                                progressBar.visibility = View.VISIBLE
+                                newname!!.error = null
+                                newphone!!.error = null
+                                var err = 0
+                                if (!validateFields(newname.text.toString())) {
+
+                                    err++
+                                    newname.error = "Old password should not be empty !"
+                                }
+                                if (!validateFields(newphone.text.toString())) {
+
+                                    err++
+                                    newphone.error = "Old password should not be empty !"
+                                }
+
+                                if (err == 0) {
+//                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
+                                      mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
+                                    dg.dismiss()
+
+//                    val user = User()
+//                    user.name = name.text.toString()
+//                    user.password = password.text.toString()
+//                    user.email = email.text.toString()
+//                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
+//                    mRegisterPresenter!!.register(user,Constants.LOCAL)
+
+                                } else {
+                                    progressBar.visibility = View.GONE
+                                    CircularAnim.show(accept).go()
+//                                    showSnackBarMessage("Enter Valid Details !")
+                                }                            }
+                        })
+
+            }
         }
+        changePass.setOnClickListener {
+            val dl_changepass = AlertDialog.Builder(activity)
+            val inflater = layoutInflater
+            val v = inflater.inflate(R.layout.dialog_changepass, null)
+            val oldpass = v.findViewById<EditText>(R.id.edt_oldpass)
+            val newpass = v.findViewById<EditText>(R.id.edt_newpass)
+            val renewpass = v.findViewById<EditText>(R.id.edt_renewpass)
+            val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_changepassword)
+            val cancel = v.findViewById<Button>(R.id.btn_cancel_changepass)
+            val accept = v.findViewById<Button>(R.id.btn_accept_changepass)
+            dl_changepass.setView(v)
+            val dg = dl_changepass.show()
+            cancel.setOnClickListener {
+                dg.dismiss()
+            }
+            accept.setOnClickListener {
+                CircularAnim.hide(accept)
+                        .endRadius((progressBar.height / 2).toFloat())
+                        .go(object : CircularAnim.OnAnimationEndListener {
+                            override fun onAnimationEnd() {
+                                progressBar.visibility = View.VISIBLE
+                                oldpass!!.error = null
+                                newpass!!.error = null
+                                renewpass!!.error = null
+                                var err = 0
+                                if (!validateFields(oldpass.text.toString())) {
+
+                                    err++
+                                    oldpass.error = "Old password should not be empty !"
+                                }
+                                if (!validateFields(newpass.text.toString())) {
+
+                                    err++
+                                    newpass.error = "Old password should not be empty !"
+                                }
+                                if (newpass.text.toString() != renewpass.text.toString()||renewpass.text.toString()=="") {
+
+                                    err++
+
+                                    renewpass.error = "Password do not match or empty!"
+
+                                }
+                                if (err == 0) {
+                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
+
+                                    dg.dismiss()
+
+//                    val user = User()
+//                    user.name = name.text.toString()
+//                    user.password = password.text.toString()
+//                    user.email = email.text.toString()
+//                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
+//                    mRegisterPresenter!!.register(user,Constants.LOCAL)
+
+                                } else {
+                                    progressBar.visibility = View.GONE
+                                    CircularAnim.show(accept).go()
+//                                    showSnackBarMessage("Enter Valid Details !")
+                                }                            }
+                        })
+
+            }
+        }
+
+//        changePass.setOnClickListener {
+//            val intentchangepw = Intent(activity,ChangePasswordActivity::class.java)
+//            startActivity(intentchangepw)
+//        }
+//        changeInfor.setOnClickListener {
+//            val aleftdialog = AlertDialog.Builder(activity)
+//            aleftdialog.setMessage("Enter new name:")
+//            val input = EditText(activity)
+//            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT)
+//            input.layoutParams = lp
+//            aleftdialog.setView(input)
+//            aleftdialog.setIcon(R.drawable.com_facebook_button_icon)
+//            aleftdialog.setPositiveButton("OK", { _, _ ->
+////                Toast.makeText(activity,"Info Matched: "+input.text, Toast.LENGTH_SHORT).show()
+//                mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),input.text.toString())
+//            })
+//            aleftdialog.setNegativeButton("NO", { _, _ ->
+//                Toast.makeText(activity,"NO", Toast.LENGTH_SHORT).show()
+//            })
+//            aleftdialog.show()
+//        }
         list = ArrayList()
         Log.e("list", "======" + list!!.size)
 
@@ -507,7 +647,15 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
     }
 
+    private fun showSnackBarMessage(message: String?) {
 
+        Snackbar.make(activity.findViewById(R.id.overview_coordinator_layout), message!!, Snackbar.LENGTH_INDEFINITE)
+                .setDuration(10000)
+                .setAction("OK", {
+                })
+                .show()
+
+    }
     companion object {
 
         private val SELECTED_ITEM_ID = "SELECTED_ITEM_ID"

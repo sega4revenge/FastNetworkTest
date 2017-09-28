@@ -95,11 +95,12 @@ class DrawerPresenter(view : DrawerView) {
 
     }
 
-    fun eidtInfoUser(userid: String,newname: String) {
+    fun eidtInfoUser(userid: String,newname: String, newphone: String) {
         val jsonObject = JSONObject()
         try {
             jsonObject.put("userid", userid)
             jsonObject.put("newname", newname)
+            jsonObject.put("newphone", newphone)
 
         } catch (e: JSONException) {
             e.printStackTrace()
