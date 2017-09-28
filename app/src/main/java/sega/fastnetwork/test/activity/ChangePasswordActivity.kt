@@ -1,5 +1,6 @@
 package sega.fastnetwork.test.activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -34,6 +35,13 @@ class ChangePasswordActivity : AppCompatActivity(), ChangePasswordPresenter.Chan
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
+        setSupportActionBar(toolbar_changepass)
+        toolbar_changepass.inflateMenu(R.menu.uploadproduct_menu)
+        toolbar_changepass.setTitleTextColor(Color.WHITE)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
+        supportActionBar!!.title = "Change Password"
         mChangePasswordPresenter = ChangePasswordPresenter(this)
         btnChangePassword!!.setOnClickListener {
             CircularAnim.hide(btnChangePassword)

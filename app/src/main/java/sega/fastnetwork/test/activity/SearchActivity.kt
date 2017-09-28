@@ -12,7 +12,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -67,12 +69,11 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
     fun getApplied_filters(): ArrayMap<String, MutableList<String>> = applied_filters
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.searchmain_layout)
-
-
-
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
         layoutManager = LinearLayoutManager(this)
@@ -88,6 +89,8 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
             //check if no view has focus:
             ed_search.clearFocus()
+
+
             val v = this.currentFocus
             if (v != null)
                 inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
@@ -199,6 +202,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         product_recycleview.adapter = adapter
         pageToDownload = 1
+        ed_search.isFocusable = false
         ed_search.setIconifiedByDefault(false)
         ed_search.isIconified = false
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
@@ -206,6 +210,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                 SearchView!!.cancelRequest()
                 SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
                 ed_search.clearFocus()
+
                 return true
             }
 

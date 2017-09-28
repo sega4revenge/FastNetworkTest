@@ -7,4 +7,7 @@ interface SearchInterface {
 
     fun searchWithList(key : String, mLocation : String, mCategory : String, mTypeArrange : Int)
 
+
+
+
 }

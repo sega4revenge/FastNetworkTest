@@ -35,7 +35,7 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
             forgot_repassword.visibility = View.VISIBLE
 
             forgot_action_email.visibility = View.GONE
-            layout_forgot_email.visibility = View.GONE
+            forgot_email.visibility = View.GONE
         }
         else {
             if (isForgotPwSuccessful) {

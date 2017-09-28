@@ -148,10 +148,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         navigation_view.getHeaderView(0).username_header.text = user!!.name
         navigation_view.getHeaderView(0).email_header.text  = user!!.email
         linMotobike.setOnClickListener(){
-            changeCategory(0,HomeFragment())
+            ChangeCategory(0,HomeFragment())
         }
         linelectronic.setOnClickListener(){
-            changeCategory(1,HomeFragment())
+            ChangeCategory(1,HomeFragment())
         }
         linfashion.setOnClickListener(){
             changeCategory(2,HomeFragment())
@@ -331,7 +331,6 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .thumbnail(0.1f)
                 .apply(options)
                 .into(imgAvatar)
-
         mDrawerPresenter!!.changeAvatar(File(getRealFilePath(activity, uriList)), user!!._id!!,user!!.photoprofile!!,context)
 //        uploadImage(File(getRealFilePath(activity, uriList)), user!!._id!!,user!!.photoprofile!!)
 

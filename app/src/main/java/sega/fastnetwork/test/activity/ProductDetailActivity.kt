@@ -24,9 +24,6 @@ class ProductDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
-
-
-
         val i = Intent(applicationContext, LoginActivity::class.java)
         if (savedInstanceState == null) {
             var productId: String

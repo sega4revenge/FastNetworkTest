@@ -120,7 +120,8 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.EditProductActivity"></activity>
-        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_home"

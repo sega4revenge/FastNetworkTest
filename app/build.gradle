@@ -72,6 +72,7 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:11.0.4'
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.github.bumptech.glide:glide:4.0.0'
+    compile 'com.weiwangcn.betterspinner:library:1.1.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }
 
