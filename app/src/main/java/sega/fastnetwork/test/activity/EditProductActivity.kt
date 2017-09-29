@@ -81,10 +81,10 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
         setContentView(R.layout.activity_edit_product)
         setSupportActionBar(toolbar_editproduct)
         toolbar_editproduct.inflateMenu(R.menu.uploadproduct_menu)
-        toolbar_editproduct.setTitleTextColor(Color.BLACK)
+        toolbar_editproduct.setTitleTextColor(Color.WHITE)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
         supportActionBar!!.title = "Edit product"
         editProduct = EditProductPresenter(this)
         addressEdit.setOnClickListener {
@@ -92,13 +92,12 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
         }
 
         ///=======================Spinner danh muc=========================
-        val adaptercategory = ArrayAdapter.createFromResource(this@EditProductActivity, R.array.category, android.R.layout.simple_spinner_item)
-        adaptercategory.setDropDownViewResource(android.R.layout.simple_list_item_checked)
-        category.adapter = adaptercategory
+
 ///=======================Spinner time=========================
-        val adaptertime = ArrayAdapter.createFromResource(this@EditProductActivity, R.array.timeid, android.R.layout.simple_spinner_item)
-        adaptertime.setDropDownViewResource(android.R.layout.simple_list_item_checked)
-        time.adapter = adaptertime
+        val timelist = Arrays.asList(*resources.getStringArray(R.array.timeid))
+        val categorylist = Arrays.asList(*resources.getStringArray(R.array.category))
+        time.setItems(timelist)
+        category.setItems(categorylist)
         // ================= get product ===============================================//
         var i:Intent = intent
         mType = i.getIntExtra("type",1)
@@ -243,11 +242,13 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
         }
         if(mProduct?.time != null && mProduct.time.toString() != "")
         {
-            time.setSelection(mProduct.time!!.toInt())
+            time.selectedIndex = mProduct.time!!.toInt()
+           // time.setSelection(mProduct.time!!.toInt())
         }
         number.setText(mProduct?.number)
-        category.setSelection(mProduct?.category!!.toInt())
-        addressEdit.setText(mProduct.location!!.address)
+        category.selectedIndex = mProduct?.category!!.toInt()
+        //category.setSelection(mProduct?.category!!.toInt())
+        addressText.setText(mProduct.location!!.address)
         description.setText(mProduct.description)
         switch_edit.isChecked = mProduct.status == "0"
         Log.e("statusproduct1",mProduct.status)
@@ -403,7 +404,7 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
             onBackPressed()
         }
         if (ids == R.id.menu_editproduct) {
-            if(productname.text.equals("") || price.text.equals("") || number.text.equals("") || addressEdit.text.equals(""))
+            if(productname.text.equals("") || price.text.equals("") || number.text.equals("") || addressText.text.equals(""))
             {
                 Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded Faile!! Nhap du thong tin", Snackbar.LENGTH_SHORT).show()
             }else{
@@ -419,7 +420,7 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
                 Log.e("statusproduct","statusproduct: "+ statusproduct)
                 progress  =  ProgressDialog.show(this, "", "Loading...", true)
                 progress?.show()
-                editProduct!!.ConnectHttp("", productname.text.toString() , price.text.toString() , time.selectedItemPosition.toString(), number.text.toString() , category.selectedItemPosition.toString(), addressEdit.text.toString(), description.text.toString(), statusproduct.toString(), mProduct?._id.toString(),imglistDel)
+                editProduct!!.ConnectHttp("", productname.text.toString() , price.text.toString() , time.selectedIndex.toString(), number.text.toString() , category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), statusproduct.toString(), mProduct?._id.toString(),imglistDel)
             }
 
         }else if (ids == R.id.menu_delproduct){
@@ -490,7 +491,7 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
                     var lot1 = latLng.latitude.toString()
                     var lat1 = latLng.longitude.toString()
                     val add = place.address as String
-                    addressEdit.setText(add)
+                    addressText.setText(add)
                 }
             }
 

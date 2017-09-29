@@ -71,10 +71,10 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         setContentView(R.layout.activity_add)
         setSupportActionBar(toolbar_addproduct)
         toolbar_addproduct.inflateMenu(R.menu.uploadproduct_menu)
-        toolbar_addproduct.setTitleTextColor(Color.BLACK)
+        toolbar_addproduct.setTitleTextColor(Color.WHITE)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
         supportActionBar!!.title = "Add product"
 ///=======================Cho thue/ Can thue=========================
         toggle.setOnCheckedChangeListener { _, checkedId ->

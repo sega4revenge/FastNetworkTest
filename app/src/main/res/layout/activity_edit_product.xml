@@ -15,7 +15,7 @@
             android:id="@+id/toolbar_editproduct"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/toolbar"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
         </android.support.v7.widget.Toolbar>
@@ -47,28 +47,45 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp">
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trạng thái: "/>
-            <Switch
-                android:id="@+id/switch_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:textOn="Đang cho thuê"
-                android:textOff="Đã cho thuê"
-                android:layout_alignBaseline="@+id/edt_switch"
-                android:layout_alignBottom="@+id/edt_switch"
-                android:layout_centerHorizontal="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đang cho thuê"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/edt_switch" />
+                android:orientation="horizontal"
+                android:weightSum="100">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trạng thái"
+                    android:layout_weight="20"/>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="60"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <Switch
+                        android:id="@+id/switch_edit"
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:textOn="Đã thuê"
+                        android:textOff="Chưa thuê"
+                        android:layout_alignBaseline="@+id/edt_switch"
+                        android:layout_alignBottom="@+id/edt_switch"
+                        android:layout_centerHorizontal="true" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_weight="20"
+                    android:layout_height="wrap_content"
+                    android:text="Chưa thuê"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/edt_switch" />
+            </LinearLayout>
+
 
         </RelativeLayout>
         <android.support.v4.widget.NestedScrollView
@@ -134,9 +151,14 @@
                             <EditText
                                 android:id="@+id/productname"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="40dp"
+                                android:background="@drawable/roundedt_white"
+                                android:paddingLeft="20dp"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/input_register_bg"
+                                android:textColorLink="@color/black"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                android:textSize="15sp"
+                                android:textSize="14sp"
                                 />
                         </LinearLayout>
 
@@ -146,6 +168,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+
+
                             android:weightSum="10">
 
                             <LinearLayout
@@ -153,30 +177,73 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
                                 android:layout_marginTop="10dp"
-                                android:layout_weight="4"
+                                android:layout_weight="7"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginLeft="20dp"
                                     android:text="Price" />
 
-                                <EditText
+                                <android.support.design.widget.TextInputEditText
                                     android:id="@+id/price"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/roundedt_left"
                                     android:inputType="numberDecimal"
+                                    android:paddingLeft="20dp"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/input_register_bg"
+                                    android:textColorLink="@color/black"
                                     android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                    android:textSize="15sp"
-                                    />
+                                    android:textSize="14sp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="3"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="Time" />
+
+                                <sega.fastnetwork.test.lib.MaterialSpinner.MaterialSpinner
+                                    android:id="@+id/time"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    app:ms_background_color="@drawable/roundedt_right"
+                                    app:ms_dropdown_height="wrap_content"
+                                    app:ms_dropdown_max_height="350dp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/number_and_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+
+
+                            android:weightSum="10">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="20dp"
                                 android:layout_marginTop="10dp"
                                 android:layout_weight="1"
                                 android:orientation="vertical">
@@ -184,115 +251,120 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:text="" />
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="Number" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:hint="/"
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/roundedt_left"
+                                    android:inputType="numberDecimal"
+                                    android:paddingLeft="20dp"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/input_register_bg"
+                                    android:textColorLink="@color/black"
                                     android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                    android:textSize="30sp" />
+                                    android:textSize="14sp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:layout_marginTop="10dp"
-                                android:layout_weight="5"
+                                android:layout_weight="9"
                                 android:orientation="vertical">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:text="Time" />
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="Category" />
 
-                                <Spinner
-                                    android:id="@+id/time"
+                                <sega.fastnetwork.test.lib.MaterialSpinner.MaterialSpinner
+                                    android:id="@+id/category"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginBottom="20dp"
-                                    android:layout_marginTop="10dp"
-                                    android:gravity="center" />
+                                    android:layout_height="40dp"
+                                    app:ms_background_color="@drawable/roundedt_right"
+                                    app:ms_dropdown_height="wrap_content"
+                                    app:ms_dropdown_max_height="350dp" />
 
                             </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_weight="4"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
 
-                            <TextView
+
+                            android:weightSum="10">
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="Number" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="9"
+                                android:orientation="vertical">
 
-                            <EditText
-                                android:id="@+id/number"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:inputType="number"
-                                android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                android:textSize="15sp"
-                                />
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="Address" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_weight="4"
-                            android:orientation="vertical">
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/addressText"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/roundedt_left"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:inputType="numberDecimal"
+                                    android:paddingLeft="20dp"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/input_register_bg"
+                                    android:textColorLink="@color/black"
+                                    android:textCursorDrawable="@drawable/text_cursor_cyan"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="Category" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginRight="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                            <Spinner
-                                android:id="@+id/category"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="20dp"
-                                android:layout_marginTop="20dp"
-                                android:gravity="center" />
-                        </LinearLayout>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:text="" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_weight="4"
-                            android:orientation="vertical">
+                                <EditText
+                                    android:id="@+id/addressEdit"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/roundedt_right"
+                                    android:drawableEnd="@mipmap/area"
+                                    android:drawableRight="@mipmap/area"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:paddingRight="13dp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="Address" />
-
-                            <EditText
-                                android:id="@+id/addressEdit"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:focusable="false"
-                                android:focusableInTouchMode="false"
-                                android:textCursorDrawable="@drawable/text_cursor_cyan"
-                                android:textSize="15sp"
-                                />
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
@@ -313,7 +385,9 @@
                             <EditText
                                 android:id="@+id/description"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="40dp"
+                                android:paddingLeft="20dp"
+                                android:background="@drawable/roundedt_white"
                                 android:textCursorDrawable="@drawable/text_cursor_cyan"
                                 android:textSize="15sp"
                                 />
