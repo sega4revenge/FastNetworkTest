@@ -52,7 +52,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/black"
                         android:orientation="vertical"
-                        android:alpha="0.1" />
+                        android:alpha="0.2" />
                     <ImageView
                         android:id="@+id/back_detail"
                         android:layout_width="wrap_content"
@@ -80,14 +80,14 @@
                             android:id="@+id/change_map"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:background="@drawable/avatar"
+                            android:background="@drawable/ic_location_white"
                             android:layout_marginLeft="5dp"
                             />
                         <ImageButton
                             android:id="@+id/im_star"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:background="@drawable/ic_start_off"
+                            android:background="@drawable/ic_start_white"
                             android:layout_marginLeft="5dp"
                             />
                         <ImageButton
@@ -111,22 +111,6 @@
 
     <include layout="@layout/content_product_detail" />
 
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:behavior_peekHeight="0dp"
-        android:id="@+id/bottom_sheet"
-        app:layout_behavior="@string/bottom_sheet_behavior"
-        app:behavior_hideable="true"
-        android:fitsSystemWindows="true">
-
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="ádasdasdasdasdasdas"/>
-    </android.support.v4.widget.NestedScrollView>
     <include
         layout="@layout/layout_detail_fab"
         android:layout_width="wrap_content"

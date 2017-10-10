@@ -557,7 +557,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             }
             R.id.nav_chat -> {
                 mSelectedId = itemId
-                toolbar_title.setText(R.string.nav_category)
+                toolbar_title.setText("Tin nhắn")
                 fragment = InboxFragment()
 
                 if(categorylist.visibility != View.GONE){
@@ -567,7 +567,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             }
             R.id.nav_3 -> {
                 mSelectedId = itemId
-                toolbar_title.setText(R.string.nav_category)
+                toolbar_title.setText("Tài khoảng")
                 fragment = DetailProfileFragment()
 
                 hideMoreAction()

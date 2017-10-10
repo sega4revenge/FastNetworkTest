@@ -100,7 +100,13 @@ class ProductListPresenter(view: ProductListView) {
             override fun onNext(response: ResponseListProduct) {
                 Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
 
-                mProductListView.getListProduct(response.listproduct!!)
+            //    if(response?.listproduct?.size!! > 0)
+           //     {
+                Log.d("ssssss","!1")
+                    mProductListView.getListProduct(response.listproduct!!)
+              //  }else{
+           //         mProductListView.setErrorNotFound()
+             //   }
             }
             override fun onError(e: Throwable) {
                 if (e is ANError) {
@@ -109,7 +115,12 @@ class ProductListPresenter(view: ProductListView) {
                     Log.d(userdetail, "onError errorCode : " + e.errorCode)
                     Log.d(userdetail, "onError errorBody : " + e.errorBody)
                     Log.d(userdetail, e.errorDetail + " : " + e.message)
-                    mProductListView.setErrorMessage(e.errorDetail)
+                    if(e.errorCode == 404){
+                        mProductListView.setErrorNotFound()
+                    }else{
+                        mProductListView.setErrorMessage(e.errorDetail)
+                    }
+
 
                 } else {
                     Log.d(userdetail, "onError errorMessage : " + e.message)
@@ -152,7 +163,7 @@ class ProductListPresenter(view: ProductListView) {
         }
     }
     interface ProductListView {
-
+        fun setErrorNotFound()
         fun setErrorMessage(errorMessage: String)
         fun getListProduct(productlist: ArrayList<Product>)
         fun getListSavedProduct(productsavedlist: User)

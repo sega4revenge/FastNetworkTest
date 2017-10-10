@@ -12,9 +12,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -30,7 +28,6 @@ import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.fragment.FilterFragment
-
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.SearchPresenterImp
 import sega.fastnetwork.test.service.LocationService
@@ -279,10 +276,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     //  }
     override fun setMessagerNotFound() {
-
-
         product_recycleview.visibility = View.GONE
-
         txt_notfound.visibility = View.VISIBLE
     }
 

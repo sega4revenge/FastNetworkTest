@@ -130,6 +130,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         val cur = Currency.getInstance(current)
         format = cur.symbol
         mProductDetailPresenter = ProductDetailPresenter(this)
+        //========================refresh comment======================
+     /*   v.refresh.setOnClickListener{
+            doubleClick = true
+            mProductDetailPresenter!!.getProductDetail(id, AppManager.getAppAccountUserId(activity))
+        }*/
 //=============================see all comment=======================
         v.comments_see_all.setOnClickListener {
             gotoallcomment()
@@ -314,12 +319,13 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
          if (statussave) {
              im_star.setImageResource(R.drawable.ic_start_on)
          } else {
-             im_star.setImageResource(R.drawable.ic_start_off)
+             im_star.setImageResource(R.drawable.ic_start_white)
          }
 
     }
 
     override fun getProductDetail(response: Response) {
+        product = null
         try {
             statussave = response.statussave!!
             Log.e("getProductDetail", statussave.toString())
@@ -328,7 +334,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 if (statussave) {
                     im_star.setImageResource(R.drawable.ic_start_on)
                 } else {
-                    im_star.setImageResource(R.drawable.ic_start_off)
+                    im_star.setImageResource(R.drawable.ic_start_white)
                 }
         } catch (e: Exception) {
             Log.e("getProductDetail", "saidjasd")
@@ -399,191 +405,181 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         fab_menu.visibility = View.VISIBLE
         layout_detail_header.visibility = View.VISIBLE
         // Set title and tagline
-        appbar.addOnOffsetChangedListener { appBarLayout, i ->
-            if (i == toolbar.height - collapsing_toolbar.height) {
 
-                if (title_name.visibility != View.VISIBLE) {
-                    title_name.visibility  =View.VISIBLE
-                    title_name.text = product!!.productname // show toolbar title
+
+            appbar.addOnOffsetChangedListener { appBarLayout, i ->
+                if (i == toolbar.height - collapsing_toolbar.height) {
+
+                    if (title_name.visibility != View.VISIBLE) {
+                        title_name.visibility = View.VISIBLE
+                        title_name.text = product!!.productname // show toolbar title
+                    }
+                } else {
+                    if (title_name.visibility != View.GONE) {
+                        title_name.visibility = View.GONE // hide title bar
+                    }
                 }
+            }
+
+
+
+
+            product_name.text = product!!.productname
+            product_overview.text = product!!.description
+
+            val temp = formatprice?.format(product!!.price?.toDouble()) + format
+            product_price.text = temp
+
+            println(product!!.user!!.name)
+            if (product!!.user!!.photoprofile!!.startsWith("http")) {
+                photoprofile = product!!.user!!.photoprofile
             } else {
-                if (title_name.visibility != View.GONE) {
-                    title_name.visibility = View.GONE // hide title bar
+                photoprofile = Constants.IMAGE_URL + product!!.user!!.photoprofile
+            }
+            Glide.with(this)
+                    .load(photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(productdetail_avatar)
+            product_user_name.text = product!!.user?.name
+            product_user_email.text = product!!.user?.email
+            product_user_address.text = product!!.location!!.address
+            product_date.text = timeAgo(product!!.created_at.toString())
+            product_rentime.text = product!!.view.toString() + " lượt xem"
+            println(product!!._id)
+            if (product!!.status == "1")
+                Log.e("time: ", product!!.time)
+            when (product!!.time) {
+                "0" -> product_view.text = "1 giờ"
+                "1" -> product_view.text = "1 ngày"
+                "2" -> product_view.text = "1 tuần"
+                "3" -> product_view.text = "1 tháng"
+                else -> {
+                    product_rentime.text = "1 năm"
+                }
+
+            }
+            when (product!!.category) {
+                "0" -> product_category.setImageResource(R.drawable.cate_vehicle)
+                "1" -> product_category.setImageResource(R.drawable.cate_toy)
+                "2" -> product_category.setImageResource(R.drawable.cate_electronic)
+                "3" -> product_category.setImageResource(R.drawable.cate_furniture)
+                "4" -> product_category.setImageResource(R.drawable.cate_fashion)
+                "5" -> product_category.setImageResource(R.drawable.cate_home)
+                "6" -> product_category.setImageResource(R.drawable.cate_education)
+                "7" -> product_category.setImageResource(R.drawable.cate_music)
+                "8" -> product_category.setImageResource(R.drawable.cate_machine)
+                else -> { // Note the block
+                    product_category.setImageResource(R.drawable.cate_more)
                 }
             }
-        }
-        /*    var scrollRange = -1
-            scrollRange = appBarLayout.totalScrollRange
-            if (scrollRange + i == 0) {
-                title_name.text = product!!.productname
-
-            } else
-                title_name.text = ""*/
 
 
-
-
-
-
-        product_name.text = product!!.productname
-        product_overview.text = product!!.description
-
-        val temp = formatprice?.format(product!!.price?.toDouble()) + format
-        product_price.text = temp
-
-        println(product!!.user!!.name)
-        if (product!!.user!!.photoprofile!!.startsWith("http")) {
-            photoprofile = product!!.user!!.photoprofile
-        } else {
-            photoprofile = Constants.IMAGE_URL + product!!.user!!.photoprofile
-        }
-        Glide.with(this)
-                .load(photoprofile)
-                .thumbnail(0.1f)
-                .apply(options)
-                .into(productdetail_avatar)
-        product_user_name.text = product!!.user?.name
-        product_user_email.text = product!!.user?.email
-        product_user_address.text = product!!.location!!.address
-        product_date.text = timeAgo(product!!.created_at.toString())
-        product_rentime.text = product!!.view.toString() + " lượt xem"
-        println(product!!._id)
-        if(product!!.status == "1")
-            Log.e("time: ",product!!.time)
-        when (product!!.time) {
-            "0" -> product_view.text = "1 giờ"
-            "1" -> product_view.text = "1 ngày"
-            "2" -> product_view.text = "1 tuần"
-            "3" -> product_view.text = "1 tháng"
-            else -> {
-                product_rentime.text = "1 năm"
-            }
-
-        }
-        when (product!!.category) {
-            "0" -> product_category.setImageResource(R.drawable.cate_vehicle)
-            "1" -> product_category.setImageResource(R.drawable.cate_toy)
-            "2" -> product_category.setImageResource(R.drawable.cate_electronic)
-            "3" -> product_category.setImageResource(R.drawable.cate_furniture)
-            "4" -> product_category.setImageResource(R.drawable.cate_fashion)
-            "5" -> product_category.setImageResource(R.drawable.cate_home)
-            "6" -> product_category.setImageResource(R.drawable.cate_education)
-            "7" -> product_category.setImageResource(R.drawable.cate_music)
-            "8" -> product_category.setImageResource(R.drawable.cate_machine)
-            else -> { // Note the block
-                product_category.setImageResource(R.drawable.cate_more)
-            }
-        }
-//        FirebaseMessaging.getInstance().subscribeToTopic(product!!._id)
-        /* val timeAgo = DateUtils.getRelativeTimeSpanString(
-                 java.lang.Long.parseLong(product!!.productdate),
-                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
-         product_date.setText(timeAgo)*/
-//=======================option Glide========================
 
 //=======================0 cmt========================
-        if (product!!.comment!!.size == 0) {
-            comment_item1.visibility = View.GONE
-            comment_item2.visibility = View.GONE
-            comment_item3.visibility = View.GONE
-            comments_see_all.visibility = View.GONE
-            no_cmt.visibility = View.VISIBLE
-        }
+            if (product!!.comment!!.size == 0) {
+                comment_item1.visibility = View.GONE
+                comment_item2.visibility = View.GONE
+                comment_item3.visibility = View.GONE
+                comments_see_all.visibility = View.GONE
+                no_cmt.visibility = View.VISIBLE
+            }
 //=======================1 cmt========================
 
-        else if (product!!.comment!!.size == 1) {
-            comments_see_all.visibility = View.GONE
-            comment_item2.visibility = View.GONE
-            comment_item3.visibility = View.GONE
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = product!!.comment!![0].user!!.name
-            comments1.text = product!!.comment!![0].content
-            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
-        }
+            else if (product!!.comment!!.size == 1) {
+                comments_see_all.visibility = View.GONE
+                comment_item2.visibility = View.GONE
+                comment_item3.visibility = View.GONE
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage1)
+                usercomments1.text = product!!.comment!![0].user!!.name
+                comments1.text = product!!.comment!![0].content
+                datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+            }
 //=======================2 cmt========================
 
-        else if (product!!.comment!!.size == 2) {
-            comments_see_all.visibility = View.GONE
-            comment_item3.visibility = View.GONE
+            else if (product!!.comment!!.size == 2) {
+                comments_see_all.visibility = View.GONE
+                comment_item3.visibility = View.GONE
 
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = product!!.comment!![0].user!!.name
-            comments1.text = product!!.comment!![0].content
-            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = product!!.comment!![1].user!!.name
-            comments2.text = product!!.comment!![1].content
-            datecomment2.text = timeAgo(product!!.comment!![1].time!!)
-        }
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage1)
+                usercomments1.text = product!!.comment!![0].user!!.name
+                comments1.text = product!!.comment!![0].content
+                datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage2)
+                usercomments2.text = product!!.comment!![1].user!!.name
+                comments2.text = product!!.comment!![1].content
+                datecomment2.text = timeAgo(product!!.comment!![1].time!!)
+            }
 
 //=======================3 cmt========================
-        else if (product!!.comment!!.size == 3) {
-            comments_see_all.visibility = View.GONE
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = product!!.comment!![0].user!!.name
-            comments1.text = product!!.comment!![0].content
-            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = product!!.comment!![1].user!!.name
-            comments2.text = product!!.comment!![1].content
-            datecomment2.text = timeAgo(product!!.comment!![1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage3)
-            usercomments3.text = product!!.comment!![2].user!!.name
-            comments3.text = product!!.comment!![2].content
-            datecomment3.text = timeAgo(product!!.comment!![2].time!!)
-        } else {
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = product!!.comment!![0].user!!.name
-            comments1.text = product!!.comment!![0].content
-            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = product!!.comment!![1].user!!.name
-            comments2.text = product!!.comment!![1].content
-            datecomment2.text = timeAgo(product!!.comment!![1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage3)
-            usercomments3.text = product!!.comment!![2].user!!.name
-            comments3.text = product!!.comment!![2].content
-            datecomment3.text = timeAgo(product!!.comment!![2].time!!)
-            comments_see_all.visibility = View.VISIBLE
-            comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
-        }
-        showAnimationBanner()
+            else if (product!!.comment!!.size == 3) {
+                comments_see_all.visibility = View.GONE
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage1)
+                usercomments1.text = product!!.comment!![0].user!!.name
+                comments1.text = product!!.comment!![0].content
+                datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage2)
+                usercomments2.text = product!!.comment!![1].user!!.name
+                comments2.text = product!!.comment!![1].content
+                datecomment2.text = timeAgo(product!!.comment!![1].time!!)
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage3)
+                usercomments3.text = product!!.comment!![2].user!!.name
+                comments3.text = product!!.comment!![2].content
+                datecomment3.text = timeAgo(product!!.comment!![2].time!!)
+            } else {
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage1)
+                usercomments1.text = product!!.comment!![0].user!!.name
+                comments1.text = product!!.comment!![0].content
+                datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage2)
+                usercomments2.text = product!!.comment!![1].user!!.name
+                comments2.text = product!!.comment!![1].content
+                datecomment2.text = timeAgo(product!!.comment!![1].time!!)
+                Glide.with(this)
+                        .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(userimage3)
+                usercomments3.text = product!!.comment!![2].user!!.name
+                comments3.text = product!!.comment!![2].content
+                datecomment3.text = timeAgo(product!!.comment!![2].time!!)
+                comments_see_all.visibility = View.VISIBLE
+                comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
+            }
+            showAnimationBanner()
+
     }
 
     fun destroyfragment() {

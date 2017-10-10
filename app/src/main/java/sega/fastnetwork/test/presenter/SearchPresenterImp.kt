@@ -91,7 +91,11 @@ class SearchPresenterImp(searchView: SearchView){
                     Log.d(TAG, "onError errorCode : " + e.errorCode)
                     Log.d(TAG, "onError errorBody : " + e.errorBody)
                     Log.d(TAG, e.errorDetail + " : " + e.message)
-                    searchview.setErrorMessage(e.errorDetail)
+                    if(e.errorCode == 404){
+                        searchview.setMessagerNotFound()
+                    }else {
+                        searchview.setErrorMessage(e.errorDetail)
+                    }
 
                 } else {
                     Log.d(TAG, "onError errorMessage : " + e.message)

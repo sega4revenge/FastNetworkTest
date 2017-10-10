@@ -27,6 +27,10 @@ import sega.fastnetwork.test.util.Constants
  * Created by Admin on 5/25/2016.
  */
 class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView {
+    override fun setErrorNotFound() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getListSavedProduct(productsavedlist: User) {
     }
 

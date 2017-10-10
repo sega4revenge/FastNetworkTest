@@ -64,7 +64,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
     var mPercent: Int = 0
     var lat1: String = ""
     var lot1: String = ""
-
+    var mDoubleCreate = false
     private var mAddPresenter: AddPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +91,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
 ///=======================Lay dia chi=========================
         addressEdit.setOnClickListener {
             locationPlacesIntent()
+            addressEdit.isEnabled = false
         }
 ///=======================Spinner danh muc=========================
 
@@ -197,6 +198,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     val add = place.address as String
                     //
                     addressText.setText(add)
+                    addressEdit.isEnabled = true
                 }
             }
 
@@ -256,6 +258,8 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         if (success) {
             if (type == "1") {
                 uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])), productid)
+            }else{
+                mDoubleCreate = true
             }
         }
     }
@@ -370,6 +374,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                         if (temp + 1 <= uriList!!.size) {
                             uploadImage(File(getRealFilePath(this@AddActivity, uriList?.get(temp))), productid)
                         } else {
+                            mDoubleCreate = true
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
                             mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")
                             mRemoteView!!.setTextViewText(R.id.timeremain, getString(R.string.uploaded_title, temp, uriList!!.size))
@@ -405,16 +410,24 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                 } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 } else {
-                    temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
+                    if(!mDoubleCreate) {
+                        temp = 0
+                        mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
+                    }else{
+                     Snackbar.make(findViewById(R.id.root_addproduct), "Sản phẩm đã được tạo thành công", Snackbar.LENGTH_SHORT).show()
+                    }
                 }
             } else if (toggle.checkedRadioButtonId == needborrow.id) {
-                Toast.makeText(this, "Can thueeeeeeee", Toast.LENGTH_LONG).show()
+
                 if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedIndex.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
                     Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
                 } else {
-                    temp = 0
-                    mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(),lat1,lot1, Constants.NEEDBORROW)
+                    if(!mDoubleCreate) {
+                        temp = 0
+                        mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.NEEDBORROW)
+                    }else{
+                        Snackbar.make(findViewById(R.id.root_addproduct), "Sản phẩm đã được tạo thành công", Snackbar.LENGTH_SHORT).show()
+                    }
                 }
             }
             System.out.println("upload")

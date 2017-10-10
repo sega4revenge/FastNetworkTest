@@ -38,6 +38,7 @@ import sega.fastnetwork.test.util.Validation
  */
 
 class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView {
+
     override fun changeAvatarSuccess(t: Response) {
     }
 
@@ -89,7 +90,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             adapter!!.initShimmer()
             adapter!!.isLoading = false
             isFirstLoad = true
-
+            Log.d("ssssss","11111111")
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
         })
@@ -108,7 +109,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                 })
             }
 
-
+            Log.d("ssssss","222222222")
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
         })
     }
@@ -250,11 +251,30 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     override fun setErrorMessage(errorMessage: String) {
         onDownloadFailed()
     }
+    override fun setErrorNotFound() {
 
+        if (adapter!!.pageToDownload == 1) {
+            swipe_refresh.isRefreshing = false
+            swipe_refresh.visibility = View.GONE
+            error_message.visibility = View.GONE
+            nodata.visibility = View.VISIBLE
+        } else {
+            adapter!!.productList.removeAt(adapter!!.productList.size - 1)
+            adapter!!.notifyItemRemoved(adapter!!.productList.size)
+            nodata.visibility = View.GONE
+            error_message.visibility = View.GONE
+            swipe_refresh.visibility = View.VISIBLE
+            swipe_refresh.isRefreshing = false
+            swipe_refresh.isEnabled = true
+            adapter!!.isLoadingLocked = true
+        }
+
+    }
     override fun getListProduct(productlist: ArrayList<Product>) {
         adapter!!.productList.removeAt(adapter!!.productList.size - 1)
         adapter!!.notifyItemRemoved(adapter!!.productList.size)
         if (isFirstLoad) {
+            Log.d("sssss","!!!!!")
             adapter!!.productList.clear()
             isFirstLoad = false
         }
