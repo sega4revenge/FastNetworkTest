@@ -52,16 +52,136 @@ import sega.fastnetwork.test.lib.SliderTypes.DefaultSliderView
 import sega.fastnetwork.test.lib.SliderTypes.SliderLayout
 import sega.fastnetwork.test.lib.SliderTypes.Tricks.ViewPagerEx
 import sega.fastnetwork.test.manager.AppManager
+import sega.fastnetwork.test.model.Comment
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
+import sega.fastnetwork.test.presenter.CommentPresenter
 import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
 import java.text.DecimalFormat
 import java.util.*
 
 
-class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
+class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
+    override fun isCommentSuccessful(isCommentSuccessful: Boolean) {
+    }
+
+    override fun getCommentDetail(listcomment: ArrayList<Comment>) {
+        Log.e("adasdasd",listcomment.size.toString())
+//=======================0 cmt========================
+        if (listcomment.size == 0) {
+            comment_item1.visibility = View.GONE
+            comment_item2.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+            comments_see_all.visibility = View.GONE
+            no_cmt.visibility = View.VISIBLE
+        }
+//=======================1 cmt========================
+
+        else if (listcomment.size == 1) {
+            comments_see_all.visibility = View.GONE
+            comment_item2.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+            comment_item1.visibility = View.VISIBLE
+            Glide.with(this)
+                    .load(avatacmt(listcomment[0].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = listcomment[0].user!!.name
+            comments1.text = listcomment[0].content
+            datecomment1.text = timeAgo(listcomment[0].time!!)
+        }
+//=======================2 cmt========================
+
+        else if (listcomment.size == 2) {
+            comments_see_all.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+            comment_item1.visibility = View.VISIBLE
+            comment_item2.visibility = View.VISIBLE
+
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-1].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            comments1.text = listcomment[listcomment.size-1].content
+            datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-2].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            comments2.text = listcomment[listcomment.size-2].content
+            datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
+        }
+
+//=======================3 cmt========================
+        else if (listcomment.size == 3) {
+            comments_see_all.visibility = View.GONE
+            comment_item1.visibility = View.VISIBLE
+            comment_item2.visibility = View.VISIBLE
+            comment_item3.visibility = View.VISIBLE
+
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-1].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            comments1.text = listcomment[listcomment.size-1].content
+            datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-2].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            comments2.text = listcomment[listcomment.size-2].content
+            datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-3].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage3)
+            usercomments3.text = listcomment[listcomment.size-3].user!!.name
+            comments3.text = listcomment[listcomment.size-3].content
+            datecomment3.text = timeAgo(listcomment[listcomment.size-3].time!!)
+        } else {
+            comment_item1.visibility = View.VISIBLE
+            comment_item2.visibility = View.VISIBLE
+            comment_item3.visibility = View.VISIBLE
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-1].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            comments1.text = listcomment[listcomment.size-1].content
+            datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-2].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            comments2.text = listcomment[listcomment.size-2].content
+            datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-3].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage3)
+            usercomments3.text = listcomment[listcomment.size-3].user!!.name
+            comments3.text = listcomment[listcomment.size-3].content
+            datecomment3.text = timeAgo(listcomment[listcomment.size-3].time!!)
+            comments_see_all.visibility = View.VISIBLE
+            comments_see_all.text = (listcomment.size - 3).toString() + " more comments..."
+        }    }
+
     override fun onMapReady(p0: GoogleMap?) {
         googleMap = p0
         // For showing a move to my location button
@@ -102,6 +222,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
     var isTablet: Boolean = false
     var mProductDetailPresenter: ProductDetailPresenter? = null
+    var mCommentPresenter: CommentPresenter? = null
     var s = 0
     var mTypeSave = "0"
     var doubleClick = false
@@ -130,11 +251,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         val cur = Currency.getInstance(current)
         format = cur.symbol
         mProductDetailPresenter = ProductDetailPresenter(this)
+        mCommentPresenter = CommentPresenter(this)
         //========================refresh comment======================
-     /*   v.refresh.setOnClickListener{
+     v.refresh_comment.setOnClickListener{
             doubleClick = true
-            mProductDetailPresenter!!.getProductDetail(id, AppManager.getAppAccountUserId(activity))
-        }*/
+            mCommentPresenter!!.refreshcomment(id)
+        }
 //=============================see all comment=======================
         v.comments_see_all.setOnClickListener {
             gotoallcomment()
@@ -147,14 +269,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             when (isMap) {
                 false -> {
                     isMap = true
-                    change_map.background = resources.getDrawable(R.drawable.printer)
+                    change_map.background = resources.getDrawable(R.drawable.ic_map)
                     slider.visibility = View.GONE
                     val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
                     mapView_location.getMapAsync(this)
                 }
                 else -> {
                     isMap = false
-                    change_map.background = resources.getDrawable(R.drawable.avatar)
+                    change_map.background = resources.getDrawable(R.drawable.ic_slide)
                     slider.visibility = View.VISIBLE
                 }
 

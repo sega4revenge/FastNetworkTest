@@ -20,7 +20,7 @@
         android:gravity="right"
         android:layout_margin="5dp">
         <ImageButton
-            android:id="@+id/refresh"
+            android:id="@+id/refresh_comment"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@drawable/refresh"/>
@@ -297,51 +297,52 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingTop="10dp"
+        android:layout_height="50dp"
+        android:clickable="true"
         android:paddingLeft="7dp"
         android:paddingRight="7dp"
-        android:clickable="true">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
-            <Button
-                android:id="@+id/comments_see_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="See more"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textAllCaps="false"
-                android:background="@drawable/drawable_seecomment_button"
+        <Button
+            android:id="@+id/comments_see_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_seecomment_button"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="See more"
+            android:textAllCaps="false"
 
-        />
+            />
 
-    <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
-                <!--android:id="@+id/comments_see_all"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="See more" />-->
+        <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+        <!--android:id="@+id/comments_see_all"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="See more" />-->
 
-            <Button
-                android:id="@+id/add_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:textAllCaps="false"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Add Comment"
-                android:background="@drawable/drawable_seecomment_button"/>
-            <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
-                <!--android:id="@+id/add_comment"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="right"-->
-                <!--android:text="Add Comment"-->
-                <!--android:layout_alignParentTop="true"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_alignParentEnd="true" />-->
+        <Button
+            android:id="@+id/add_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/drawable_seecomment_button"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Add Comment"
+            android:textAllCaps="false" />
+        <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+        <!--android:id="@+id/add_comment"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:text="Add Comment"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true" />-->
 
     </RelativeLayout>
     <!-- See All Button -->

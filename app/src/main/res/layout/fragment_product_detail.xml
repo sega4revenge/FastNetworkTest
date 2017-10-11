@@ -94,7 +94,7 @@
                             android:id="@+id/im_share"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:background="@drawable/share_white"
+                            android:background="@drawable/ic_share"
                             android:layout_marginLeft="5dp"
                             />
                     </LinearLayout>

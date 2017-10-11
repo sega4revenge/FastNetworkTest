@@ -16,9 +16,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.content_comments.*
-import kotlinx.android.synthetic.main.content_comments.view.*
 import kotlinx.android.synthetic.main.toolbar_twoline.*
-import kotlinx.android.synthetic.main.toolbar_twoline.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.CommentAdapter
 import sega.fastnetwork.test.manager.AppManager
@@ -142,6 +140,7 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
 
     override fun onDestroy() {
         super.onDestroy()
+        mCommentPresenter!!.cancelRequest()
         activity.unregisterReceiver(appendChatScreenMsgReceiver)
     }
 
