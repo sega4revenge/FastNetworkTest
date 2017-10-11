@@ -48,15 +48,18 @@
 
         <TextView
             android:id="@+id/product_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/product_user_address"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="15dp"
+
             android:text="Ten san pham"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_price" />
+            android:textSize="@dimen/text_price"
+            android:layout_toLeftOf="@+id/linearLayout3"
+            android:layout_toStartOf="@+id/linearLayout3" />
 
         <sega.fastnetwork.test.view.RobotoRegularTextView
             android:id="@+id/product_user_address"
