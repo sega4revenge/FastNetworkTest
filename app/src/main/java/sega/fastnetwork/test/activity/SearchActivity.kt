@@ -3,7 +3,10 @@ package sega.fastnetwork.test.activity
 
 import android.Manifest
 import android.app.Activity
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.util.ArrayMap
@@ -91,7 +94,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             val v = this.currentFocus
             if (v != null)
                 inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-            dialogFrag!!.show(supportFragmentManager, dialogFrag!!.tag)
+            dialogFrag.show(supportFragmentManager, dialogFrag.tag)
         }
         nestedScrollView.visibility = View.VISIBLE
         action_grid.setOnClickListener {
@@ -136,11 +139,12 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         override fun onPermissionGranted() {
                             val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
                             mapFragment.getMapAsync(this)
+                            Toast.makeText(this@SearchActivity, "ok", Toast.LENGTH_SHORT).show()
                             mLocationRequestwithBalanced.interval = 30000
                             mLocationRequestwithBalanced.fastestInterval = 10000
                             mLocationRequestwithBalanced.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
                             val builder = LocationSettingsRequest.Builder().addLocationRequest(mLocationRequestwithBalanced)
-                            val result = LocationServices.SettingsApi.checkLocationSettings(MyApplication.getGoogleApiHelper()?.googleApiClient, builder.build())
+                            val result = LocationServices.SettingsApi.checkLocationSettings(MyApplication.getGoogleApiHelper()!!.googleApiClient, builder.build())
 
                             result.setResultCallback { result ->
                                 val status = result.status
@@ -160,7 +164,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                                             status.startResolutionForResult(
                                                     this@SearchActivity,
                                                     REQUEST_CHECK_SETTINGS)
-                                        } catch (e: IntentSender.SendIntentException) {
+                                        } catch (e: Throwable) {
 
                                         }
 
@@ -228,6 +232,8 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
             myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
             mLocation?.position = myLocation
+            if(intent.getBooleanExtra("first",false))
+                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(mLocation?.position, 17.0f))
             Toast.makeText(this@SearchActivity, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
         }

@@ -318,14 +318,14 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
     }
 
-    override fun onPause() {
+    /*override fun onPause() {
         super.onPause()
 
         // Your application logic
         // ...
         // ...
 
-        MyApplication.getGoogleApiHelper()?.googleApiClient?.disconnect()
+     *//*   MyApplication.getGoogleApiHelper()?.googleApiClient?.disconnect()*//*
     }
 
     override fun onStop() {
@@ -341,7 +341,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         if (MyApplication.getGoogleApiHelper()?.googleApiClient?.isConnected!!) {
             MyApplication.getGoogleApiHelper()?.googleApiClient?.disconnect()
         }
-    }
+    }*/
 
 }
 

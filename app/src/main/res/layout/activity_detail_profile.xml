@@ -7,180 +7,6 @@
     android:fitsSystemWindows="true">
 
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            app:elevation="0dp"
-            >
-
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                android:background="@color/actionBarColor">
-
-                <RelativeLayout
-                    android:id="@+id/categorylist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax">
-
-                    <LinearLayout
-                        android:id="@+id/pintop"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:orientation="horizontal" />
-
-                    <LinearLayout
-                        android:id="@+id/linCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_below="@id/pintop"
-                        android:animateLayoutChanges="true"
-                        android:orientation="vertical"
-                        >
-
-                        <LinearLayout
-                            android:id="@+id/linInfor"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="center"
-                            android:layout_margin="10dp"
-                            >
-
-                            <sega.fastnetwork.test.customview.CircleImageView
-                                android:id="@+id/imgAvatar"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/img_error" />
-
-                            <TextView
-                                android:id="@+id/txtemail"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="vuongvinh1993@gmail.com"
-                                android:textColor="@color/white"
-                                android:textSize="12sp"
-                                android:layout_marginTop="5dp"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:weightSum="100"
-                            android:layout_margin="10dp"
-                         >
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="33"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:background="@drawable/border_radius_view"
-                                android:layout_margin="5dp">
-                                <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:background="@drawable/phone_call"
-                                    android:layout_margin="10dp"
-                               />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="33"
-                                android:background="@drawable/border_radius_view"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:layout_margin="10dp"
-                                    android:background="@drawable/chatting" />
-
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="33"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:background="@drawable/border_radius_view"
-                                android:layout_margin="5dp">
-                                <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
-                                    android:background="@drawable/share_white"
-                                    android:layout_margin="10dp"
-                                    />
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-
-
-                </RelativeLayout>
-
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:layout_centerVertical="true"
-                    android:gravity="top"
-                    android:theme="@style/Theme.Samita.Toolbar"
-                    app:contentInsetStart="0dp"
-                    app:layout_collapseMode="pin"
-                    android:background="@color/actionBarColor"
-
-                    >
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
-                       >
-                        <ImageButton
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/previous"/>
-                        <TextView
-                            android:id="@+id/txtname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="Toolbar Title"
-                            android:textColor="@color/white"
-                            android:textSize="15sp"
-                            android:textStyle="bold"/>
-
-                    </RelativeLayout>
-
-                </android.support.v7.widget.Toolbar>
-
-                <!--</RelativeLayout>-->
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-        </android.support.design.widget.AppBarLayout>
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -366,12 +192,14 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/radius_all_view">
+
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/product_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                         </android.support.v7.widget.RecyclerView>
+
                         <TextView
                             android:id="@+id/mess_notfound"
                             android:layout_width="wrap_content"
@@ -386,6 +214,178 @@
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/actionBarColor"
+            android:fitsSystemWindows="true"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <RelativeLayout
+                android:id="@+id/categorylist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax">
+
+                <LinearLayout
+                    android:id="@+id/pintop"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:orientation="horizontal" />
+
+                <LinearLayout
+                    android:id="@+id/linCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/pintop"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/linInfor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <sega.fastnetwork.test.customview.CircleImageView
+                            android:id="@+id/imgAvatar"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/img_error" />
+
+                        <TextView
+                            android:id="@+id/txtemail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="vuongvinh1993@gmail.com"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="100">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="33"
+                            android:background="@drawable/border_radius_view"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/phone_call" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="33"
+                            android:background="@drawable/border_radius_view"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/chatting" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="33"
+                            android:background="@drawable/border_radius_view"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/share_white" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_centerVertical="true"
+                android:background="@color/actionBarColor"
+                android:gravity="top"
+                android:theme="@style/Theme.Samita.Toolbar"
+                app:contentInsetStart="0dp"
+                app:layout_collapseMode="pin"
+
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true">
+
+                    <ImageButton
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/previous" />
+
+                    <TextView
+                        android:id="@+id/txtname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Toolbar Title"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+            <!--</RelativeLayout>-->
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
