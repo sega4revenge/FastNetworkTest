@@ -12,17 +12,19 @@
         android:gravity="center"
         android:visibility="visible"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:layout_margin="5dp">
         <sega.fastnetwork.test.customview.CircleImageView
             android:id="@+id/imgAvatarFrom"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
             />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             >
             <TextView
                 android:id="@+id/txttime"
@@ -34,26 +36,35 @@
                 android:textSize="12dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:gravity="center_vertical"
                 >
             <TextView
                 android:id="@+id/txtnameFrom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="19sp"
+                android:textSize="15sp"
                 android:singleLine="true"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:textStyle="bold"
                 android:text="vuongvinh"
-                android:layout_margin="5dp"
+                android:layout_margin="0dp"
+                android:visibility="gone"
                 />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:background="@drawable/border_textchat">
+                    android:background="@drawable/border_textchat"
+                    android:gravity="center"
+                   >
+                    <ProgressBar
+                       android:id="@+id/progressBarLoading"
+                        android:visibility="gone"
+                        android:layout_width="@dimen/progress_circle_small_width"
+                        android:layout_height="@dimen/progress_circle_small_width" />
                     <ImageView
                         android:padding="7dp"
                         android:id="@+id/imgSend"
@@ -62,13 +73,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
+                        android:visibility="gone"
                         />
                     <TextView
                         android:padding="7dp"
                         android:id="@+id/txtmessFrom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"/>
                 </LinearLayout>
@@ -82,18 +94,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="right"
         android:visibility="gone"
-        android:layout_marginRight="10dp">
-
+        android:gravity="right|center"
+        >
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="right"
             >
             <TextView
                 android:id="@+id/txtnameTo"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -133,8 +145,8 @@
         </LinearLayout>
         <sega.fastnetwork.test.customview.CircleImageView
             android:id="@+id/imgAvatarTo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="5dp"
         />
     </LinearLayout>

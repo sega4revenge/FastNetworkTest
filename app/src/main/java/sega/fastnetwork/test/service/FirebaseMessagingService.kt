@@ -43,19 +43,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         return result
     }
     private fun showNotificationChat(userto : String,name: String,messager: String, avata: String, userfrom : String) {
-       var avata2 = avatacmt(avata)
-        if (avata2.equals("") || avata2 == null) {
-            image = BitmapFactory.decodeResource(applicationContext.resources,
-                    R.mipmap.home_icon)
-        } else {
-            try {
-                val url = URL(avata2)
-                image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-            } catch (e: IOException) {
-                System.out.println(e)
-            }
 
-        }
             val typenotification = 2
             val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -63,28 +51,64 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
             val intent = Intent(this@FirebaseMessagingService, ChatActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("iduser",userfrom)
-            intent.putExtra("avater","")
-            val pendingIntent = PendingIntent.getActivity(this, 100, intent,
-                    PendingIntent.FLAG_ONE_SHOT)
-            notif = Notification.Builder(this)
-                    .setContentIntent(pendingIntent)
-                    .setContentTitle(name)
-                    .setContentText(messager)
-                    .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-                    .setLights(Color.RED, 3000, 3000)
-                    .setSound(defaultSoundUri)
-                    .setSmallIcon(R.mipmap.home_icon)
-                    .setLargeIcon(getCroppedBitmap(image!!))
-                    .build()
-
-            notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
-            notificationManager.notify(typenotification, notif)
+            intent.putExtra("avatar","")
 
 
-        val x = Intent()
-        x.action = "commmentactivity"
-        x.putExtra("reload", true)
-        this.sendBroadcast(x)
+            if (avata.equals("") || avata == null) {
+
+                val pendingIntent = PendingIntent.getActivity(this, 100, intent,
+                        PendingIntent.FLAG_ONE_SHOT)
+                notif = Notification.Builder(this)
+                        .setContentIntent(pendingIntent)
+                        .setContentTitle(name)
+                        .setContentText(messager)
+                        .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+                        .setLights(Color.RED, 3000, 3000)
+                        .setSound(defaultSoundUri)
+                        .setSmallIcon(R.mipmap.home_icon)
+                        .build()
+
+                notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
+                notificationManager.notify(typenotification, notif)
+
+
+                val x = Intent()
+                x.action = "commmentactivity"
+                x.putExtra("reload", true)
+                this.sendBroadcast(x)
+
+            } else {
+                var avata2 = avatacmt(avata)
+                try {
+                    val url = URL(avata2)
+                    image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                    val pendingIntent = PendingIntent.getActivity(this, 100, intent,
+                            PendingIntent.FLAG_ONE_SHOT)
+                    notif = Notification.Builder(this)
+                            .setContentIntent(pendingIntent)
+                            .setContentTitle(name)
+                            .setContentText(messager)
+                            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+                            .setLights(Color.RED, 3000, 3000)
+                            .setSound(defaultSoundUri)
+                          //  .setSmallIcon(R.mipmap.home_icon)
+                            .setLargeIcon(getCroppedBitmap(image))
+                            .build()
+
+                    notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
+                    notificationManager.notify(typenotification, notif)
+
+
+                    val x = Intent()
+                    x.action = "commmentactivity"
+                    x.putExtra("reload", true)
+                    this.sendBroadcast(x)
+
+                } catch (e: IOException) {
+                    System.out.println(e)
+                }
+
+            }
 
     }
     private fun showNotification(productid : String, useridproduct: String, useridcmt : String) {
@@ -126,14 +150,15 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
 
     }
 
-    fun getCroppedBitmap(bitmap: Bitmap): Bitmap {
-        val output = Bitmap.createBitmap(bitmap.width,
+    fun getCroppedBitmap(bitmap: Bitmap?): Bitmap {
+
+        val output = Bitmap.createBitmap(bitmap?.width!!,
                 bitmap.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(output)
 
         val color = 0xff424242.toInt()
         val paint = Paint()
-        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        val rect = Rect(0, 0, bitmap?.width!!, bitmap.height)
 
         paint.setAntiAlias(true)
         canvas.drawARGB(0, 0, 0, 0)

@@ -60,7 +60,9 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:gravity="center"
-                  >
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
 
                     <TextView
                         android:id="@+id/txttitle"
@@ -82,9 +84,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:emojicon="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:id="@+id/contentRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -92,26 +92,13 @@
         android:background="@color/background"
         android:layout_marginTop="?attr/actionBarSize">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/messageRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                />
-
-
-        </FrameLayout>
-
         <RelativeLayout
             android:background="#fff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp">
+            android:padding="2dp"
+            android:id="@+id/bottomchat"
+            android:layout_alignParentBottom="true">
             <ImageView
                 android:id="@+id/upimage"
                 android:layout_width="40dp"
@@ -142,5 +129,26 @@
                 android:layout_alignParentEnd="true"
                 />
         </RelativeLayout>
-    </LinearLayout>
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomchat"
+            android:fillViewport="true">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/messageRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    android:nestedScrollingEnabled="false"
+                    />
+        </android.support.v4.widget.NestedScrollView>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible"
+            />
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -21,7 +21,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.RemoteViews
 import android.widget.Toast
 import com.androidnetworking.error.ANError
@@ -107,7 +106,6 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
             for(i in 0..imglist?.size!!)
             {
                 if(i!=imglist?.size!!) {
-                    Log.d("sssss", Constants.IMAGE_URL+imglist!![i])
                     imgBean = ImageBean(Constants.IMAGE_URL+imglist!![i])
                     uriImage?.add(imgBean!!)
                 }
@@ -335,10 +333,13 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<JSONObject> {
                     override fun onComplete() {
-                        progress?.dismiss()
                         Log.d(TAG + "_1", "onComplete Detail : uploadImage completed")
-                        setResult(1)
-                        finish()
+                        Log.d("_1111", temp.toString())
+                        if (temp == uriList!!.size) {
+                            progress?.dismiss()
+                            setResult(1)
+                            finish()
+                        }
                     }
 
                     override fun onError(e: Throwable) {

@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/toolbar"
-
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -94,7 +93,7 @@
                             android:id="@+id/im_share"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:background="@drawable/ic_share"
+                            android:background="@drawable/share_white"
                             android:layout_marginLeft="5dp"
                             />
                     </LinearLayout>

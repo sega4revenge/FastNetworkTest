@@ -139,7 +139,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         override fun onPermissionGranted() {
                             val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
                             mapFragment.getMapAsync(this)
-                            Toast.makeText(this@SearchActivity, "ok", Toast.LENGTH_SHORT).show()
+                          //  Toast.makeText(this@SearchActivity, "ok", Toast.LENGTH_SHORT).show()
                             mLocationRequestwithBalanced.interval = 30000
                             mLocationRequestwithBalanced.fastestInterval = 10000
                             mLocationRequestwithBalanced.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY

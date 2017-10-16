@@ -58,14 +58,16 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
         }
 
             holder.LinFrom.visibility = View.VISIBLE
+            holder.txtnameFrom.visibility = View.VISIBLE
+            holder.txtmessFrom.visibility = View.VISIBLE
             holder.txttime.text = timeAgo(mess?.created_at!!)
             holder.txtnameFrom.text = name
             holder.txtmessFrom.text = mess?.message
             val options = RequestOptions()
                     .centerCrop()
                     .dontAnimate()
-                    .placeholder(R.drawable.logo)
-                    .error(R.drawable.server_unreachable)
+                    .placeholder(R.drawable.useravatar)
+                    .error(R.drawable.useravatar)
                     .priority(Priority.HIGH)
             Glide.with(mContext)
                     .load(avatacmt(photo))

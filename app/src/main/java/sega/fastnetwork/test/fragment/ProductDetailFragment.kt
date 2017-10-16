@@ -68,7 +68,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     }
 
     override fun getCommentDetail(listcomment: ArrayList<Comment>) {
-        Log.e("adasdasd",listcomment.size.toString())
+
 //=======================0 cmt========================
         if (listcomment.size == 0) {
             comment_item1.visibility = View.GONE
@@ -374,7 +374,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
                         Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
-
             }
             TedPermission.with(activity)
                     .setPermissionListener(permissionlistener)
@@ -450,9 +449,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product = null
         try {
             statussave = response.statussave!!
-            Log.e("getProductDetail", statussave.toString())
-            userCreateProduct = response?.product?.user?._id.toString()
-
                 if (statussave) {
                     im_star.setImageResource(R.drawable.ic_start_on)
                 } else {
@@ -462,7 +458,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             Log.e("getProductDetail", "saidjasd")
              im_star.visibility = View.GONE
         }
+        userCreateProduct = response?.product?.user?._id.toString()
         this.product = response.product
+        Log.e("getProductDetail",userCreateProduct+"//"+ AppManager.getAppAccountUserId(activity.applicationContext))
+        if(userCreateProduct.equals(AppManager.getAppAccountUserId(activity.applicationContext))){
+            fab_menu.visibility =View.GONE
+        }else{fab_menu.visibility = View.VISIBLE}
         onDownloadSuccessful()
     }
 
@@ -524,7 +525,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         progress_circle.visibility = View.GONE
         error_message.visibility = View.GONE
         product_detail_holder.visibility = View.VISIBLE
-        fab_menu.visibility = View.VISIBLE
         layout_detail_header.visibility = View.VISIBLE
         // Set title and tagline
 

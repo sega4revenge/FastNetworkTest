@@ -69,7 +69,7 @@ class DetailUserPresenter(view: DetailUserPresenter.DetailUserView) {
                                 mDetailView.setErrorMessage(e.errorDetail)
                             } else {
                                 // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
+                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail + "errmess: "+e.message)
                                 mDetailView.setErrorMessage(e.errorDetail)
                             }
                         } else {

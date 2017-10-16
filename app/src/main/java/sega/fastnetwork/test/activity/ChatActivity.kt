@@ -12,10 +12,8 @@ import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import android.widget.Toast
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
-import com.bumptech.glide.request.RequestOptions
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import io.socket.client.Socket
@@ -43,6 +41,8 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     var user: User? = null
     var ImageAvatar = ""
     var userid = ""
+    var numProgressLoading = 0
+    var arrLoadingImage: ArrayList<Int> = ArrayList()
     private val filePath: Uri? = null
     private var bitmap: Bitmap? = null
     private var PICK_IMAGE_REQUEST = 199
@@ -54,6 +54,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     var mToolbar = ""
     var avatar = ""
     var adapter: ChatAdapter? = null
+    var ProgressLoadingImage: ChatMessager? = ChatMessager()
     var data: ArrayList<ChatMessager> = ArrayList()
     var mDataMessager: ArrayList<ChatMessager>? = ArrayList()
    var  layoutManager: LinearLayoutManager? = null
@@ -61,32 +62,32 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         mSocket = AppManager.getSocket(application)
-
+        //==============
+        ProgressLoadingImage?.email = ""
+        ProgressLoadingImage?.name = ""
+        ProgressLoadingImage?.message = ""
+        ProgressLoadingImage?.photoprofile = ""
+        //===============
         var i = intent
         userid = i.getStringExtra("iduser")
         avatar= i.getStringExtra("avatar")
-        val options = RequestOptions()
-                .centerCrop()
-                .dontAnimate()
-                .placeholder(R.drawable.logo)
-                .error(R.drawable.server_unreachable)
-                .priority(Priority.HIGH)
-        Glide.with(this@ChatActivity)
-                .load(avatar)
-                .thumbnail(0.1f)
-                .apply(options)
-                .into(imgAva)
+
         messageRecyclerView.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(this)
         layoutManager?.stackFromEnd = true
         messageRecyclerView.layoutManager = layoutManager
 
+        adapter = ChatAdapter(mDataMessager,applicationContext,ImageAvatar)
+        messageRecyclerView.adapter = adapter
+
         mDetailUserPresenter = DetailUserPresenter(this)
         mDetailUserPresenter!!.getUserDetail(AppManager.getAppAccountUserId(this))
-     //   mSocket!!.on("login", onLogin)
-     //   mSocket!!.on("userconnect", onConnect)
+
         buttonMessage.setOnClickListener {
-            mSocket!!.emit("sendchat",userid,mUserFrom,mUserTo,user?.email,user?.name,editTextMessage.text)
+            mSocket!!.emit("sendchat",user?._id!!,userid,mUserFrom,mUserTo,user?.email,user?.name,editTextMessage.text)
+        }
+        imgback.setOnClickListener(){
+            finish()
         }
         upimage.setOnClickListener(){
             val permissionlistener = object : PermissionListener {
@@ -147,18 +148,13 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         return data
     }
     private fun showUriList(uriList:Uri) {
+        mDataMessager?.add(ProgressLoadingImage!!)
+        adapter?.notifyItemInserted(mDataMessager?.size!!-1)
+        arrLoadingImage.add(mDataMessager?.size!!-1)
         mDetailUserPresenter?.upImage(File(getRealFilePath(this, uriList)),mUserFrom,mUserTo,user?.email!!,user?.name!!,this)
-       // mSocket!!.emit("sendchatimage",mUserFrom,mUserTo,user?.email,user?.name, File(getRealFilePath(this, uriList)))
     }
 
-    //    override fun onRequestPermissionsResult(
-//            requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-//        when (requestCode) {
-//            REQUEST_ID_MULTIPLE_PERMISSIONS -> if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-//                init()
-//            }
-//        }
-//    }
+
     override fun setErrorMessage(errorMessage: String) {
         println(errorMessage)
     }
@@ -180,8 +176,8 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 mUserFrom = userid
                 mUserTo   = user?._id!!
             }
-            mSocket!!.on("sendchat: "+mUserFrom+" - "+mUserTo, getMessage)
-            mSocket!!.on(mUserFrom+" - "+mUserTo, messData)
+            mSocket!!.on("sendchat", getMessage)
+            mSocket!!.on("getDataMessage", messData)
             mSocket!!.emit("getData", mUserFrom,mUserTo,user?._id!!)
 
         }
@@ -194,9 +190,9 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
 
     override fun onDestroy() {
         super.onDestroy()
-
-        mSocket?.off("sendchat: "+mUserFrom+" - "+mUserTo)
-        mSocket?.off(mUserFrom+" - "+mUserTo)
+        mSocket!!.emit("outroom",mUserFrom,mUserTo)
+        mSocket?.off("sendchat")
+        mSocket?.off("getDataMessage")
     }
     override fun getStatusUpdateImage(mess: ChatMessager) {
         var Chatmess: ChatMessager? = ChatMessager()
@@ -204,8 +200,11 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         Chatmess?.name = mess.name
         Chatmess?.message = mess.message
         Chatmess?.photoprofile = mess.photoprofile
+        Log.d("mess",arrLoadingImage.get(numProgressLoading).toString())
+        mDataMessager?.remove(ProgressLoadingImage)
         mDataMessager?.add(Chatmess!!)
-        updateData()
+        adapter?.notifyItemChanged(arrLoadingImage.get(numProgressLoading))
+        numProgressLoading++
     }
     private val getMessage = Emitter.Listener { args ->
         val data = args[0]  as String
@@ -216,31 +215,23 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         Chatmess?.message = args[4].toString()
         Chatmess?.photoprofile = ""
         mDataMessager?.add(Chatmess!!)
-        updateData()
-
+        if(adapter?.itemCount!=null)
+        {
+            adapter?.notifyItemInserted(mDataMessager?.size!!)
+        }else{
+            updateData()
+        }
 
     }
     private fun updateData(){
         object : AsyncTask<Void, Void, Void>() {
             override fun doInBackground(vararg params: Void): Void? {
                 try {
-
                     runOnUiThread {
-                        val options = RequestOptions()
-                            .centerCrop()
-                            .dontAnimate()
-                            .placeholder(R.drawable.logo)
-                            .error(R.drawable.server_unreachable)
-                            .priority(Priority.HIGH)
-                    Glide.with(this@ChatActivity)
-                            .load(avatacmt(ImageAvatar))
-                            .thumbnail(0.1f)
-                            .apply(options)
-                            .into(imgAva)
                         txttitle.text = mToolbar
-                        adapter = ChatAdapter(mDataMessager,applicationContext,ImageAvatar)
-                        messageRecyclerView.adapter = adapter
-                        messageRecyclerView.scrollToPosition((adapter?.itemCount!!)-1)
+                        adapter?.notifyDataSetChanged()
+                        Log.d("aaaaaa",adapter?.itemCount!!.toString())
+                      //  messageRecyclerView.scrollToPosition((adapter?.itemCount!!)-1)
                     }
                 } catch (exception: Exception) {
                    Log.d("Error", exception.toString())
@@ -255,6 +246,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     private val messData = Emitter.Listener { args ->
         val mdata = args[0]  as JSONArray
         val mType = args[1]  as Int
+        var arrUser = args[2]  as JSONArray
 
         if(mType == 0){
             runOnUiThread {
@@ -265,31 +257,33 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 imgOff.setImageResource(R.drawable.ic_online_)
             }
         }
-        if(mdata.length()>0){
-            val mdata2 = mdata[0] as JSONObject
-            if(mdata2.getJSONObject("userfrom").getString("_id").equals(userid))
-            {
-                ImageAvatar = mdata2.getJSONObject("userfrom").getString("photoprofile")
-                mToolbar = mdata2.getJSONObject("userfrom").getString("name")
-            }else{
-                ImageAvatar = mdata2.getJSONObject("userto").getString("photoprofile")
-                mToolbar = mdata2.getJSONObject("userto").getString("name")
 
-            }
+        ImageAvatar = arrUser.getJSONObject(0).getString("photoprofile")
+        mToolbar = arrUser.getJSONObject(0).getString("name")
+
+        if(mdata.length()>0) {
             var parse = mdata.getJSONObject(0).getJSONArray("messages")
-            for(i in 0..(parse.length()-1)){
+            for (i in 0..(parse.length() - 1)) {
                 var mObject = parse.getJSONObject(i)
                 var Chatmess: ChatMessager? = ChatMessager()
                 Chatmess?.email = mObject.getString("email")
-                Chatmess?.name =  mObject.getString("name")
-                Chatmess?.message =  mObject.getString("message")
-                Chatmess?.photoprofile =  mObject.getString("photoprofile")
+                Chatmess?.name = mObject.getString("name")
+                Chatmess?.message = mObject.getString("message")
+                Chatmess?.photoprofile = mObject.getString("photoprofile")
                 mDataMessager?.add(Chatmess!!)
             }
 
             updateData()
-
+            runOnUiThread(Runnable {
+                progressBar.visibility = View.GONE
+            })
         }else{
+
+            runOnUiThread(Runnable {
+                progressBar.visibility = View.GONE
+                txttitle.text = mToolbar
+            })
+
             Log.d("Data","nullll cmnr")
         }
 
