@@ -155,6 +155,7 @@ class DetailProfileActivity : Activity(), DetailProfileView, ProductAdapter.Onpr
     override fun onproductClicked(position: Int) {
         val intent = Intent(this, ProductDetailActivity::class.java)
         intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+        intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
         startActivity(intent)
     }
 

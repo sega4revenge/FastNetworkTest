@@ -145,7 +145,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         if (err == 0) {
             val user = User()
             user.name = name.text.toString()
-            user.password = password.text.toString()
+            user.hashed_password = password.text.toString()
             user.email = email.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
            mRegisterPresenter!!.register(user,Constants.LOCAL)

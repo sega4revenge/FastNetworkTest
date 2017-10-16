@@ -68,6 +68,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     }
 
     override fun getCommentDetail(listcomment: ArrayList<Comment>) {
+        Log.e("adasdasd",listcomment.size.toString())
+        no_cmt.visibility = View.GONE
 
 //=======================0 cmt========================
         if (listcomment.size == 0) {
@@ -217,6 +219,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     private var format: String = ""
     private var userCreateProduct: String = ""
     private var id: String = ""
+    private var id_user: String = ""
     private var product: Product? = null
     private var seller: User? = null
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
@@ -294,12 +297,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         if (savedInstanceState == null || !(savedInstanceState.containsKey(Constants.product_ID)
                 && savedInstanceState.containsKey(Constants.product_OBJECT) && savedInstanceState.containsKey(Constants.seller_DETAIL))) {
             id = arguments.getString(Constants.product_ID)
+            id_user = arguments.getString(Constants.seller_ID)
+//            Log.e("id + userid",id + " "+id_user)
 
 
             if (TextUtils.isEmpty(id)) {
                 progress_circle.visibility = View.GONE
-                toolbar_text_holder.visibility = View.GONE
-                toolbar.title = ""
+//                toolbar_text_holder.visibility = View.GONE
+//                toolbar.title = ""
             } else {
                 mProductDetailPresenter!!.getProductDetail(id, AppManager.getAppAccountUserId(activity))
             }
@@ -307,6 +312,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         } else {
 
             id = savedInstanceState.getString(Constants.product_ID)
+            id = savedInstanceState.getString(Constants.seller_ID)
+
             product = savedInstanceState.get(Constants.product_OBJECT) as Product
             Log.e("BBB", id + " " + product)
             onDownloadSuccessful()
@@ -373,6 +380,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
                         Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
 
             }
             TedPermission.with(activity)
@@ -529,7 +537,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         // Set title and tagline
 
 
-            appbar.addOnOffsetChangedListener { appBarLayout, i ->
+            appbar.addOnOffsetChangedListener { _, i ->
                 if (i == toolbar.height - collapsing_toolbar.height) {
 
                     if (title_name.visibility != View.VISIBLE) {
@@ -705,8 +713,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     }
 
     fun destroyfragment() {
-        if (AppManager.getAppAccountUserId(activity) != product!!.user!!._id)
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(product!!._id)
+//        mProductDetailPresenter!!.cancelRequest()
+            if (AppManager.getAppAccountUserId(activity) != id_user)
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(id)
+
+
     }
 
     private fun timeAgo(time: String): CharSequence? {
@@ -729,8 +740,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         error_message.visibility = View.VISIBLE
         progress_circle.visibility = View.GONE
         product_detail_holder.visibility = View.GONE
-        toolbar_text_holder.visibility = View.GONE
-        toolbar.title = ""
+//        toolbar_text_holder.visibility = View.GONE
+//        toolbar.title = ""
         layout_detail_header.visibility = View.GONE
     }
 
@@ -740,7 +751,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
     override fun onDestroy() {
         super.onDestroy()
-
+        mProductDetailPresenter!!.cancelRequest()
+        mCommentPresenter!!.cancelRequest()
         slider?.stopAutoCycle()
         slider?.removeAllSliders()
 

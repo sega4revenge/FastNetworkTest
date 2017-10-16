@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                         user.facebook!!.email = response.jsonObject.getString("email")
                         user.facebook!!.id = id
                         user.facebook!!.token = AccessToken.getCurrentAccessToken().toString()
-                        user.password = ""
+                        user.hashed_password = ""
                         user.facebook!!.photoprofile = (url)
                         user.tokenfirebase = (tokenfirebase)
                         type = Constants.FACEBOOK
@@ -160,7 +160,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         }
         if (err == 0) {
             val user = User()
-            user.password = password.text.toString()
+            user.hashed_password = password.text.toString()
             user.email = email.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
             mLoginPresenter!!.login(email.text.toString(), password.text.toString())
@@ -276,7 +276,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             user.google!!.token = acct.idToken
             user.google!!.name = acct.displayName
             user.google!!.email = acct.email
-            user.password = ""
+            user.hashed_password = ""
             user.google!!.photoprofile = acct.photoUrl.toString()
             user.tokenfirebase = tokenfirebase
             type = Constants.GOOGLE

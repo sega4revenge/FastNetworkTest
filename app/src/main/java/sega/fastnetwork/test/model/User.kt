@@ -16,7 +16,7 @@ class User() : Parcelable {
     var phone: String? = null
     var listproduct: ArrayList<Product>? = ArrayList()
     var listsavedproduct: ArrayList<Product>? = ArrayList()
-    var password: String? = null
+    var hashed_password: String? = null
     var tokenfirebase: String? = null
     val created_at: String? = null
     var facebook : Facebook? = Facebook()
@@ -28,7 +28,7 @@ class User() : Parcelable {
         email = parcel.readString()
         photoprofile = parcel.readString()
         phone = parcel.readString()
-        password = parcel.readString()
+        hashed_password = parcel.readString()
         tokenfirebase = parcel.readString()
     }
 
@@ -38,7 +38,7 @@ class User() : Parcelable {
         parcel.writeString(email)
         parcel.writeString(photoprofile)
         parcel.writeString(phone)
-        parcel.writeString(password)
+        parcel.writeString(hashed_password)
         parcel.writeString(tokenfirebase)
     }
 

@@ -3,6 +3,7 @@ package sega.fastnetwork.test.activity
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity(),OnMapReadyCallback {
     internal var fragment: Fragment? = null
     private var mSocket: Socket? = null
     var user : User? = null
+    var type : String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,7 +40,9 @@ class MainActivity : AppCompatActivity(),OnMapReadyCallback {
 
             }
         }).start()
-        user = AppManager.getUserDatafromAccount(this, AppManager.getAppAccount(this)!!)!!
+        user = AppManager.getUserDatafromAccount(this, AppManager.getAppAccount(this)!!)
+        type = AppManager.getTypeuser(this, AppManager.getAppAccount(this)!!)
+        Log.e("Adasd","ACCOUNT_TYPE" + type + "PW "+ user!!.hashed_password)
         mSocket = AppManager.getSocket(application)
         mSocket!!.emit("connected",user?._id)
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)

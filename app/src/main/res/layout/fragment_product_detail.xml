@@ -66,8 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/back_detail"
                         android:textSize="20dp"
-                        android:layout_centerVertical="true"
-                        android:text="TEN SAN PHAM"/>
+                        android:layout_centerVertical="true" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

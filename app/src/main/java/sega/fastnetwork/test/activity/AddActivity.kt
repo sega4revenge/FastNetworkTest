@@ -175,6 +175,10 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mAddPresenter!!.cancelRequest() }
+
     private fun locationPlacesIntent() {
         try {
             val builder = PlacePicker.IntentBuilder()

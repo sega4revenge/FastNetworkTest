@@ -119,7 +119,7 @@ class LoginPresenter(view: LoginView) {
                 jsonObject.put("token", user.facebook!!.token)
                 jsonObject.put("name", user.facebook!!.name)
                 jsonObject.put("email", user.facebook!!.email)
-                jsonObject.put("password", user.password)
+                jsonObject.put("password", user.hashed_password)
                 jsonObject.put("photoprofile", user.facebook!!.photoprofile)
                 jsonObject.put("type", type)
                 jsonObject.put("tokenfirebase", user.tokenfirebase)
@@ -128,7 +128,7 @@ class LoginPresenter(view: LoginView) {
                 jsonObject.put("token", user.google!!.token)
                 jsonObject.put("name", user.google!!.name)
                 jsonObject.put("email", user.google!!.email)
-                jsonObject.put("password", user.password)
+                jsonObject.put("password", user.hashed_password)
                 jsonObject.put("photoprofile", user.google!!.photoprofile)
                 jsonObject.put("type", type)
                 jsonObject.put("tokenfirebase", user.tokenfirebase)
@@ -136,7 +136,7 @@ class LoginPresenter(view: LoginView) {
                 jsonObject.put("name", user.name)
                 jsonObject.put("email", user.email)
                     jsonObject.put("type", type)
-                jsonObject.put("password", user.password)
+                jsonObject.put("password", user.hashed_password)
                 jsonObject.put("tokenfirebase", user.tokenfirebase)
             }
         } catch (e: JSONException) {

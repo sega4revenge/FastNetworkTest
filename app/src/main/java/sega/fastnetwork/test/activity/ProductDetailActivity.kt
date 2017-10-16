@@ -27,12 +27,15 @@ class ProductDetailActivity : AppCompatActivity() {
         val i = Intent(applicationContext, LoginActivity::class.java)
         if (savedInstanceState == null) {
             var productId: String
+            var productuserId: String = ""
+
             val intent = intent
             val data = intent.data
             if (data == null) {
                 // Not loading from deep link
                 productId = getIntent().getStringExtra(Constants.product_ID)
-                loadproductDetailsOf(productId)
+                productuserId = getIntent().getStringExtra(Constants.seller_ID)
+                loadproductDetailsOf(productId,productuserId )
             } else {
                 // Loading from deep link
                 val parts = data.toString().split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -52,7 +55,7 @@ class ProductDetailActivity : AppCompatActivity() {
                         productId = abc[0].substring(abc[0].lastIndexOf("=") + 1)
                         userId = abc[1].substring(abc[1].lastIndexOf("=") + 1)
                         println(userId + " " + productId)
-                        loadproductDetailsOf(productId)
+                        loadproductDetailsOf(productId,productuserId)
                     } else {
 
                         startActivity(i)
@@ -63,11 +66,13 @@ class ProductDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadproductDetailsOf(productId: String) {
+    private fun loadproductDetailsOf(productId: String, productuserId : String) {
         fragment = ProductDetailFragment()
         val args = Bundle()
 
         args.putString(Constants.product_ID, productId)
+        args.putString(Constants.seller_ID, productuserId)
+
         (fragment as ProductDetailFragment).arguments = args
 
         supportFragmentManager.beginTransaction().replace(R.id.product_detail_container, fragment).commit()

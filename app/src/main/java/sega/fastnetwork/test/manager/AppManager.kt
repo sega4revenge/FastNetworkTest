@@ -135,7 +135,7 @@ object AppManager {
     fun saveAccountUser(context: Context, user: User,type : Int) {
         val accountManager = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
         var account = Account(user.name, AppManager.ACCOUNT_TYPE)
-        if (accountManager.addAccountExplicitly(account, user.password, null)) {
+        if (accountManager.addAccountExplicitly(account, user.hashed_password, null)) {
             println("tao thanh cong")
         } else {
             account = AppManager.getAppAccount(context)!!
@@ -150,6 +150,10 @@ object AppManager {
     fun getUserDatafromAccount(context: Context,account: Account) : User{
         val accountManager = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
         return Gson().fromJson(accountManager.getUserData(account, AppManager.USER_DATA), User::class.java)
+    }
+    fun getTypeuser(context: Context,account: Account) : String{
+        val accountManager = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
+        return accountManager.getUserData(account, AppManager.USER_TYPE)
     }
     fun getSocket(application : Application) : Socket? = (application as MyApplication).getSocket()
 }

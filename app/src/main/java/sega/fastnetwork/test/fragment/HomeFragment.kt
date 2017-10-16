@@ -295,10 +295,12 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             if (adapter!!.productList[position].type == "1") {
                 val intent = Intent(context, ProductDetailActivity::class.java)
                 intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
                 startActivity(intent)
             } else {
                 val intent = Intent(context, ProductDetailNeedActivity::class.java)
                 intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
                 startActivity(intent)
             }
         }
