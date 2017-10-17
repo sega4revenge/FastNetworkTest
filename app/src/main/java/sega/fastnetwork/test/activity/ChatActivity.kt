@@ -62,6 +62,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     var mDataMessager: ArrayList<ChatMessager>? = ArrayList()
     var mOtherData: ArrayList<ChatMessager>? = ArrayList()
     var mEndList: ChatMessager? = null
+    var mHeadList: ChatMessager? = null
    var  layoutManager: LinearLayoutManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +90,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         mDetailUserPresenter!!.getUserDetail(AppManager.getAppAccountUserId(this))
 
         buttonMessage.setOnClickListener {
-            mSocket!!.emit("sendchat",user?._id!!,userid,mUserFrom,mUserTo,user?.email,user?.name,editTextMessage.text)
+            mSocket!!.emit("sendchat",user?._id!!,userid,mUserFrom,mUserTo,user?.email,user?.name,editTextMessage.text,0)
         }
         imgback.setOnClickListener(){
             finish()
@@ -206,15 +207,13 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         mSocket?.off("sendchat")
         mSocket?.off("getDataMessage")
     }
-    override fun getStatusUpdateImage(mess: ChatMessager) {
-        var Chatmess: ChatMessager? = ChatMessager()
-        Chatmess?.email = mess.email
-        Chatmess?.name = mess.name
-        Chatmess?.message = mess.message
-        Chatmess?.photoprofile = mess.photoprofile
+    override fun getStatusUpdateImage(mess: String) {
+
+
+        mSocket!!.emit("sendchat",user?._id!!,userid,mUserFrom,mUserTo,user?.email,user?.name,mess,1)
+
         Log.d("mess",arrLoadingImage.get(numProgressLoading).toString())
         mDataMessager?.remove(ProgressLoadingImage)
-        mDataMessager?.add(Chatmess!!)
         adapter?.notifyItemChanged(arrLoadingImage.get(numProgressLoading))
         numProgressLoading++
     }
@@ -225,7 +224,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         Chatmess?.email = args[2].toString()
         Chatmess?.name = args[3].toString()
         Chatmess?.message = args[4].toString()
-        Chatmess?.photoprofile = ""
+        Chatmess?.photoprofile = args[5].toString()
         mDataMessager?.add(Chatmess!!)
         if(adapter?.itemCount!=null)
         {
@@ -240,17 +239,10 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
 
         }else{
             adapter?.notifyDataSetChanged()
-        //   updateData()
         }
 
     }
-//    private fun updateData(){
-//        runOnUiThread {
-//            txttitle.text = mToolbar
-//            adapter?.notifyDataSetChanged()
-//
-//        }
-//    }
+
 
     private val messData = Emitter.Listener { args ->
         val mdata = args[0]  as JSONArray
@@ -272,26 +264,29 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         if(mDataMessager?.size!! > 0){
             mOtherData?.addAll(mDataMessager!!)
             mDataMessager?.clear()
-            visibleItemCount = layoutManager?.childCount!!
-            totalItemCount = layoutManager?.itemCount!!
-            pastVisiblesItems = layoutManager?.findLastVisibleItemPosition()!!
         }
-        Log.d("visibleItemCount",visibleItemCount.toString())
-        Log.d("totalItemCount",totalItemCount.toString())
-        Log.d("pastVisiblesItems",pastVisiblesItems.toString())
+
 
         if(mdata.length()>0) {
             var parse = mdata.getJSONObject(0).getJSONArray("messages")
 
             for (i in 0..(parse.length() - 1)) {
                 var mObject = parse.getJSONObject(i)
-                var Chatmess: ChatMessager? = ChatMessager()
-                Chatmess?.created_at = mObject.getString("created_at")
-                Chatmess?.email = mObject.getString("email")
-                Chatmess?.name = mObject.getString("name")
-                Chatmess?.message = mObject.getString("message")
-                Chatmess?.photoprofile = mObject.getString("photoprofile")
-                mDataMessager?.add(Chatmess!!)
+                if(!mHeadList?.created_at.equals(mObject.getString("created_at"))) {
+                    var Chatmess: ChatMessager? = ChatMessager()
+                    Chatmess?.created_at = mObject.getString("created_at")
+                    Chatmess?.email = mObject.getString("email")
+                    Chatmess?.name = mObject.getString("name")
+                    Chatmess?.message = mObject.getString("message")
+                    Chatmess?.photoprofile = mObject.getString("photoprofile")
+                    mDataMessager?.add(Chatmess!!)
+                }else{
+                    runOnUiThread(Runnable {
+                        swipe_refresh.isEnabled = false
+                        swipe_refresh.isRefreshing = true
+                    })
+                    break
+                }
             }
             if(mDataMessager?.size!! > 0){
                 if(mEndList != null){
@@ -307,7 +302,11 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
 
 
             if(mDataMessager?.size!!>0){
+                pastVisiblesItems = visibleItemCount + mDataMessager?.size!!
+                visibleItemCount = mDataMessager?.size!!
                 mEndList = mDataMessager?.get(mDataMessager?.size!!-1)
+                mHeadList =  mDataMessager?.get(0)
+                Log.d("aaaaaaa",mHeadList?.message)
             }
 
 
@@ -321,7 +320,8 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 adapter?.notifyDataSetChanged()
                 if(mOtherData?.size!!>0)
                 {
-                    messageRecyclerView?.scrollToPosition(pastVisiblesItems)
+                  //  messageRecyclerView?.smoothScrollToPosition(pastVisiblesItems)
+                    messageRecyclerView?.scrollToPosition(pastVisiblesItems-3)
                     mOtherData?.clear()
                 }
                 txttitle.text = mToolbar

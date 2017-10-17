@@ -10,7 +10,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
-import sega.fastnetwork.test.model.ChatMessager
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.CompressImage
@@ -108,7 +107,7 @@ class DetailUserPresenter(view: DetailUserPresenter.DetailUserView) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<Response> {
                     override fun onNext(t: Response?) {
-                        mDetailView.getStatusUpdateImage(t?.listchat!!)
+                        mDetailView.getStatusUpdateImage(t?.message!!)
                     }
 
                     override fun onComplete() {
@@ -144,7 +143,7 @@ class DetailUserPresenter(view: DetailUserPresenter.DetailUserView) {
     }
 
     interface DetailUserView {
-        fun getStatusUpdateImage(mess : ChatMessager)
+        fun getStatusUpdateImage(mess: String)
         fun setErrorMessage(errorMessage: String)
         fun getUserDetail(user : User)
         fun isgetUserDetailSuccess(success : Boolean)

@@ -60,6 +60,8 @@
                     android:orientation="horizontal"
                     android:background="@drawable/border_textchat"
                     android:gravity="center"
+                    android:maxHeight="200dp"
+                    android:maxWidth="400dp"
                    >
                     <ProgressBar
                        android:id="@+id/progressBarLoading"
@@ -73,6 +75,8 @@
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:visibility="gone"
+                        android:maxHeight="200dp"
+                        android:maxWidth="400dp"
                         />
                     <TextView
                         android:padding="7dp"
@@ -95,6 +99,7 @@
         android:orientation="horizontal"
         android:visibility="gone"
         android:gravity="right|center"
+        android:layout_margin="5dp"
         >
         <LinearLayout
             android:layout_width="wrap_content"
@@ -120,13 +125,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/border_textchat">
+                android:maxHeight="200dp"
+                android:maxWidth="400dp"
+                android:background="@drawable/border_textchat"
+                >
                 <ImageView
                     android:padding="7dp"
                     android:id="@+id/imgSendTo"
+                    android:maxHeight="200dp"
+                    android:maxWidth="400dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
+                    android:visibility="gone"
                     />
                 <TextView
                     android:padding="7dp"
