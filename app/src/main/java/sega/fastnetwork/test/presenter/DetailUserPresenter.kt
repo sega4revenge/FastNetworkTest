@@ -45,8 +45,9 @@ class DetailUserPresenter(view: DetailUserPresenter.DetailUserView) {
                 .subscribe(object : Observer<User> {
                     override fun onNext(user: User?) {
                         Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-
+                        Log.d(userdetail,user!!.name)
                         mDetailView.getUserDetail(user!!)
+
 
                     }
 

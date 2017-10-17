@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
@@ -41,6 +40,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     var user: User? = null
     var ImageAvatar = ""
     var userid = ""
+    var mPage = 1
     var numProgressLoading = 0
     var arrLoadingImage: ArrayList<Int> = ArrayList()
     private val filePath: Uri? = null
@@ -53,10 +53,15 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     var mUserTo = ""
     var mToolbar = ""
     var avatar = ""
+    var visibleItemCount = 0
+    var totalItemCount = 0
+    var pastVisiblesItems = 0
     var adapter: ChatAdapter? = null
     var ProgressLoadingImage: ChatMessager? = ChatMessager()
     var data: ArrayList<ChatMessager> = ArrayList()
     var mDataMessager: ArrayList<ChatMessager>? = ArrayList()
+    var mOtherData: ArrayList<ChatMessager>? = ArrayList()
+    var mEndList: ChatMessager? = null
    var  layoutManager: LinearLayoutManager? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +94,12 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         imgback.setOnClickListener(){
             finish()
         }
+
+        swipe_refresh.setColorSchemeResources(R.color.color_background_button)
+        swipe_refresh.setOnRefreshListener({
+            mSocket!!.emit("getData", mUserFrom,mUserTo,user?._id!!,mPage)
+        })
+
         upimage.setOnClickListener(){
             val permissionlistener = object : PermissionListener {
                 override fun onPermissionGranted() {
@@ -164,6 +175,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     }
 
     override fun isgetUserDetailSuccess(success: Boolean) {
+
         if (success) {
             if(user?._id!!.compareTo(userid)>0)
             {
@@ -178,7 +190,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
             }
             mSocket!!.on("sendchat", getMessage)
             mSocket!!.on("getDataMessage", messData)
-            mSocket!!.emit("getData", mUserFrom,mUserTo,user?._id!!)
+            mSocket!!.emit("getData", mUserFrom,mUserTo,user?._id!!,mPage)
 
         }
     }
@@ -217,31 +229,28 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         mDataMessager?.add(Chatmess!!)
         if(adapter?.itemCount!=null)
         {
-            adapter?.notifyItemInserted(mDataMessager?.size!!)
+            adapter?.notifyItemInserted(mDataMessager?.size!!-1)
+            if(adapter!!.itemCount >10)
+            {
+                runOnUiThread {
+                    messageRecyclerView.scrollToPosition((adapter!!.itemCount-1))
+                }
+            }
+
+
         }else{
-            updateData()
+            adapter?.notifyDataSetChanged()
+        //   updateData()
         }
 
     }
-    private fun updateData(){
-        object : AsyncTask<Void, Void, Void>() {
-            override fun doInBackground(vararg params: Void): Void? {
-                try {
-                    runOnUiThread {
-                        txttitle.text = mToolbar
-                        adapter?.notifyDataSetChanged()
-                        Log.d("aaaaaa",adapter?.itemCount!!.toString())
-                      //  messageRecyclerView.scrollToPosition((adapter?.itemCount!!)-1)
-                    }
-                } catch (exception: Exception) {
-                   Log.d("Error", exception.toString())
-                }
-
-                return null
-            }
-        }.execute()
-
-    }
+//    private fun updateData(){
+//        runOnUiThread {
+//            txttitle.text = mToolbar
+//            adapter?.notifyDataSetChanged()
+//
+//        }
+//    }
 
     private val messData = Emitter.Listener { args ->
         val mdata = args[0]  as JSONArray
@@ -257,25 +266,68 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 imgOff.setImageResource(R.drawable.ic_online_)
             }
         }
-
         ImageAvatar = arrUser.getJSONObject(0).getString("photoprofile")
         mToolbar = arrUser.getJSONObject(0).getString("name")
 
+        if(mDataMessager?.size!! > 0){
+            mOtherData?.addAll(mDataMessager!!)
+            mDataMessager?.clear()
+            visibleItemCount = layoutManager?.childCount!!
+            totalItemCount = layoutManager?.itemCount!!
+            pastVisiblesItems = layoutManager?.findLastVisibleItemPosition()!!
+        }
+        Log.d("visibleItemCount",visibleItemCount.toString())
+        Log.d("totalItemCount",totalItemCount.toString())
+        Log.d("pastVisiblesItems",pastVisiblesItems.toString())
+
         if(mdata.length()>0) {
             var parse = mdata.getJSONObject(0).getJSONArray("messages")
+
             for (i in 0..(parse.length() - 1)) {
                 var mObject = parse.getJSONObject(i)
                 var Chatmess: ChatMessager? = ChatMessager()
+                Chatmess?.created_at = mObject.getString("created_at")
                 Chatmess?.email = mObject.getString("email")
                 Chatmess?.name = mObject.getString("name")
                 Chatmess?.message = mObject.getString("message")
                 Chatmess?.photoprofile = mObject.getString("photoprofile")
                 mDataMessager?.add(Chatmess!!)
             }
+            if(mDataMessager?.size!! > 0){
+                if(mEndList != null){
+                    if(mDataMessager?.get(mDataMessager?.size!!-1)?.created_at!!.equals(mEndList?.created_at)){
+                        mDataMessager?.clear()
+                        runOnUiThread(Runnable {
+                            swipe_refresh.isEnabled = false
+                            swipe_refresh.isRefreshing = true
+                        })
+                    }
+                 }
+             }
 
-            updateData()
+
+            if(mDataMessager?.size!!>0){
+                mEndList = mDataMessager?.get(mDataMessager?.size!!-1)
+            }
+
+
+            if(mOtherData?.size!!>0)
+            {
+                mDataMessager?.addAll(mOtherData!!)
+            }
+
+            //   updateData()
             runOnUiThread(Runnable {
+                adapter?.notifyDataSetChanged()
+                if(mOtherData?.size!!>0)
+                {
+                    messageRecyclerView?.scrollToPosition(pastVisiblesItems)
+                    mOtherData?.clear()
+                }
+                txttitle.text = mToolbar
                 progressBar.visibility = View.GONE
+                mPage++
+                swipe_refresh.isRefreshing = false
             })
         }else{
 

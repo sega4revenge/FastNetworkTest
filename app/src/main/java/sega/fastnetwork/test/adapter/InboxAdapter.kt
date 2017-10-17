@@ -59,10 +59,9 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
 
             holder.LinFrom.visibility = View.VISIBLE
             holder.txtnameFrom.visibility = View.VISIBLE
-            holder.txtmessFrom.visibility = View.VISIBLE
             holder.txttime.text = timeAgo(mess?.created_at!!)
             holder.txtnameFrom.text = name
-            holder.txtmessFrom.text = mess?.message
+            holder.txtmessFrom.visibility = View.VISIBLE
             val options = RequestOptions()
                     .centerCrop()
                     .dontAnimate()
@@ -74,6 +73,20 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(holder.imgAvatarFrom)
+            if(mess?.photoprofile.equals(""))
+            {
+                holder.txtmessFrom.text = mess?.message
+            }else{
+                if(mess?.email.equals(user.email))
+                {
+                    holder.txtmessFrom.text = "bạn đã gửi 1 tin nhắn ảnh"
+                }else{
+                    holder.txtmessFrom.text = mess?.name+" đã gửi 1 tin nhắn ảnh"
+                }
+
+            }
+
+
         holder.LinFrom.setOnClickListener(){
             val intent = Intent((mContext as AppCompatActivity), ChatActivity::class.java)
             intent.putExtra("iduser",id)
