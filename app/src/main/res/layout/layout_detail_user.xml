@@ -44,14 +44,14 @@
             android:gravity="center_vertical"
             android:orientation="vertical">
 
-            <sega.fastnetwork.test.view.RobotoRegularTextView
+            <TextView
                 android:id="@+id/product_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <sega.fastnetwork.test.view.RobotoRegularTextView
+            <TextView
                 android:id="@+id/product_user_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

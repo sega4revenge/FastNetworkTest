@@ -323,11 +323,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         v.product_detail_holder.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
             if (oldScrollY < scrollY) {
-                println("len")
+
                 v.fab_menu.hideMenuButton(true)
             } else {
                 v.fab_menu.showMenuButton(true)
             }
+            println("len")
         }
         v.fab_messenger.setOnClickListener {
             val intent = Intent(activity, ChatActivity::class.java)
@@ -518,12 +519,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
     }
 
-    override fun onDestroyView() {
-
-        super.onDestroyView()
-
-    }
-
 
     private fun onDownloadSuccessful() {
         // status save product
@@ -575,32 +570,57 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             product_user_email.text = product!!.user?.email
             product_user_address.text = product!!.location!!.address
             product_date.text = timeAgo(product!!.created_at.toString())
-            product_rentime.text = product!!.view.toString() + " lượt xem"
+            product_view.text = product!!.view.toString() + " lượt xem"
             println(product!!._id)
             if (product!!.status == "1")
                 Log.e("time: ", product!!.time)
             when (product!!.time) {
-                "0" -> product_view.text = "1 giờ"
-                "1" -> product_view.text = "1 ngày"
-                "2" -> product_view.text = "1 tuần"
-                "3" -> product_view.text = "1 tháng"
+                "0" -> product_rentime.text = "1 giờ"
+                "1" -> product_rentime.text = "1 ngày"
+                "2" -> product_rentime.text = "1 tuần"
+                "3" -> product_rentime.text = "1 tháng"
                 else -> {
                     product_rentime.text = "1 năm"
                 }
 
             }
             when (product!!.category) {
-                "0" -> product_category.setImageResource(R.drawable.cate_vehicle)
-                "1" -> product_category.setImageResource(R.drawable.cate_toy)
-                "2" -> product_category.setImageResource(R.drawable.cate_electronic)
-                "3" -> product_category.setImageResource(R.drawable.cate_furniture)
-                "4" -> product_category.setImageResource(R.drawable.cate_fashion)
-                "5" -> product_category.setImageResource(R.drawable.cate_home)
-                "6" -> product_category.setImageResource(R.drawable.cate_education)
-                "7" -> product_category.setImageResource(R.drawable.cate_music)
-                "8" -> product_category.setImageResource(R.drawable.cate_machine)
+                "0" -> {
+                    product_category.setImageResource(R.drawable.cate_vehicle)
+                    txt_category.text = "Xe cộ"
+                }
+
+                "1" -> {
+                    product_category.setImageResource(R.drawable.cate_electronic)
+                    txt_category.text = "Đồ điện tử"
+                }
+                "2" -> {
+                    product_category.setImageResource(R.drawable.cate_fashion)
+                    txt_category.text = "Thời trang,đồ dùng cá nhân"
+                }
+                "3" -> {
+                    product_category.setImageResource(R.drawable.cate_home)
+                    txt_category.text = "Nhà"
+                }
+                "4" -> {
+                    product_category.setImageResource(R.drawable.mother)
+                    txt_category.text = "Mẹ và bé"
+                }
+                "5" -> {
+                    product_category.setImageResource(R.drawable.cate_furniture)
+                    txt_category.text = "Gia dụng,nội thất"
+                }
+                "6" -> {
+                    product_category.setImageResource(R.drawable.cup)
+                    txt_category.text = "Giải trí,thể thao,sở thích"
+                }
+                "7" -> {
+                    product_category.setImageResource(R.drawable.printer)
+                    txt_category.text = "Văn phòng,nông nghiệp"
+                }
                 else -> { // Note the block
                     product_category.setImageResource(R.drawable.cate_more)
+                    txt_category.text = "Khác"
                 }
             }
 

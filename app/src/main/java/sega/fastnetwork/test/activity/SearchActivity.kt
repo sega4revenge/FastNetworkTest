@@ -80,10 +80,10 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
         fab_search.setOnClickListener {
 
-            var dialogFrag = FilterFragment.newInstance()
+            val dialogFrag = FilterFragment.newInstance()
             val args = Bundle()
             args.putBoolean("isMap", isMap)
-            dialogFrag!!.arguments = args
+            dialogFrag.arguments = args
             val inputManager = this
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
