@@ -82,6 +82,7 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context,mUserTo: Str
                     holder.imgSend.visibility = View.VISIBLE
                     holder.txtnameFrom.text = item?.name
                     holder.txtmessFrom.text = ""
+                    holder.txtmessFrom.visibility = View.GONE
                     Glide.with(mContext)
                             .load(avatacmt(item?.photoprofile!!))
                             .thumbnail(0.5f)
