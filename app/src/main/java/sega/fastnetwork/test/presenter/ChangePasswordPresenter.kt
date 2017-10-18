@@ -10,7 +10,6 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Response
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.util.Constants
@@ -50,7 +49,7 @@ class ChangePasswordPresenter(view: ChangePasswordPresenter.ChangePasswordView) 
                 .subscribe(object : Observer<Response> {
                     override fun onNext(response: Response?) {
                         Log.d(changepassword, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-//                        mDetailView.getUserDetail(response!!.user!!)
+                        mDetailView.getUserDetail(response!!.user!!)
                     }
 
 

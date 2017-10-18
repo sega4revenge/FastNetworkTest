@@ -15,7 +15,8 @@
         android:id="@+id/overview_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        >
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -27,9 +28,9 @@
             >
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -96,6 +97,7 @@
                             </RelativeLayout>
 
                             <LinearLayout
+                                android:id="@+id/changeInfor"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
@@ -233,23 +235,29 @@
                             android:orientation="horizontal"
                             android:weightSum="100"
                             android:gravity="center"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             >
 
                             <LinearLayout
-                                android:id="@+id/changeInfor"
+                                android:id="@+id/listproduct"
                                 android:layout_width="0dp"
                                 android:layout_height="100dp"
+                                android:weightSum="10"
                                 android:layout_weight="33"
                                 android:gravity="center"
+
                                 android:orientation="vertical">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/back_arrow"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:gravity="center"
-                                    android:text="Thay đổi thông tin tài khoản"
+                                    android:text="Danh sách sản phẩm"
                                     android:textColor="@color/black"
                                     android:textSize="13dp" />
                             </LinearLayout>
@@ -267,7 +275,10 @@
                                 android:gravity="center"
                                 android:orientation="vertical">
 
-
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/back_arrow"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -291,12 +302,16 @@
                                 android:gravity="center"
                                 android:orientation="vertical"
                                 android:paddingTop="10dp">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/back_arrow"/>
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:gravity="center"
-                                    android:text="Thông báo"
+                                    android:text="Sản phẩm đã lưu"
                                     android:textColor="@color/black"
                                     android:textSize="13dp" />
                             </LinearLayout>

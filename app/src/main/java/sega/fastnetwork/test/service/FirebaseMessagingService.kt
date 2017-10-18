@@ -121,6 +121,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
             val intent = Intent(this@FirebaseMessagingService, ProductDetailActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra(Constants.product_ID,productid)
+            intent.putExtra(Constants.seller_ID,useridproduct)
+
 //            intent.putExtra("comment", false)
             val pendingIntent = PendingIntent.getActivity(this, 100, intent,
                     PendingIntent.FLAG_ONE_SHOT)
