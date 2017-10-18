@@ -53,7 +53,6 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     var loca = ""
     var cate = ""
     val mLocationRequestwithBalanced = LocationRequest()
-
     internal var listProductMaker = java.util.ArrayList<Marker>()
     private var myLocation: LatLng? = null
     private var isLoading: Boolean = false
@@ -65,15 +64,18 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     private var adapter: ProductAdapter? = null
     private var isMap: Boolean = false
     private var REQUEST_CHECK_SETTINGS = 1000
-
-
     fun getApplied_filters(): ArrayMap<String, MutableList<String>> = applied_filters
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.searchmain_layout)
+        val inputManager = this
+                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        //check if no view has focus:
+        ed_search.clearFocus()
+        val v = this.currentFocus
+        if (v != null)
+            inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
         layoutManager = LinearLayoutManager(this)
@@ -86,11 +88,8 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             dialogFrag.arguments = args
             val inputManager = this
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
             //check if no view has focus:
             ed_search.clearFocus()
-
-
             val v = this.currentFocus
             if (v != null)
                 inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)

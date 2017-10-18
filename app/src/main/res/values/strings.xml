@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">VIREN</string>
     <string name="facebook_app_id">251217995359869</string>
-
     <string name="google_maps_key">AIzaSyDBfdxli_eMNGalQDD19n2r0d4807UYlJQ</string>
-
     <string name="lg_hint_email">Email</string>
     <string name="lg_hint_pass">Password</string>
     <string name="lg_btn_login">Login</string>
@@ -17,7 +15,6 @@
     <string name="re_hint_email">Email</string>
     <string name="re_hint_repass">Refill Password</string>
     <string name="re_btn_confirm">Confirm</string>
-
     //==================================
     <string name="people_participation_detail_event">Participation person</string>
     <string name="people_care_detail_event">Participation person</string>
@@ -39,7 +36,6 @@
     <string name="delete_event">Do do want delete event?</string>
     <string name="delete_title_event">Delete Event</string>
     //=================================== imagepicker
-
     <string name="remain_time_minute">%1$d minutes left</string>
     <string name="remain_time_second">%1$d seconds left</string>
     <string name="uploading" formatted="false">Uploading %d of %d</string>
@@ -47,14 +43,11 @@
     <string name="tedbottompicker_title">Select Image</string>
     <string name="no_image">No Image</string>
     <string name="done">Done</string>
-
-
     <string name="select_max_count">Already %1$d images selected</string>
     <string name="select_min_count">You have to choice %1$d images</string>
     <string name="gallery_num">%s photos</string>
     <string name="all_photo">All photos</string>
     <string name="title_activity_main2">Main2Activity</string>
-
     //======================================
     <string name="btn_signin">Sign in</string>
     <string name="btn_join">Join now</string>
@@ -68,19 +61,13 @@
     <string name="tv_social_login">Or</string>
     <string name="message_signin">Join success</string>
     <string name="title_activity_home">HomeActivity</string>
-
-
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_example">Example action</string>
-
     <string name="action_settings">Settings</string>
-
     <string name="nav_home">Home</string>
     <string name="nav_category">Category</string>
     <string name="nav_Profile">Profile</string>
@@ -88,20 +75,18 @@
     <string name="server_unreachable">Oops! Something went wrong.\nPlease check your internet connection.</string>
     <string name="try_again">Try Again?</string>
     <string name="loading">Loading&#8230;</string>
-
     <!-- Toolbar actions -->
     <string name="action_grid">Grid View</string>
     <string name="action_list">List View</string>
     <string name="action_compact">Compact View</string>
     <string name="action_search">Search</string>
-    <string name="stt_location">Chọn Tỉnh/Thành</string>
-    <string name="stt_location2">Chọn Khu vực</string>
-    <string name="stt_category">Chọn Danh mục</string>
-    <string name="stt_search">Tìm kiếm</string>
+    <string name="stt_location">Select Province/City</string>
+    <string name="stt_location2">Select Area</string>
+    <string name="stt_category">Select Category</string>
+    <string name="stt_search">Search</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_detail_profile_">DetailProfile_Activity</string>
-
     <array name="letter_tile_colors">
         <item>#f16364</item>
         <item>#f58559</item>
@@ -112,9 +97,11 @@
         <item>#2093cd</item>
         <item>#ad62a7</item>
     </array>
-
     <!-- The default letter tile text size -->
     <dimen name="tile_letter_font_size">17sp</dimen>
     <!-- The deafult tile size -->
     <dimen name="letter_tile_size">32dp</dimen>
+    <string name="sp_saved">Product saved</string>
+    <string name="txt_mess">Message</string>
+    <string name="st_errpass">Should not be empty !</string>
 </resources>

@@ -98,19 +98,20 @@
             android:layout_height="100dp"
             android:layout_weight="25"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/cate_vehicle" />
+                android:background="@drawable/icon_price" />
 
             <TextView
                 android:id="@+id/product_price"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
@@ -125,18 +126,19 @@
             android:layout_height="match_parent"
             android:layout_weight="25"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/cate_electronic" />
+                android:background="@drawable/icon_time" />
 
             <TextView
                 android:id="@+id/product_rentime"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:minLines="2"
 
@@ -189,7 +191,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/cate_fashion" />
+                android:background="@drawable/icon_view" />
 
             <TextView
                 android:id="@+id/product_view"

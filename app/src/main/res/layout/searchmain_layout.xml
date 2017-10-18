@@ -74,7 +74,9 @@
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textColorHint="@color/navigation_icon_color"
-                tools:ignore="MissingPrefix" />
+                tools:ignore="MissingPrefix"
+                android:focusable="true"
+                android:focusableInTouchMode="true"/>
 
 
         </RelativeLayout>

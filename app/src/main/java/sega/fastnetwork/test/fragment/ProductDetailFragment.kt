@@ -62,7 +62,9 @@ import java.text.DecimalFormat
 import java.util.*
 
 
-class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
+class
+
+ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
     override fun isCommentSuccessful(isCommentSuccessful: Boolean) {
     }
 
@@ -271,14 +273,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             when (isMap) {
                 false -> {
                     isMap = true
-                    change_map.background = resources.getDrawable(R.drawable.ic_map)
+                    change_map.background = resources.getDrawable(R.drawable.icon_slide)
                     slider.visibility = View.GONE
                     val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
                     mapView_location.getMapAsync(this)
                 }
                 else -> {
                     isMap = false
-                    change_map.background = resources.getDrawable(R.drawable.ic_slide)
+                    change_map.background = resources.getDrawable(R.drawable.icon_map)
                     slider.visibility = View.VISIBLE
                 }
 
@@ -364,7 +366,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             val permissionlistener = object : PermissionListener {
                 override fun onPermissionGranted() {
                     val smsIntent = Intent(Intent.ACTION_VIEW)
-
                     smsIntent.data = Uri.parse("smsto:")
                     smsIntent.type = "vnd.android-dir/mms-sms"
                     smsIntent.putExtra("address", product!!.user?.phone)
@@ -446,9 +447,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         //   { doubleClick = true}
          statussave = !statussave
          if (statussave) {
-             im_star.setImageResource(R.drawable.ic_start_on)
+             im_star.setImageResource(R.drawable.icon_staryellow)
          } else {
-             im_star.setImageResource(R.drawable.ic_start_white)
+             im_star.setImageResource(R.drawable.icon_star)
+
          }
 
     }
@@ -458,9 +460,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         try {
             statussave = response.statussave!!
                 if (statussave) {
-                    im_star.setImageResource(R.drawable.ic_start_on)
+                    im_star.setImageResource(R.drawable.icon_staryellow)
                 } else {
-                    im_star.setImageResource(R.drawable.ic_start_white)
+                    im_star.setImageResource(R.drawable.icon_star)
                 }
         } catch (e: Exception) {
             Log.e("getProductDetail", "saidjasd")
