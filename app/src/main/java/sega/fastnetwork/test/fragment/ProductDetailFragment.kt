@@ -5,6 +5,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -41,7 +42,7 @@ import kotlinx.android.synthetic.main.layout_detail_cast.view.*
 import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
-import kotlinx.android.synthetic.main.layout_detail_user.*
+import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
@@ -408,7 +409,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
              sendIntent.type = "text/plain"
              startActivity(sendIntent)
          }
-        v.im_star.setOnClickListener{
+        v.btn_save.setOnClickListener{
          //   s = s + 1
             if(statussave){
                 mTypeSave = "1"
@@ -446,9 +447,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         //   { doubleClick = true}
          statussave = !statussave
          if (statussave) {
-             im_star.setImageResource(R.drawable.ic_start_on)
+             btn_save.setImageResource(R.drawable.favorite_checked)
          } else {
-             im_star.setImageResource(R.drawable.ic_start_white)
+             btn_save.setImageResource(R.drawable.favorite_unchecked)
          }
 
     }
@@ -457,14 +458,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product = null
         try {
             statussave = response.statussave!!
-                if (statussave) {
-                    im_star.setImageResource(R.drawable.ic_start_on)
-                } else {
-                    im_star.setImageResource(R.drawable.ic_start_white)
-                }
+            if (statussave) {
+                btn_save.setImageResource(R.drawable.favorite_checked)
+            } else {
+                btn_save.setImageResource(R.drawable.favorite_unchecked)
+            }
         } catch (e: Exception) {
             Log.e("getProductDetail", "saidjasd")
-             im_star.visibility = View.GONE
+             btn_save.visibility = View.GONE
         }
         userCreateProduct = response?.product?.user?._id.toString()
         this.product = response.product
@@ -529,28 +530,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_detail_holder.visibility = View.VISIBLE
         layout_detail_header.visibility = View.VISIBLE
         // Set title and tagline
-
-
-            appbar.addOnOffsetChangedListener { _, i ->
-                if (i == toolbar.height - collapsing_toolbar.height) {
-
-                    if (title_name.visibility != View.VISIBLE) {
-                        title_name.visibility = View.VISIBLE
-                        title_name.text = product!!.productname // show toolbar title
-                    }
-                } else {
-                    if (title_name.visibility != View.GONE) {
-                        title_name.visibility = View.GONE // hide title bar
-                    }
-                }
-            }
-
-
-
-
             product_name.text = product!!.productname
             product_overview.text = product!!.description
-
+            toolbar_productname.text = product!!.productname
+        toolbar_username.text = product!!.user!!.name
             val temp = formatprice?.format(product!!.price?.toDouble()) + format
             product_price.text = temp
 
@@ -573,7 +556,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             println(product!!._id)
             if (product!!.status == "1")
                 Log.e("time: ", product!!.time)
-            when (product!!.time) {
+       /*     when (product!!.time) {
                 "0" -> product_rentime.text = "1 giờ"
                 "1" -> product_rentime.text = "1 ngày"
                 "2" -> product_rentime.text = "1 tuần"
@@ -582,8 +565,19 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     product_rentime.text = "1 năm"
                 }
 
-            }
-            when (product!!.category) {
+            }*/
+        if (product!!.type == "1") {
+            product_status.text = "Cho thuê"
+            product_status.setTextColor(Color.WHITE)
+            product_status.background = resources.getDrawable(R.drawable.roundtextview)
+
+        } else {
+            product_status.text = "Cần thuê"
+            product_status.setTextColor(Color.WHITE)
+            product_status.background = resources.getDrawable(R.drawable.roundtextview2)
+        }
+
+        when (product!!.category) {
                 "0" -> {
                     product_category.setImageResource(R.drawable.cate_vehicle)
                     txt_category.text = "Xe cộ"
