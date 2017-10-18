@@ -91,6 +91,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
 
         buttonMessage.setOnClickListener {
             mSocket!!.emit("sendchat",user?._id!!,userid,mUserFrom,mUserTo,user?.email,user?.name,editTextMessage.text,0)
+            editTextMessage.setText("")
         }
         imgback.setOnClickListener(){
             finish()
@@ -288,6 +289,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                     break
                 }
             }
+
             if(mDataMessager?.size!! > 0){
                 if(mEndList != null){
                     if(mDataMessager?.get(mDataMessager?.size!!-1)?.created_at!!.equals(mEndList?.created_at)){
@@ -306,7 +308,6 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 visibleItemCount = mDataMessager?.size!!
                 mEndList = mDataMessager?.get(mDataMessager?.size!!-1)
                 mHeadList =  mDataMessager?.get(0)
-                Log.d("aaaaaaa",mHeadList?.message)
             }
 
 
@@ -334,6 +335,8 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
             runOnUiThread(Runnable {
                 progressBar.visibility = View.GONE
                 txttitle.text = mToolbar
+                swipe_refresh.isEnabled = false
+
             })
 
             Log.d("Data","nullll cmnr")

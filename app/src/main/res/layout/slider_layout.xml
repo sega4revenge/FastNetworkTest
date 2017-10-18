@@ -67,7 +67,6 @@
         android:id="@+id/description_layout"
         android:layout_alignParentBottom="true"
         android:minHeight="130dp"
-        android:background="@drawable/gradient"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:gravity="center_vertical"
