@@ -97,6 +97,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             dialogFrag.show(supportFragmentManager, dialogFrag.tag)
         }
         nestedScrollView.visibility = View.VISIBLE
+        back_button.setOnClickListener {
+            finish()
+        }
         action_grid.setOnClickListener {
 
             when (isMap) {
