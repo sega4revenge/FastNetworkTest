@@ -62,6 +62,8 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
 
     override fun getCommentDetail(listcomment: ArrayList<Comment>) {
             Log.e("adasdasd",listcomment.size.toString())
+            no_cmt.visibility = View.GONE
+
 //=======================0 cmt========================
             if (listcomment.size == 0) {
                 comment_item1.visibility = View.GONE

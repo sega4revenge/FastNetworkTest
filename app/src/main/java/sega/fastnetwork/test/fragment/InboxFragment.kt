@@ -45,6 +45,11 @@ class InboxFragment : Fragment(), InboxPressenter.InboxListView {
         return view
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mInboxPressenter?.cancelRequest()
+    }
+
     private fun onDownloadSuccessful() {
         Log.e("onDownloadSuccessful",mItemsData?.size.toString())
         error_message.visibility = View.GONE

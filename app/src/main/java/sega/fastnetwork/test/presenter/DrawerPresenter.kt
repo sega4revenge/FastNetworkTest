@@ -1,13 +1,13 @@
 package sega.fastnetwork.test.presenter
 
 import android.content.Context
-import android.os.Looper
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.rx2androidnetworking.Rx2AndroidNetworking
-import io.reactivex.Observer
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
@@ -24,203 +24,199 @@ import java.io.File
 class DrawerPresenter(view : DrawerView) {
     internal var mDrawerView: DrawerView = view
     var userdetail = "USERDETAIL"
-
-    fun changeAvatar(file: File, userid: String, oldavatar: String, context: Context){
-
-
-        var TAG : String = "Change Avatar"
-        val observable = Rx2AndroidNetworking.upload(Constants.BASE_URL + "changeavatar")
+    var changeAvatar = "changeAvatar"
+    var eidtInfoUser = "eidtInfoUser"
+    var editphonenumber = "editphonenumber"
+    val jsonObject = JSONObject()
+    private val disposables = CompositeDisposable()
+    private fun getObservable_changeAvatar(typesearch: String,file: File, userid: String, oldavatar: String, context: Context): Observable<Response> {
+        return Rx2AndroidNetworking.upload(Constants.BASE_URL + typesearch)
                 .addMultipartParameter("userid", userid)
                 .addMultipartParameter("oldavatar", oldavatar)
                 .addMultipartFile("image", CompressImage.compressImage(file, context))
+                .setTag("changeAvatar")
                 .build()
+
                 .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
-                    Log.d(TAG, " timeTakenInMillis : " + timeTakenInMillis)
-                    Log.d(TAG, " bytesSent : " + bytesSent)
-                    Log.d(TAG, " bytesReceived : " + bytesReceived)
-                    Log.d(TAG, " isFromCache : " + isFromCache)
+                    Log.d(changeAvatar, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(changeAvatar, " bytesSent : " + bytesSent)
+                    Log.d(changeAvatar, " bytesReceived : " + bytesReceived)
+                    Log.d(changeAvatar, " isFromCache : " + isFromCache)
                 }
+
                 .getObjectObservable(Response::class.java)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Response> {
-                    override fun onNext(t: Response?) {
-//                        Log.d(TAG + "_1", "onResponse object : " + t!!.user!!.photoprofile.toString())
+    }
+    private fun getDisposableObserver_changeAvatar(): DisposableObserver<Response> {
 
-                        mDrawerView.changeAvatarSuccess(t!!)
-//                        AppManager.saveAccountUser(context, t!!.user!!, 0)
-//                        Log.e("pic",Constants.IMAGE_URL+t!!.user!!.photoprofile)
-//                        Glide.with(context)
-//                                .load(Constants.IMAGE_URL+t!!.user!!.photoprofile)
-//                                .thumbnail(0.1f)
-//                                .apply(options)
-//                                .into(navigation_view.getHeaderView(0).avatar_header)
-//
+        return object : DisposableObserver<Response>() {
 
-//                      var a = AppManager.getUserDatafromAccount(activity,AppManager.getAppAccount(context)!!)
-//                        Log.e("getUserDatafromAccount",a._id + " " +a.name + " " +a.email + " " +a.photoprofile)
+            override fun onNext(t: Response) {
+                mDrawerView.changeAvatarSuccess(t)
+            }
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+                    if (e.errorCode != 0) {
+                        // received ANError from server
+                        // error.getErrorCode() - the ANError code from server
+                        // error.getErrorBody() - the ANError body from server
+                        // error.getErrorDetail() - just a ANError detail
+                        Log.d(changeAvatar + "_1", "onError errorCode : " + e.errorCode)
+                        Log.d(changeAvatar + "_1", "onError errorBody : " + e.errorBody)
+                        Log.d(changeAvatar + "_1", "onError errorDetail : " + JSONObject(e.errorBody.toString()).getString("message"))
+                        mDrawerView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"))
+                    } else {
+                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                        Log.d(changeAvatar + "_1", "onError errorDetail : " + e.errorDetail)
                     }
+                } else {
+                    Log.d(changeAvatar + "_1", "onError errorMessage : " + e.message)
+                }
+            }
 
-                    override fun onComplete() {
-                        Log.d(TAG + "_1", "onComplete Detail : uploadImage completed")
-                    }
+            override fun onComplete() {
 
-                    override fun onError(e: Throwable) {
-                        if (e is ANError) {
-                            if (e.errorCode != 0) {
-                                // received ANError from server
-                                // error.getErrorCode() - the ANError code from server
-                                // error.getErrorBody() - the ANError body from server
-                                // error.getErrorDetail() - just a ANError detail
-                                Log.d(TAG + "_1", "onError errorCode : " + e.errorCode)
-                                Log.d(TAG + "_1", "onError errorBody : " + e.errorBody)
-                                Log.d(TAG + "_1", "onError errorDetail : " + JSONObject(e.errorBody.toString()).getString("message"))
-                                mDrawerView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"))
-                            } else {
-                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(TAG + "_1", "onError errorDetail : " + e.errorDetail)
-                            }
-                        } else {
-                            Log.d(TAG + "_1", "onError errorMessage : " + e.message)
-                        }
-
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-                })
-
-
+            }
+        }
     }
 
+    fun changeAvatar(file: File, userid: String, oldavatar: String, context: Context){
+
+        disposables.add(getObservable_changeAvatar("changeavatar", file, userid, oldavatar, context)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver_changeAvatar()))
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+private fun getObservable_eidtInfoUser(typesearch: String): Observable<Response> {
+    return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
+            .setTag(eidtInfoUser)
+            .addJSONObjectBody(jsonObject)
+            .build()
+
+            .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                Log.d(eidtInfoUser, " timeTakenInMillis : " + timeTakenInMillis)
+                Log.d(eidtInfoUser, " bytesSent : " + bytesSent)
+                Log.d(eidtInfoUser, " bytesReceived : " + bytesReceived)
+                Log.d(eidtInfoUser, " isFromCache : " + isFromCache)
+            }
+
+            .getObjectObservable(Response::class.java)
+}
+    private fun getDisposableObserver_eidtInfoUser(): DisposableObserver<Response> {
+
+        return object : DisposableObserver<Response>() {
+
+            override fun onNext(response: Response) {
+                mDrawerView.getUserDetail(response)
+
+            }
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+                    if (e.errorCode != 0) {
+                        // received ANError from server
+                        // error.getErrorCode() - the ANError code from server
+                        // error.getErrorBody() - the ANError body from server
+                        // error.getErrorDetail() - just a ANError detail
+                        Log.d(userdetail, "onError errorCode : " + e.errorCode)
+                        Log.d(userdetail, "onError errorBody : " + e.errorBody)
+                        Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
+                        mDrawerView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"))
+                    } else {
+                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                        Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
+                        mDrawerView.setErrorMessage(e.errorDetail)
+                    }
+                } else {
+                    Log.d(userdetail, "onError errorMessage : " + e.message)
+                    mDrawerView.setErrorMessage(e.message!!)
+                }
+            }
+
+            override fun onComplete() {
+
+            }
+        }
+    }
     fun eidtInfoUser(userid: String,newname: String, newphone: String) {
-        val jsonObject = JSONObject()
+
         try {
             jsonObject.put("userid", userid)
             jsonObject.put("newname", newname)
             jsonObject.put("newphone", newphone)
-
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        Rx2AndroidNetworking.post(Constants.BASE_URL + "/editinfouser")
-                .addJSONObjectBody(jsonObject)
-                .build()
-                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
-                    Log.d(userdetail, " timeTakenInMillis : " + timeTakenInMillis)
-                    Log.d(userdetail, " bytesSent : " + bytesSent)
-                    Log.d(userdetail, " bytesReceived : " + bytesReceived)
-                    Log.d(userdetail, " isFromCache : " + isFromCache)
-                }
-                .getObjectObservable(Response::class.java)
+        disposables.add(getObservable_eidtInfoUser("editinfouser")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Response> {
-                    override fun onNext(response: Response?) {
-                        Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-//                        Log.e(userdetail, response!!.user!!.name)
-                        mDrawerView.getUserDetail(response!!)
+                .subscribeWith(getDisposableObserver_eidtInfoUser()))
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+private fun getObservable_editphonenumber(typesearch: String): Observable<Response> {
+    return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
+            .setTag(editphonenumber)
+            .addJSONObjectBody(jsonObject)
+            .build()
+
+            .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                Log.d(editphonenumber, " timeTakenInMillis : " + timeTakenInMillis)
+                Log.d(editphonenumber, " bytesSent : " + bytesSent)
+                Log.d(editphonenumber, " bytesReceived : " + bytesReceived)
+                Log.d(editphonenumber, " isFromCache : " + isFromCache)
+            }
+
+            .getObjectObservable(Response::class.java)
+}
+    private fun getDisposableObserver_editphonenumber(): DisposableObserver<Response> {
+
+        return object : DisposableObserver<Response>() {
+
+            override fun onNext(response: Response) {
+                mDrawerView.getUserDetail(response)
+
+            }
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+                    if (e.errorCode != 0) {
+                        // received ANError from server
+                        // error.getErrorCode() - the ANError code from server
+                        // error.getErrorBody() - the ANError body from server
+                        // error.getErrorDetail() - just a ANError detail
+                        Log.d(userdetail, "onError errorCode : " + e.errorCode)
+                        Log.d(userdetail, "onError errorBody : " + e.errorBody)
+                        Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
+                        mDrawerView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"))
+                    } else {
+                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                        Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
+                        mDrawerView.setErrorMessage(e.errorDetail)
                     }
+                } else {
+                    Log.d(userdetail, "onError errorMessage : " + e.message)
+                    mDrawerView.setErrorMessage(e.message!!)
+                }
+            }
 
+            override fun onComplete() {
 
-                    override fun onComplete() {
-
-
-                    }
-
-                    override fun onError(e: Throwable) {
-                        if (e is ANError) {
-                            if (e.errorCode != 0) {
-                                // received ANError from server
-                                // error.getErrorCode() - the ANError code from server
-                                // error.getErrorBody() - the ANError body from server
-                                // error.getErrorDetail() - just a ANError detail
-                                Log.d(userdetail, "onError errorCode : " + e.errorCode)
-                                Log.d(userdetail, "onError errorBody : " + e.errorBody)
-                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-                                mDrawerView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"))
-                            } else {
-                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-                                mDrawerView.setErrorMessage(e.errorDetail)
-                            }
-                        } else {
-                            Log.d(userdetail, "onError errorMessage : " + e.message)
-                            mDrawerView.setErrorMessage(e.message!!)
-                        }
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-
-                })
+            }
+        }
     }
     fun editphonenumber(userid: String,phone: String) {
-        val jsonObject = JSONObject()
         try {
             jsonObject.put("userid", userid)
             jsonObject.put("phone", phone)
-
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        Rx2AndroidNetworking.post(Constants.BASE_URL + "/editphonenumber")
-                .addJSONObjectBody(jsonObject)
-                .build()
-                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
-                    Log.d(userdetail, " timeTakenInMillis : " + timeTakenInMillis)
-                    Log.d(userdetail, " bytesSent : " + bytesSent)
-                    Log.d(userdetail, " bytesReceived : " + bytesReceived)
-                    Log.d(userdetail, " isFromCache : " + isFromCache)
-                }
-                .getObjectObservable(Response::class.java)
+        disposables.add(getObservable_editphonenumber("editphonenumber")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<Response> {
-                    override fun onNext(response: Response?) {
-                        Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-//                        Log.e(userdetail, response!!.user!!.name)
-                        mDrawerView.getUserDetail(response!!)
-                    }
-
-
-                    override fun onComplete() {
-
-
-                    }
-
-                    override fun onError(e: Throwable) {
-                        if (e is ANError) {
-                            if (e.errorCode != 0) {
-                                // received ANError from server
-                                // error.getErrorCode() - the ANError code from server
-                                // error.getErrorBody() - the ANError body from server
-                                // error.getErrorDetail() - just a ANError detail
-                                Log.d(userdetail, "onError errorCode : " + e.errorCode)
-                                Log.d(userdetail, "onError errorBody : " + e.errorBody)
-                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-                                mDrawerView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"))
-                            } else {
-                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                                Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-                                mDrawerView.setErrorMessage(e.errorDetail)
-                            }
-                        } else {
-                            Log.d(userdetail, "onError errorMessage : " + e.message)
-                            mDrawerView.setErrorMessage(e.message!!)
-                        }
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-
-                })
+                .subscribeWith(getDisposableObserver_editphonenumber()))
+    }
+    fun cancelRequest() {
+        Log.e("Cancel","Cancel Request")
+        disposables.clear()
     }
     interface DrawerView {
         fun changeAvatarSuccess(t: Response)

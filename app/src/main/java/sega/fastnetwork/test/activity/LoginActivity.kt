@@ -318,6 +318,11 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mLoginPresenter?.cancelRequest()
+    }
+
     /*override fun onPause() {
         super.onPause()
 

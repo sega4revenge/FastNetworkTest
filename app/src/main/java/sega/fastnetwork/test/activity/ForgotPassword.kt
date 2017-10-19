@@ -90,6 +90,11 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mForgotPwPresenter?.cancelRequest()
+    }
+
     private fun newpw() {
         var err = 0
 

@@ -47,14 +47,13 @@ import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.presenter.EditProductPresenter
 import sega.fastnetwork.test.util.CompressImage
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.EditProductView
 import java.io.File
 import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class EditProductActivity : AppCompatActivity(),EditProductView {
+class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProductView {
 
 
     val PLACE_PICKER_REQUEST = 3
@@ -211,6 +210,12 @@ class EditProductActivity : AppCompatActivity(),EditProductView {
         add_picker_view!!.show()
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        editProduct?.cancelRequest()
+    }
+
     override fun isCreateSuccess(success: Boolean,mType: Int) {
         if(success)
         {

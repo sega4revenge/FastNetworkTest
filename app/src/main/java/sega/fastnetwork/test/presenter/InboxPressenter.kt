@@ -82,6 +82,10 @@ class InboxPressenter(view: InboxListView){
             }
         }
     }
+    fun cancelRequest() {
+        Log.e("Cancel","Cancel Request")
+        disposables.clear()
+    }
     interface InboxListView {
         fun setErrorMessage(errorMessage: String)
         fun getListInbox(mChat: ArrayList<Chat>?)

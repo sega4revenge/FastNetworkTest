@@ -291,9 +291,17 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         if (isTablet) {
 
         } else {
-            val intent = Intent(this, ProductDetailActivity::class.java)
-            intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
-            startActivity(intent)
+            if (adapter!!.productList[position].type == "1") {
+                val intent = Intent(this, ProductDetailActivity::class.java)
+                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, ProductDetailNeedActivity::class.java)
+                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+                startActivity(intent)
+            }
         }
     }
 
@@ -371,6 +379,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
     public override fun onDestroy() {
         super.onDestroy()
+        SearchView?.cancelRequest()
         unregisterReceiver(this.broadcastReceiver)
 
     }

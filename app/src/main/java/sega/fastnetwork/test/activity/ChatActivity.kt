@@ -204,6 +204,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
 
     override fun onDestroy() {
         super.onDestroy()
+        mDetailUserPresenter?.cancelRequest()
         mSocket!!.emit("outroom",mUserFrom,mUserTo)
         mSocket?.off("sendchat")
         mSocket?.off("getDataMessage")

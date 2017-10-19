@@ -19,10 +19,9 @@ import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DetailProfilePressenter
 import sega.fastnetwork.test.util.Constants
-import sega.fastnetwork.test.view.DetailProfileView
 import java.util.*
 
-class DetailProfileActivity : Activity(), DetailProfileView, ProductAdapter.OnproductClickListener {
+class DetailProfileActivity : Activity(), DetailProfilePressenter.DetailProfileView, ProductAdapter.OnproductClickListener {
 
     var mUser: User? = null
     var detailprofile: DetailProfilePressenter? = null
@@ -149,8 +148,6 @@ class DetailProfileActivity : Activity(), DetailProfileView, ProductAdapter.Onpr
     override fun setErrorMessage(errorMessage: String) {
     }
 
-    override fun setMessagerNotFound() {
-    }
 
     override fun onproductClicked(position: Int) {
         val intent = Intent(this, ProductDetailActivity::class.java)

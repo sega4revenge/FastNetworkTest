@@ -94,14 +94,15 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
     }
 
     override fun onDestroyView() {
-        mProductListPresenter?.stopRequest()
         super.onDestroyView()
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mProductListPresenter?.stopRequest()
 
-
-
+    }
 
     private fun onDownloadSuccessful() {
 

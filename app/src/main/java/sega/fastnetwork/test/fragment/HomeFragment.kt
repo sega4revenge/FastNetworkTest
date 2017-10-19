@@ -124,10 +124,11 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     }
     override fun onDestroy() {
         super.onDestroy()
+        mProductListPresenter?.stopRequest()
+        mDrawarPresenter?.cancelRequest()
     }
 
     override fun onDestroyView() {
-        mProductListPresenter?.stopRequest()
         super.onDestroyView()
 
     }

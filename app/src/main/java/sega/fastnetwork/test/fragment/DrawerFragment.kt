@@ -457,7 +457,6 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             StrictMode.setThreadPolicy(policy)
         }
         edit_avatar.setOnClickListener {
-            Toast.makeText(activity,"OK OK OK PICK",Toast.LENGTH_LONG).show()
             val permissionlistener = object : PermissionListener {
                 override fun onPermissionGranted() {
 
@@ -499,6 +498,13 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mChangePasswordPresenter?.cancelRequest()
+        mDrawerPresenter?.cancelRequest()
+    }
+
     private fun getRealFilePath(context: Context, uri: Uri?): String? {
         if (null == uri) return null
         val scheme = uri.scheme
@@ -609,16 +615,16 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_2 -> {
-                mSelectedId = itemId
-                toolbar_title.setText("Sản phẩm đã lưu")
-                fragment = SavedProductFragment()
-
-                if(categorylist.visibility != View.GONE){
-                    categorylist.visibility = View.GONE
-                }
-                morecategory = false
-            }
+//            R.id.nav_2 -> {
+//                mSelectedId = itemId
+//                toolbar_title.setText("Sản phẩm đã lưu")
+//                fragment = SavedProductFragment()
+//
+//                if(categorylist.visibility != View.GONE){
+//                    categorylist.visibility = View.GONE
+//                }
+//                morecategory = false
+//            }
             R.id.nav_chat -> {
                 mSelectedId = itemId
                 toolbar_title.setText("Tin nhắn")
