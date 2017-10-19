@@ -2,6 +2,7 @@ package sega.fastnetwork.test.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -122,6 +123,7 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context,mUserTo: Str
                             .apply(options2)
                             .into(holder.imgSendTo)
                 }
+                    Log.d("ttttttttttt",imguserto+"11")
                     if (!imguserto.equals("")) {
                         Glide.with(mContext)
                                 .load(avatacmt(imguserto!!))

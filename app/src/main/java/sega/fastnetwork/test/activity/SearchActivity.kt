@@ -78,6 +78,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         SearchView = SearchPresenterImp(this)
         layoutManager = LinearLayoutManager(this)
         adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
+
+
+
         fab_search.setOnClickListener {
 
             val dialogFrag = FilterFragment.newInstance()
@@ -88,7 +91,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
             //check if no view has focus:
-            ed_search.clearFocus()
+           ed_search.clearFocus()
 
 
             val v = this.currentFocus
@@ -209,11 +212,26 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         ed_search.isFocusable = false
         ed_search.setIconifiedByDefault(false)
         ed_search.isIconified = false
+    /*    ed_search.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+                SearchView!!.cancelRequest()
+                SearchView!!.searchWithList(ed_search.text.toString(), loca, cate, mFilter)
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        })*/
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 SearchView!!.cancelRequest()
                 SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
-                ed_search.clearFocus()
+              //  ed_search.clearFocus()
 
                 return true
             }

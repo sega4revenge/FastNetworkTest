@@ -176,7 +176,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.ChatActivity"
-            android:windowSoftInputMode="stateHidden"/>
+           />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.DetailNeedProductActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />

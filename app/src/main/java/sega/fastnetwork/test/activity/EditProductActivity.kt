@@ -71,6 +71,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
     var imglist: ArrayList<String>? = ArrayList()
     var imglistDel = ""
     var mType = 0
+    var mCountImg = 0
     var progress : ProgressDialog? = null
     var statusproduct : String? = null
     private var editProduct: EditProductPresenter? =null
@@ -105,6 +106,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
             for(i in 0..imglist?.size!!)
             {
                 if(i!=imglist?.size!!) {
+                    mCountImg++;
                     imgBean = ImageBean(Constants.IMAGE_URL+imglist!![i])
                     uriImage?.add(imgBean!!)
                 }
@@ -154,16 +156,18 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
                                     override fun onImagesSelected(uriListselect: ArrayList<Uri>) {
                                         for(i in 0..(uriListselect.size-1))
                                         {
+                                            uriList?.add(uriListselect[i])
+                                            mCountImg++
                                             add_picker_view!!.addData(ImageBean(getRealFilePath(this@EditProductActivity, uriListselect[i])!!))
                                         }
-                                        uriList = uriListselect
+
                                     }
                                 })
 
                                 //.setPeekHeight(getResources().getDisplayMetrics().heightPixels/2)
                                 .setPeekHeight(1600)
                                 .showTitle(false)
-                                .setSelectMaxCount(4)
+                                .setSelectMaxCount((4 - mCountImg))
                                 .setCompleteButtonText("Done")
                                 .setEmptySelectionText("No Select")
                                 .setSelectedUriList(add_picker_view!!.listUri)
@@ -205,6 +209,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
                     var listup = position - imglist?.size!!
                     uriList?.remove(uriList?.get(listup))
                 }
+                mCountImg--
             }
         })
         add_picker_view!!.show()
