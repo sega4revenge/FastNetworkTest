@@ -390,7 +390,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .setPermissions(Manifest.permission.SEND_SMS)
                     .check()
         }
-         v.im_share.setOnClickListener {
+         v.layout_share.setOnClickListener {
              val sendIntent = Intent()
              val linkapp = "https://www.facebook.com/groups/727189854084530/"
              val numberFormat = DecimalFormat("###,###")
@@ -556,16 +556,16 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             println(product!!._id)
             if (product!!.status == "1")
                 Log.e("time: ", product!!.time)
-       /*     when (product!!.time) {
-                "0" -> product_rentime.text = "1 giờ"
-                "1" -> product_rentime.text = "1 ngày"
-                "2" -> product_rentime.text = "1 tuần"
-                "3" -> product_rentime.text = "1 tháng"
+            when (product!!.time) {
+                "0" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_hour)
+                "1" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_day)
+                "2" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_week)
+                "3" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_month)
                 else -> {
-                    product_rentime.text = "1 năm"
+                    img_bagde.background = resources.getDrawable(R.drawable.bagde_year)
                 }
 
-            }*/
+            }
         if (product!!.type == "1") {
             product_status.text = "Cho thuê"
             product_status.setTextColor(Color.WHITE)
@@ -579,40 +579,40 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         when (product!!.category) {
                 "0" -> {
-                    product_category.setImageResource(R.drawable.cate_vehicle)
+                    product_category.setImageResource(R.drawable.cate_vehicle_round)
                     txt_category.text = "Xe cộ"
                 }
 
                 "1" -> {
-                    product_category.setImageResource(R.drawable.cate_electronic)
+                    product_category.setImageResource(R.drawable.cate_electronic_round)
                     txt_category.text = "Đồ điện tử"
                 }
                 "2" -> {
-                    product_category.setImageResource(R.drawable.cate_fashion)
+                    product_category.setImageResource(R.drawable.cate_fashion_round)
                     txt_category.text = "Thời trang,đồ dùng cá nhân"
                 }
                 "3" -> {
-                    product_category.setImageResource(R.drawable.cate_home)
+                    product_category.setImageResource(R.drawable.cate_home_round)
                     txt_category.text = "Nhà"
                 }
                 "4" -> {
-                    product_category.setImageResource(R.drawable.mother)
+                    product_category.setImageResource(R.drawable.cate_mother_round)
                     txt_category.text = "Mẹ và bé"
                 }
                 "5" -> {
-                    product_category.setImageResource(R.drawable.cate_furniture)
+                    product_category.setImageResource(R.drawable.cate_furniture_round)
                     txt_category.text = "Gia dụng,nội thất"
                 }
                 "6" -> {
-                    product_category.setImageResource(R.drawable.cup)
+                    product_category.setImageResource(R.drawable.cate_cup_round)
                     txt_category.text = "Giải trí,thể thao,sở thích"
                 }
                 "7" -> {
-                    product_category.setImageResource(R.drawable.printer)
+                    product_category.setImageResource(R.drawable.cate_printer_round)
                     txt_category.text = "Văn phòng,nông nghiệp"
                 }
                 else -> { // Note the block
-                    product_category.setImageResource(R.drawable.cate_more)
+                    product_category.setImageResource(R.drawable.cate_more_round)
                     txt_category.text = "Khác"
                 }
             }
