@@ -54,7 +54,7 @@
                         <TextView
                             android:id="@+id/toolbar_productname"
                             android:layout_width="match_parent"
-                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
                             android:textSize="16sp"
@@ -63,7 +63,7 @@
                         <TextView
                             android:id="@+id/toolbar_username"
                             android:layout_width="match_parent"
-                            android:layout_gravity="center"
+                            android:gravity="center"
                             android:textColor="#737373"
 
                             android:layout_height="wrap_content"
@@ -86,13 +86,6 @@
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:background="@drawable/ic_location_white"
-                            android:layout_marginLeft="5dp"
-                            />
-                        <ImageButton
-                            android:id="@+id/im_share"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@drawable/share_white"
                             android:layout_marginLeft="5dp"
                             />
                     </LinearLayout>
