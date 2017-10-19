@@ -4,11 +4,9 @@ package sega.fastnetwork.test.fragment
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.text.TextUtils
@@ -63,7 +61,7 @@ import java.text.DecimalFormat
 import java.util.*
 
 
-class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
+class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     override fun isCommentSuccessful(isCommentSuccessful: Boolean) {
     }
 
@@ -184,35 +182,35 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments_see_all.text = (listcomment.size - 3).toString() + " more comments..."
         }    }
 
-    override fun onMapReady(p0: GoogleMap?) {
-        googleMap = p0
-        // For showing a move to my location button
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        googleMap!!.isMyLocationEnabled = true
-
-        // For dropping a marker at a point on the Map
-        val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
-        Log.e("sydney: ",sydney.toString())
-        googleMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address))
-
-        // For zooming automatically to the location of the marker
-        val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
-        googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))    }
+//    override fun onMapReady(p0: GoogleMap?) {
+//        googleMap = p0
+//        // For showing a move to my location button
+//        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return
+//        }
+//        googleMap!!.isMyLocationEnabled = true
+//
+//        // For dropping a marker at a point on the Map
+//        val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
+//        Log.e("sydney: ",sydney.toString())
+//        googleMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address))
+//
+//        // For zooming automatically to the location of the marker
+//        val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
+//        googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))    }
 
 
     internal var error: Boolean = false
 /*    internal var commentslist = ArrayList<Comments>()*/
 
-    var googleMap : GoogleMap? = null
+    var mMap : GoogleMap? = null
 
     internal var height: Int = 0
     internal var width: Int = 0
@@ -271,11 +269,51 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         v.change_map.setOnClickListener {
             when (isMap) {
                 false -> {
+                    println("ban do")
                     isMap = true
-                    change_map.background = resources.getDrawable(R.drawable.ic_map)
-                    slider.visibility = View.GONE
+
+                    val permissionlistener = object : PermissionListener, OnMapReadyCallback {
+                        override fun onMapReady(map: GoogleMap?) {
+
+                            change_map.background = resources.getDrawable(R.drawable.ic_map)
+                            slider.visibility = View.GONE
+                            mMap = map
+                            mMap!!.isMyLocationEnabled = true
+
+                            // For dropping a marker at a point on the Map
+                            val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
+                            Log.e("sydney: ",sydney.toString())
+                            mMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address))
+
+                            // For zooming automatically to the location of the marker
+                            val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
+                            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 17.0f))
+//                            mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+                        }
+
+                        override fun onPermissionGranted() {
                     val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
                     mapView_location.getMapAsync(this)
+                        }
+
+
+                        override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
+                                Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+
+                    }
+                    TedPermission.with(activity)
+                            .setPermissionListener(permissionlistener)
+                            .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                            .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                            .check()
+                    /////////////
+//                    isMap = true
+//                    change_map.background = resources.getDrawable(R.drawable.ic_map)
+//                    slider.visibility = View.GONE
+//                    val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
+//                    mapView_location.getMapAsync(this)
                 }
                 else -> {
                     isMap = false
