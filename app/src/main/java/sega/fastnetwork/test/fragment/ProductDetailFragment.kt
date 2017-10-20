@@ -41,6 +41,7 @@ import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
 import kotlinx.android.synthetic.main.layout_detail_info.view.*
+import kotlinx.android.synthetic.main.layout_error_message.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
@@ -487,9 +488,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_detail_holder.visibility = View.VISIBLE
         layout_detail_header.visibility = View.VISIBLE
         // Set title and tagline
-        product_name.text = product!!.productname
-        product_overview.text = product!!.description
-        toolbar_productname.text = product!!.productname
+            product_name.text = product!!.productname
+            product_overview.text = product!!.description
+            toolbar_productname.text = product!!.productname
         toolbar_username.text = product!!.user!!.name
         if(product?.price == null || product?.price!! == ""){
             price_and_bagde.visibility = View.GONE
@@ -527,7 +528,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     img_bagde.background = resources.getDrawable(R.drawable.bagde_year)
                 }
 
-        }
+            }
         if (product!!.type == "1") {
             product_status.text = "Cho thuê"
             product_status.setTextColor(Color.WHITE)
@@ -540,50 +541,49 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 
         when (product!!.category) {
-            "0" -> {
-                product_category.setImageResource(R.drawable.cate_vehicle_round)
-                txt_category.text = "Xe cộ"
-            }
+                "0" -> {
+                    product_category.setImageResource(R.drawable.cate_vehicle_round)
+                    txt_category.text = "Xe cộ"
+                }
 
-            "1" -> {
-                product_category.setImageResource(R.drawable.cate_electronic_round)
-                txt_category.text = "Đồ điện tử"
+                "1" -> {
+                    product_category.setImageResource(R.drawable.cate_electronic_round)
+                    txt_category.text = "Đồ điện tử"
+                }
+                "2" -> {
+                    product_category.setImageResource(R.drawable.cate_fashion_round)
+                    txt_category.text = "Thời trang,đồ dùng cá nhân"
+                }
+                "3" -> {
+                    product_category.setImageResource(R.drawable.cate_home_round)
+                    txt_category.text = "Nhà"
+                }
+                "4" -> {
+                    product_category.setImageResource(R.drawable.cate_mother_round)
+                    txt_category.text = "Mẹ và bé"
+                }
+                "5" -> {
+                    product_category.setImageResource(R.drawable.cate_furniture_round)
+                    txt_category.text = "Gia dụng,nội thất"
+                }
+                "6" -> {
+                    product_category.setImageResource(R.drawable.cate_cup_round)
+                    txt_category.text = "Giải trí,thể thao,sở thích"
+                }
+                "7" -> {
+                    product_category.setImageResource(R.drawable.cate_printer_round)
+                    txt_category.text = "Văn phòng,nông nghiệp"
+                }
+                else -> { // Note the block
+                    product_category.setImageResource(R.drawable.cate_more_round)
+                    txt_category.text = "Khác"
+                }
             }
-            "2" -> {
-                product_category.setImageResource(R.drawable.cate_fashion_round)
-                txt_category.text = "Thời trang,đồ dùng cá nhân"
-            }
-            "3" -> {
-                product_category.setImageResource(R.drawable.cate_home_round)
-                txt_category.text = "Nhà"
-            }
-            "4" -> {
-                product_category.setImageResource(R.drawable.cate_mother_round)
-                txt_category.text = "Mẹ và bé"
-            }
-            "5" -> {
-                product_category.setImageResource(R.drawable.cate_furniture_round)
-                txt_category.text = "Gia dụng,nội thất"
-            }
-            "6" -> {
-                product_category.setImageResource(R.drawable.cate_cup_round)
-                txt_category.text = "Giải trí,thể thao,sở thích"
-            }
-            "7" -> {
-                product_category.setImageResource(R.drawable.cate_printer_round)
-                txt_category.text = "Văn phòng,nông nghiệp"
-            }
-            else -> { // Note the block
-                product_category.setImageResource(R.drawable.cate_more_round)
-                txt_category.text = "Khác"
-            }
-        }
 
 
 
 //=======================0 cmt========================
-        when {
-            product!!.comment!!.size == 0 -> {
+            if (product!!.comment!!.size == 0) {
                 comment_item1.visibility = View.GONE
                 comment_item2.visibility = View.GONE
                 comment_item3.visibility = View.GONE
@@ -591,7 +591,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 no_cmt.visibility = View.VISIBLE
             }
 //=======================1 cmt========================
-            product!!.comment!!.size == 1 -> {
+
+            else if (product!!.comment!!.size == 1) {
                 comments_see_all.visibility = View.GONE
                 comment_item2.visibility = View.GONE
                 comment_item3.visibility = View.GONE
@@ -605,7 +606,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 datecomment1.text = timeAgo(product!!.comment!![0].time!!)
             }
 //=======================2 cmt========================
-            product!!.comment!!.size == 2 -> {
+
+            else if (product!!.comment!!.size == 2) {
                 comments_see_all.visibility = View.GONE
                 comment_item3.visibility = View.GONE
 
@@ -628,7 +630,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
 
 //=======================3 cmt========================
-            product!!.comment!!.size == 3 -> {
+            else if (product!!.comment!!.size == 3) {
                 comments_see_all.visibility = View.GONE
                 Glide.with(this)
                         .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
@@ -654,8 +656,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 usercomments3.text = product!!.comment!![2].user!!.name
                 comments3.text = product!!.comment!![2].content
                 datecomment3.text = timeAgo(product!!.comment!![2].time!!)
-            }
-            else -> {
+            } else {
                 Glide.with(this)
                         .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
                         .thumbnail(0.1f)
@@ -683,22 +684,15 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 comments_see_all.visibility = View.VISIBLE
                 comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
             }
-        if(product?.images?.size == 0){
-            slider.visibility = View.GONE
-            change_map.visibility = View.GONE
-            isMap = false
-            map()
-        }
-        else{
-            showAnimationBanner()
-        }
-        }
         val listUserComments = ArrayList<String>()
         product!!.comment!!
                 .asSequence()
                 .filterNot { listUserComments.contains(it.user!!.photoprofile) }
                 .forEach { listUserComments.add(it.user!!.photoprofile!!) }
         when {
+            listUserComments.size==0 -> {
+
+            }
             listUserComments.size==1 -> {
                 head1.visibility = View.VISIBLE
                 Glide.with(this)
@@ -802,14 +796,22 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 
         }
-        showAnimationBanner()
+        if(product?.images?.size == 0){
+            slider.visibility = View.GONE
+            change_map.visibility = View.GONE
+            isMap = false
+            map()
+        }
+        else{
+            showAnimationBanner()
+        }
 
     }
 
     fun destroyfragment() {
 //        mProductDetailPresenter!!.cancelRequest()
-        if (AppManager.getAppAccountUserId(activity) != id_user)
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(id)
+            if (AppManager.getAppAccountUserId(activity) != id_user)
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(id)
 
 
     }
@@ -934,5 +936,123 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     companion object {
         private val MY_PERMISSIONS_REQUEST_CALL_PHONE = 1234
     }
+    override fun isCommentSuccessful(isCommentSuccessful: Boolean) {
+    }
 
+    override fun getCommentDetail(listcomment: ArrayList<Comment>) {
+        Log.e("adasdasd",listcomment.size.toString())
+        no_cmt.visibility = View.GONE
+
+//=======================0 cmt========================
+        if (listcomment.size == 0) {
+            comment_item1.visibility = View.GONE
+            comment_item2.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+            comments_see_all.visibility = View.GONE
+            no_cmt.visibility = View.VISIBLE
+        }
+//=======================1 cmt========================
+
+        else if (listcomment.size == 1) {
+            comments_see_all.visibility = View.GONE
+            comment_item2.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+            comment_item1.visibility = View.VISIBLE
+            Glide.with(this)
+                    .load(avatacmt(listcomment[0].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = listcomment[0].user!!.name
+            comments1.text = listcomment[0].content
+            datecomment1.text = timeAgo(listcomment[0].time!!)
+        }
+//=======================2 cmt========================
+
+        else if (listcomment.size == 2) {
+            comments_see_all.visibility = View.GONE
+            comment_item3.visibility = View.GONE
+            comment_item1.visibility = View.VISIBLE
+            comment_item2.visibility = View.VISIBLE
+
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-1].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            comments1.text = listcomment[listcomment.size-1].content
+            datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-2].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            comments2.text = listcomment[listcomment.size-2].content
+            datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
+        }
+
+//=======================3 cmt========================
+        else if (listcomment.size == 3) {
+            comments_see_all.visibility = View.GONE
+            comment_item1.visibility = View.VISIBLE
+            comment_item2.visibility = View.VISIBLE
+            comment_item3.visibility = View.VISIBLE
+
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-1].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            comments1.text = listcomment[listcomment.size-1].content
+            datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-2].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            comments2.text = listcomment[listcomment.size-2].content
+            datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-3].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage3)
+            usercomments3.text = listcomment[listcomment.size-3].user!!.name
+            comments3.text = listcomment[listcomment.size-3].content
+            datecomment3.text = timeAgo(listcomment[listcomment.size-3].time!!)
+        } else {
+            comment_item1.visibility = View.VISIBLE
+            comment_item2.visibility = View.VISIBLE
+            comment_item3.visibility = View.VISIBLE
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-1].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+            usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            comments1.text = listcomment[listcomment.size-1].content
+            datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-2].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+            usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            comments2.text = listcomment[listcomment.size-2].content
+            datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
+            Glide.with(this)
+                    .load(avatacmt(listcomment[listcomment.size-3].user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage3)
+            usercomments3.text = listcomment[listcomment.size-3].user!!.name
+            comments3.text = listcomment[listcomment.size-3].content
+            datecomment3.text = timeAgo(listcomment[listcomment.size-3].time!!)
+            comments_see_all.visibility = View.VISIBLE
+            comments_see_all.text = (listcomment.size - 3).toString() + " more comments..."
+        }    }
 }
