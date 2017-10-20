@@ -264,7 +264,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
             println("len")
         }
-        v.fab_messenger.setOnClickListener {
+        v.fab_messenger.setOnClickListener {0
             val intent = Intent(activity, ChatActivity::class.java)
             intent.putExtra("avatar",photoprofile)
             intent.putExtra("iduser",userCreateProduct)
