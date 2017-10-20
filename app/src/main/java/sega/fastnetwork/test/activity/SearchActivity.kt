@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.android.gms.location.*
@@ -53,6 +54,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     var loca = ""
     var cate = ""
     val mLocationRequestwithBalanced = LocationRequest()
+
     internal var listProductMaker = java.util.ArrayList<Marker>()
     private var myLocation: LatLng? = null
     private var isLoading: Boolean = false
@@ -64,22 +66,23 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     private var adapter: ProductAdapter? = null
     private var isMap: Boolean = false
     private var REQUEST_CHECK_SETTINGS = 1000
+
+
     fun getApplied_filters(): ArrayMap<String, MutableList<String>> = applied_filters
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.searchmain_layout)
-        val inputManager = this
-                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        //check if no view has focus:
-        ed_search.clearFocus()
-        val v = this.currentFocus
-        if (v != null)
-            inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
         layoutManager = LinearLayoutManager(this)
         adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
+
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+
         fab_search.setOnClickListener {
 
             val dialogFrag = FilterFragment.newInstance()
@@ -88,14 +91,20 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             dialogFrag.arguments = args
             val inputManager = this
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
             //check if no view has focus:
-            ed_search.clearFocus()
+           ed_search.clearFocus()
+
+
             val v = this.currentFocus
             if (v != null)
                 inputManager.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             dialogFrag.show(supportFragmentManager, dialogFrag.tag)
         }
         nestedScrollView.visibility = View.VISIBLE
+        back_button.setOnClickListener {
+            finish()
+        }
         action_grid.setOnClickListener {
 
             when (isMap) {
@@ -205,11 +214,26 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         ed_search.isFocusable = false
         ed_search.setIconifiedByDefault(false)
         ed_search.isIconified = false
+    /*    ed_search.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+                SearchView!!.cancelRequest()
+                SearchView!!.searchWithList(ed_search.text.toString(), loca, cate, mFilter)
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        })*/
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 SearchView!!.cancelRequest()
                 SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
-                ed_search.clearFocus()
+              //  ed_search.clearFocus()
 
                 return true
             }
@@ -290,9 +314,17 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         if (isTablet) {
 
         } else {
-            val intent = Intent(this, ProductDetailActivity::class.java)
-            intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
-            startActivity(intent)
+            if (adapter!!.productList[position].type == "1") {
+                val intent = Intent(this, ProductDetailActivity::class.java)
+                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, ProductDetailNeedActivity::class.java)
+                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+                startActivity(intent)
+            }
         }
     }
 
@@ -370,6 +402,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
     public override fun onDestroy() {
         super.onDestroy()
+        SearchView?.cancelRequest()
         unregisterReceiver(this.broadcastReceiver)
 
     }

@@ -204,6 +204,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
 
     override fun onDestroy() {
         super.onDestroy()
+        mDetailUserPresenter?.cancelRequest()
         mSocket!!.emit("outroom",mUserFrom,mUserTo)
         mSocket?.off("sendchat")
         mSocket?.off("getDataMessage")
@@ -259,9 +260,17 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 imgOff.setImageResource(R.drawable.ic_online_)
             }
         }
-        ImageAvatar = arrUser.getJSONObject(0).getString("photoprofile")
-        mToolbar = arrUser.getJSONObject(0).getString("name")
+        if(ImageAvatar?.equals(""))
+        {
+            ImageAvatar = arrUser.getJSONObject(0).getString("photoprofile")
+        }
+        if(mToolbar?.equals(""))
+        {
+            mToolbar = arrUser.getJSONObject(0).getString("name")
+        }
 
+
+        Log.d("ttttttttttt",ImageAvatar+"11")
         if(mDataMessager?.size!! > 0){
             mOtherData?.addAll(mDataMessager!!)
             mDataMessager?.clear()

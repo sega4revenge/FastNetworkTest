@@ -212,6 +212,6 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
     public override fun onDestroy() {
         super.onDestroy()
-
+        mRegisterPresenter?.cancelRequest()
     }
 }

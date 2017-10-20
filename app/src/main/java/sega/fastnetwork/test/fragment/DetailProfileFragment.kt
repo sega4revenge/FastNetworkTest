@@ -21,12 +21,11 @@ import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Product
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.DetailProfilePressenter
-import sega.fastnetwork.test.view.DetailProfileView
 
 /**
  * Created by VinhNguyen on 8/22/2017.
  */
-class DetailProfileFragment : Fragment(), DetailProfileView, ProductAdapter.OnproductClickListener {
+class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileView, ProductAdapter.OnproductClickListener {
 
     private var layoutManager: GridLayoutManager? = null
     private var adapter: ProductAdapter? = null
@@ -159,8 +158,10 @@ class DetailProfileFragment : Fragment(), DetailProfileView, ProductAdapter.Onpr
         }
     }
 
-    override fun setMessagerNotFound() {
 
+    override fun onDestroy() {
+        detailprofile?.cancelRequest()
+        super.onDestroy()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -54,7 +54,7 @@ import java.util.*
 
 class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener,DrawerPresenter.DrawerView, ChangePasswordPresenter.ChangePasswordView {
     override fun getUserDetail(user: User) {
-
+        AppManager.saveAccountUser(context,user,0)
     }
 
     override fun isgetUserDetailSuccess(success: Boolean) {
@@ -100,6 +100,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
     var fragment: Fragment? = null
     var user :User?=null
+    var user2 : User?=null
 
     var photoprofile : String? = null
     var mChangePasswordPresenter: ChangePasswordPresenter? = null
@@ -270,12 +271,12 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                 if (!validateFields(newname.text.toString())) {
 
                                     err++
-                                    newname.error = context.getString(R.string.st_errpass)
+                                    newname.error = "Old password should not be empty !"
                                 }
                                 if (!validateFields(newphone.text.toString())) {
 
                                     err++
-                                    newphone.error = context.getString(R.string.st_errpass)
+                                    newphone.error = "Old password should not be empty !"
                                 }
 
                                 if (err == 0) {
@@ -300,15 +301,24 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             }
         }
         changePass.setOnClickListener {
+            user2 = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
             val dl_changepass = AlertDialog.Builder(activity)
             val inflater = layoutInflater
             val v = inflater.inflate(R.layout.dialog_changepass, null)
+            val tvoldpass = v.findViewById<TextView>(R.id.tv_oldpass)
             val oldpass = v.findViewById<EditText>(R.id.edt_oldpass)
             val newpass = v.findViewById<EditText>(R.id.edt_newpass)
             val renewpass = v.findViewById<EditText>(R.id.edt_renewpass)
             val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_changepassword)
             val cancel = v.findViewById<Button>(R.id.btn_cancel_changepass)
             val accept = v.findViewById<Button>(R.id.btn_accept_changepass)
+            tvoldpass.visibility = View.VISIBLE
+            oldpass.visibility = View.VISIBLE
+            if(user2!!.hashed_password == null || user2!!.hashed_password.equals("")){
+                tvoldpass.visibility = View.GONE
+                oldpass.visibility = View.GONE
+            }
+
             dl_changepass.setView(v)
             val dg = dl_changepass.show()
             cancel.setOnClickListener {
@@ -324,24 +334,29 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                 newpass!!.error = null
                                 renewpass!!.error = null
                                 var err = 0
-                                if (!validateFields(oldpass.text.toString())) {
 
-                                    err++
-                                    oldpass.error = context.getString(R.string.st_errpass)
+                                if(user!!.hashed_password != null && !user!!.hashed_password.equals("")){
+                                    if (!validateFields(oldpass.text.toString())) {
+
+                                        err++
+                                        oldpass.error = "Old password should not be empty !"
+                                    }
                                 }
+
                                 if (!validateFields(newpass.text.toString())) {
 
                                     err++
-                                    newpass.error = context.getString(R.string.st_errpass)
+                                    newpass.error = "New password should not be empty !"
                                 }
                                 if (newpass.text.toString() != renewpass.text.toString()||renewpass.text.toString()=="") {
 
                                     err++
 
-                                    renewpass.error = context.getString(R.string.st_errpass)
+                                    renewpass.error = "Password do not match or empty!"
 
                                 }
                                 if (err == 0) {
+                                    Log.e("ChangePass","id:"+user!!._id+":old pass:"+ oldpass.text.toString() + ":new pass:"+newpass.text.toString())
                                     mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
 
                                     dg.dismiss()
@@ -362,7 +377,56 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
             }
         }
+        listproduct.setOnClickListener {
+            fragment = DetailProfileFragment()
+            val transaction = activity.supportFragmentManager.beginTransaction()
+            try {
+                val bundle = Bundle()
+                bundle.putInt("Category",999)
+                println("chuan bi")
+                fragment?.arguments =  bundle
+                transaction.replace(R.id.content_frame, fragment).commit()
 
+                //elevation shadow
+                /*  if (elevation != null) {
+                      params.topMargin = if (navFragment is HomeFragment) dp(48f) else 0
+
+                      val a = object : Animation() {
+                          override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                              elevation.layoutParams = params
+                          }
+                      }
+                      a.duration = 150
+                      elevation.startAnimation(a)
+                  }*/
+            } catch (ignored: IllegalStateException) {
+            }
+        }
+        save.setOnClickListener {
+            fragment = SavedProductFragment()
+            val transaction = activity.supportFragmentManager.beginTransaction()
+            try {
+                val bundle = Bundle()
+                bundle.putInt("Category",999)
+                println("chuan bi")
+                fragment?.arguments =  bundle
+                transaction.replace(R.id.content_frame, fragment).commit()
+
+                //elevation shadow
+                /*  if (elevation != null) {
+                      params.topMargin = if (navFragment is HomeFragment) dp(48f) else 0
+
+                      val a = object : Animation() {
+                          override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+                              elevation.layoutParams = params
+                          }
+                      }
+                      a.duration = 150
+                      elevation.startAnimation(a)
+                  }*/
+            } catch (ignored: IllegalStateException) {
+            }
+        }
 //        changePass.setOnClickListener {
 //            val intentchangepw = Intent(activity,ChangePasswordActivity::class.java)
 //            startActivity(intentchangepw)
@@ -393,7 +457,6 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             StrictMode.setThreadPolicy(policy)
         }
         edit_avatar.setOnClickListener {
-            Toast.makeText(activity,"OK OK OK PICK",Toast.LENGTH_LONG).show()
             val permissionlistener = object : PermissionListener {
                 override fun onPermissionGranted() {
 
@@ -435,6 +498,13 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mChangePasswordPresenter?.cancelRequest()
+        mDrawerPresenter?.cancelRequest()
+    }
+
     private fun getRealFilePath(context: Context, uri: Uri?): String? {
         if (null == uri) return null
         val scheme = uri.scheme
@@ -545,19 +615,19 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_2 -> {
-                mSelectedId = itemId
-                toolbar_title.setText(R.string.sp_saved)
-                fragment = SavedProductFragment()
-
-                if(categorylist.visibility != View.GONE){
-                    categorylist.visibility = View.GONE
-                }
-                morecategory = false
-            }
+//            R.id.nav_2 -> {
+//                mSelectedId = itemId
+//                toolbar_title.setText("Sản phẩm đã lưu")
+//                fragment = SavedProductFragment()
+//
+//                if(categorylist.visibility != View.GONE){
+//                    categorylist.visibility = View.GONE
+//                }
+//                morecategory = false
+//            }
             R.id.nav_chat -> {
                 mSelectedId = itemId
-                toolbar_title.setText(R.string.txt_mess)
+                toolbar_title.setText("Tin nhắn")
                 fragment = InboxFragment()
 
                 if(categorylist.visibility != View.GONE){
@@ -567,7 +637,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             }
             R.id.nav_3 -> {
                 mSelectedId = itemId
-                toolbar_title.setText(R.string.nav_Profile)
+                toolbar_title.setText("Tài khoản")
                 fragment = DetailProfileFragment()
 
                 hideMoreAction()

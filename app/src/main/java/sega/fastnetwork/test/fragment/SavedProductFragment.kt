@@ -118,11 +118,11 @@ class SavedProductFragment : Fragment(), ProductAdapter.OnproductClickListener, 
         return view
     }
     override fun onDestroy() {
+        mProductListPresenter?.stopRequest()
         super.onDestroy()
     }
 
     override fun onDestroyView() {
-        mProductListPresenter?.stopRequest()
         super.onDestroyView()
 
     }

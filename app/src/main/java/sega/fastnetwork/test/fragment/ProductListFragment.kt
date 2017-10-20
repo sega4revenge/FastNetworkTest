@@ -92,10 +92,11 @@ class ProductListFragment : Fragment(), ProductAdapter.OnproductClickListener, P
 
     override fun onDestroy() {
         super.onDestroy()
+        mProductListPresenter?.stopRequest()
+
     }
 
     override fun onDestroyView() {
-        mProductListPresenter?.stopRequest()
         super.onDestroyView()
 
     }
