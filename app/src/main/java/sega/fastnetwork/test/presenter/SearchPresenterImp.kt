@@ -26,7 +26,6 @@ class SearchPresenterImp(searchView: SearchView){
     private val disposables = CompositeDisposable()
     fun searchWithList(key: String, mLocation: String, mCategory: String, mTypeArrange: Int) {
 
-
         try {
             jsonObject.put("keysearch", key)
             jsonObject.put("location", mLocation)

@@ -1,7 +1,10 @@
 package sega.fastnetwork.test.adapter
 
+
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Bundle
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
 import android.view.LayoutInflater
@@ -12,6 +15,8 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.layout_comments.view.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.fragment.ProifileSellerFragment
+import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Comment
 import sega.fastnetwork.test.util.Constants
 import java.lang.Long
@@ -22,12 +27,12 @@ import java.util.*
  * Created by cc on 8/16/2017.
  */
 class CommentAdapter// Constructor
-(private val context: Context, private val oncommentClickListener: OncommentClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+(private val context: Context, private val oncommentClickListener: OncommentClickListener,fragment: FragmentManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val format: String
     private val sharedPref: SharedPreferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
     var commentsList: ArrayList<Comment>
     var photoprofile : String? = null
-
+    var mFragmentManager: FragmentManager = fragment
     private val imageWidth: Int
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000")
 
@@ -90,7 +95,13 @@ class CommentAdapter// Constructor
                     .thumbnail(0.1f)
                     .apply(options)
                     .into(viewHolder.itemView.commentpic)
-
+        viewHolder.itemView.commentpic.setOnClickListener(){
+            if(!AppManager.getAppAccountUserId(context.applicationContext).equals(comment.user!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                dialogFrag.show(mFragmentManager, comment.user!!, context.applicationContext)
+            }
+        }
 
 
         
