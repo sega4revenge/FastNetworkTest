@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.android.gms.location.*
@@ -80,6 +81,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
 
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
 
         fab_search.setOnClickListener {
 

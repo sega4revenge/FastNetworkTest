@@ -120,6 +120,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.EditProductActivity"></activity>
+
         <activity android:name=".activity.SearchActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity
@@ -176,6 +177,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".activity.ChatActivity"
+
            />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.DetailNeedProductActivity" />
