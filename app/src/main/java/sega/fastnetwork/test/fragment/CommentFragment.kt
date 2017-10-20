@@ -97,18 +97,19 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
         id = arguments.getString(Constants.product_ID)
         product_name = arguments.getString(Constants.product_NAME)
         seller_name = arguments.getString(Constants.seller_name)
-        Log.e ("AAAAA",product_name + " " + seller_name)
+
         toolbar_title.text = product_name
         toolbar_subtitle.text = seller_name
         Log.e("ASD", id)
         FirebaseMessaging.getInstance().subscribeToTopic(id)
-        adapter = CommentAdapter(context, this)
+        adapter = CommentAdapter(context, this,this.fragmentManager)
         val layoutManager = LinearLayoutManager(context)
         comments_list.layoutManager = layoutManager
         comments_list.setHasFixedSize(true)
         comments_list.adapter = adapter
         mCommentPresenter = CommentPresenter(this)
         mCommentPresenter!!.refreshcomment(id)
+
         buttoncomment.setOnClickListener {
             //            Log.e("cmtttt",AppAccountManager.)
             Log.e("cmtttt", AppManager.getAppAccountUserId(activity) + " " + id + " " + writecomment.text.toString())
@@ -155,3 +156,4 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
         }
     }
 }// Required empty public constructor
+

@@ -81,6 +81,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     var mProductDetailPresenter: ProductDetailPresenter? = null
     var mCommentPresenter: CommentPresenter? = null
     var s = 0
+    var userCreate: User? = null
     var mTypeSave = "0"
     var doubleClick = false
     var statussave = false
@@ -121,6 +122,45 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         //=============================add comment=======================
         v.add_comment.setOnClickListener {
             gotoallcomment()
+        }
+        v.userimage1.setOnClickListener() {
+            Log.d("aaaaaaaaaaa","sssssssss")
+            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                args.putBoolean("isMap", isMap)
+                dialogFrag.arguments = args
+                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![0].user!!, activity.applicationContext)
+            }
+        }
+        v.userimage2.setOnClickListener() {
+            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                args.putBoolean("isMap", isMap)
+                dialogFrag.arguments = args
+                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![1].user!!, activity.applicationContext)
+            }
+        }
+        v.userimage3.setOnClickListener() {
+            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                args.putBoolean("isMap", isMap)
+                dialogFrag.arguments = args
+                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![2].user!!, activity.applicationContext)
+
+            }
+        }
+        v.productdetail_btn_userdetail.setOnClickListener(){
+            if(!AppManager.getAppAccountUserId(activity.applicationContext).equals(userCreate!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                args.putBoolean("isMap", isMap)
+                dialogFrag.arguments = args
+                dialogFrag.show(activity.supportFragmentManager, userCreate!!, activity.applicationContext)
+            }
+
         }
         //=============================try again=======================
         v.try_again.setOnClickListener {
@@ -380,6 +420,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             Log.e("getProductDetail", "saidjasd")
             btn_save.visibility = View.GONE
         }
+        userCreate = response?.product?.user
         userCreateProduct = response?.product?.user?._id.toString()
         this.product = response.product
         Log.e("getProductDetail", userCreateProduct + "//" + AppManager.getAppAccountUserId(activity.applicationContext))
