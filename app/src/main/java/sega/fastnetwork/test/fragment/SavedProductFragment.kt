@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
-import sega.fastnetwork.test.activity.ProductDetailNeedActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
@@ -220,17 +219,17 @@ class SavedProductFragment : Fragment(), ProductAdapter.OnproductClickListener, 
 //            val intent = Intent(context, ProductDetailActivity::class.java)
 //            intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
 //            startActivity(intent)
-            if (adapter!!.productList[position].type == "1") {
+//            if (adapter!!.productList[position].type == "1") {
                 val intent = Intent(context, ProductDetailActivity::class.java)
                 intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
                 intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
                 startActivity(intent)
-            } else {
-                val intent = Intent(context, ProductDetailNeedActivity::class.java)
-                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
-                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
-                startActivity(intent)
-            }
+//            } else {
+//                val intent = Intent(context, ProductDetailNeedActivity::class.java)
+//                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+//                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+//                startActivity(intent)
+//            }
         }
     }
 

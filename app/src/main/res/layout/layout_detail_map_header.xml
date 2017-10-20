@@ -24,16 +24,16 @@
             />
     </RelativeLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="@drawable/gradient"
-        android:clickable="true"
-        android:visibility="visible"
-        tools:visibility="visible"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+    <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="110dp"-->
+        <!--android:background="@drawable/gradient"-->
+        <!--android:clickable="true"-->
+        <!--android:visibility="visible"-->
+        <!--tools:visibility="visible"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true">-->
 
-    </FrameLayout>
+    <!--</FrameLayout>-->
 </RelativeLayout>

@@ -13,11 +13,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import kotlinx.android.synthetic.main.layout_error_message.*
 import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
-import sega.fastnetwork.test.activity.ProductDetailNeedActivity
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.CircularAnim
@@ -98,7 +98,9 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             startActivity(Intent(activity, SearchActivity::class.java))
         }
 
-
+        try_again.setOnClickListener {
+            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
+        }
         adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
             if (!isFirstLoad) {
                 val a = Product()
@@ -145,6 +147,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         swipe_refresh.isRefreshing = false
         swipe_refresh.isEnabled = true
+        swipe_refresh.visibility = View.VISIBLE
 
         adapter?.notifyDataSetChanged()
         user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
@@ -293,17 +296,17 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
             (activity as MainActivity).loadDetailFragmentWith(adapter!!.productList[position]._id!!)
         } else {
-            if (adapter!!.productList[position].type == "1") {
+//            if (adapter!!.productList[position].type == "1") {
                 val intent = Intent(context, ProductDetailActivity::class.java)
                 intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
                 intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
                 startActivity(intent)
-            } else {
-                val intent = Intent(context, ProductDetailNeedActivity::class.java)
-                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
-                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
-                startActivity(intent)
-            }
+//            } else {
+//                val intent = Intent(context, ProductDetailNeedActivity::class.java)
+//                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+//                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+//                startActivity(intent)
+//            }
         }
     }
     private fun showSnackBarMessage(message: String?) {

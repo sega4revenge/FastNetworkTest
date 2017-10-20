@@ -4,11 +4,9 @@ package sega.fastnetwork.test.fragment
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.text.TextUtils
@@ -61,161 +59,14 @@ import sega.fastnetwork.test.presenter.ProductDetailPresenter
 import sega.fastnetwork.test.util.Constants
 import java.text.DecimalFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
-    override fun isCommentSuccessful(isCommentSuccessful: Boolean) {
-    }
-
-    override fun getCommentDetail(listcomment: ArrayList<Comment>) {
-        Log.e("adasdasd", listcomment.size.toString())
-        no_cmt.visibility = View.GONE
-
-//=======================0 cmt========================
-        if (listcomment.size == 0) {
-            comment_item1.visibility = View.GONE
-            comment_item2.visibility = View.GONE
-            comment_item3.visibility = View.GONE
-            comments_see_all.visibility = View.GONE
-            no_cmt.visibility = View.VISIBLE
-        }
-//=======================1 cmt========================
-
-        else if (listcomment.size == 1) {
-            comments_see_all.visibility = View.GONE
-            comment_item2.visibility = View.GONE
-            comment_item3.visibility = View.GONE
-            comment_item1.visibility = View.VISIBLE
-            Glide.with(this)
-                    .load(avatacmt(listcomment[0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = listcomment[0].user!!.name
-            comments1.text = listcomment[0].content
-            datecomment1.text = timeAgo(listcomment[0].time!!)
-        }
-//=======================2 cmt========================
-
-        else if (listcomment.size == 2) {
-            comments_see_all.visibility = View.GONE
-            comment_item3.visibility = View.GONE
-            comment_item1.visibility = View.VISIBLE
-            comment_item2.visibility = View.VISIBLE
-
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = listcomment[listcomment.size - 1].user!!.name
-            comments1.text = listcomment[listcomment.size - 1].content
-            datecomment1.text = timeAgo(listcomment[listcomment.size - 1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = listcomment[listcomment.size - 2].user!!.name
-            comments2.text = listcomment[listcomment.size - 2].content
-            datecomment2.text = timeAgo(listcomment[listcomment.size - 2].time!!)
-        }
-
-//=======================3 cmt========================
-        else if (listcomment.size == 3) {
-            comments_see_all.visibility = View.GONE
-            comment_item1.visibility = View.VISIBLE
-            comment_item2.visibility = View.VISIBLE
-            comment_item3.visibility = View.VISIBLE
-
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = listcomment[listcomment.size - 1].user!!.name
-            comments1.text = listcomment[listcomment.size - 1].content
-            datecomment1.text = timeAgo(listcomment[listcomment.size - 1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = listcomment[listcomment.size - 2].user!!.name
-            comments2.text = listcomment[listcomment.size - 2].content
-            datecomment2.text = timeAgo(listcomment[listcomment.size - 2].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 3].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage3)
-            usercomments3.text = listcomment[listcomment.size - 3].user!!.name
-            comments3.text = listcomment[listcomment.size - 3].content
-            datecomment3.text = timeAgo(listcomment[listcomment.size - 3].time!!)
-        } else {
-            comment_item1.visibility = View.VISIBLE
-            comment_item2.visibility = View.VISIBLE
-            comment_item3.visibility = View.VISIBLE
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = listcomment[listcomment.size - 1].user!!.name
-            comments1.text = listcomment[listcomment.size - 1].content
-            datecomment1.text = timeAgo(listcomment[listcomment.size - 1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = listcomment[listcomment.size - 2].user!!.name
-            comments2.text = listcomment[listcomment.size - 2].content
-            datecomment2.text = timeAgo(listcomment[listcomment.size - 2].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 3].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage3)
-            usercomments3.text = listcomment[listcomment.size - 3].user!!.name
-            comments3.text = listcomment[listcomment.size - 3].content
-            datecomment3.text = timeAgo(listcomment[listcomment.size - 3].time!!)
-            comments_see_all.visibility = View.VISIBLE
-            comments_see_all.text = (listcomment.size - 3).toString() + " more comments..."
-        }
-    }
-
-    override fun onMapReady(p0: GoogleMap?) {
-        googleMap = p0
-        // For showing a move to my location button
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        googleMap!!.isMyLocationEnabled = true
-
-        // For dropping a marker at a point on the Map
-        val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
-        Log.e("sydney: ", sydney.toString())
-        googleMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address))
-
-        // For zooming automatically to the location of the marker
-        val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
-        googleMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-    }
-
+class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     internal var error: Boolean = false
 /*    internal var commentslist = ArrayList<Comments>()*/
 
-    var googleMap: GoogleMap? = null
+    var mMap : GoogleMap? = null
 
     internal var height: Int = 0
     internal var width: Int = 0
@@ -259,7 +110,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         mProductDetailPresenter = ProductDetailPresenter(this)
         mCommentPresenter = CommentPresenter(this)
         //========================refresh comment======================
-        v.refresh_comment.setOnClickListener {
+     v.refresh_comment.setOnClickListener{
             doubleClick = true
             mCommentPresenter!!.refreshcomment(id)
         }
@@ -271,14 +122,62 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         v.add_comment.setOnClickListener {
             gotoallcomment()
         }
+        //=============================try again=======================
+        v.try_again.setOnClickListener {
+            mProductDetailPresenter!!.getProductDetail(id, AppManager.getAppAccountUserId(activity))
+        }
+        v.userimage1.setOnClickListener() {
+            Log.d("aaaaaaaaaaa","sssssssss")
+            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                args.putBoolean("isMap", isMap)
+                dialogFrag.arguments = args
+                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![0].user!!, activity.applicationContext)
+            }
+        }
+        v.userimage2.setOnClickListener() {
+            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                args.putBoolean("isMap", isMap)
+                dialogFrag.arguments = args
+                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![1].user!!, activity.applicationContext)
+            }
+        }
+        v.userimage3.setOnClickListener() {
+            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                args.putBoolean("isMap", isMap)
+                dialogFrag.arguments = args
+                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![2].user!!, activity.applicationContext)
+
+            }
+        }
+        v.productdetail_btn_userdetail.setOnClickListener(){
+            if(!AppManager.getAppAccountUserId(activity.applicationContext).equals(userCreate!!._id)) {
+                val dialogFrag = ProifileSellerFragment.newInstance()
+                val args = Bundle()
+                args.putBoolean("isMap", isMap)
+                dialogFrag.arguments = args
+                dialogFrag.show(activity.supportFragmentManager, userCreate!!, activity.applicationContext)
+            }
+
+        }
         v.change_map.setOnClickListener {
             when (isMap) {
                 false -> {
+                    println("ban do")
                     isMap = true
-                    change_map.background = resources.getDrawable(R.drawable.ic_map)
-                    slider.visibility = View.GONE
-                    val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
-                    mapView_location.getMapAsync(this)
+
+                    map()
+                    /////////////
+//                    isMap = true
+//                    change_map.background = resources.getDrawable(R.drawable.ic_map)
+//                    slider.visibility = View.GONE
+//                    val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
+//                    mapView_location.getMapAsync(this)
                 }
                 else -> {
                     isMap = false
@@ -288,13 +187,13 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 
             }
-        }
+            }
         //==============================back button=================
-        v.back_detail.setOnClickListener {
-            slider?.stopAutoCycle()
-            slider?.removeAllSliders()
-            activity.finish()
-        }
+          v.back_detail.setOnClickListener {
+              slider?.stopAutoCycle()
+              slider?.removeAllSliders()
+              activity.finish()
+          }
 //===================================================================
         // Download product details if new instance, else restore from saved instance
         if (savedInstanceState == null || !(savedInstanceState.containsKey(Constants.product_ID)
@@ -393,28 +292,39 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .setPermissions(Manifest.permission.SEND_SMS)
                     .check()
         }
-        v.layout_share.setOnClickListener {
-            val sendIntent = Intent()
-            val linkapp = "https://www.facebook.com/groups/727189854084530/"
-            val numberFormat = DecimalFormat("###,###")
-            val gia = numberFormat.format(product!!.price!!.toLong()).toString()
+         v.layout_share.setOnClickListener {
+             val sendIntent = Intent()
+             val linkapp = "https://www.facebook.com/groups/727189854084530/"
+             val numberFormat = DecimalFormat("###,###")
+             sendIntent.action = Intent.ACTION_SEND
 
-            sendIntent.action = Intent.ACTION_SEND
-            sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "- Productname(tên sản phẩm): ${product!!.productname}\n" +
-                            "- Category(thể loại): ${product!!.category}\n" +
-                            "- Price(giá): ${gia} VNĐ\n" +
-                            "- Number(Số lượng): ${product!!.price}\n" +
-                            "- Address(địa chỉ): ${product!!.location!!.address}\n" +
-                            "- Time(thời gian): ${product!!.time} giờ\n" +
-                            "- Description(Mô tả): ${product!!.description}\n" +
-                            "- Tham khảo thêm tại: ${linkapp}")
-            sendIntent.type = "text/plain"
-            startActivity(sendIntent)
-        }
-        v.btn_save.setOnClickListener {
-            //   s = s + 1
-            if (statussave) {
+             if(product?.price == null || product?.price == ""){
+                 sendIntent.putExtra(Intent.EXTRA_TEXT,
+                         "- Productname(tên sản phẩm): ${product!!.productname}\n"+
+                                 "- Category(thể loại): ${product!!.category}\n"+
+                                 "- Address(địa chỉ): ${product!!.location!!.address}\n"+
+                                 "- Time(thời gian): ${product!!.time} giờ\n"+
+                                 "- Description(Mô tả): ${product!!.description}\n"+
+                                 "- Tham khảo thêm tại: ${linkapp}")
+             }
+             else{
+             val gia = numberFormat.format(product!!.price!!.toLong()).toString()
+             sendIntent.putExtra(Intent.EXTRA_TEXT,
+                     "- Productname(tên sản phẩm): ${product!!.productname}\n"+
+                             "- Category(thể loại): ${product!!.category}\n"+
+                             "- Price(giá): ${gia} VNĐ\n"+
+                             "- Address(địa chỉ): ${product!!.location!!.address}\n"+
+                             "- Time(thời gian): ${product!!.time} giờ\n"+
+                             "- Description(Mô tả): ${product!!.description}\n"+
+                             "- Tham khảo thêm tại: ${linkapp}")
+
+             }
+             sendIntent.type = "text/plain"
+             startActivity(sendIntent)
+         }
+        v.btn_save.setOnClickListener{
+         //   s = s + 1
+            if(statussave){
                 mTypeSave = "1"
                 mProductDetailPresenter!!.SaveProduct(id, AppManager.getAppAccountUserId(activity), mTypeSave)
             } else if (!statussave) {
@@ -448,12 +358,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         //  if(bool)
         //   { doubleClick = true}
-        statussave = !statussave
-        if (statussave) {
-            btn_save.setImageResource(R.drawable.favorite_checked)
-        } else {
-            btn_save.setImageResource(R.drawable.favorite_unchecked)
-        }
+         statussave = !statussave
+         if (statussave) {
+             btn_save.setImageResource(R.drawable.favorite_checked)
+         } else {
+             btn_save.setImageResource(R.drawable.favorite_unchecked)
+         }
 
     }
 
@@ -526,6 +436,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 
     private fun onDownloadSuccessful() {
+
         // status save product
 
 
@@ -539,36 +450,41 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_overview.text = product!!.description
         toolbar_productname.text = product!!.productname
         toolbar_username.text = product!!.user!!.name
-        val temp = formatprice?.format(product!!.price?.toDouble()) + format
-        product_price.text = temp
-
-        println(product!!.user!!.name)
-        if (product!!.user!!.photoprofile!!.startsWith("http")) {
-            photoprofile = product!!.user!!.photoprofile
-        } else {
-            photoprofile = Constants.IMAGE_URL + product!!.user!!.photoprofile
+        if(product?.price == null || product?.price!! == ""){
+            price_and_bagde.visibility = View.GONE
+        }else{
+            val temp = formatprice?.format(product!!.price?.toDouble()) + format
+            product_price.text = temp
         }
-        Glide.with(this)
-                .load(photoprofile)
-                .thumbnail(0.1f)
-                .apply(options)
-                .into(productdetail_avatar)
-        product_user_name.text = product!!.user?.name
-        product_user_email.text = product!!.user?.email
-        product_user_address.text = product!!.location!!.address
-        product_date.text = timeAgo(product!!.created_at.toString())
-        product_view.text = product!!.view.toString() + " lượt xem"
-        println(product!!._id)
-        if (product!!.status == "1")
-            Log.e("time: ", product!!.time)
-        when (product!!.time) {
-            "0" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_hour)
-            "1" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_day)
-            "2" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_week)
-            "3" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_month)
-            else -> {
-                img_bagde.background = resources.getDrawable(R.drawable.bagde_year)
+
+
+            println(product!!.user!!.name)
+            if (product!!.user!!.photoprofile!!.startsWith("http")) {
+                photoprofile = product!!.user!!.photoprofile
+            } else {
+                photoprofile = Constants.IMAGE_URL + product!!.user!!.photoprofile
             }
+            Glide.with(this)
+                    .load(photoprofile)
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(productdetail_avatar)
+            product_user_name.text = product!!.user?.name
+            product_user_email.text = product!!.user?.email
+            product_user_address.text = product!!.location!!.address
+            product_date.text = timeAgo(product!!.created_at.toString())
+            product_view.text = product!!.view.toString() + " lượt xem"
+            println(product!!._id)
+            if (product!!.status == "1")
+                Log.e("time: ", product!!.time)
+            when (product!!.time) {
+                "0" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_hour)
+                "1" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_day)
+                "2" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_week)
+                "3" -> img_bagde.background = resources.getDrawable(R.drawable.bagde_month)
+                else -> {
+                    img_bagde.background = resources.getDrawable(R.drawable.bagde_year)
+                }
 
         }
         if (product!!.type == "1") {
@@ -621,6 +537,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 txt_category.text = "Khác"
             }
         }
+
 
 
 //=======================0 cmt========================
@@ -725,6 +642,15 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 comments_see_all.visibility = View.VISIBLE
                 comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
             }
+        if(product?.images?.size == 0){
+            slider.visibility = View.GONE
+            change_map.visibility = View.GONE
+            isMap = false
+            map()
+        }
+        else{
+            showAnimationBanner()
+        }
         }
         val listUserComments = ArrayList<String>()
         product!!.comment!!
@@ -874,7 +800,44 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 
     // FAB related functions
+    fun map(){
+        val permissionlistener = object : PermissionListener, OnMapReadyCallback {
+            override fun onMapReady(map: GoogleMap?) {
 
+                change_map.background = resources.getDrawable(R.drawable.ic_map)
+                slider.visibility = View.GONE
+                mMap = map
+                mMap!!.isMyLocationEnabled = true
+
+                // For dropping a marker at a point on the Map
+                val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
+                Log.e("sydney: ",sydney.toString())
+                mMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address)).showInfoWindow()
+
+                // For zooming automatically to the location of the marker
+                val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
+                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 17.0f))
+//                            mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+            }
+
+            override fun onPermissionGranted() {
+                val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
+                mapView_location.getMapAsync(this)
+            }
+
+
+            override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
+                    Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+
+        }
+        TedPermission.with(activity)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .check()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -296,7 +296,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         }
                     }
                 }
-                SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, 0)
+                SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, applied_filters["filter"]?.get(0)!!.toInt())
                 Log.d("k9res", loca + cate)
             }
 
