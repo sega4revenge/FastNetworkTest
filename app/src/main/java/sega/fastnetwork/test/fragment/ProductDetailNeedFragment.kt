@@ -368,7 +368,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
         //   { doubleClick = true}
         statussave = !statussave
         if (statussave) {
-            im_star.setImageResource(R.drawable.ic_start_on)
+            im_star.setImageResource(R.drawable.icon_staryellow)
         } else {
             im_star.setImageResource(R.drawable.ic_start_off)
         }
@@ -380,7 +380,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
             Log.e("getProductDetail", statussave.toString())
 
             if (statussave) {
-                im_star.setImageResource(R.drawable.ic_start_on)
+                im_star.setImageResource(R.drawable.icon_staryellow)
             } else {
                 im_star.setImageResource(R.drawable.ic_start_off)
             }

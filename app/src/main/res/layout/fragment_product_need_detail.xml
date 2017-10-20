@@ -144,16 +144,16 @@
                             <!--/>-->
                         <ImageButton
                             android:id="@+id/im_star"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@drawable/ic_start_white"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/icon_star"
                             android:layout_marginLeft="5dp"
                             />
                         <ImageButton
                             android:id="@+id/im_share"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@drawable/ic_share"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@drawable/icon_share"
                             android:layout_marginLeft="5dp"
                             />
                     </LinearLayout>
