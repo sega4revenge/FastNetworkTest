@@ -21,8 +21,8 @@
         android:textStyle="bold"
         android:textSize="@dimen/text_productname"
         android:layout_alignTop="@+id/btn_save"
-        android:layout_alignLeft="@+id/product_user_address"
-        android:layout_alignStart="@+id/product_user_address" />
+        android:layout_toLeftOf="@+id/btn_save"
+        android:layout_toStartOf="@+id/btn_save" />
 
     <ImageView
         android:id="@+id/btn_save"
@@ -115,6 +115,7 @@
         >
 
         <LinearLayout
+            android:id="@+id/price_and_bagde"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="25"

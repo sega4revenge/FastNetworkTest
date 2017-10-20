@@ -26,6 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.layout_error_message.*
 import kotlinx.android.synthetic.main.searchmain_layout.*
 import sega.fastnetwork.test.MyApplication
 import sega.fastnetwork.test.R
@@ -243,6 +244,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
         })
         SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
+        try_again.setOnClickListener {
+            SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
+        }
     }
 
 
@@ -314,17 +318,17 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         if (isTablet) {
 
         } else {
-            if (adapter!!.productList[position].type == "1") {
+//            if (adapter!!.productList[position].type == "1") {
                 val intent = Intent(this, ProductDetailActivity::class.java)
                 intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
                 intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
                 startActivity(intent)
-            } else {
-                val intent = Intent(this, ProductDetailNeedActivity::class.java)
-                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
-                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
-                startActivity(intent)
-            }
+//            } else {
+//                val intent = Intent(this, ProductDetailNeedActivity::class.java)
+//                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+//                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+//                startActivity(intent)
+//            }
         }
     }
 
