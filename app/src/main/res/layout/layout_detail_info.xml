@@ -192,7 +192,7 @@
                 android:minLines="2"
                 android:maxLines="2"
                 android:layout_margin="5dp"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:text="500.000 VND"
                 android:textColor="@color/black"
                 android:textSize="12sp"
@@ -225,7 +225,7 @@
                 android:text="1 giờ"
                 android:textColor="@color/black"
                 android:textSize="12sp"
-                android:gravity="center"/>
+                android:gravity="center_horizontal"/>
         </LinearLayout>
 
 
@@ -255,7 +255,7 @@
                 android:text="Thời trang"
                 android:textColor="@color/black"
                 android:textSize="12sp"
-                android:gravity="center"/>
+                android:gravity="center_horizontal"/>
         </LinearLayout>
         <LinearLayout
 
@@ -283,7 +283,7 @@
                 android:text="Thời trang"
                 android:textColor="@color/black"
                 android:textSize="12sp"
-                android:gravity="center"/>
+                android:gravity="center_horizontal"/>
         </LinearLayout>
     </LinearLayout>
     <View
@@ -312,29 +312,50 @@
         tools:text="My movie overview goes here"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
-    <View
-        android:id="@+id/line_3"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/product_overview"
-        android:layout_height="0.5dp"
-        android:layout_centerInParent="true"
-        android:background="@color/btn_color_login"
-        android:layout_marginRight="5dp"
-        android:layout_marginLeft="5dp"
 
-        />
     <LinearLayout
         android:id="@+id/layout_share_favorite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/line_4"
-        >
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/product_overview"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:id="@+id/layout_favorite"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="50"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+
+                android:id="@+id/img_save"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/favorite_unchecked" />
+
+            <TextView
+                android:id="@+id/txt_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal"
+                android:minLines="2"
+                android:text="Lưu sản phẩm"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_share"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="50"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -342,15 +363,16 @@
 
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_share_" />
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/share" />
 
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:maxLines="2"
                 android:text="Chia sẻ"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
@@ -359,7 +381,7 @@
     <View
         android:id="@+id/line_4"
         android:layout_width="wrap_content"
-        android:layout_below="@+id/layout_detail_user"
+        android:layout_below="@+id/layout_share_favorite"
         android:layout_height="0.5dp"
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/dist_large"
@@ -370,7 +392,7 @@
     <RelativeLayout
         android:id="@+id/layout_detail_user"
         android:layout_width="match_parent"
-        android:layout_below="@+id/line_3"
+        android:layout_below="@+id/line_4"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:orientation="horizontal">
@@ -379,46 +401,127 @@
             android:id="@+id/productdetail_avatar"
             android:layout_width="55dp"
             android:layout_height="55dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/logo" />
 
-        <ImageButton
-            android:id="@+id/productdetail_btn_userdetail"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_vertical"
-            android:background="@color/white"
-            android:src="@mipmap/ic_detail_user"
-            android:tint="@color/color_background_button" />
-
         <LinearLayout
             android:id="@+id/layout_comment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+
             android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/productdetail_btn_userdetail"
-            android:layout_toRightOf="@id/productdetail_avatar"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/productdetail_avatar"
+            android:layout_centerInParent="true"
+           >
 
             <TextView
                 android:id="@+id/product_user_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/product_user_email"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:layout_marginTop="2dp"
                 android:textColor="#aaaaaa" />
         </LinearLayout>
 
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/layout_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/layout_detail_user"
+        android:weightSum="100">
+        <LinearLayout
+            android:id="@+id/layout_call"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="33.33"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+
+                android:id="@+id/imageView8"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/call"
+                />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal"
+                android:text="Gọi điện"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_sms"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="33.33"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/sms" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal"
+                android:text="Nhắn tin"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_chat"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="33.33"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/chat" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minLines="2"
+                android:layout_margin="5dp"
+                android:gravity="center_horizontal"
+                android:text="Chat trực tuyến"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
 

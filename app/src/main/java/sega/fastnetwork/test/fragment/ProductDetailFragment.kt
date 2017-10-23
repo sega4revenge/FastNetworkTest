@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.widget.NestedScrollView
 import android.text.TextUtils
 import android.text.format.DateUtils
 import android.util.DisplayMetrics
@@ -31,14 +30,12 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.content_product_detail.*
-import kotlinx.android.synthetic.main.content_product_detail.view.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import kotlinx.android.synthetic.main.fragment_product_detail.view.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
 import kotlinx.android.synthetic.main.layout_detail_fab.*
-import kotlinx.android.synthetic.main.layout_detail_fab.view.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
 import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import kotlinx.android.synthetic.main.layout_error_message.view.*
@@ -153,7 +150,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
             }
         }
-        v.productdetail_btn_userdetail.setOnClickListener(){
+        v.layout_detail_user.setOnClickListener(){
             if(!AppManager.getAppAccountUserId(activity.applicationContext).equals(userCreate!!._id)) {
                 val dialogFrag = ProifileSellerFragment.newInstance()
                 val args = Bundle()
@@ -196,16 +193,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
             }
         }
-        v.productdetail_btn_userdetail.setOnClickListener(){
-            if(!AppManager.getAppAccountUserId(activity.applicationContext).equals(userCreate!!._id)) {
-                val dialogFrag = ProifileSellerFragment.newInstance()
-                val args = Bundle()
-                args.putBoolean("isMap", isMap)
-                dialogFrag.arguments = args
-                dialogFrag.show(activity.supportFragmentManager, userCreate!!, activity.applicationContext)
-            }
 
-        }
         v.change_map.setOnClickListener {
             when (isMap) {
                 false -> {
@@ -264,23 +252,15 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         }
 
-        v.product_detail_holder.setOnScrollChangeListener { _: NestedScrollView?, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
-            if (oldScrollY < scrollY) {
 
-                v.fab_menu.hideMenuButton(true)
-            } else {
-                v.fab_menu.showMenuButton(true)
-            }
-            println("len")
-        }
-        v.fab_messenger.setOnClickListener {
+        v.layout_chat.setOnClickListener {
             val intent = Intent(activity, ChatActivity::class.java)
             intent.putExtra("avatar", photoprofile)
             intent.putExtra("iduser", userCreateProduct)
             startActivity(intent)
 
         }
-        v.fab_call.setOnClickListener {
+        v.layout_call.setOnClickListener {
             val permissionlistener = object : PermissionListener {
                 override fun onPermissionGranted() {
                     val callIntent = Intent(Intent.ACTION_CALL)
@@ -304,7 +284,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .setPermissions(Manifest.permission.CALL_PHONE)
                     .check()
         }
-        v.fab_sms.setOnClickListener {
+        v.layout_sms.setOnClickListener {
             val permissionlistener = object : PermissionListener {
                 override fun onPermissionGranted() {
                     val smsIntent = Intent(Intent.ACTION_VIEW)
@@ -364,7 +344,17 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
              startActivity(sendIntent)
          }
         v.btn_save.setOnClickListener{
-         //   s = s + 1
+
+            if(statussave){
+                mTypeSave = "1"
+                mProductDetailPresenter!!.SaveProduct(id, AppManager.getAppAccountUserId(activity), mTypeSave)
+            } else if (!statussave) {
+                mTypeSave = "0"
+                mProductDetailPresenter!!.SaveProduct(id, AppManager.getAppAccountUserId(activity), mTypeSave)
+            }
+        }
+        v.img_save.setOnClickListener {
+
             if(statussave){
                 mTypeSave = "1"
                 mProductDetailPresenter!!.SaveProduct(id, AppManager.getAppAccountUserId(activity), mTypeSave)
@@ -374,9 +364,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
 
-        v.layout_detail_user.setOnClickListener {
-
-        }
 
         return v
 
@@ -402,8 +389,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
          statussave = !statussave
          if (statussave) {
              btn_save.setImageResource(R.drawable.favorite_checked)
+             img_save.setImageResource(R.drawable.favorite_checked)
+             txt_save.text = "Đã lưu sản phẩm"
          } else {
              btn_save.setImageResource(R.drawable.favorite_unchecked)
+             img_save.setImageResource(R.drawable.favorite_unchecked)
+             txt_save.text = "Lưu sản phẩm"
          }
 
     }

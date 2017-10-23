@@ -60,7 +60,7 @@ class LoginPresenter(view: LoginView) {
                     Log.d(login, "onError errorBody : " + e.errorBody)
                     Log.d(login, e.errorDetail + " : " + e.message)
                     mLoginView.isLoginSuccessful(false)
-                    mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"),0)
+                    e.message?.let { mLoginView.setErrorMessage(it,0) }
 
                 } else {
                     Log.d(login, "onError errorMessage : " + e.message)
