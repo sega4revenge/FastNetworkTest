@@ -122,7 +122,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             gotoallcomment()
         }
         v.userimage1.setOnClickListener() {
-            Log.d("aaaaaaaaaaa","sssssssss")
             if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
                 val dialogFrag = ProifileSellerFragment.newInstance()
                 val args = Bundle()

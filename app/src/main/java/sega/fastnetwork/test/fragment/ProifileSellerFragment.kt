@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
@@ -238,9 +239,13 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
 
 
     override fun onproductClicked(position: Int) {
+     //   Log.d("test",adapter!!.productList[position]._id!!+"//"+adapter!!.productList[position].user!!._id)
+        Log.d("test",position.toString())
+        Log.d("test",adapter?.productList?.get(position)?.user?.toString())
+
         val intent = Intent(mContext, ProductDetailActivity::class.java)
-        intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
-        intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+        intent.putExtra(Constants.product_ID, adapter?.productList?.get(position)?._id)
+        intent.putExtra(Constants.seller_ID, adapter?.productList?.get(position)?.user?._id)
         startActivity(intent)
     }
 }

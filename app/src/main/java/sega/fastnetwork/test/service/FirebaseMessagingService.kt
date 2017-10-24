@@ -43,14 +43,20 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         return result
     }
     private fun showNotificationChat(userto : String,name: String,messager: String, avata: String, userfrom : String) {
-
+            var usersendid = ""
+            if(userto.equals(AppManager.getAppAccountUserId(this)))
+            {
+                usersendid = userfrom
+            }else{
+                usersendid = userto
+            }
             val typenotification = 2
             val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             var notif: Notification? = null
             val intent = Intent(this@FirebaseMessagingService, ChatActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.putExtra("iduser",userfrom)
+            intent.putExtra("iduser",usersendid)
             intent.putExtra("avatar","")
 
 
@@ -91,7 +97,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                             .setLights(Color.RED, 3000, 3000)
                             .setSound(defaultSoundUri)
-                          //  .setSmallIcon(R.mipmap.home_icon)
+                            .setSmallIcon(R.mipmap.home_icon)
                             .setLargeIcon(getCroppedBitmap(image))
                             .build()
 

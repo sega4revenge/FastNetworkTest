@@ -83,7 +83,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         layoutManager?.stackFromEnd = true
         messageRecyclerView.layoutManager = layoutManager
 
-        adapter = ChatAdapter(mDataMessager,applicationContext,ImageAvatar)
+        adapter = ChatAdapter(mDataMessager,applicationContext)
         messageRecyclerView.adapter = adapter
 
         mDetailUserPresenter = DetailUserPresenter(this)
@@ -260,9 +260,11 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 imgOff.setImageResource(R.drawable.ic_online_)
             }
         }
-        if(ImageAvatar?.equals(""))
+
+        if(adapter?.imguserto.equals(""))
         {
-            ImageAvatar = arrUser.getJSONObject(0).getString("photoprofile")
+            adapter?.imguserto = arrUser.getJSONObject(0).getString("photoprofile")
+           // ImageAvatar = arrUser.getJSONObject(0).getString("photoprofile")
         }
         if(mToolbar?.equals(""))
         {
@@ -270,7 +272,6 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         }
 
 
-        Log.d("ttttttttttt",ImageAvatar+"11")
         if(mDataMessager?.size!! > 0){
             mOtherData?.addAll(mDataMessager!!)
             mDataMessager?.clear()

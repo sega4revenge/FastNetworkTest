@@ -25,12 +25,12 @@ import sega.fastnetwork.test.util.Constants
 /**
  * Created by VinhNguyen on 9/22/2017.
  */
-class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context,mUserTo: String?) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
+class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
 
     var mItems: ArrayList<ChatMessager>?  = item
     var mContext : Context? = context
     var user : User =  AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(mContext!!)!!)
-    var imguserto  = mUserTo
+    var imguserto = ""
     val options = RequestOptions()
             .centerCrop()
             .dontAnimate()
