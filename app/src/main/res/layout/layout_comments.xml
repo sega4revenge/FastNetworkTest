@@ -11,55 +11,98 @@
     android:foreground="?attr/selectableItemBackground"
     >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/dist_medium">
+    <LinearLayout
+        android:id="@+id/comment_item1"
+        style="@style/ProductCastHolderStyle"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp">
+        <!-- Image -->
 
-        <sega.fastnetwork.test.customview.CircleImageView
-            android:id="@+id/commentpic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="centerCrop"
-            tools:ignore="ContentDescription" />
 
-        <LinearLayout
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dist_medium">
+
+            <sega.fastnetwork.test.customview.CircleImageView
+                android:id="@+id/commentpic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="@dimen/product_compact_text_margin"
+                android:layout_marginStart="@dimen/product_compact_text_margin"
+                android:layout_toEndOf="@+id/commentpic"
+                android:layout_toRightOf="@+id/commentpic"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/commentname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/commentdate"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_large"
+                        android:textStyle="bold"
+                        tools:text="My Awesome product Title 1" />
+
+                    <TextView
+                        android:id="@+id/commentdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM"
+                        android:layout_centerInParent="true"/>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/cardview_default_elevation"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/email_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Ho Hoang Linhh" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/commentdata"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/product_compact_text_margin"
-            android:layout_marginStart="@dimen/product_compact_text_margin"
-            android:layout_toEndOf="@+id/commentpic"
-            android:layout_toRightOf="@+id/commentpic"
-            android:orientation="vertical">
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingBottom="7dp"
+            android:paddingLeft="69dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_large"
+            tools:text="My Awesome product Title 1" />
 
-            <sega.fastnetwork.test.view.RobotoBoldTextView
-                android:id="@+id/commentname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="@dimen/text_large"
-                tools:text="My Awesome product Title" />
-
-            <sega.fastnetwork.test.view.RobotoLightTextView
-                android:id="@+id/commentdata"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Abc"
-                android:textColor="#000000"
-                android:textSize="@dimen/text_medium" />
-
-                <sega.fastnetwork.test.view.RobotoLightTextView
-                    android:id="@+id/commentdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium"
-                    tools:text="27/01/2017" />/>
-
-
-        </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

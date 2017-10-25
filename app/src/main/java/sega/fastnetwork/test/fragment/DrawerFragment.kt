@@ -32,6 +32,7 @@ import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import kotlinx.android.synthetic.main.header.view.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.AboutUsActivity
 import sega.fastnetwork.test.activity.AddActivity
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.customview.CircularAnim
@@ -657,7 +658,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
             }
             R.id.nav_4 -> {
-
+                val intent = Intent((activity as AppCompatActivity), AboutUsActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_5 -> {
                 AppManager.removeAccount(activity)

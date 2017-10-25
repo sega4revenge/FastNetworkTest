@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,7 +77,8 @@ class CommentAdapter// Constructor
             // COMPACT MODE
             val viewHolder = viewHolderParent as CommentsViewHolder
         viewHolder.itemView.commentname.text = comment.user!!.name
-            viewHolder.itemView.commentdata.text = comment.content
+        viewHolder.itemView.commentdata.text = comment.content
+        viewHolder.itemView.email_comment.text = comment.user?.email
         viewHolder.itemView.commentdate.text = timeAgo(comment.time!!)
         if(comment.user?.photoprofile?.startsWith("http")!!){
             photoprofile = comment.user!!.photoprofile
@@ -116,6 +118,7 @@ class CommentAdapter// Constructor
         //                commentViewHolder.commentRating.setText(comment.price+"");
         //            }
         viewHolderParent.itemView.setOnLongClickListener {
+            Log.e("oncommentClicked2","oncommentClicked2")
             oncommentClickListener.oncommentClicked(position)
             return@setOnLongClickListener true
         }

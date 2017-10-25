@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="sega.fastnetwork.test">
 
     <uses-permission
@@ -16,7 +17,10 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" android:maxSdkVersion="18"/>
+    <uses-permission
+        android:name="android.permission.VIBRATE"
+        android:maxSdkVersion="18" />
+
     <supports-screens
         android:largeScreens="true"
         android:xlargeScreens="true" />
@@ -27,11 +31,10 @@
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true"
-        >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
@@ -119,12 +122,15 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.EditProductActivity"></activity>
-
-        <activity android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            />
+        <activity android:name=".activity.EditProductActivity" />
         <activity
+            android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".activity.AboutUsActivity"
+            android:theme="@style/Theme.AppCompat.Light.ActionBar.FullScreen"
+ />
+        <activity
+
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
@@ -177,15 +183,13 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.ChatActivity"
-
-           />
+        <activity android:name=".activity.ChatActivity" />
         <activity android:name=".activity.CommentActivity" />
         <activity android:name=".activity.DetailNeedProductActivity" />
         <activity android:name=".activity.ChangePasswordActivity" />
         <activity
             android:name=".activity.DetailProfileActivity"
-            android:label="@string/title_activity_detail_profile_"></activity>
+            android:label="@string/title_activity_detail_profile_" />
     </application>
 
 </manifest>

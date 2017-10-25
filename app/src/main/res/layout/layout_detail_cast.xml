@@ -16,30 +16,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:layout_margin="5dp">
+        android:layout_margin="7dp">
         <ImageButton
             android:id="@+id/refresh_comment"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_marginRight="8dp"
             android:background="@drawable/refresh"/>
     </LinearLayout>
 
-    <sega.fastnetwork.test.view.RobotoBoldTextView
+    <TextView
         android:id="@+id/no_cmt"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textStyle="bold"
         android:text="No comment"
         android:visibility="gone">
 
-    </sega.fastnetwork.test.view.RobotoBoldTextView>
+    </TextView>
     <!-- Cast Item 1 -->
     <LinearLayout
         android:id="@+id/comment_item1"
+        style="@style/ProductCastHolderStyle"
         android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp"
-        style="@style/ProductCastHolderStyle">
+        android:layout_marginRight="7dp">
         <!-- Image -->
 
 
@@ -50,39 +52,51 @@
 
             <sega.fastnetwork.test.customview.CircleImageView
                 android:id="@+id/userimage1"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:scaleType="centerCrop"
-                tools:ignore="ContentDescription"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="@dimen/product_compact_text_margin"
                 android:layout_marginStart="@dimen/product_compact_text_margin"
                 android:layout_toEndOf="@+id/userimage1"
                 android:layout_toRightOf="@+id/userimage1"
-                android:orientation="vertical"
-                android:id="@+id/linearLayout">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
-                <sega.fastnetwork.test.view.RobotoRegularTextView
-                    android:id="@+id/usercomments1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_large"
-                    tools:text="My Awesome product Title" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <sega.fastnetwork.test.view.RobotoRegularTextView
-                    android:id="@+id/comments1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium"
-                    tools:text="2016" />
+                    <TextView
+                        android:id="@+id/usercomments1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/datecomment1"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_large"
+                        android:textStyle="bold"
+                        tools:text="My Awesome product Title 1" />
+
+                    <TextView
+                        android:id="@+id/datecomment1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        android:layout_centerInParent="true"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM" />
+
+                </RelativeLayout>
+
 
                 <RelativeLayout
 
@@ -91,43 +105,47 @@
                     android:layout_marginTop="@dimen/cardview_default_elevation"
                     android:orientation="horizontal">
 
-                    <sega.fastnetwork.test.view.RobotoRegularTextView
-                        android:id="@+id/user_rating1"
+                    <TextView
+                        android:id="@+id/email_comment1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:text="8.76"
-                        android:textColor="@color/input_register"
-                        android:textSize="@dimen/text_medium" />
-
-
-
-                    <sega.fastnetwork.test.view.RobotoRegularTextView
-                        android:id="@+id/datecomment1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_gravity="right"
-                        android:layout_marginEnd="@dimen/dist_small"
-                        android:layout_marginRight="@dimen/dist_small"
-                        android:gravity="right"
-                        android:maxLines="1"
-                        android:text="June 22 2016"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_medium" />
+                        android:textSize="@dimen/text_small"
+                        tools:text="Ho Hoang Linhh" />
 
                 </RelativeLayout>
 
             </LinearLayout>
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/comments1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingBottom="7dp"
+            android:paddingLeft="69dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_large"
+            tools:text="My Awesome product Title 1" />
+
     </LinearLayout>
 
     <!-- Cast Item 2 -->
     <LinearLayout
         android:id="@+id/comment_item2"
-        style="@style/ProductCastHolderStyle"
         android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp">
+        android:layout_marginRight="7dp"
+        style="@style/ProductCastHolderStyle">
+        <!-- View -->
+        <!--<View-->
+            <!--android:id="@+id/line_1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0.5dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:background="@color/btn_color_login" />-->
+        <!-- Image -->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -136,38 +154,51 @@
 
             <sega.fastnetwork.test.customview.CircleImageView
                 android:id="@+id/userimage2"
-                android:layout_width="45dp"
-
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="centerCrop"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="@dimen/product_compact_text_margin"
                 android:layout_marginStart="@dimen/product_compact_text_margin"
-
                 android:layout_toEndOf="@+id/userimage2"
                 android:layout_toRightOf="@+id/userimage2"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/usercomments2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@+id/datecomment2"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_large"
+                        tools:text="My Awesome product Title 1" />
 
-                <sega.fastnetwork.test.view.RobotoRegularTextView
-                    android:id="@+id/usercomments2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_large"
-                    tools:text="My Awesome product Title" />
+                    <TextView
+                        android:id="@+id/datecomment2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        />
 
-                <sega.fastnetwork.test.view.RobotoRegularTextView
-                    android:id="@+id/comments2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium"
-                    tools:text="2016" />
+                </RelativeLayout>
+
 
                 <RelativeLayout
 
@@ -176,43 +207,131 @@
                     android:layout_marginTop="@dimen/cardview_default_elevation"
                     android:orientation="horizontal">
 
-                    <sega.fastnetwork.test.view.RobotoRegularTextView
-                        android:id="@+id/user_rating2"
+                    <TextView
+                        android:id="@+id/email_comment2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:text="8.76"
-                        android:textColor="@color/input_register"
-                        android:textSize="@dimen/text_medium" />
-
-
-
-                    <sega.fastnetwork.test.view.RobotoRegularTextView
-                        android:id="@+id/datecomment2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_gravity="right"
-                        android:layout_marginEnd="@dimen/dist_small"
-                        android:layout_marginRight="@dimen/dist_small"
-                        android:gravity="right"
-                        android:maxLines="1"
-                        android:text="June 22 2016"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_medium" />
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM" />
 
                 </RelativeLayout>
 
             </LinearLayout>
+
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/comments2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingBottom="7dp"
+            android:paddingLeft="69dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_large"
+            tools:text="My Awesome product Title 2" />
+
     </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/comment_item2"-->
+        <!--style="@style/ProductCastHolderStyle"-->
+        <!--android:layout_marginLeft="7dp"-->
+        <!--android:layout_marginRight="7dp">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:padding="@dimen/dist_medium">-->
+
+            <!--<sega.fastnetwork.test.customview.CircleImageView-->
+                <!--android:id="@+id/userimage2"-->
+                <!--android:layout_width="45dp"-->
+
+                <!--android:layout_height="45dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--tools:ignore="ContentDescription" />-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/product_compact_text_margin"-->
+                <!--android:layout_marginStart="@dimen/product_compact_text_margin"-->
+
+                <!--android:layout_toEndOf="@+id/userimage2"-->
+                <!--android:layout_toRightOf="@+id/userimage2"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/usercomments2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="@dimen/text_large"-->
+                    <!--tools:text="My Awesome product Title" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/comments2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="@dimen/text_small"-->
+                    <!--tools:text="2016" />-->
+
+                <!--<RelativeLayout-->
+
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/cardview_default_elevation"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/user_rating2"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:text="8.76"-->
+                        <!--android:textColor="@color/input_register"-->
+                        <!--android:textSize="@dimen/text_small" />-->
+
+
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/datecomment2"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_gravity="right"-->
+                        <!--android:layout_marginEnd="@dimen/dist_small"-->
+                        <!--android:layout_marginRight="@dimen/dist_small"-->
+                        <!--android:gravity="right"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:text="June 22 2016"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/text_small" />-->
+
+                <!--</RelativeLayout>-->
+
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
 
     <!-- Cast Item 3 -->
     <LinearLayout
         android:id="@+id/comment_item3"
-        style="@style/ProductCastHolderStyle"
         android:layout_marginLeft="7dp"
-        android:layout_marginRight="7dp">
+        android:layout_marginRight="7dp"
+        style="@style/ProductCastHolderStyle">
+        <!-- View -->
+        <!--<View-->
+            <!--android:id="@+id/line_2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0.5dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginRight="8dp"-->
+            <!--android:background="@color/btn_color_login" />-->
         <!-- Image -->
         <RelativeLayout
             android:layout_width="match_parent"
@@ -221,38 +340,51 @@
 
             <sega.fastnetwork.test.customview.CircleImageView
                 android:id="@+id/userimage3"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:scaleType="centerCrop"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginLeft="@dimen/product_compact_text_margin"
                 android:layout_marginStart="@dimen/product_compact_text_margin"
-
                 android:layout_toEndOf="@+id/userimage3"
                 android:layout_toRightOf="@+id/userimage3"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/usercomments3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_large"
+                        tools:text="My Awesome product Title 2"
+                        android:layout_toLeftOf="@+id/datecomment3"/>
 
-                <sega.fastnetwork.test.view.RobotoRegularTextView
-                    android:id="@+id/usercomments3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_large"
-                    tools:text="My Awesome product Title" />
+                    <TextView
+                        android:id="@+id/datecomment3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM"
+                        android:layout_centerInParent="true"
+                        android:layout_alignParentRight="true" />
 
-                <sega.fastnetwork.test.view.RobotoRegularTextView
-                    android:id="@+id/comments3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_medium"
-                    tools:text="2016" />
+                </RelativeLayout>
+
 
                 <RelativeLayout
 
@@ -261,36 +393,116 @@
                     android:layout_marginTop="@dimen/cardview_default_elevation"
                     android:orientation="horizontal">
 
-                  <sega.fastnetwork.test.view.RobotoRegularTextView
-                        android:id="@+id/user_rating3"
+                    <TextView
+                        android:id="@+id/email_comment3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:text="8.76"
-                        android:textColor="@color/input_register"
-                        android:textSize="@dimen/text_medium" />
-
-
-
-                    <sega.fastnetwork.test.view.RobotoRegularTextView
-                        android:id="@+id/datecomment3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_gravity="right"
-                        android:layout_marginEnd="@dimen/dist_small"
-                        android:layout_marginRight="@dimen/dist_small"
-                        android:gravity="right"
-                        android:maxLines="1"
-                        android:text="June 22 2016"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_medium" />
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM" />
 
                 </RelativeLayout>
 
             </LinearLayout>
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/comments3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="69dp"
+            android:paddingBottom="7dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_large"
+            tools:text="My Awesome product Title 3" />
+
     </LinearLayout>
+    <!-- View -->
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/comment_item3"-->
+        <!--style="@style/ProductCastHolderStyle"-->
+        <!--android:layout_marginLeft="7dp"-->
+        <!--android:layout_marginRight="7dp">-->
+        <!--&lt;!&ndash; Image &ndash;&gt;-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:padding="@dimen/dist_medium">-->
+
+            <!--<sega.fastnetwork.test.customview.CircleImageView-->
+                <!--android:id="@+id/userimage3"-->
+                <!--android:layout_width="45dp"-->
+                <!--android:layout_height="45dp"-->
+
+                <!--android:scaleType="centerCrop"-->
+                <!--tools:ignore="ContentDescription" />-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/product_compact_text_margin"-->
+                <!--android:layout_marginStart="@dimen/product_compact_text_margin"-->
+
+                <!--android:layout_toEndOf="@+id/userimage3"-->
+                <!--android:layout_toRightOf="@+id/userimage3"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/usercomments3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="@dimen/text_large"-->
+                    <!--tools:text="My Awesome product Title" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/comments3"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="@dimen/text_small"-->
+                    <!--tools:text="2016" />-->
+
+                <!--<RelativeLayout-->
+
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/cardview_default_elevation"-->
+                    <!--android:orientation="horizontal">-->
+
+                  <!--<TextView-->
+                        <!--android:id="@+id/user_rating3"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:text="8.76"-->
+                        <!--android:textColor="@color/input_register"-->
+                        <!--android:textSize="@dimen/text_small" />-->
+
+
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/datecomment3"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_gravity="right"-->
+                        <!--android:layout_marginEnd="@dimen/dist_small"-->
+                        <!--android:layout_marginRight="@dimen/dist_small"-->
+                        <!--android:gravity="right"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:text="June 22 2016"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/text_small" />-->
+
+                <!--</RelativeLayout>-->
+
+            <!--</LinearLayout>-->
+        <!--</RelativeLayout>-->
+    <!--</LinearLayout>-->
 
 
     <RelativeLayout

@@ -59,6 +59,7 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
     var mCommentPresenter: CommentPresenter? = null
 
     override fun oncommentClicked(position: Int) {
+        Log.e("oncommentClicked","oncommentClicked")
 //        Log.e("IDCMTUSER", adapter!!.commentsList[position]._id)
 //        Log.e("IDCMTUSER", adapter!!.commentsList[position].user!!._id)
 //        Log.e("IDUSER", AppManager.getAppAccountUserId(activity))

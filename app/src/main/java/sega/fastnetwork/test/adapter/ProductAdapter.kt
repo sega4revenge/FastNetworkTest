@@ -48,7 +48,6 @@ internal class ProductAdapter// Constructor
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
                 totalItemCount = linearLayoutManager.itemCount
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
                 if (!isLoading && !isLoadingLocked && lastVisibleItem == productList.size - 1) {

@@ -93,13 +93,23 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             Log.d("ssssss","11111111")
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
+            product_recycleview.isNestedScrollingEnabled = false
         })
         search_view.setOnClickListener {
             startActivity(Intent(activity, SearchActivity::class.java))
         }
 
         try_again.setOnClickListener {
+            error_message.visibility = View.GONE
+            swipe_refresh.visibility = View.VISIBLE
+            adapter!!.pageToDownload = 1
+            adapter!!.productList.clear()
+            adapter!!.initShimmer()
+            adapter!!.isLoading = false
+            isFirstLoad = true
+            Log.d("ssssss","11111111")
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
+
         }
         adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
             if (!isFirstLoad) {
@@ -139,7 +149,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         super.onDetach()
     }
     private fun onDownloadSuccessful() {
-
+        product_recycleview.isNestedScrollingEnabled = true
         if (isTablet && adapter?.productList?.size!! > 0) {
             /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
         }

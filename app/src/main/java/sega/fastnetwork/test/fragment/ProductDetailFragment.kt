@@ -592,6 +592,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage1)
                 usercomments1.text = product!!.comment!![0].user!!.name
+                Log.e("Email: ", product?.comment!![0].user!!.email)
+                email_comment1.text = product?.comment!![0].user!!.email
                 comments1.text = product!!.comment!![0].content
                 datecomment1.text = timeAgo(product!!.comment!![0].time!!)
             }
@@ -607,6 +609,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage1)
                 usercomments1.text = product!!.comment!![0].user!!.name
+                email_comment1.text = product?.comment!![0].user!!.email
                 comments1.text = product!!.comment!![0].content
                 datecomment1.text = timeAgo(product!!.comment!![0].time!!)
                 Glide.with(this)
@@ -615,6 +618,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage2)
                 usercomments2.text = product!!.comment!![1].user!!.name
+                email_comment2.text = product?.comment!![1].user!!.email
                 comments2.text = product!!.comment!![1].content
                 datecomment2.text = timeAgo(product!!.comment!![1].time!!)
             }
@@ -628,6 +632,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage1)
                 usercomments1.text = product!!.comment!![0].user!!.name
+                email_comment1.text = product?.comment!![0].user!!.email
                 comments1.text = product!!.comment!![0].content
                 datecomment1.text = timeAgo(product!!.comment!![0].time!!)
                 Glide.with(this)
@@ -636,6 +641,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage2)
                 usercomments2.text = product!!.comment!![1].user!!.name
+                email_comment2.text = product?.comment!![1].user!!.email
                 comments2.text = product!!.comment!![1].content
                 datecomment2.text = timeAgo(product!!.comment!![1].time!!)
                 Glide.with(this)
@@ -644,6 +650,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage3)
                 usercomments3.text = product!!.comment!![2].user!!.name
+                email_comment3.text = product?.comment!![2].user!!.email
                 comments3.text = product!!.comment!![2].content
                 datecomment3.text = timeAgo(product!!.comment!![2].time!!)
             } else {
@@ -653,6 +660,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage1)
                 usercomments1.text = product!!.comment!![0].user!!.name
+                email_comment1.text = product?.comment!![0].user!!.email
                 comments1.text = product!!.comment!![0].content
                 datecomment1.text = timeAgo(product!!.comment!![0].time!!)
                 Glide.with(this)
@@ -661,6 +669,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage2)
                 usercomments2.text = product!!.comment!![1].user!!.name
+                email_comment2.text = product?.comment!![1].user!!.email
                 comments2.text = product!!.comment!![1].content
                 datecomment2.text = timeAgo(product!!.comment!![1].time!!)
                 Glide.with(this)
@@ -669,6 +678,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(userimage3)
                 usercomments3.text = product!!.comment!![2].user!!.name
+                email_comment3.text = product?.comment!![2].user!!.email
                 comments3.text = product!!.comment!![2].content
                 datecomment3.text = timeAgo(product!!.comment!![2].time!!)
                 comments_see_all.visibility = View.VISIBLE
@@ -954,6 +964,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage1)
             usercomments1.text = listcomment[0].user!!.name
+            email_comment1.text = listcomment[0].user!!.email
             comments1.text = listcomment[0].content
             datecomment1.text = timeAgo(listcomment[0].time!!)
         }
@@ -971,6 +982,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage1)
             usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            email_comment1.text = listcomment[listcomment.size-1].user!!.email
             comments1.text = listcomment[listcomment.size-1].content
             datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
             Glide.with(this)
@@ -979,6 +991,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage2)
             usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            email_comment2.text = listcomment[listcomment.size-2].user!!.email
             comments2.text = listcomment[listcomment.size-2].content
             datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
         }
@@ -996,6 +1009,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage1)
             usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            email_comment1.text = listcomment[listcomment.size-1].user!!.email
             comments1.text = listcomment[listcomment.size-1].content
             datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
             Glide.with(this)
@@ -1004,6 +1018,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage2)
             usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            email_comment2.text = listcomment[listcomment.size-2].user!!.email
             comments2.text = listcomment[listcomment.size-2].content
             datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
             Glide.with(this)
@@ -1012,6 +1027,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage3)
             usercomments3.text = listcomment[listcomment.size-3].user!!.name
+            email_comment3.text = listcomment[listcomment.size-3].user!!.email
             comments3.text = listcomment[listcomment.size-3].content
             datecomment3.text = timeAgo(listcomment[listcomment.size-3].time!!)
         } else {
@@ -1024,6 +1040,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage1)
             usercomments1.text = listcomment[listcomment.size-1].user!!.name
+            email_comment1.text = listcomment[listcomment.size-1].user!!.email
             comments1.text = listcomment[listcomment.size-1].content
             datecomment1.text = timeAgo(listcomment[listcomment.size-1].time!!)
             Glide.with(this)
@@ -1032,6 +1049,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage2)
             usercomments2.text = listcomment[listcomment.size-2].user!!.name
+            email_comment2.text = listcomment[listcomment.size-2].user!!.email
             comments2.text = listcomment[listcomment.size-2].content
             datecomment2.text = timeAgo(listcomment[listcomment.size-2].time!!)
             Glide.with(this)
@@ -1040,6 +1058,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .apply(options)
                     .into(userimage3)
             usercomments3.text = listcomment[listcomment.size-3].user!!.name
+            email_comment3.text = listcomment[listcomment.size-3].user!!.email
             comments3.text = listcomment[listcomment.size-3].content
             datecomment3.text = timeAgo(listcomment[listcomment.size-3].time!!)
             comments_see_all.visibility = View.VISIBLE

@@ -73,6 +73,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'com.weiwangcn.betterspinner:library:1.1.0'
+    compile 'com.github.medyo:android-about-page:1.2.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }
 
