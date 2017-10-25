@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+<sega.fastnetwork.test.lib.ShimmerRecycleView.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmer_layout"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:shimmer_auto_start="true"
+    >
 
-
-    android:background="@drawable/radius_all_view"
-    android:orientation="horizontal">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
     <TextView
         android:id="@+id/product_name"
@@ -17,8 +20,9 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:marqueeRepeatLimit="marquee_forever"
-        android:text="My Awesome Movie Title"
         android:textColor="@color/black"
+        android:alpha="0.1"
+        android:background="@color/shimmer_background_color"
         android:textStyle="bold"
         android:textSize="@dimen/text_productname"
         android:layout_alignLeft="@+id/product_user_address"
@@ -32,7 +36,8 @@
         android:id="@+id/btn_save"
         android:layout_width="25dp"
         android:layout_height="35dp"
-        android:src="@drawable/favorite_unchecked"
+        android:alpha="0.1"
+        android:background="@color/shimmer_background_color"
         android:layout_marginTop="5dp"
         android:layout_alignRight="@+id/product_info"
         android:layout_alignEnd="@+id/product_info" />
@@ -63,8 +68,8 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/roundtextview"
-            android:text="lượt xem"
+            android:alpha="0.1"
+            android:background="@color/shimmer_background_color"
             />
     </LinearLayout>
 
@@ -91,58 +96,22 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:textColor="#737373"
+        android:alpha="0.1"
+        android:background="@color/shimmer_background_color"
         android:textSize="13sp"
         android:textStyle="normal"
-        tools:text="My movie overview goes here" />
+       />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
+        android:alpha="0.1"
+        android:background="@color/shimmer_background_color"
         android:orientation="horizontal"
         android:layout_below="@+id/product_user_address">
-        <sega.fastnetwork.test.customview.CircleImageView
-            android:id="@+id/head1"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="gone"
-            />
 
-        <sega.fastnetwork.test.customview.CircleImageView
-            android:id="@+id/head2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="-10dp"
-            android:visibility="gone"
-            />
-
-        <sega.fastnetwork.test.customview.CircleImageView
-            android:id="@+id/head3"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="-10dp"
-            android:visibility="gone"
-            />
-
-        <sega.fastnetwork.test.customview.CircleImageView
-            android:id="@+id/head4"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="-10dp"
-            android:visibility="gone"
-            />
-        <sega.fastnetwork.test.customview.CircularTextView
-            android:id="@+id/head5"
-            android:layout_width="30dp"
-            android:textColor="@color/white"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_height="30dp"
-            android:layout_marginLeft="-10dp"
-            android:visibility="gone"
-            />
     </LinearLayout>
     <View
         android:id="@+id/line_1"
@@ -183,19 +152,19 @@
                 android:id="@+id/img_bagde"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-
-                android:background="@drawable/bagde_hour" />
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"/>
 
             <TextView
                 android:id="@+id/product_price"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="2"
                 android:maxLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="500.000 VND"
-                android:textColor="@color/black"
+                android:background="@color/shimmer_background_color"
+                android:alpha="0.1"
                 android:textSize="12sp"
                 android:layout_gravity="center"/>
         </LinearLayout>
@@ -210,20 +179,21 @@
             >
 
             <ImageView
-                android:id="@+id/icon_calendar"
+                android:id="@+id/imageView6"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-
-                android:background="@drawable/calendar" />
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color" />
 
             <TextView
                 android:id="@+id/product_date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:maxLines="2"
                 android:minLines="2"
-                android:text="1 giờ"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:gravity="center_horizontal"/>
@@ -240,20 +210,21 @@
             >
 
             <ImageView
-                android:id="@+id/icon_category"
+                android:id="@+id/product_category"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-
-                android:background="@drawable/cate_vehicle_round" />
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color" />
 
             <TextView
                 android:id="@+id/txt_category"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:maxLines="2"
                 android:minLines="2"
-                android:text="Thời trang"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:gravity="center_horizontal"/>
@@ -268,20 +239,21 @@
             >
 
             <ImageView
-                android:id="@+id/icon_view"
+                android:id="@+id/imageView7"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-
-                android:background="@drawable/eye" />
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color" />
 
             <TextView
                 android:id="@+id/product_view"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:maxLines="2"
                 android:minLines="2"
-                android:text="Thời trang"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:gravity="center_horizontal"/>
@@ -310,7 +282,8 @@
         android:textColor="#737373"
         android:textSize="14sp"
         android:textStyle="normal"
-        tools:text="My movie overview goes here"
+        android:alpha="0.1"
+        android:background="@color/shimmer_background_color"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
 
@@ -338,16 +311,18 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/favorite_unchecked" />
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color" />
 
             <TextView
                 android:id="@+id/txt_save"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:minLines="2"
-                android:text="Lưu sản phẩm"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -365,16 +340,18 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/share" />
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color" />
 
             <TextView
 
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Chia sẻ"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -404,7 +381,8 @@
             android:layout_height="60dp"
             android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/logo" />
+            android:alpha="0.1"
+            android:background="@color/shimmer_background_color" />
 
         <LinearLayout
             android:id="@+id/layout_comment"
@@ -415,13 +393,14 @@
             android:orientation="vertical"
             android:layout_toRightOf="@+id/productdetail_avatar"
             android:layout_centerInParent="true"
-           >
+            >
 
             <TextView
                 android:id="@+id/product_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -429,7 +408,8 @@
                 android:id="@+id/product_user_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:layout_marginTop="2dp"
                 android:textColor="#aaaaaa" />
         </LinearLayout>
@@ -457,17 +437,19 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/call"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 />
 
             <TextView
 
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Gọi điện"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -484,16 +466,18 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/sms" />
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color" />
 
             <TextView
 
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Nhắn tin"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -510,18 +494,21 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/chat" />
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color" />
 
             <TextView
 
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Chat trực tuyến"
+                android:alpha="0.1"
+                android:background="@color/shimmer_background_color"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
+</sega.fastnetwork.test.lib.ShimmerRecycleView.ShimmerLayout>

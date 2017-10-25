@@ -36,9 +36,9 @@
                         android:alpha="0.2" />
                     <ImageView
                         android:id="@+id/back_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_backarrow_white"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@mipmap/ic_back"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="10dp"/>
@@ -81,13 +81,14 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
                         android:id="@+id/linearLayout6">
+
                         <ImageButton
                             android:id="@+id/change_map"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:background="@drawable/ic_location_white"
-                            android:layout_marginLeft="5dp"
-                            />
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+
+                            android:background="@mipmap/ic_location"
+                            android:backgroundTint="@color/white"/>
                     </LinearLayout>
 
                 </RelativeLayout>

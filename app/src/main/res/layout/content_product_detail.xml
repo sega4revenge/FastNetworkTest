@@ -11,10 +11,9 @@
         android:id="@+id/product_detail_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:clipToPadding="false"
-        android:background="#eeeeee"
         android:paddingBottom="@dimen/dist_medium"
-        android:visibility="gone"
         app:layout_scrollFlags="scroll"
         tools:visibility="visible">
 
@@ -22,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:background="@color/white"
             >
 
             <!-- Header Image -->
@@ -48,10 +48,17 @@
             <include
                 android:id="@+id/layout_detail_info"
                 layout="@layout/layout_detail_info"
-
+                android:visibility="gone"
 
                 />
 
+            <include
+                android:id="@+id/layout_detail_info_demo"
+                layout="@layout/layout_detail_info_demo"
+
+
+
+                />
             <!-- Section 1: Basic Info -->
 
 
@@ -89,13 +96,13 @@
             android:layout_height="match_parent"
             android:visibility="gone" />
 
-        <include
+       <!-- <include
             android:id="@+id/progress_circle"
             layout="@layout/layout_progress_circle"
             android:layout_width="@dimen/progress_circle_width"
             android:layout_height="@dimen/progress_circle_height"
             android:layout_centerInParent="true"
-            android:visibility="visible" />
+            android:visibility="visible" />-->
 
     </RelativeLayout>
 
