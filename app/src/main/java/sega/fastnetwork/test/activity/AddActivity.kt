@@ -75,7 +75,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
-        supportActionBar!!.title = "Add product"
+        supportActionBar!!.title = getString(R.string.ac_add)
 ///=======================Cho thue/ Can thue=========================
         toggle.setOnCheckedChangeListener { _, checkedId ->
             run {
@@ -134,8 +134,8 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                                 .setPeekHeight(1600)
                                 .showTitle(false)
                                 .setSelectMaxCount(4)
-                                .setCompleteButtonText("Done")
-                                .setEmptySelectionText("No Select")
+                                .setCompleteButtonText(getString(R.string.ac_add))
+                                .setEmptySelectionText(getString(R.string.noselect))
                                 .setSelectedUriList(add_picker_view!!.listUri)
                                 .create()
 
@@ -145,14 +145,14 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     }
 
                     override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
-                            Toast.makeText(this@AddActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@AddActivity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
                 }
 
                 TedPermission.with(this@AddActivity)
                         .setPermissionListener(permissionlistener)
-                        .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                        .setDeniedMessage(getString(R.string.per_turnon))
                         .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .check()
                 //
@@ -380,9 +380,9 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                         } else {
                             mDoubleCreate = true
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
-                            mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")
+                            mRemoteView!!.setTextViewText(R.id.title, getString(R.string.up_success))
                             mRemoteView!!.setTextViewText(R.id.timeremain, getString(R.string.uploaded_title, temp, uriList!!.size))
-                            Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded successfully", Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(findViewById(R.id.root_addproduct), getString(R.string.up_success), Snackbar.LENGTH_SHORT).show()
                             FirebaseMessaging.getInstance().subscribeToTopic(productid)
                             mNotificationManager?.cancel(1)
                             mNotificationManager?.notify(1, notification)
@@ -410,27 +410,27 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
             if (toggle.checkedRadioButtonId == borrow.id) {
                 Toast.makeText(this, time.selectedIndex.toString() + " " + category.selectedIndex.toString(), Toast.LENGTH_LONG).show()
                 if (uriList!!.size == 0) {
-                    Toast.makeText(this, "Please choose image", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.choose_image), Toast.LENGTH_LONG).show()
                 } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
-                    Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.up_success), Toast.LENGTH_LONG).show()
                 } else {
                     if(!mDoubleCreate) {
                         temp = 0
                         mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
                     }else{
-                     Snackbar.make(findViewById(R.id.root_addproduct), "Sản phẩm đã được tạo thành công", Snackbar.LENGTH_SHORT).show()
+                     Snackbar.make(findViewById(R.id.root_addproduct), getString(R.string.up_success), Snackbar.LENGTH_SHORT).show()
                     }
                 }
             } else if (toggle.checkedRadioButtonId == needborrow.id) {
 
                 if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedIndex.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
-                    Toast.makeText(this, "Please input", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.input), Toast.LENGTH_LONG).show()
                 } else {
                     if(!mDoubleCreate) {
                         temp = 0
                         mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.NEEDBORROW)
                     }else{
-                        Snackbar.make(findViewById(R.id.root_addproduct), "Sản phẩm đã được tạo thành công", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.up_success), Snackbar.LENGTH_SHORT).show()
                     }
                 }
             }

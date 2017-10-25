@@ -41,7 +41,7 @@ class ChangePasswordActivity : AppCompatActivity(), ChangePasswordPresenter.Chan
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.back_arrow)
-        supportActionBar!!.title = "Change Password"
+        supportActionBar!!.title = getString(R.string.change_pass)
         mChangePasswordPresenter = ChangePasswordPresenter(this)
         btnChangePassword!!.setOnClickListener {
             CircularAnim.hide(btnChangePassword)
@@ -66,18 +66,18 @@ class ChangePasswordActivity : AppCompatActivity(), ChangePasswordPresenter.Chan
         if (!Validation.validateFields(oldPassword!!.text.toString())) {
 
             err++
-            oldPassword!!.error = "Old password should not be empty !"
+            oldPassword!!.error = getString(R.string.st_errpass)
         }
         if (!Validation.validateFields(newPassword!!.text.toString())) {
 
             err++
-            newPassword!!.error = "Password should not be empty !"
+            newPassword!!.error = getString(R.string.st_errpass)
         }
         if (newPassword!!.text.toString() != confirmNewPassword!!.text.toString() || confirmNewPassword!!.text.toString() == "") {
 
             err++
 
-            confirmNewPassword!!.error = "Password do not match or empty!"
+            confirmNewPassword!!.error = getString(R.string.st_errpass)
 
         }
         if (err == 0) {
