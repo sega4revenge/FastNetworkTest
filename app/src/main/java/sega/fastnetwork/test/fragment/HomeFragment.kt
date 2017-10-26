@@ -44,7 +44,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
     override fun getUserDetail(response: Response) {
         AppManager.saveAccountUser(context, response.user!!, 0)
-        showSnackBarMessage("Update phone success!")
+        showSnackBarMessage(getString(R.string.update_phonenumber_success))
 //        Toast.makeText(activity, "Update phone success!", Toast.LENGTH_SHORT).show()
     }
 
@@ -186,7 +186,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                                     if (!Validation.validateFields(phonenumber.text.toString())) {
 
                                         err++
-                                        phonenumber.error = "Old password should not be empty !"
+                                        phonenumber.error = getString(R.string.st_errpass)
                                     }
 
                                     if (err == 0) {

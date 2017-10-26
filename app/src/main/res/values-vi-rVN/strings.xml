@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">VIREN</string>
+    <string name="no">Không</string>
     <string name="facebook_app_id">251217995359869</string>
     <string name="google_maps_key">AIzaSyDBfdxli_eMNGalQDD19n2r0d4807UYlJQ</string>
     <string name="lg_hint_email">Email</string>
@@ -28,8 +29,8 @@
     <string name="in">- in</string>
     <string name="you">You </string>
     <string name="youand">You and </string>
-    <string name="delete_comment">Do you want delete comment?</string>
-    <string name="title_comment">Delete Comment</string>
+    <string name="delete_comment">Bạn có thật sự muốn xóa bình luận này?</string>
+    <string name="title_comment">Xóa bình luận</string>
     <string name="detail_comment">Detail comment</string>
     <string name="view">view</string>
     <string name="money">Money</string>
@@ -50,7 +51,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     //======================================
     <string name="btn_signin">Đăng nhập</string>
-    <string name="btn_join">Tham gia ngay</string>
+    <string name="btn_join">Đăng nhập ngay</string>
     <string name="btn_forgot">Quên mật khẩu</string>
     <string name="btn_signup">Bạn chưa có tài khoản?</string>
     <string name="btn_backtologin">Bạn đã có tài khoản</string>
@@ -67,9 +68,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
-    <string name="action_settings">Settings</string>
-    <string name="nav_home">Home</string>
-    <string name="nav_category">Category</string>
+    <string name="action_settings">Cài đặt</string>
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_category">Danh mục</string>
     <string name="nav_Profile">Hồ sơ</string>
     <!-- Loading and Error Message -->
     <string name="server_unreachable">Oops! Một vài lỗi đã xảy ra.\nVui lòng xem lại kết nối internet.</string>
@@ -114,4 +115,98 @@
     <string name="choose_image">Vui lòng chọn ảnh</string>
     <string name="input">Vui lòng nhập vào</string>
     <string name="change_pass">Đổi mật khẩu</string>
+    <string name="joined">đã tham gia</string>
+    <string name="joined_have">đã gia nhập phòng , hiện có</string>
+    <string name="people_inroom">người trong phòng</string>
+    <string name="edit_product">Sửa sản phẩm</string>
+    <string name="up_fail">Tải lên thất bại ! Vui lòng nhập đủ thông tin !</string>
+    <string name="invalid_email">Địa chỉ email không chính xác !</string>
+    <string name="success">Thành công !</string>
+    <string name="enter_valid">Hãy nhập đúng thông tin !</string>
+    <string name="location">Vị trí</string>
+    <string name="started">Đã bắt đầu</string>
+    <string name="err">Xảy ra lỗi !</string>
+    //======================================
+    <string name="cate_vehicle">Xe cộ</string>
+    <string name="cate_electronic">Đồ điện tử</string>
+    <string name="cate_fashion">Thời trang, đồ dùng cá nhân</string>
+    <string name="cate_house">Nhà ở</string>
+    <string name="cate_motherandbaby">Mẹ và bé</string>
+    <string name="cate_furniture">Đồ gia dụng, nội thất</string>
+    <string name="cate_entertaiment">Giải trí, thể thao</string>
+    <string name="cate_office">Văn phòng và nông nghiệp</string>
+    <string name="cate_other">Tất cả</string>
+    //====================================== filter
+    <string name="latest">Mới nhất</string>
+    <string name="latest_des">Sắp xếp theo sản phẩm có ngày đăng mới nhất</string>
+    <string name="popular">Phổ biến nhất</string>
+    <string name="popular_des">Sắp xếp theo sản phẩm có lượt xem nhiều nhất</string>
+    <string name="price_low">Giá thấp nhất</string>
+    <string name="price_low_des">Sắp xếp theo sản phẩm có giá thấp nhất</string>
+    <string name="price_high">Giá cao nhất</string>
+    <string name="price_high_des">Sắp xếp theo sản phẩm có giá cao nhất</string>
+    //====================================== inbox
+    <string name="inbox_send">Bạn đã gửi 1 tin nhắn ảnh</string>
+    <string name="inbox_send1">đã gửi 1 tin nhắn ảnh</string>
+    //====================================== chothue canthue.
+    <string name="rent">Cho thuê</string>
+    <string name="need_rent">Cần thuê</string>
+    //======================================success
+    <string name="delete_success">Xóa sản phẩm thành công</string>
+    <string name="edit_success">Sửa sản phẩm thành công</string>
+    <string name="changepass_success">Đổi mật khẩu thành công</string>
+    <string name="changeinfo_success">Đổi thông tin thành công</string>
+    <string name="update_phonenumber_success">Cập nhật số điện thoại thành công</string>
+    //======================================err
+    <string name="pass_notmatch">Mật khẩu không đúng hoặc bị trống!</string>
+    <string name="max_city">Không thể chọn hơn 5 thành phố!</string>
+    <string name="max_cate">Không thể chọn hơn 5 danh mục!</string>
+    <string name="sms_fail">SMS bị lỗi, Vui lòng thử lại sau.</string>
+    //======================================
+    <string name="save">Lưu</string>
+    <string name="saved">Đã lưu</string>
+    <string name="more_comment">Thêm bình luận...</string>
+    //======================================layout
+    <string name="title">Tiêu đề</string>
+    <string name="txt_price">Giá</string>
+    <string name="txt_time">Thời gian</string>
+    <string name="txt_number">Số lượng</string>
+    <string name="txt_cate">Danh mục</string>
+    <string name="txt_address">Địa chỉ</string>
+    <string name="txt_des">Mô tả</string>
+    //
+    <string name="txt_oldpass">Mật khẩu cũ</string>
+    <string name="txt_newpass">Mật khẩu mới</string>
+    <string name="txt_confirm_newpass">Xác nhận mật khẩu mới</string>
+    <string name="btn_change">Thay đổi</string>
+    <string name="txt_inputmess">Nhập tin nhắn</string>
+    //
+    <string name="txt_stt">Trạng thái</string>
+    <string name="btn_ok">OK</string>
+    <string name="no_comment">Không có bình luận</string>
+    <string name="write_comment">Viết bình luận</string>
+    <string name="send">Gửi</string>
+    <string name="pro_not_found">Không tìm thấy sản phẩm</string>
+    <string name="txt_changeacc">Đổi thông tin tài khoản</string>
+    <string name="txt_newname">Nhập tên mới</string>
+    <string name="txt_newphone">Nhập số điện thoại mới</string>
+    <string name="btn_accept">Chấp nhận</string>
+    <string name="btn_cancel">Hủy bỏ</string>
+    <string name="txt_or">hoặc</string>
+    <string name="txt_phonenumber">Nhập số điện thoại</string>
+    //
+    <string name="txt_filtercity">Lọc theo thành phố</string>
+    <string name="txt_filtercate">Lọc theo danh mục</string>
+    <string name="txt_productlist">Danh sách sản phẩm</string>
+    <string name="txt_productsave">Sản phẩm đã lưu</string>
+    <string name="txt_seemore">Xem thêm</string>
+    <string name="txt_addcomment">Thêm comment</string>
+    //
+    <string name="txt_call">Gọi điện</string>
+    <string name="txt_sms">Nhắn tin</string>
+    <string name="txt_chat">Nhắn tin trực tuyến</string>
+    <string name="txt_share">Chia sẻ</string>
+    //
+    <string name="nav_about">Thông tin ứng dụng</string>
+    <string name="nav_logout">Đăng xuất</string>
 </resources>

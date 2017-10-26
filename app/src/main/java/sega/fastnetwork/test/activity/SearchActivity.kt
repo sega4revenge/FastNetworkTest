@@ -127,7 +127,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                                 mMap!!.addMarker(MarkerOptions()
                                         .position(latLng)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                                        .title("Location"))
+                                        .title(getString(R.string.location)))
                                 mMap!!.addMarker(MarkerOptions().position(myLocation!!).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
                                 val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
 
@@ -164,7 +164,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                                         val intent = Intent(this@SearchActivity, LocationService::class.java)
                                         intent.putExtra("locationrequest", mLocationRequestwithBalanced)
                                         startService(intent)
-                                        Toast.makeText(this@SearchActivity, "started", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@SearchActivity, getString(R.string.started), Toast.LENGTH_SHORT).show()
                                     }
                                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
 
@@ -187,13 +187,13 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
 
                         override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
-                                Toast.makeText(this@SearchActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@SearchActivity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
                     }
                     TedPermission.with(this@SearchActivity)
                             .setPermissionListener(permissionlistener)
-                            .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                            .setDeniedMessage(getString(R.string.per_turnon))
                             .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                             .check()
 
@@ -429,9 +429,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                     val intent = Intent(this@SearchActivity, LocationService::class.java)
                     intent.putExtra("locationrequest", mLocationRequestwithBalanced)
                     startService(intent)
-                    Toast.makeText(this@SearchActivity, "started", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SearchActivity, getString(R.string.started), Toast.LENGTH_SHORT).show()
                 }
-                else -> Toast.makeText(this@SearchActivity, "loi roi", Toast.LENGTH_SHORT).show()
+                else -> Toast.makeText(this@SearchActivity, getString(R.string.err), Toast.LENGTH_SHORT).show()
             }
 
 

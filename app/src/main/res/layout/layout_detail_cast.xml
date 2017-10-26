@@ -521,7 +521,7 @@
             android:background="@drawable/drawable_seecomment_button"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="See more"
+            android:text="@string/txt_seemore"
             android:textAllCaps="false"
 
             />
@@ -542,7 +542,7 @@
             android:background="@drawable/drawable_seecomment_button"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Add Comment"
+            android:text="@string/txt_addcomment"
             android:textAllCaps="false" />
         <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
         <!--android:id="@+id/add_comment"-->

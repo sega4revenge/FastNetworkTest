@@ -98,7 +98,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         var err = 0
         if (!validateFields(code!!.text.toString())) {
             err++
-            password!!.error = "Code should not be empty !"
+            password!!.error = getString(R.string.st_errpass)
         }
         if (err == 0) {
             mRegisterPresenter!!.register_finish(email!!.text.toString(),code!!.text.toString())
@@ -106,7 +106,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         } else {
             progressBar.visibility = View.GONE
             CircularAnim.show(btn_join).go()
-            showSnackBarMessage("Enter Valid Details !")
+            showSnackBarMessage(getString(R.string.enter_valid))
         }
     }
 
@@ -121,25 +121,25 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         if (!validateFields(name!!.text.toString())) {
 
             err++
-            name!!.error = "Name should not be empty !"
+            name!!.error = getString(R.string.st_errpass)
         }
 
         if (!validateEmail(email!!.text.toString())) {
 
             err++
-            email!!.error = "Email should be valid !"
+            email!!.error = getString(R.string.invalid_email)
         }
 
         if (!validateFields(password!!.text.toString())) {
 
             err++
-            password!!.error = "Password should not be empty !"
+            password!!.error = getString(R.string.st_errpass)
         }
         if (password!!.text.toString() != repassword!!.text.toString()||repassword!!.text.toString()=="") {
 
             err++
 
-            repassword!!.error = "Password do not match or empty!"
+            repassword!!.error = getString(R.string.st_errpass)
 
         }
         if (err == 0) {
@@ -153,7 +153,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         } else {
             progressBar.visibility = View.GONE
             CircularAnim.show(btn_join).go()
-            showSnackBarMessage("Enter Valid Details !")
+            showSnackBarMessage(getString(R.string.enter_valid))
         }
     }
 

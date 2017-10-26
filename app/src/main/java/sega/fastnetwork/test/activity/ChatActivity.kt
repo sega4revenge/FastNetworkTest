@@ -118,8 +118,8 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                             .setPeekHeight(1600)
                             .showTitle(false)
                             .setSelectMaxCount(1)
-                            .setCompleteButtonText("Done")
-                            .setEmptySelectionText("No Select")
+                            .setCompleteButtonText(getString(R.string.done))
+                            .setEmptySelectionText(getString(R.string.noselect))
                             .create()
 
                     bottomSheetDialogFragment.show(supportFragmentManager)
@@ -128,14 +128,14 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 }
 
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
-                        Toast.makeText(this@ChatActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ChatActivity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
             }
 
             TedPermission.with(this@ChatActivity)
                     .setPermissionListener(permissionlistener)
-                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                    .setDeniedMessage(getString(R.string.per_turnon))
                     .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .check()
         }
@@ -376,7 +376,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
 
         val intent = Intent()
         runOnUiThread(Runnable {
-            Toast.makeText(applicationContext, numUsers + " đã gia nhập phòng", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, numUsers + getString(R.string.joined), Toast.LENGTH_LONG).show()
         })
 
     }
@@ -394,7 +394,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
 
         val intent = Intent()
         runOnUiThread(Runnable {
-            Toast.makeText(applicationContext, name + " đã gia nhập phòng , hiện có" + numUsers + " người trong phòng", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, name + getString(R.string.joined_have) + numUsers + getString(R.string.people_inroom), Toast.LENGTH_LONG).show()
         })
 
     }

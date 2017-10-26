@@ -131,14 +131,14 @@ internal class ProductAdapter// Constructor
 
             if (product.type == "1") {
 
-                viewHolderParent.itemView.type_view.setText("Cho thuê")
+                viewHolderParent.itemView.type_view.setText(R.string.rent)
                         .setTextColor(Color.WHITE)
                         .setSlantedBackgroundColor(context.resources.getColor(R.color.btn_login))
                         .setTextSize(15)
                         .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
                 viewHolderParent.itemView.price_compact.text = formatprice!!.format(product.price!!.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()]
             } else {
-                viewHolderParent.itemView.type_view.setText("Cần thuê")
+                viewHolderParent.itemView.type_view.setText(R.string.need_rent)
                         .setTextColor(Color.WHITE)
                         .setSlantedBackgroundColor(context.resources.getColor((R.color.actionBarColor)))
                         .setTextSize(15)

@@ -152,11 +152,11 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         var err = 0
         if (!validateFields(email!!.text.toString())) {
             err++
-            email!!.error = "Email should not be empty !"
+            email!!.error = getString(R.string.st_errpass)
         }
         if (!validateFields(password!!.text.toString())) {
             err++
-            password!!.error = "Password should not be empty !"
+            password!!.error = getString(R.string.st_errpass)
         }
         if (err == 0) {
             val user = User()
@@ -257,7 +257,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         } else if (requestCode == Constants.FOTGOTPASSWORD) {
             Log.e("requestCode: ", "OK ne")
             if (resultCode == Activity.RESULT_OK) {
-                showSnackBarMessage("Successsssss")
+                showSnackBarMessage(getString(R.string.success))
 
             }
         }

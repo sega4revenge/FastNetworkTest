@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">VIREN</string>
+    <string name="no">No</string>
     <string name="facebook_app_id">251217995359869</string>
     <string name="google_maps_key">AIzaSyDBfdxli_eMNGalQDD19n2r0d4807UYlJQ</string>
     <string name="lg_hint_email">Email</string>
@@ -28,7 +29,7 @@
     <string name="in">- in</string>
     <string name="you">You </string>
     <string name="youand">You and </string>
-    <string name="delete_comment">Do you want delete comment?</string>
+    <string name="delete_comment">Are you sure you want to delete this comment?</string>
     <string name="title_comment">Delete Comment</string>
     <string name="detail_comment">Detail comment</string>
     <string name="view">view</string>
@@ -51,8 +52,8 @@
     //======================================
     <string name="btn_signin">Sign in</string>
     <string name="btn_join">Join now</string>
-    <string name="btn_forgot">Forgot Password</string>
-    <string name="btn_signup">Dont have account ?</string>
+    <string name="btn_forgot">Forgot password</string>
+    <string name="btn_signup">Do not have account ?</string>
     <string name="btn_backtologin">Already have account ?</string>
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>
@@ -114,6 +115,112 @@
     <string name="choose_image">Please choose image</string>
     <string name="input">Please input</string>
     <string name="change_pass">Change password</string>
+    <string name="joined">Joined</string>
+    <string name="joined_have">Joined and have</string>
+    <string name="people_inroom">people in room</string>
+    <string name="edit_product">Edit product</string>
+    <string name="up_fail">Upload failed ! Please fill all information !</string>
+    <string name="invalid_email">Invalid email address !</string>
+    <string name="success">Success !</string>
+    <string name="enter_valid">Enter valid details !</string>
+    <string name="location">Location</string>
+    <string name="started">Started</string>
+    <string name="err">Have error !</string>
+    //======================================cate
+    <string name="cate_vehicle">Vehicle</string>
+    <string name="cate_electronic">Electronic</string>
+    <string name="cate_fashion">Fashion and Personal belongings</string>
+    <string name="cate_house">House</string>
+    <string name="cate_motherandbaby">Mother and baby</string>
+    <string name="cate_furniture">Furniture</string>
+    <string name="cate_entertaiment">Entertaiment and Sport</string>
+    <string name="cate_office">Office and agriculture</string>
+    <string name="cate_other">All</string>
+    //====================================== filter
+    <string name="latest">Latest</string>
+    <string name="latest_des">Sort by latest product upload date</string>
+    <string name="popular">Most popular</string>
+    <string name="popular_des">Sort by product with the most views</string>
+    <string name="price_low">Lowest price</string>
+    <string name="price_low_des">Sort by product have lowest price</string>
+    <string name="price_high">Lowest price</string>
+    <string name="price_high_des">Sort by product have highest price</string>
+    //====================================== inbox
+    <string name="inbox_send">You sent 1 image</string>
+    <string name="inbox_send1">sent 1 image</string>
+    //====================================== chothue canthue.
+    <string name="rent">For rent</string>
+    <string name="need_rent">Wanna rent</string>
+    <string name="renting">Be hiring</string>
+    <string name="rented">Be hired</string>
+    //======================================success
+    <string name="delete_success">Delete product successfully</string>
+    <string name="edit_success">Edit product successfully</string>.
+    <string name="changepass_success">Change password successfully</string>
+    <string name="changeinfo_success">Change info successfully</string>
+    <string name="update_phonenumber_success">Change info successfully</string>
+
+    //======================================err
+    <string name="pass_notmatch">Password do not match or empty!</string>
+    <string name="max_city">Cannot select over 5 city!</string>
+    <string name="max_cate">Cannot select over 5 category!</string>
+    <string name="sms_fail">SMS failed, please try again later.</string>
+    //======================================
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+    <string name="more_comment">More comment...</string>
+    //======================================layout
+    <string name="title">Title</string>
+    <string name="txt_price">Price</string>
+    <string name="txt_time">Time</string>
+    <string name="txt_number">Number</string>
+    <string name="txt_cate">Category</string>
+    <string name="txt_address">Address</string>
+    <string name="txt_des">Number</string>
+    //
+    <string name="txt_oldpass">Old password</string>
+    <string name="txt_newpass">New password</string>
+    <string name="txt_confirm_newpass">Confirm new password</string>
+    <string name="btn_change">Change</string>
+    <string name="txt_inputmess">Input message</string>
+    //
+    <string name="txt_stt">Status</string>
+    <string name="btn_ok">OK</string>
+    <string name="no_comment">No comment</string>
+    <string name="write_comment">Write a comment</string>
+    <string name="send">Send</string>
+    <string name="pro_not_found">Product not found</string>
+    <string name="txt_changeacc">Change information</string>
+    <string name="txt_newname">Input new name</string>
+    <string name="txt_newphone">Input new phone number</string>
+    <string name="btn_accept">Accept</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="txt_or">OR</string>
+    <string name="txt_phonenumber">Input phone number</string>
+    //
+    <string name="txt_filtercity">Filter by city</string>
+    <string name="txt_filtercate">Filter by category</string>
+    <string name="txt_productlist">Product list</string>
+    <string name="txt_productsave">Product saved</string>
+    <string name="txt_seemore">See more</string>
+    <string name="txt_addcomment">Add comment</string>
+    //
+    <string name="txt_call">Call</string>
+    <string name="txt_sms">SMS</string>
+    <string name="txt_chat">Chat online</string>
+    <string name="txt_share">Share</string>
+    //nav
+    <string name="nav_about">About us</string>
+    <string name="nav_logout">Logout</string>
+
+
+
+
+
+
+
+
+
 
 
 

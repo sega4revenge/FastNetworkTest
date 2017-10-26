@@ -174,7 +174,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
                 comments3.text = listcomment[listcomment.size-3].content
                 datecomment3.text = timeAgo(listcomment[listcomment.size-3].time!!)
                 comments_see_all.visibility = View.VISIBLE
-                comments_see_all.text = (listcomment.size - 3).toString() + " more comments..."
+                comments_see_all.text = (listcomment.size - 3).toString() + getString(R.string.more_comment)
             }        }
 
     override fun onMapReady(p0: GoogleMap?) {
@@ -605,7 +605,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
             comments3.text = product!!.comment!![2].content
             datecomment3.text = timeAgo(product!!.comment!![2].time!!)
             comments_see_all.visibility = View.VISIBLE
-            comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
+            comments_see_all.text = (product!!.comment!!.size - 3).toString() + getString(R.string.more_comment)
         }
         val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
         mapView_location.getMapAsync(this)

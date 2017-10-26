@@ -22,15 +22,15 @@ class CategoryAdapter// Constructor
 
     init {
 
-        categoryList.add(Category(0,"Xe cộ", context.resources.getDrawable(R.drawable.cate_vehicle), false))
-        categoryList.add(Category(1,"Đồ Điện tử", context.resources.getDrawable(R.drawable.cate_electronic), false))
-        categoryList.add(Category(2,"Thời trang,đồ dùng cá nhân", context.resources.getDrawable(R.drawable.cate_fashion), false))
-        categoryList.add(Category(3,"Nhà ở", context.resources.getDrawable(R.drawable.cate_home), false))
-        categoryList.add(Category(4,"Mẹ và bé", context.resources.getDrawable(R.drawable.mother), false))
-        categoryList.add(Category(5,"Đồ gia dụng,nội thất", context.resources.getDrawable(R.drawable.cate_furniture), false))
-        categoryList.add(Category(6,"Giải trí,thể thao,sở thích", context.resources.getDrawable(R.drawable.cup), false))
-        categoryList.add(Category(7,"Đồ văn phòng,nông nghiệp", context.resources.getDrawable(R.drawable.printer), false))
-        categoryList.add(Category(8,"Khác", context.resources.getDrawable(R.drawable.cate_more), false))
+        categoryList.add(Category(0,context.getString(R.string.cate_vehicle), context.resources.getDrawable(R.drawable.cate_vehicle), false))
+        categoryList.add(Category(1,context.getString(R.string.cate_electronic), context.resources.getDrawable(R.drawable.cate_electronic), false))
+        categoryList.add(Category(2,context.getString(R.string.cate_fashion), context.resources.getDrawable(R.drawable.cate_fashion), false))
+        categoryList.add(Category(3,context.getString(R.string.cate_house), context.resources.getDrawable(R.drawable.cate_home), false))
+        categoryList.add(Category(4,context.getString(R.string.cate_motherandbaby), context.resources.getDrawable(R.drawable.mother), false))
+        categoryList.add(Category(5,context.getString(R.string.cate_furniture), context.resources.getDrawable(R.drawable.cate_furniture), false))
+        categoryList.add(Category(6,context.getString(R.string.cate_entertaiment), context.resources.getDrawable(R.drawable.cup), false))
+        categoryList.add(Category(7,context.getString(R.string.cate_office), context.resources.getDrawable(R.drawable.printer), false))
+        categoryList.add(Category(8,context.getString(R.string.cate_other), context.resources.getDrawable(R.drawable.cate_more), false))
     }
 
     // RecyclerView methods

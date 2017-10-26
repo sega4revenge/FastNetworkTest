@@ -24,7 +24,7 @@
             android:layout_marginLeft="10dp"
             android:textSize="16sp"
             android:gravity="center_vertical"
-            android:hint="Tìm kiếm"
+            android:hint="@string/stt_search"
             android:paddingLeft="5dp"
             android:focusable="false"
             android:clickable="true"/>

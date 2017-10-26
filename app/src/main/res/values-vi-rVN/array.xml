@@ -2,23 +2,23 @@
 <resources>
 
     <string-array name="category">
-        <item>Vehicle</item>
-        <item>Electronic</item>
-        <item>Fashion and Personal belongings</item>
-        <item>House</item>
-        <item>Mother and baby</item>
-        <item>Furniture</item>
-        <item>Entertaiment and Sport</item>
-        <item>Office and agriculture</item>
-        <item>All</item>
+        <item>Xe cộ</item>
+        <item>Đồ điện tử</item>
+        <item>Thời trang,đồ dùng cá nhân</item>
+        <item>Nhà ở</item>
+        <item>Mẹ và bé</item>
+        <item>Đồ gia dụng,nội thất</item>
+        <item>Giải trí,thể thao</item>
+        <item>Đồ văn phòng,nông nghiệp</item>
+        <item>Tất cả</item>
 
     </string-array>
     <string-array name="timeid">
-        <item>1 hour</item>
-        <item>1 day</item>
-        <item>1 week</item>
-        <item>1 month</item>
-        <item>1 year</item>
+        <item>1 giờ</item>
+        <item>1 ngày</item>
+        <item>1 tuần</item>
+        <item>1 tháng</item>
+        <item>1 năm</item>
     </string-array>
 
     <string-array name="mLocation">

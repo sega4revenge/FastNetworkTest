@@ -347,7 +347,7 @@
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
                 android:minLines="2"
-                android:text="Lưu sản phẩm"
+                android:text="@string/save"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -374,7 +374,7 @@
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Chia sẻ"
+                android:text="@string/share"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -467,7 +467,7 @@
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Gọi điện"
+                android:text="@string/txt_call"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -493,7 +493,7 @@
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Nhắn tin"
+                android:text="@string/txt_sms"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -519,7 +519,7 @@
                 android:minLines="2"
                 android:layout_margin="5dp"
                 android:gravity="center_horizontal"
-                android:text="Chat trực tuyến"
+                android:text="@string/txt_chat"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>

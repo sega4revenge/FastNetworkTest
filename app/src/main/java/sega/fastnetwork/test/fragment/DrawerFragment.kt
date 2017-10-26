@@ -60,7 +60,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
     override fun isgetUserDetailSuccess(success: Boolean) {
 //        Toast.makeText(activity,"Success nà!",Toast.LENGTH_SHORT).show()
-        showSnackBarMessage("Change password success!")
+        showSnackBarMessage(getString(R.string.changepass_success))
 
 //        CircularAnim.show(btn_accept_changepass).go()
 
@@ -82,7 +82,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     }
 
     override fun getUserDetail(response: Response) {
-        showSnackBarMessage("Change info success!")
+        showSnackBarMessage(getString(R.string.changeinfo_success))
         AppManager.saveAccountUser(context,response.user!!,0)
 //        Log.e("getUserDetail",user.name + " " + user.email)
         navigation_view.getHeaderView(0).username_header.text = response.user!!.name
@@ -272,12 +272,12 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                 if (!validateFields(newname.text.toString())) {
 
                                     err++
-                                    newname.error = "Old password should not be empty !"
+                                    newname.error = getString(R.string.st_errpass)
                                 }
                                 if (!validateFields(newphone.text.toString())) {
 
                                     err++
-                                    newphone.error = "Old password should not be empty !"
+                                    newphone.error = getString(R.string.st_errpass)
                                 }
 
                                 if (err == 0) {
@@ -340,20 +340,20 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                     if (!validateFields(oldpass.text.toString())) {
 
                                         err++
-                                        oldpass.error = "Old password should not be empty !"
+                                        oldpass.error = getString(R.string.st_errpass)
                                     }
                                 }
 
                                 if (!validateFields(newpass.text.toString())) {
 
                                     err++
-                                    newpass.error = "New password should not be empty !"
+                                    newpass.error = getString(R.string.st_errpass)
                                 }
                                 if (newpass.text.toString() != renewpass.text.toString()||renewpass.text.toString()=="") {
 
                                     err++
 
-                                    renewpass.error = "Password do not match or empty!"
+                                    renewpass.error = getString(R.string.pass_notmatch)
 
                                 }
                                 if (err == 0) {
@@ -474,8 +474,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                             .setPeekHeight(1600)
                             .showTitle(false)
                             .setSelectMaxCount(1)
-                            .setCompleteButtonText("Done")
-                            .setEmptySelectionText("No Select")
+                            .setCompleteButtonText(R.string.done)
+                            .setEmptySelectionText(R.string.noselect)
                             .create()
 
                     bottomSheetDialogFragment.show(fragmentManager)
@@ -484,14 +484,14 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 }
 
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
-                        Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
             }
 
             TedPermission.with(activity)
                     .setPermissionListener(permissionlistener)
-                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                    .setDeniedMessage(getString(R.string.per_turnon))
                     .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .check()
             //
@@ -628,7 +628,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 //            }
             R.id.nav_chat -> {
                 mSelectedId = itemId
-                toolbar_title.setText("Tin nhắn")
+                toolbar_title.setText(R.string.txt_mess)
                 fragment = InboxFragment()
 
                 if(categorylist.visibility != View.GONE){
@@ -638,7 +638,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             }
             R.id.nav_3 -> {
                 mSelectedId = itemId
-                toolbar_title.setText("Tài khoản")
+                toolbar_title.setText(R.string.nav_Profile)
                 fragment = DetailProfileFragment()
 
                 hideMoreAction()

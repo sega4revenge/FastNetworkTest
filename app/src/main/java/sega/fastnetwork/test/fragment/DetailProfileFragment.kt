@@ -168,9 +168,9 @@ class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileV
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 909) {
             if (resultCode == 0) {
-                Snackbar.make(activity.findViewById(R.id.root_addproduct), "Delete Product successfully", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(activity.findViewById(R.id.root_addproduct), R.string.delete_success, Snackbar.LENGTH_SHORT).show()
             } else if (resultCode == 1) {
-                Snackbar.make(activity.findViewById(R.id.root_addproduct), "Edit Product successfully", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(activity.findViewById(R.id.root_addproduct), R.string.edit_success, Snackbar.LENGTH_SHORT).show()
             }
         }
 

@@ -84,7 +84,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
-        supportActionBar!!.title = "Edit product"
+        supportActionBar!!.title = getString(R.string.edit_product)
         editProduct = EditProductPresenter(this)
         addressEdit.setOnClickListener {
             locationPlacesIntent()
@@ -168,8 +168,8 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
                                 .setPeekHeight(1600)
                                 .showTitle(false)
                                 .setSelectMaxCount((4 - mCountImg))
-                                .setCompleteButtonText("Done")
-                                .setEmptySelectionText("No Select")
+                                .setCompleteButtonText(getString(R.string.done))
+                                .setEmptySelectionText(getString(R.string.noselect))
                                 .setSelectedUriList(add_picker_view!!.listUri)
                                 .create()
 
@@ -179,7 +179,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
                     }
 
                     override fun onPermissionDenied(deniedPermissions: ArrayList<String>) {
-                        Toast.makeText(this@EditProductActivity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@EditProductActivity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
                     }
 
 
@@ -187,7 +187,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
 
                 TedPermission.with(this@EditProductActivity)
                         .setPermissionListener(permissionlistener)
-                        .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                        .setDeniedMessage(getString(R.string.per_turnon))
                         .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         .check()
                 //
@@ -391,7 +391,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
                             uploadImage(File(getRealFilePath(this@EditProductActivity, uriList?.get(temp))), productid)
                         } else {
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
-                            mRemoteView!!.setTextViewText(R.id.title, "Uploaded successfully")
+                            mRemoteView!!.setTextViewText(R.id.title, getString(R.string.up_success))
                             mRemoteView!!.setTextViewText(R.id.timeremain, getString(R.string.uploaded_title, temp, uriList!!.size))
                        //     Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded successfully", Snackbar.LENGTH_SHORT).show()
                             FirebaseMessaging.getInstance().subscribeToTopic(productid)
@@ -417,7 +417,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
         if (ids == R.id.menu_editproduct) {
             if(productname.text.equals("") || price.text.equals("") || number.text.equals("") || addressText.text.equals(""))
             {
-                Snackbar.make(findViewById(R.id.root_addproduct), "Uploaded Faile!! Nhap du thong tin", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(findViewById(R.id.root_addproduct), getString(R.string.up_fail), Snackbar.LENGTH_SHORT).show()
             }else{
            //     Log.d("AAAAAAAAA",productname.text.toString() + price.text.toString() + time.selectedItem.toString()+ number.text.toString() + category.selectedItem.toString()+ addressEdit.text.toString()+ description.text.toString()+ mProduct?._id.toString()+imglistDel )
                 if(imglistDel.equals(""))
@@ -429,7 +429,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
                     statusproduct = "1"
                 }
                 Log.e("statusproduct","statusproduct: "+ statusproduct)
-                progress  =  ProgressDialog.show(this, "", "Loading...", true)
+                progress  =  ProgressDialog.show(this, "", getString(R.string.loading), true)
                 progress?.show()
                 editProduct!!.ConnectHttp("", productname.text.toString() , price.text.toString() , time.selectedIndex.toString(), number.text.toString() , category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), statusproduct.toString(), mProduct?._id.toString(),imglistDel)
             }
@@ -452,7 +452,7 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
             }
             if(imglistDel.equals(""))
             {imglistDel="0"}
-            progress  =  ProgressDialog.show(this, "", "Loading...", true)
+            progress  =  ProgressDialog.show(this, "", getString(R.string.loading), true)
             progress?.show()
             editProduct!!.ConnectHttpDeleteProduct(mProduct?._id.toString(),imglistDel)
         }

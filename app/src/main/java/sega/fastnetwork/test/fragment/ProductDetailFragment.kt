@@ -2,6 +2,7 @@ package sega.fastnetwork.test.fragment
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
@@ -269,19 +270,19 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     try {
                         startActivity(callIntent)
                     } catch (ex: android.content.ActivityNotFoundException) {
-                        Toast.makeText(activity, "Error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, R.string.err, Toast.LENGTH_SHORT).show()
                     }
 
                 }
 
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
-                        Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
             }
             TedPermission.with(activity)
                     .setPermissionListener(permissionlistener)
-                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                    .setDeniedMessage(R.string.per_turnon)
                     .setPermissions(Manifest.permission.CALL_PHONE)
                     .check()
         }
@@ -298,19 +299,19 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         Log.i("Finished sending SMS...", "")
                     } catch (ex: android.content.ActivityNotFoundException) {
                         Toast.makeText(activity,
-                                "SMS failed, please try again later.", Toast.LENGTH_SHORT).show()
+                                R.string.sms_fail, Toast.LENGTH_SHORT).show()
                     }
 
                 }
 
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
-                        Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
             }
             TedPermission.with(activity)
                     .setPermissionListener(permissionlistener)
-                    .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                    .setDeniedMessage(getString(R.string.per_turnon))
                     .setPermissions(Manifest.permission.SEND_SMS)
                     .check()
         }
@@ -390,11 +391,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         if (statussave) {
             btn_save.setImageResource(R.drawable.favorite_checked)
             img_save.setImageResource(R.drawable.favorite_checked)
-            txt_save.text = "Đã lưu sản phẩm"
+            txt_save.text = getString(R.string.saved)
         } else {
             btn_save.setImageResource(R.drawable.favorite_unchecked)
             img_save.setImageResource(R.drawable.favorite_unchecked)
-            txt_save.text = "Lưu sản phẩm"
+            txt_save.text = getString(R.string.save)
         }
 
     }
@@ -513,7 +514,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
         }
         if (product!!.type == "1") {
-            product_status.text = "Cho thuê"
+            product_status.text = getString(R.string.rent)
             product_status.setTextColor(Color.WHITE)
             product_status.background = resources.getDrawable(R.drawable.roundtextview)
             val temp = formatprice?.format(product!!.price?.toDouble()) + format
@@ -521,46 +522,46 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             when (product!!.category) {
                 "0" -> {
                     icon_category.setImageResource(R.drawable.cate_vehicle_round)
-                    txt_category.text = "Xe cộ"
+                    txt_category.text = getString(R.string.cate_vehicle)
                 }
 
                 "1" -> {
                     icon_category.setImageResource(R.drawable.cate_electronic_round)
-                    txt_category.text = "Đồ điện tử"
+                    txt_category.text = getString(R.string.cate_electronic)
                 }
                 "2" -> {
                     icon_category.setImageResource(R.drawable.cate_fashion_round)
-                    txt_category.text = "Thời trang,đồ dùng cá nhân"
+                    txt_category.text = getString(R.string.cate_fashion)
                 }
                 "3" -> {
                     icon_category.setImageResource(R.drawable.cate_home_round)
-                    txt_category.text = "Nhà"
+                    txt_category.text = getString(R.string.cate_house)
                 }
                 "4" -> {
                     icon_category.setImageResource(R.drawable.cate_mother_round)
-                    txt_category.text = "Mẹ và bé"
+                    txt_category.text = getString(R.string.cate_motherandbaby)
                 }
                 "5" -> {
                     icon_category.setImageResource(R.drawable.cate_furniture_round)
-                    txt_category.text = "Gia dụng,nội thất"
+                    txt_category.text = getString(R.string.cate_furniture)
                 }
                 "6" -> {
                     icon_category.setImageResource(R.drawable.cate_cup_round)
-                    txt_category.text = "Giải trí,thể thao,sở thích"
+                    txt_category.text = getString(R.string.cate_entertaiment)
                 }
                 "7" -> {
                     icon_category.setImageResource(R.drawable.cate_printer_round)
-                    txt_category.text = "Văn phòng,nông nghiệp"
+                    txt_category.text = getString(R.string.cate_office)
                 }
                 else -> { // Note the block
                     icon_category.setImageResource(R.drawable.cate_more_round)
-                    txt_category.text = "Khác"
+                    txt_category.text = getString(R.string.cate_other)
                 }
             }
 
         } else {
 
-            product_status.text = "Cần thuê"
+            product_status.text = getString(R.string.need_rent)
             product_status.setTextColor(Color.WHITE)
             product_status.background = resources.getDrawable(R.drawable.roundtextview2)
             price_and_bagde.visibility = View.GONE
@@ -569,40 +570,40 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             when (product!!.category) {
                 "0" -> {
                     icon_category.setImageResource(R.drawable.cate_vehicle_round1)
-                    txt_category.text = "Xe cộ"
+                    txt_category.text = getString(R.string.cate_vehicle)
                 }
 
                 "1" -> {
                     icon_category.setImageResource(R.drawable.cate_electronic_round1)
-                    txt_category.text = "Đồ điện tử"
+                    txt_category.text = getString(R.string.cate_electronic)
                 }
                 "2" -> {
                     icon_category.setImageResource(R.drawable.cate_fashion_round1)
-                    txt_category.text = "Thời trang,đồ dùng cá nhân"
+                    txt_category.text = getString(R.string.cate_fashion)
                 }
                 "3" -> {
                     icon_category.setImageResource(R.drawable.cate_home_round1)
-                    txt_category.text = "Nhà"
+                    txt_category.text = getString(R.string.cate_house)
                 }
                 "4" -> {
                     icon_category.setImageResource(R.drawable.cate_mother_round1)
-                    txt_category.text = "Mẹ và bé"
+                    txt_category.text = getString(R.string.cate_motherandbaby)
                 }
                 "5" -> {
                     icon_category.setImageResource(R.drawable.cate_furniture_round1)
-                    txt_category.text = "Gia dụng,nội thất"
+                    txt_category.text = getString(R.string.cate_furniture)
                 }
                 "6" -> {
                     icon_category.setImageResource(R.drawable.cate_cup_round1)
-                    txt_category.text = "Giải trí,thể thao,sở thích"
+                    txt_category.text = getString(R.string.cate_entertaiment)
                 }
                 "7" -> {
                     icon_category.setImageResource(R.drawable.cate_printer_round)
-                    txt_category.text = "Văn phòng,nông nghiệp"
+                    txt_category.text = getString(R.string.cate_office)
                 }
                 else -> { // Note the block
                     icon_category.setImageResource(R.drawable.cate_more_round1)
-                    txt_category.text = "Khác"
+                    txt_category.text = getString(R.string.cate_other)
                 }
             }
         }
@@ -718,7 +719,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments3.text = product!!.comment!![2].content
             datecomment3.text = timeAgo(product!!.comment!![2].time!!)
             comments_see_all.visibility = View.VISIBLE
-            comments_see_all.text = (product!!.comment!!.size - 3).toString() + " more comments..."
+            comments_see_all.text = (product!!.comment!!.size - 3).toString() + getString(R.string.more_comment)
         }
         val listUserComments = ArrayList<String>()
         product!!.comment!!
@@ -883,6 +884,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     // FAB related functions
     fun map() {
         val permissionlistener = object : PermissionListener, OnMapReadyCallback {
+            @SuppressLint("MissingPermission")
             override fun onMapReady(map: GoogleMap?) {
 
                 change_map.background = resources.getDrawable(R.drawable.ic_map)
@@ -909,13 +911,13 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 
             override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
-                    Toast.makeText(activity, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
         }
         TedPermission.with(activity)
                 .setPermissionListener(permissionlistener)
-                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setDeniedMessage(getString(R.string.per_turnon))
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .check()
     }
@@ -1101,7 +1103,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments3.text = listcomment[listcomment.size - 3].content
             datecomment3.text = timeAgo(listcomment[listcomment.size - 3].time!!)
             comments_see_all.visibility = View.VISIBLE
-            comments_see_all.text = (listcomment.size - 3).toString() + " more comments..."
+            comments_see_all.text = (listcomment.size - 3).toString() + getString(R.string.more_comment)
         }
     }
 }

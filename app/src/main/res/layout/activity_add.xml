@@ -74,7 +74,7 @@
                     android:background="@drawable/toggle_widget_background_left"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="Cho thuê"
+                    android:text="@string/rent"
                     android:textColor="@color/white" />
 
                 <RadioButton
@@ -87,7 +87,7 @@
                     android:background="@drawable/toggle_widget_background_right"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="Cần thuê"
+                    android:text="@string/need_rent"
                     android:textColor="@color/white" />
             </RadioGroup>
             <!--<com.nightonke.jellytogglebutton.JellyToggleButton-->
@@ -160,7 +160,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="5dp"
                                 android:layout_marginLeft="20dp"
-                                android:text="Title" />
+                                android:text="@string/title" />
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/productname"
@@ -199,7 +199,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginLeft="20dp"
-                                    android:text="Price" />
+                                    android:text="@string/txt_price" />
 
                                 <android.support.design.widget.TextInputEditText
                                     android:id="@+id/price"
@@ -229,7 +229,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginLeft="20dp"
-                                    android:text="Time" />
+                                    android:text="@string/txt_time" />
 
                                 <sega.fastnetwork.test.lib.MaterialSpinner.MaterialSpinner
                                     android:id="@+id/time"
@@ -265,7 +265,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginLeft="20dp"
-                                    android:text="Number" />
+                                    android:text="@string/txt_number" />
 
                                 <android.support.design.widget.TextInputEditText
                                     android:id="@+id/number"
@@ -295,7 +295,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginLeft="20dp"
-                                    android:text="Category" />
+                                    android:text="@string/txt_cate" />
 
                                 <sega.fastnetwork.test.lib.MaterialSpinner.MaterialSpinner
                                     android:id="@+id/category"
@@ -371,7 +371,7 @@
                                     android:layout_height="match_parent"
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginLeft="20dp"
-                                    android:text="Address" />
+                                    android:text="@string/txt_address" />
 
                                 <android.support.design.widget.TextInputEditText
                                     android:id="@+id/addressText"
@@ -432,7 +432,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text="Description"
+                                android:text="@string/txt_des"
                                 android:layout_marginBottom="5dp"
                                 android:layout_marginLeft="20dp"/>
 

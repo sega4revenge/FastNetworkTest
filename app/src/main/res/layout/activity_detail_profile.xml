@@ -66,7 +66,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Cho thuê"
+                                android:text="@string/rent"
                                 android:textColor="@color/text_light"
                                 android:textSize="13sp"
                                 android:id="@+id/tv_give"/>
@@ -102,7 +102,7 @@
                                 android:layout_width="wrap_content"
 
                                 android:layout_height="wrap_content"
-                                android:text="Cần thuê"
+                                android:text="@string/need_rent"
                                 android:textColor="@color/text_light"
                                 android:textSize="13sp" />
 
@@ -135,7 +135,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                android:text="Đã thuê"
+                                android:text="@string/rented"
                                 android:textColor="@color/text_light"
                                 android:textSize="13sp"
                                 android:id="@+id/tv_gived"/>
@@ -169,7 +169,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
 
-                                android:text="Đang thuê"
+                                android:text="@string/renting"
                                 android:textColor="@color/text_light"
                                 android:textSize="13sp"
                                 android:id="@+id/tv_needed"/>

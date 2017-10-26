@@ -1,5 +1,6 @@
 package sega.fastnetwork.test.fragment
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -106,6 +107,7 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
     }
 
 
+    @SuppressLint("RestrictedApi")
     override fun setupDialog(dialog: Dialog, style: Int) {
         super.setupDialog(dialog, style)
         contentView = View.inflate(context, R.layout.profile_seller_layout, null)

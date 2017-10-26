@@ -412,7 +412,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                 if (uriList!!.size == 0) {
                     Toast.makeText(this, getString(R.string.choose_image), Toast.LENGTH_LONG).show()
                 } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
-                    Toast.makeText(this, getString(R.string.up_success), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.st_errpass), Toast.LENGTH_LONG).show()
                 } else {
                     if(!mDoubleCreate) {
                         temp = 0

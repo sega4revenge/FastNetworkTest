@@ -4,12 +4,12 @@
         <item
             android:id="@+id/nav_1"
             android:icon="@mipmap/ic_home"
-            android:title="Trang chủ" />
+            android:title="@string/nav_home" />
         <item
             android:id="@+id/nav_search"
             android:checkable="true"
             android:icon="@mipmap/ic_information"
-            android:title="Tìm Kiếm" />
+            android:title="@string/stt_search" />
         <!--<item-->
             <!--android:id="@+id/nav_2"-->
             <!--android:icon="@mipmap/ic_category"-->
@@ -18,22 +18,22 @@
             android:id="@+id/nav_chat"
             android:checkable="true"
             android:icon="@mipmap/ic_communication"
-            android:title="Tin nhắn" />
+            android:title="@string/txt_mess" />
         <item
             android:id="@+id/nav_3"
             android:checkable="true"
             android:icon="@drawable/ic_person_white_24dp"
-            android:title="Tài khoản" />
+            android:title="@string/nav_Profile" />
         <item
             android:id="@+id/nav_4"
             android:checkable="true"
             android:icon="@mipmap/ic_information"
-            android:title="About Us" />
+            android:title="@string/nav_about" />
         <item
             android:id="@+id/nav_5"
             android:checkable="true"
             android:icon="@mipmap/ic_logout"
-            android:title="Logout" />
+            android:title="@string/nav_logout" />
 
 
     </group>

@@ -62,7 +62,7 @@
                 android:layout_marginBottom="3dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                android:text="Lọc theo thành phố"
+                android:text="@string/txt_filtercity"
                 android:textColor="@color/actionBarColor"
                 android:textSize="15sp" />
 
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"
                 android:layout_marginLeft="15dp"
-                android:text="Lọc theo danh mục"
+                android:text="@string/txt_filtercate"
                 android:textColor="@color/actionBarColor"
                 android:textSize="15sp" />
 

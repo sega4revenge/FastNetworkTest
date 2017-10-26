@@ -21,10 +21,10 @@ class FilterAdapter(val context: Context) : RecyclerView.Adapter<FilterAdapter.F
 
 
     init {
-        filters.add(Filter("Mới nhất","Sắp xếp sản phẩm theo ngày đăng gần nhất",R.drawable.price_icon))
-        filters.add(Filter("Phổ biến nhất","Sắp xếp sản phẩm theo lượt xem nhiều nhất",R.drawable.price_icon))
-        filters.add(Filter("Giá thấp nhất","Sắp xếp sản phẩm theo giá thuê đồ thấp nhất",R.drawable.price_icon))
-        filters.add(Filter("Giá cao nhất","Sắp xếp sản phẩm theo giá thuê đồ caonhất",R.drawable.price_icon))
+        filters.add(Filter(context.getString(R.string.latest),context.getString(R.string.latest_des),R.drawable.price_icon))
+        filters.add(Filter(context.getString(R.string.popular),context.getString(R.string.popular_des),R.drawable.price_icon))
+        filters.add(Filter(context.getString(R.string.price_low),context.getString(R.string.price_low_des),R.drawable.price_icon))
+        filters.add(Filter(context.getString(R.string.price_high),context.getString(R.string.price_high_des),R.drawable.price_icon))
 
     }
 

@@ -10,7 +10,7 @@
         tools:ignore="AlwaysShowAction" />
 
     <item android:id="@+id/menu_editproduct"
-        android:title="Edit Product"
+        android:title="@string/edit_product"
         android:icon="@mipmap/ic_check_white"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />

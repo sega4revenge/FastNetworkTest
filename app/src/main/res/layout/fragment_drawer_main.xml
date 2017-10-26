@@ -107,13 +107,14 @@
                                     android:id="@+id/txtname"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:maxLines="2"
+
                                     android:text="Nguyen Vuong Vinh"
                                     android:textColor="@color/black"
                                     android:textSize="15sp"
-                                    android:textStyle="bold" />
-
+                                    android:textStyle="bold"
+                                    android:maxLines="2"
+                                    android:ellipsize="end"
+                                    />
                                 <TextView
                                     android:id="@+id/txtemail"
                                     android:layout_width="match_parent"
@@ -156,7 +157,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:gravity="center"
-                                    android:text="Xe Cộ"
+                                    android:text="@string/cate_vehicle"
                                     android:textColor="@color/black"
                                     android:textSize="13dp" />
                             </LinearLayout>
@@ -185,7 +186,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:gravity="center"
-                                    android:text="Đồ điện tử"
+                                    android:text="@string/cate_electronic"
                                     android:textColor="@color/black"
                                     android:textSize="13dp" />
                             </LinearLayout>
@@ -214,7 +215,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
                                     android:gravity="center"
-                                    android:text="Thời trang,đồ dùng cá nhân"
+                                    android:text="@string/cate_fashion"
                                     android:textColor="@color/black"
                                     android:textSize="13dp" />
                             </LinearLayout>
@@ -257,8 +258,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
-                                    android:gravity="center_horizontal"
-                                    android:text="Danh sách sản phẩm"
+                                    android:gravity="center"
+                                    android:text="@string/txt_productlist"
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -287,8 +288,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
-                                    android:gravity="center_horizontal"
-                                    android:text="Đổi mật khẩu"
+                                    android:gravity="center"
+                                    android:text="@string/change_pass"
+
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -317,8 +319,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
-                                    android:gravity="center_horizontal"
-                                    android:text="Sản phẩm đã lưu"
+                                    android:gravity="center"
+                                    android:text="@string/txt_productsave"
+
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
                             </LinearLayout>

@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:text="Xe Cộ"
+                android:text="@string/cate_vehicle"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
         </LinearLayout>
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:text="Đồ điện tử"
+                android:text="@string/cate_electronic"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
         </LinearLayout>
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:text="Thời trang,đồ dùng cá nhân"
+                android:text="@string/cate_fashion"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
         </LinearLayout>
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:text="Nhà"
+                android:text="@string/cate_house"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
         </LinearLayout>
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:text="Mẹ và bé"
+                android:text="@string/cate_motherandbaby"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
         </LinearLayout>
@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:gravity="center"
-                android:text="Đồ gia dụng, nội thất"
+                android:text="@string/cate_furniture"
                 android:textColor="@color/black"
                 android:textSize="13dp" />
         </LinearLayout>
@@ -191,7 +191,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giải trí, thể thao,sở thích"
+                android:text="@string/cate_entertaiment"
                 android:textSize="13dp"
                 android:textColor="@color/black"
                 android:gravity="center"
@@ -215,7 +215,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Đồ văn phòng, nông nghiệp"
+                android:text="@string/cate_office"
                 android:textSize="13dp"
                 android:textColor="@color/black"
                 android:gravity="center"
@@ -227,8 +227,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="33.33"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
             android:paddingTop="10dp">
             <!--<ImageView-->
             <!--android:layout_width="30dp"-->
@@ -237,11 +237,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tất cả"
-                android:textSize="13dp"
-                android:textColor="@color/black"
+                android:layout_margin="5dp"
                 android:gravity="center"
-                android:layout_margin="5dp"/>
+                android:text="@string/cate_other"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

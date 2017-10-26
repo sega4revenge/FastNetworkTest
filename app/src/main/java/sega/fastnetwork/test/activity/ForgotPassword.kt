@@ -102,15 +102,15 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
         var code = forgot_code.text.toString()
         if (!Validation.validateFields(forgot_newpw!!.text.toString())) {
             err++
-            forgot_newpw!!.error = "New password should not be empty !"
+            forgot_newpw!!.error = getString(R.string.st_errpass)
         }
         if (!Validation.validateFields(forgot_code!!.text.toString())) {
             err++
-            forgot_code!!.error = "Code should not be empty !"
+            forgot_code!!.error = getString(R.string.st_errpass)
         }
         if (forgot_repassword!!.text.toString() != forgot_newpw!!.text.toString()||forgot_repassword!!.text.toString()=="") {
             err++
-            forgot_repassword!!.error = "Repassword do not match or empty!"
+            forgot_repassword!!.error = getString(R.string.st_errpass)
 
         }
         if(err==0){
@@ -129,11 +129,11 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
         email = forgot_email.text.toString()
         if (!Validation.validateFields(forgot_email!!.text.toString())) {
             err++
-            forgot_email!!.error = "Email should not be empty !"
+            forgot_email!!.error = getString(R.string.st_errpass)
         }
         if (!Validation.validateEmail(forgot_email!!.text.toString())) {
             err++
-            forgot_email!!.error = "Invalid email address !"
+            forgot_email!!.error = getString(R.string.invalid_email)
         }
         if(err==0){
             mForgotPwPresenter!!.forgot(email!!)

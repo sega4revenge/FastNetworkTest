@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Change password"
+        android:text="@string/change_pass"
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_gravity="center_horizontal"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Old password"
+        android:text="@string/txt_oldpass"
         android:layout_gravity="center_horizontal"
         />
     <EditText
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="New password"
+        android:text="@string/txt_newpass"
         android:layout_gravity="center_horizontal"
         />
 
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Confirm new password"
+        android:text="@string/txt_confirm_newpass"
         android:layout_gravity="center_horizontal"
         />
     <EditText
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/roundbutton"
-            android:text="Accept"
+            android:text="@string/btn_accept"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:layout_alignParentTop="true"
@@ -135,7 +135,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="10sp"
-        android:text="OR"
+        android:text="@string/txt_or"
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"/>
     <Button
@@ -147,7 +147,7 @@
         android:layout_marginBottom="20dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/roundbutton_cancel"
-        android:text="Cancel"
+        android:text="@string/btn_cancel"
         android:textColor="@color/white"/>
 
 </LinearLayout>

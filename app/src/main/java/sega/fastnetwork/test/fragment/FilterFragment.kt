@@ -1,6 +1,7 @@
 package sega.fastnetwork.test.fragment
 
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
@@ -112,7 +113,7 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
             override fun onChipAdded(chip: ChipInterface, newSize: Int) {
                 addToSelectedMap("location", chip.label)
                 if (applied_filters?.get("location")?.size == 5) {
-                    Toast.makeText(activity, "Đã tối đa 5 thành phố", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, R.string.max_city, Toast.LENGTH_LONG).show()
                     contentView!!.chips_input.setEdittextEnable(false)
                 } else
                     contentView!!.chips_input.setEdittextEnable(true)
@@ -194,7 +195,7 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
 
         if (!category_adapter!!.categoryList[position].selected) {
             if (applied_filters?.get("category")?.size == 5)
-                Toast.makeText(activity, "Đã tối đa 5 danh mục", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, R.string.max_cate, Toast.LENGTH_LONG).show()
             else {
                 category_adapter!!.categoryList[position].selected = true
                 contentView!!.chips_input_category.addChip(Category(position,category_adapter!!.categoryList[position].name, category_adapter!!.categoryList[position].avatar, true))
@@ -216,6 +217,7 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
     }
 
 
+    @SuppressLint("RestrictedApi")
     override fun setupDialog(dialog: Dialog, style: Int) {
         super.setupDialog(dialog, style)
         contentView = View.inflate(context, R.layout.filter_layout, null)

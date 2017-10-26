@@ -37,7 +37,7 @@
             android:layout_toRightOf="@+id/upimage"
             android:layout_toEndOf="@+id/upimage"
             android:layout_margin="5dp"
-            android:hint="Nhập tin nhắn"
+            android:hint="@string/txt_inputmess"
             />
         <ImageView
             android:id="@+id/buttonMessage"

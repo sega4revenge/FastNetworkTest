@@ -79,9 +79,9 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
             }else{
                 if(mess?.email.equals(user.email))
                 {
-                    holder.txtmessFrom.text = "bạn đã gửi 1 tin nhắn ảnh"
+                    holder.txtmessFrom.text = mContext?.resources?.getString(R.string.inbox_send)
                 }else{
-                    holder.txtmessFrom.text = mess?.name+" đã gửi 1 tin nhắn ảnh"
+                    holder.txtmessFrom.text = mess?.name+mContext?.resources?.getString(R.string.inbox_send)
                 }
 
             }
