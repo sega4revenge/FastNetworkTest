@@ -5,18 +5,16 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
+    android:background="#eeeeee"
 
     android:fitsSystemWindows="true"
-    android:background="#eeeeee">
+    tools:context=".activity.MainActivity">
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/overview_coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        >
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -24,33 +22,32 @@
             android:layout_height="wrap_content"
             android:background="#eeeeee"
             android:fitsSystemWindows="true"
-            app:elevation="0dp"
-            >
+            app:elevation="0dp">
+
             <android.support.design.widget.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                >
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
                 <RelativeLayout
+                    android:id="@+id/categorylist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax"
-                    android:id="@+id/categorylist"
-                    >
+                    app:layout_collapseMode="parallax">
 
                     <LinearLayout
+                        android:id="@+id/linearLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:background="@drawable/radiusbottomview"
-                        android:id="@+id/linearLayout2"
                         android:orientation="vertical" />
 
                     <LinearLayout
+                        android:id="@+id/pintop"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:id="@+id/pintop"
                         android:orientation="horizontal" />
 
                     <LinearLayout
@@ -58,84 +55,86 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
+                        android:layout_below="@id/pintop"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:paddingBottom="20dp"
+                        android:animateLayoutChanges="true"
                         android:background="@drawable/radius_all_view"
                         android:orientation="vertical"
-                        android:layout_below="@id/pintop"
-                        android:animateLayoutChanges="true"
-                        >
+                        android:paddingBottom="20dp">
+
                         <LinearLayout
                             android:id="@+id/linInfor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:layout_margin="5dp"
-                            android:visibility="visible"
-                            >
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
                             <RelativeLayout
                                 android:layout_width="80dp"
                                 android:layout_height="80dp">
+
                                 <sega.fastnetwork.test.customview.CircleImageView
                                     android:id="@+id/imgAvatar"
                                     android:layout_width="80dp"
                                     android:layout_height="80dp"
-                                    android:layout_margin="5dp"
                                     android:layout_gravity="center_vertical"
+                                    android:layout_margin="5dp"
                                     android:alpha="0.5"
-                                    android:background="@drawable/img_error"/>
+                                    android:background="@drawable/img_error" />
+
                                 <ImageButton
                                     android:id="@+id/edit_avatar"
                                     android:layout_width="25dp"
                                     android:layout_height="25dp"
-                                    android:background="@drawable/ic_photo_camera_black_24dp"
-                                    android:layout_centerVertical="true"
                                     android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:background="@drawable/ic_photo_camera_black_24dp"
 
-                                   />
+                                    />
                             </RelativeLayout>
 
                             <LinearLayout
                                 android:id="@+id/changeInfor"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_margin="5dp"
                                 android:gravity="center"
-                                android:orientation="vertical"
-                                android:layout_margin="5dp">
+                                android:orientation="vertical">
+
                                 <TextView
                                     android:id="@+id/txtname"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:maxLines="2"
                                     android:text="Nguyen Vuong Vinh"
                                     android:textColor="@color/black"
                                     android:textSize="15sp"
-                                    android:textStyle="bold"
-                                    android:maxLines="2"
-                                    android:ellipsize="end"
-                                    />
+                                    android:textStyle="bold" />
+
                                 <TextView
                                     android:id="@+id/txtemail"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="vuongvinh1993@gmail.com"
-                                    android:textSize="14sp"
+                                    android:ellipsize="end"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:ellipsize="end"
-                                    />
+                                    android:text="vuongvinh1993@gmail.com"
+                                    android:textSize="14sp" />
                             </LinearLayout>
 
                         </LinearLayout>
+
                         <LinearLayout
                             android:id="@+id/linCate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:orientation="horizontal"
-                            android:weightSum="100"
                             android:gravity="center"
-                            >
+                            android:orientation="horizontal"
+                            android:weightSum="100">
 
                             <LinearLayout
                                 android:id="@+id/linMotobike"
@@ -223,43 +222,45 @@
 
                         <View
                             android:id="@+id/divide"
-                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="0.2dp"
-                            android:background="@color/colorDivide"></View>
+                            android:background="@color/colorDivide"
+                            android:visibility="gone"></View>
+
                         <LinearLayout
                             android:id="@+id/linmoreInfor"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
-                            android:orientation="horizontal"
-                            android:weightSum="100"
                             android:gravity="center"
+                            android:orientation="horizontal"
                             android:visibility="visible"
-                            >
+                            android:weightSum="100">
 
                             <LinearLayout
                                 android:id="@+id/listproduct"
                                 android:layout_width="0dp"
                                 android:layout_height="100dp"
-                                android:weightSum="10"
                                 android:layout_weight="33"
-                                android:gravity="center"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
 
-                                android:orientation="vertical">
+                                android:weightSum="10">
+
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/back_arrow"/>
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@drawable/list_own" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
-                                    android:gravity="center"
+                                    android:gravity="center_horizontal"
                                     android:text="Danh sách sản phẩm"
                                     android:textColor="@color/black"
-                                    android:textSize="13dp" />
+                                    android:textSize="12sp" />
                             </LinearLayout>
 
                             <View
@@ -272,21 +273,24 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
-                                android:gravity="center"
+
+                                android:gravity="center_horizontal"
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/back_arrow"/>
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@drawable/change_password" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
-                                    android:gravity="center"
-                                    android:text="Thay đổi mật khẩu"
+                                    android:gravity="center_horizontal"
+                                    android:text="Đổi mật khẩu"
                                     android:textColor="@color/black"
-                                    android:textSize="13dp" />
+                                    android:textSize="12sp" />
                             </LinearLayout>
 
                             <View
@@ -299,203 +303,222 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
-                                android:gravity="center"
+                                android:gravity="center_horizontal"
                                 android:orientation="vertical"
-                                android:paddingTop="10dp">
+                               >
+
                                 <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/back_arrow"/>
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@drawable/list_favorite" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
-                                    android:gravity="center"
+                                    android:gravity="center_horizontal"
                                     android:text="Sản phẩm đã lưu"
                                     android:textColor="@color/black"
-                                    android:textSize="13dp" />
+                                    android:textSize="12sp" />
                             </LinearLayout>
                         </LinearLayout>
-                            android:background="@color/colorDivide" />
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:orientation="vertical"
-                           android:id="@+id/linmore"
-                           android:visibility="gone">
+                        android:background="@color/colorDivide" />
+
                         <LinearLayout
+                            android:id="@+id/linmore"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:orientation="horizontal"
-                            android:layout_margin="5dp"
-                            android:gravity="center">
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <LinearLayout
-                                android:id="@+id/linhome"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="33"
-                                android:orientation="vertical"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:background="@drawable/cate_home"
-                                    android:layout_marginBottom="5dp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Nhà"
-                                    android:textSize="13dp"
-                                    android:textColor="@color/black"
-                                    android:gravity="center"
-                                    android:layout_margin="5dp"/>
-                            </LinearLayout>
-                            <View
-                                android:layout_width="0.2dp"
-                                android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
-                            <LinearLayout
-                                android:id="@+id/linmombaby"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="33"
-                                android:orientation="vertical"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:id="@+id/imageView5"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:background="@drawable/mother" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Mẹ và bé"
-                                    android:textSize="13dp"
-                                    android:textColor="@color/black"
-                                    android:gravity="center"
-                                    android:layout_margin="5dp"/>
-                            </LinearLayout>
-                            <View
-                                android:layout_width="0.2dp"
-                                android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
-                            <LinearLayout
-                                android:id="@+id/lingdnt"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="33"
-                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
+                                android:layout_margin="5dp"
                                 android:gravity="center"
-                                android:paddingTop="10dp">
-                                <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:background="@drawable/cate_furniture"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Đồ gia dụng, nội thất"
-                                    android:textSize="13dp"
-                                    android:textColor="@color/black"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/linhome"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="33"
                                     android:gravity="center"
-                                    android:layout_margin="5dp"/>
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@drawable/cate_home" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:gravity="center"
+                                        android:text="Nhà"
+                                        android:textColor="@color/black"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="0.2dp"
+                                    android:layout_height="60dp"
+                                    android:background="@color/colorDivide"></View>
+
+                                <LinearLayout
+                                    android:id="@+id/linmombaby"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="33"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/imageView5"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@drawable/mother" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:gravity="center"
+                                        android:text="Mẹ và bé"
+                                        android:textColor="@color/black"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="0.2dp"
+                                    android:layout_height="60dp"
+                                    android:background="@color/colorDivide"></View>
+
+                                <LinearLayout
+                                    android:id="@+id/lingdnt"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="33"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:paddingTop="10dp">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:background="@drawable/cate_furniture" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:gravity="center"
+                                        android:text="Đồ gia dụng, nội thất"
+                                        android:textColor="@color/black"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
+
                             </LinearLayout>
 
-                        </LinearLayout>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.2dp"
-                            android:background="@color/colorDivide"
-                            ></View>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="100dp"
-                            android:orientation="horizontal"
-                            android:gravity="center">
-
-                            <LinearLayout
-                                android:id="@+id/linshort"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="33"
-                                android:orientation="vertical"
-                                android:gravity="center">
-
-                                <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:background="@drawable/cup"
-                                    android:layout_marginBottom="5dp"/>
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Giải trí, thể thao,sở thích"
-                                    android:textSize="13dp"
-                                    android:textColor="@color/black"
-                                    android:gravity="center"
-                                    android:layout_margin="5dp"/>
-                            </LinearLayout>
                             <View
-                                android:layout_width="0.2dp"
-                                android:layout_height="60dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="0.2dp"
                                 android:background="@color/colorDivide"></View>
-                            <LinearLayout
-                                android:id="@+id/linvpnn"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="33"
-                                android:orientation="vertical"
-                                android:gravity="center">
 
-                                <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:background="@drawable/printer" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Đồ văn phòng, nông nghiệp"
-                                    android:textSize="13dp"
-                                    android:textColor="@color/black"
-                                    android:gravity="center"
-                                    android:layout_margin="5dp"/>
-                            </LinearLayout>
-                            <View
-                                android:layout_width="0.2dp"
-                                android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
                             <LinearLayout
-                                android:id="@+id/lindeff"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="33"
-                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="100dp"
                                 android:gravity="center"
-                                android:paddingTop="10dp">
-                                <!--<ImageView-->
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/linshort"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="33"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@drawable/cup" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:gravity="center"
+                                        android:text="Giải trí, thể thao,sở thích"
+                                        android:textColor="@color/black"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="0.2dp"
+                                    android:layout_height="60dp"
+                                    android:background="@color/colorDivide"></View>
+
+                                <LinearLayout
+                                    android:id="@+id/linvpnn"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="33"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:layout_marginBottom="5dp"
+                                        android:background="@drawable/printer" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:gravity="center"
+                                        android:text="Đồ văn phòng, nông nghiệp"
+                                        android:textColor="@color/black"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="0.2dp"
+                                    android:layout_height="60dp"
+                                    android:background="@color/colorDivide"></View>
+
+                                <LinearLayout
+                                    android:id="@+id/lindeff"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="33"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:paddingTop="10dp">
+                                    <!--<ImageView-->
                                     <!--android:layout_width="30dp"-->
                                     <!--android:layout_height="30dp"-->
                                     <!--android:background="@drawable/service"/>-->
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Tất cả"
-                                    android:textSize="13dp"
-                                    android:textColor="@color/black"
-                                    android:gravity="center"
-                                    android:layout_margin="5dp"/>
-                            </LinearLayout>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:gravity="center"
+                                        android:text="Tất cả"
+                                        android:textColor="@color/black"
+                                        android:textSize="13dp" />
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>
+
                     <ImageView
                         android:id="@+id/moreCategory"
                         android:layout_width="50dp"
@@ -506,68 +529,67 @@
                 </RelativeLayout>
 
                 <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-                    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/action_bar"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:background="#FF5722"-->
+                <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/action_bar"-->
+                <!--android:orientation="vertical"-->
+                <!--android:background="#FF5722"-->
 
-                    <!--&gt;-->
+                <!--&gt;-->
 
-                    <android.support.v7.widget.Toolbar
-                        android:id="@+id/toolbar"
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_centerVertical="true"
+                    android:background="@color/toolbar"
+                    android:gravity="top"
+                    android:theme="@style/Theme.Samita.Toolbar"
+                    app:contentInsetStart="0dp"
+                    app:layout_collapseMode="pin"
+
+                    >
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:theme="@style/Theme.Samita.Toolbar"
-                        android:layout_centerVertical="true"
-                        android:background="@color/toolbar"
-                        android:gravity="top"
-                        app:layout_collapseMode="pin"
-                        app:contentInsetStart="0dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true">
 
-                        >
-                        <RelativeLayout
+                        <TextView
+                            android:id="@+id/toolbar_title"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_alignParentRight="true"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            >
-                            <TextView
-                                android:id="@+id/toolbar_title"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Toolbar Title"
-                                android:textColor="@color/white"
-                                android:textSize="22sp"
-                                android:gravity="center"
-                                android:layout_centerInParent="true"
-                                android:layout_marginRight="42dp"
-                                android:layout_marginEnd="42dp"
-                                android:layout_toLeftOf="@+id/addproduct"
-                                android:layout_toStartOf="@+id/addproduct"
-                               />
-                            <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
-                                <!--android:id="@+id/toolbar_title"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_gravity="center"-->
-                                <!--android:textColor="@color/white"-->
-                                <!--android:text="Toolbar Title"-->
-                                <!--android:textSize="20sp" />-->
+                            android:layout_marginEnd="42dp"
+                            android:layout_marginRight="42dp"
+                            android:layout_toLeftOf="@+id/addproduct"
+                            android:layout_toStartOf="@+id/addproduct"
+                            android:gravity="center"
+                            android:text="Toolbar Title"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
+                        <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+                        <!--android:id="@+id/toolbar_title"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:text="Toolbar Title"-->
+                        <!--android:textSize="20sp" />-->
                         <ImageButton
                             android:id="@+id/addproduct"
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:background="#37474F"
-                            android:src="@mipmap/ic_add_product"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="13dp"
-                             />
+                            android:background="#37474F"
+                            android:src="@mipmap/ic_add_product" />
 
-                        </RelativeLayout>
+                    </RelativeLayout>
 
-                    </android.support.v7.widget.Toolbar>
+                </android.support.v7.widget.Toolbar>
 
                 <!--</RelativeLayout>-->
 
@@ -579,16 +601,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <FrameLayout
                 android:id="@+id/content_frame"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
         </android.support.v4.widget.NestedScrollView>
-
-
 
 
     </android.support.design.widget.CoordinatorLayout>
@@ -603,14 +622,12 @@
         android:clipToPadding="false"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
+        android:theme="@style/AppTheme.NavigationView"
         app:headerLayout="@layout/header"
         app:insetForeground="#44383838"
         app:itemBackground="@drawable/menu_background_color"
         app:itemIconTint="@color/menu_icon_color"
         app:itemTextColor="@color/menu_text_color"
-        android:theme="@style/AppTheme.NavigationView"
-        app:menu="@menu/activity_main_drawer"
-         >
-    </android.support.design.widget.NavigationView>
+        app:menu="@menu/activity_main_drawer"></android.support.design.widget.NavigationView>
     <!---->
 </android.support.v4.widget.DrawerLayout>
