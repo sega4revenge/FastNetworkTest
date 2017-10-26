@@ -724,7 +724,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product!!.comment!!
                 .asSequence()
                 .filterNot { listUserComments.contains(it.user!!.photoprofile) }
-                .forEach { listUserComments.add(it.user!!.photoprofile!!) }
+                .forEach {
+                    listUserComments.add(it.user!!.photoprofile!!)
+                    println(it.user!!.photoprofile)
+                }
         when {
             listUserComments.size == 0 -> {
 
@@ -766,7 +769,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(head2)
                 Glide.with(this)
-                        .load(avatacmt(listUserComments[1]))
+                        .load(avatacmt(listUserComments[2]))
                         .thumbnail(0.1f)
                         .apply(options)
                         .into(head3)
@@ -787,12 +790,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .apply(options)
                         .into(head2)
                 Glide.with(this)
-                        .load(avatacmt(listUserComments[1]))
+                        .load(avatacmt(listUserComments[2]))
                         .thumbnail(0.1f)
                         .apply(options)
                         .into(head3)
                 Glide.with(this)
-                        .load(avatacmt(listUserComments[1]))
+                        .load(avatacmt(listUserComments[3]))
                         .thumbnail(0.1f)
                         .apply(options)
                         .into(head4)

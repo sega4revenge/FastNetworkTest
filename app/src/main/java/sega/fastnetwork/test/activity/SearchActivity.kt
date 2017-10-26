@@ -231,7 +231,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
         })*/
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+
             override fun onQueryTextSubmit(query: String): Boolean {
+
                 SearchView!!.cancelRequest()
                 SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
               //  ed_search.clearFocus()
@@ -239,7 +241,11 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                 return true
             }
 
-            override fun onQueryTextChange(newText: String): Boolean = true
+            override fun onQueryTextChange(newText: String): Boolean {
+                if(newText == "")
+                    SearchView!!.searchWithList("", loca, cate, mFilter)
+                return true
+            }
 
 
         })
@@ -310,7 +316,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     //  }
     override fun setMessagerNotFound() {
         product_recycleview.visibility = View.GONE
+        layout_map.visibility = View.GONE
         txt_notfound.visibility = View.VISIBLE
+
     }
 
     override fun onproductClicked(position: Int) {
