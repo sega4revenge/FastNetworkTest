@@ -18,6 +18,8 @@ import com.gun0912.tedpermission.TedPermission
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.content_chatting.*
+import kotlinx.android.synthetic.main.type_message_area.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
