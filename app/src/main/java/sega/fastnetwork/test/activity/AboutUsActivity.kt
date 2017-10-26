@@ -2,6 +2,9 @@ package sega.fastnetwork.test.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.MenuItem
+import kotlinx.android.synthetic.main.toolbar.view.*
 import mehdi.sakout.aboutpage.AboutPage
 import mehdi.sakout.aboutpage.Element
 import sega.fastnetwork.test.R
@@ -16,8 +19,12 @@ class AboutUsActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
         supportActionBar!!.setBackgroundDrawable(getDrawable(R.color.toolbar))
-        supportActionBar!!.setTitle("About")
-
+        supportActionBar!!.elevation = 0F
+        supportActionBar!!.setDisplayShowCustomEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        val v = LayoutInflater.from(this).inflate(R.layout.toolbar,null)
+        v.toolbar_title.text = "About"
+        supportActionBar!!.customView = v
         val aboutPage = AboutPage(this)
 
 
@@ -42,7 +49,19 @@ class AboutUsActivity : AppCompatActivity() {
         setContentView(aboutPage)
     }
 
-//    internal val copyRightsElement: Element
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val ids = item?.itemId
+        if (ids == android.R.id.home) {
+            super.onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+    //    internal val copyRightsElement: Element
 //        get() {
 //            val copyRightsElement = Element()
 //            val copyrights = String.format(getString(R.string.btn_join), Calendar.getInstance().get(Calendar.YEAR))
