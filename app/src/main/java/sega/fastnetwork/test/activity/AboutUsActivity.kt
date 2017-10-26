@@ -12,6 +12,8 @@ import sega.fastnetwork.test.R
 
 class AboutUsActivity : AppCompatActivity() {
 
+
+    // nguyen nhu viet1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
