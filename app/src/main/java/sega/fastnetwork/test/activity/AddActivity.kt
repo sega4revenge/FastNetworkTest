@@ -372,7 +372,6 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     }
 
                     override fun onSubscribe(d: Disposable) {
-
                     }
 
                     override fun onNext(response: JSONObject) {
