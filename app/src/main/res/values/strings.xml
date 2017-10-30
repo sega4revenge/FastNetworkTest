@@ -135,7 +135,7 @@
     <string name="cate_furniture">Furniture</string>
     <string name="cate_entertaiment">Entertaiment and Sport</string>
     <string name="cate_office">Office and agriculture</string>
-    <string name="cate_other">All</string>
+    <string name="cate_other">Other</string>
     //====================================== filter
     <string name="latest">Latest</string>
     <string name="latest_des">Sort by latest product upload date</string>

@@ -35,7 +35,6 @@ import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.AboutUsActivity
 import sega.fastnetwork.test.activity.AddActivity
 import sega.fastnetwork.test.activity.LoginActivity
-import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.customview.CircularAnim
 import sega.fastnetwork.test.lib.imagepicker.TedBottomPicker
 import sega.fastnetwork.test.lib.imagepicker.showpicker.ImageBean
@@ -208,7 +207,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 changeCategory(7,HomeFragment())
             }
             lindeff.setOnClickListener(){
-                changeCategory(999,HomeFragment())
+                changeCategory(8,HomeFragment())
             }
             moreCategory.setOnClickListener(){
                 if(mSelectedId == R.id.nav_1)
@@ -593,7 +592,6 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
     override fun onResume() {
         super.onResume()
-
     }
     private fun changeCategory(mCategory: Int, mFragment: Fragment){
         Log.d("Runnnnnnn",mCategory.toString())
@@ -608,7 +606,6 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                  transaction.replace(R.id.content_frame, frag).commit()
              } catch (ignored: IllegalStateException) {
              }
-
          }
      }
     }
@@ -641,10 +638,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 }
                 morecategory = false
             }
-            R.id.nav_search -> {
-                val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
-                startActivity(intent)
-            }
+//            R.id.nav_search -> {
+//                val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
+//                startActivity(intent)
+//            }
 //            R.id.nav_2 -> {
 //                mSelectedId = itemId
 //                toolbar_title.setText("Sản phẩm đã lưu")

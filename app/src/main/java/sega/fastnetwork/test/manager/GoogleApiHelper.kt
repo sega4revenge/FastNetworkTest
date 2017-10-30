@@ -62,7 +62,7 @@ class GoogleApiHelper(private val context: Context) : GoogleApiClient.Connection
     override fun onConnected(bundle: Bundle?) {
         connectionBundle = bundle
         if (connectionListener != null) {
-            connectionListener!!.onConnected(bundle, googleApiClient)
+            connectionListener?.onConnected(bundle, googleApiClient)
         }
     }
 

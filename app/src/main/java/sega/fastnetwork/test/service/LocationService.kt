@@ -1,5 +1,6 @@
 package sega.fastnetwork.test.service
 
+import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Intent
 import android.location.Location
@@ -52,6 +53,7 @@ class LocationService : Service(), LocationListener {
 
             }
 
+            @SuppressLint("MissingPermission")
             override fun onConnected(bundle: Bundle?, client: GoogleApiClient?) {
                 Log.d("Connected:Getting ", "LOcation!!!!!!!!!!")
 

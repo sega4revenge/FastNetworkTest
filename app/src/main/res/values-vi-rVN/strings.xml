@@ -135,7 +135,7 @@
     <string name="cate_furniture">Đồ gia dụng, nội thất</string>
     <string name="cate_entertaiment">Giải trí, thể thao</string>
     <string name="cate_office">Văn phòng và nông nghiệp</string>
-    <string name="cate_other">Tất cả</string>
+    <string name="cate_other">Khác</string>
     //====================================== filter
     <string name="latest">Mới nhất</string>
     <string name="latest_des">Sắp xếp theo sản phẩm có ngày đăng mới nhất</string>

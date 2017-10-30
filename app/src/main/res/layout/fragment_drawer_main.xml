@@ -70,7 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:orientation="horizontal"
-                            android:visibility="visible">
+                            android:visibility="gone">
 
                             <RelativeLayout
                                 android:layout_width="80dp"
@@ -236,7 +236,7 @@
                             android:layout_margin="5dp"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:weightSum="100">
 
                             <LinearLayout

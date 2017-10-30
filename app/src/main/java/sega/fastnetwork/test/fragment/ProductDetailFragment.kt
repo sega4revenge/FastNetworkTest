@@ -36,7 +36,6 @@ import kotlinx.android.synthetic.main.fragment_product_detail.view.*
 import kotlinx.android.synthetic.main.layout_detail_backdrop.*
 import kotlinx.android.synthetic.main.layout_detail_cast.*
 import kotlinx.android.synthetic.main.layout_detail_cast.view.*
-import kotlinx.android.synthetic.main.layout_detail_fab.*
 import kotlinx.android.synthetic.main.layout_detail_info.*
 import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import kotlinx.android.synthetic.main.layout_error_message.view.*
@@ -423,10 +422,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         userCreateProduct = response.product?.user?._id.toString()
         this.product = response.product
         Log.e("getProductDetail", userCreateProduct + "//" + AppManager.getAppAccountUserId(activity.applicationContext))
-        if (userCreateProduct == AppManager.getAppAccountUserId(activity.applicationContext)) {
-            fab_menu.visibility = View.GONE
+        if (userCreateProduct.equals(AppManager.getAppAccountUserId(activity.applicationContext))) {
+            layout_contact.visibility  = View.GONE
         } else {
-            fab_menu.visibility = View.VISIBLE
+            layout_contact.visibility = View.VISIBLE
         }
         onDownloadSuccessful()
     }

@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:layout_marginBottom="?attr/actionBarSize"
                 >
                 <LinearLayout
                     android:id="@+id/lininfor"
@@ -286,6 +287,7 @@
                         android:weightSum="100">
 
                         <LinearLayout
+                            android:id="@+id/btn_call"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -302,6 +304,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/btn_chat"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -318,6 +321,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/btn_share"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"

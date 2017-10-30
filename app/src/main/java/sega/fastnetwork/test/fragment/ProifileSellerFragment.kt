@@ -1,9 +1,11 @@
 package sega.fastnetwork.test.fragment
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
@@ -15,9 +17,12 @@ import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.profile_seller_layout.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ProductDetailActivity
@@ -119,7 +124,32 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
             behavior.peekHeight = 1800
 
         }
+        contentView!!.btn_call.setOnClickListener(){
+            Log.d("aaaaaaa",mUser!!.phone)
+            val permissionlistener = object : PermissionListener {
+                override fun onPermissionGranted() {
+                    val callIntent = Intent(Intent.ACTION_CALL)
+                    callIntent.data = Uri.parse("tel:" + mUser!!.phone)
+                    try {
+                        startActivity(callIntent)
+                    } catch (ex: android.content.ActivityNotFoundException) {
+                        Toast.makeText(activity, R.string.err, Toast.LENGTH_SHORT).show()
+                    }
 
+                }
+
+                override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
+                        Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+
+            }
+            TedPermission.with(activity)
+                    .setPermissionListener(permissionlistener)
+                    .setDeniedMessage(R.string.per_turnon)
+                    .setPermissions(Manifest.permission.CALL_PHONE)
+                    .check()
+        }
+        Log.d("aaaaaaa2222",mUser!!.phone)
         contentView!!.txtname.text = mUser!!.name
         contentView!!.txtemail.text = mUser!!.email
         contentView!!.layout_give.setOnClickListener {
