@@ -40,7 +40,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="15dp"
-                    android:background="@drawable/select_icon_done" />
+                    android:background="@drawable/refresh1" />
                 <Button
                     android:id="@+id/btn_done"
                     style="?borderlessButtonStyle"
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="13dp"
-                app:hint="Nhập tối đa 5 tên thành phố"
+                app:hint="@string/max_city"
                 app:hintColor="@color/background"
                 app:maxHeight="20dp"
                 app:maxRows="3" />
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="13dp"
-                app:hint="Lựa chọn tối đa 5 danh mục"
+                app:hint="@string/max_cate"
                 app:hintColor="@color/background"
                 app:maxHeight="20dp"
                 app:maxRows="3" />
@@ -414,7 +414,7 @@
                 android:gravity="center_vertical"
                 android:background="?android:attr/selectableItemBackground"
                 android:paddingLeft="16dp"
-                android:text="Sắp xếp theo : "
+                android:text="@string/txt_sortby"
                 android:textSize="16sp" />
 
             <TextView

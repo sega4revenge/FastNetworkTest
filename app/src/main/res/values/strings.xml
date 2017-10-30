@@ -204,6 +204,7 @@
     <string name="txt_productsave">Product saved</string>
     <string name="txt_seemore">See more</string>
     <string name="txt_addcomment">Add comment</string>
+    <string name="txt_sortby">Sort by :</string>
     //
     <string name="txt_call">Call</string>
     <string name="txt_sms">SMS</string>
