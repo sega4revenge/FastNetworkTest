@@ -159,8 +159,8 @@
     <string name="update_phonenumber_success">Cập nhật số điện thoại thành công</string>
     //======================================err
     <string name="pass_notmatch">Mật khẩu không đúng hoặc bị trống!</string>
-    <string name="max_city">Không thể chọn hơn 5 thành phố!</string>
-    <string name="max_cate">Không thể chọn hơn 5 danh mục!</string>
+    <string name="max_city">Nhập tối đa 5 thành phố!</string>
+    <string name="max_cate">Chọn tối đa 5 danh mục!</string>
     <string name="sms_fail">SMS bị lỗi, Vui lòng thử lại sau.</string>
     //======================================
     <string name="save">Lưu</string>
@@ -201,6 +201,7 @@
     <string name="txt_productsave">Sản phẩm đã lưu</string>
     <string name="txt_seemore">Xem thêm</string>
     <string name="txt_addcomment">Thêm comment</string>
+    <string name="txt_sortby">Sắp xếp theo :</string>
     //
     <string name="txt_call">Gọi điện</string>
     <string name="txt_sms">Nhắn tin</string>
