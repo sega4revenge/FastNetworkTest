@@ -263,8 +263,15 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
             if (type == "1") {
                 uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])), productid)
             }else{
+                progressBar_addproduct.visibility = View.GONE
+                setResult(Activity.RESULT_OK,Intent())
+                finish()
                 mDoubleCreate = true
             }
+        }
+        else {
+            progressBar_addproduct.visibility = View.GONE
+            Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.server_unreachable), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -357,6 +364,8 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                         } else {
                             Log.d(TAG + "_1", "onError errorMessage : " + e.message)
                         }
+                        progressBar_addproduct.visibility = View.GONE
+                        Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.server_unreachable), Snackbar.LENGTH_SHORT).show()
                         timer.cancel()
                         timer.purge()
                         mNotificationManager?.cancel(1)
@@ -385,6 +394,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                             FirebaseMessaging.getInstance().subscribeToTopic(productid)
                             mNotificationManager?.cancel(1)
                             mNotificationManager?.notify(1, notification)
+                            progressBar_addproduct.visibility = View.GONE
                             setResult(Activity.RESULT_OK,Intent())
                             finish()
                         }
@@ -416,6 +426,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     Toast.makeText(this, getString(R.string.st_errpass), Toast.LENGTH_LONG).show()
                 } else {
                     if(!mDoubleCreate) {
+                        progressBar_addproduct.visibility = View.VISIBLE
                         temp = 0
                         mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
                     }else{
@@ -428,6 +439,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     Toast.makeText(this, getString(R.string.input), Toast.LENGTH_LONG).show()
                 } else {
                     if(!mDoubleCreate) {
+                        progressBar_addproduct.visibility = View.VISIBLE
                         temp = 0
                         mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.NEEDBORROW)
                     }else{
