@@ -312,10 +312,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
      }
  */
     private fun showSnackBarMessage(message: String?) {
-
-
         Snackbar.make(findViewById(R.id.root_login), message!!, Snackbar.LENGTH_SHORT).show()
-
     }
 
     override fun onDestroy() {

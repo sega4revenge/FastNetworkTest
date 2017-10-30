@@ -60,7 +60,13 @@ class LoginPresenter(view: LoginView) {
                     Log.d(login, "onError errorBody : " + e.errorBody)
                     Log.d(login, e.errorDetail + " : " + e.message)
                     mLoginView.isLoginSuccessful(false)
-                    e.message?.let { mLoginView.setErrorMessage(it,0) }
+                    if(e.errorCode == 404)
+                    {
+                        mLoginView.setErrorMessage("User Not Found !",0)
+                    }else if(e.errorCode == 401){
+                        mLoginView.setErrorMessage("Incorrect password !",0)
+                    }
+
 
                 } else {
                     Log.d(login, "onError errorMessage : " + e.message)
@@ -118,7 +124,13 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
                     Log.d(register, "onError errorCode : " + e.errorCode)
                     Log.d(register, "onError errorBody : " + e.errorBody)
                     Log.d(register, e.errorDetail + " : " + e.message)
-                    mLoginView.setErrorMessage(e.message!!,1)
+                    if(e.errorCode == 409)
+                    {
+                        mLoginView.setErrorMessage("User Already Registered !",0)
+                    }else{
+                        mLoginView.setErrorMessage(e.errorBody,0)
+                    }
+                    mLoginView.isLoginSuccessful(false)
                 } else {
                     Log.d(register, "onError errorMessage : " + e.message)
                     mLoginView.setErrorMessage(e.message!!,1)

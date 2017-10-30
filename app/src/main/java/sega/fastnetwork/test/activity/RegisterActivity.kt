@@ -177,7 +177,8 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
 
     override fun isLoginSuccessful(isLoginSuccessful: Boolean) {
-
+        progressBar.visibility = View.GONE
+        CircularAnim.show(btn_join).go()
     }
 
     override fun setErrorMessage(errorMessage: String, type: Int) {

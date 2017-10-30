@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -25,6 +26,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.profile_seller_layout.view.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
@@ -124,8 +126,19 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
             behavior.peekHeight = 1800
 
         }
+        contentView!!.btn_share.setOnClickListener(){
+            Snackbar.make( contentView!!.findViewById(R.id.overview_coordinator_layout), "Comming soon :))", Snackbar.LENGTH_INDEFINITE)
+                    .setDuration(3000)
+                    .show()
+        }
+        contentView!!.btn_chat.setOnClickListener(){
+            val intent = Intent(activity, ChatActivity::class.java)
+            intent.putExtra("avatar", mUser!!.photoprofile)
+            intent.putExtra("iduser", mUser!!._id)
+            startActivity(intent)
+        }
         contentView!!.btn_call.setOnClickListener(){
-            Log.d("aaaaaaa",mUser!!.phone)
+
             val permissionlistener = object : PermissionListener {
                 override fun onPermissionGranted() {
                     val callIntent = Intent(Intent.ACTION_CALL)
@@ -136,7 +149,7 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
                         Toast.makeText(activity, R.string.err, Toast.LENGTH_SHORT).show()
                     }
 
-                }
+            }
 
                 override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
                         Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
@@ -149,7 +162,6 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
                     .setPermissions(Manifest.permission.CALL_PHONE)
                     .check()
         }
-        Log.d("aaaaaaa2222",mUser!!.phone)
         contentView!!.txtname.text = mUser!!.name
         contentView!!.txtemail.text = mUser!!.email
         contentView!!.layout_give.setOnClickListener {

@@ -82,17 +82,15 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
-
-
+            Log.d("aaaaaaa","ssssssss")
             adapter!!.pageToDownload = 1
             adapter!!.productList.clear()
             adapter!!.initShimmer()
             adapter!!.isLoading = false
             isFirstLoad = true
-            Log.d("ssssss","11111111")
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
-            product_recycleview.isNestedScrollingEnabled = false
+           // product_recycleview.isNestedScrollingEnabled = false
         })
         search_view.setOnClickListener {
             startActivity(Intent(activity, SearchActivity::class.java))
@@ -106,7 +104,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             adapter!!.initShimmer()
             adapter!!.isLoading = false
             isFirstLoad = true
-            Log.d("ssssss","11111111")
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
         }
@@ -120,15 +117,11 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                 })
             }
 
-            Log.d("ssssss","222222222")
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
         })
     }
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.tab_home, container, false)
-//        view.pager!!.adapter = TabsAdapter(childFragmentManager)
-//
-//        view.tab_layout!!.setupWithViewPager(view.pager)
         retainInstance = true
         setHasOptionsMenu(true)
         return view
@@ -148,7 +141,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         super.onDetach()
     }
     private fun onDownloadSuccessful() {
-        product_recycleview.isNestedScrollingEnabled = true
+        //product_recycleview.isNestedScrollingEnabled = true
         if (isTablet && adapter?.productList?.size!! > 0) {
             /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
         }
