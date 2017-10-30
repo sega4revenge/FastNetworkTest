@@ -57,6 +57,7 @@ class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileV
         detailprofile = DetailProfilePressenter(this)
         layout_give.setOnClickListener {
             tv_give.setTextColor(resources.getColor(R.color.colorAccent))
+            tv_number_give.setTextColor(resources.getColor(R.color.colorAccent))
             tv_need.setTextColor(resources.getColor(R.color.text_light))
             tv_gived.setTextColor(resources.getColor(R.color.text_light))
             tv_needed.setTextColor(resources.getColor(R.color.text_light))
@@ -72,6 +73,7 @@ class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileV
         }
         layout_need.setOnClickListener {
             tv_give.setTextColor(resources.getColor(R.color.text_light))
+            tv_number_give.setTextColor(resources.getColor(R.color.text_light))
             tv_need.setTextColor(resources.getColor(R.color.actionBarColor))
             tv_gived.setTextColor(resources.getColor(R.color.text_light))
             tv_needed.setTextColor(resources.getColor(R.color.text_light))

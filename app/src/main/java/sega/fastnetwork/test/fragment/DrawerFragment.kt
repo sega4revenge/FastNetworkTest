@@ -2,6 +2,7 @@ package sega.fastnetwork.test.fragment
 
 
 import android.Manifest
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -152,7 +153,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true
         navigate(R.id.nav_1)
         addproduct.setOnClickListener {
-            startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
+            startActivityForResult(Intent(this@DrawerFragment.activity, AddActivity::class.java), Constants.CREATEPRODUCT)
         }
 
        if(user!!.photoprofile!!.startsWith("http")){
@@ -498,6 +499,17 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         }
 
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constants.CREATEPRODUCT) {
+            Log.e("requestCode: ", "OK ne")
+            if (resultCode == Activity.RESULT_OK) {
+                showSnackBarMessage(getString(R.string.up_success))
+
+            }
+        }
     }
 
     override fun onDestroy() {

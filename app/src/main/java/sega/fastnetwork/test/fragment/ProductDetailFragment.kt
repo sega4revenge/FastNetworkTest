@@ -166,7 +166,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             mProductDetailPresenter!!.getProductDetail(id, AppManager.getAppAccountUserId(activity))
         }
         v.userimage1.setOnClickListener() {
-            Log.d("aaaaaaaaaaa", "sssssssss")
             if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
                 val dialogFrag = ProifileSellerFragment.newInstance()
                 val args = Bundle()
@@ -211,7 +210,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 }
                 else -> {
                     isMap = false
-                    change_map.background = resources.getDrawable(R.drawable.ic_slide)
+                    change_map.background = resources.getDrawable(R.drawable.placeholder)
                     slider.visibility = View.VISIBLE
                 }
 
@@ -887,7 +886,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             @SuppressLint("MissingPermission")
             override fun onMapReady(map: GoogleMap?) {
 
-                change_map.background = resources.getDrawable(R.drawable.ic_map)
+                change_map.background = resources.getDrawable(R.drawable.photo_camera)
                 slider.visibility = View.GONE
                 mMap = map
                 mMap!!.isMyLocationEnabled = true

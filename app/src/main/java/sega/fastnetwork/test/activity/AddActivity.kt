@@ -382,10 +382,11 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
                             mRemoteView!!.setTextViewText(R.id.title, getString(R.string.up_success))
                             mRemoteView!!.setTextViewText(R.id.timeremain, getString(R.string.uploaded_title, temp, uriList!!.size))
-                            Snackbar.make(findViewById(R.id.root_addproduct), getString(R.string.up_success), Snackbar.LENGTH_SHORT).show()
                             FirebaseMessaging.getInstance().subscribeToTopic(productid)
                             mNotificationManager?.cancel(1)
                             mNotificationManager?.notify(1, notification)
+                            setResult(Activity.RESULT_OK,Intent())
+                            finish()
                         }
                     }
                 })
@@ -408,7 +409,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
 
         if (id == R.id.action_uploadproduct) {
             if (toggle.checkedRadioButtonId == borrow.id) {
-                Toast.makeText(this, time.selectedIndex.toString() + " " + category.selectedIndex.toString(), Toast.LENGTH_LONG).show()
+//                Toast.makeText(this, time.selectedIndex.toString() + " " + category.selectedIndex.toString(), Toast.LENGTH_LONG).show()
                 if (uriList!!.size == 0) {
                     Toast.makeText(this, getString(R.string.choose_image), Toast.LENGTH_LONG).show()
                 } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {

@@ -22,6 +22,7 @@ internal object Constants {
     val THUMBNAIL_SIZE = "thumbnail_size"
 
     val FOTGOTPASSWORD = 1
+    val CREATEPRODUCT = 1
 
 
     val MAPS_INTENT_URI = "geo:0,0?q="

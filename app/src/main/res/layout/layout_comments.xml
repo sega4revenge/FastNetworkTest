@@ -85,6 +85,22 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
                         tools:text="Ho Hoang Linhh" />
+                    <TextView
+                        android:id="@+id/number_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:paddingRight="5dp"
+                        android:layout_toLeftOf="@+id/btn_like"
+                        tools:text="20" />
+                    <ImageButton
+                        android:id="@+id/btn_like"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:background="@drawable/about_icon_facebook"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true" />
 
                 </RelativeLayout>
 
