@@ -69,13 +69,13 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
                 comment_item1.visibility = View.GONE
                 comment_item2.visibility = View.GONE
                 comment_item3.visibility = View.GONE
-                comments_see_all.visibility = View.GONE
+
                 no_cmt.visibility = View.VISIBLE
             }
 //=======================1 cmt========================
 
             else if (listcomment.size == 1) {
-                comments_see_all.visibility = View.GONE
+
                 comment_item2.visibility = View.GONE
                 comment_item3.visibility = View.GONE
                 comment_item1.visibility = View.VISIBLE
@@ -91,7 +91,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
 //=======================2 cmt========================
 
             else if (listcomment.size == 2) {
-                comments_see_all.visibility = View.GONE
+
                 comment_item3.visibility = View.GONE
                 comment_item1.visibility = View.VISIBLE
                 comment_item2.visibility = View.VISIBLE
@@ -116,7 +116,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
 
 //=======================3 cmt========================
             else if (listcomment.size == 3) {
-                comments_see_all.visibility = View.GONE
+
                 comment_item1.visibility = View.VISIBLE
                 comment_item2.visibility = View.VISIBLE
                 comment_item3.visibility = View.VISIBLE
@@ -173,8 +173,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
                 usercomments3.text = listcomment[listcomment.size-3].user!!.name
                 comments3.text = listcomment[listcomment.size-3].content
                 datecomment3.text = timeAgo(listcomment[listcomment.size-3].time!!)
-                comments_see_all.visibility = View.VISIBLE
-                comments_see_all.text = (listcomment.size - 3).toString() + getString(R.string.more_comment)
+
             }        }
 
     override fun onMapReady(p0: GoogleMap?) {
@@ -254,9 +253,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
             mCommentPresenter!!.refreshcomment(id)
         }
 //=============================see all comment=======================
-        v.comments_see_all.setOnClickListener {
-            gotoallcomment()
-        }
+
         //=============================add comment=======================
         v.add_comment.setOnClickListener {
             gotoallcomment()
@@ -510,13 +507,13 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
             comment_item1.visibility = View.GONE
             comment_item2.visibility = View.GONE
             comment_item3.visibility = View.GONE
-            comments_see_all.visibility = View.GONE
+
             no_cmt.visibility = View.VISIBLE
         }
 //=======================1 cmt========================
 
         else if (product!!.comment!!.size == 1) {
-            comments_see_all.visibility = View.GONE
+
             comment_item2.visibility = View.GONE
             comment_item3.visibility = View.GONE
             Glide.with(this)
@@ -531,7 +528,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
 //=======================2 cmt========================
 
         else if (product!!.comment!!.size == 2) {
-            comments_see_all.visibility = View.GONE
+
             comment_item3.visibility = View.GONE
 
             Glide.with(this)
@@ -554,7 +551,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
 
 //=======================3 cmt========================
         else if (product!!.comment!!.size == 3) {
-            comments_see_all.visibility = View.GONE
+
             Glide.with(this)
                     .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
                     .thumbnail(0.1f)
@@ -604,8 +601,7 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
             usercomments3.text = product!!.comment!![2].user!!.name
             comments3.text = product!!.comment!![2].content
             datecomment3.text = timeAgo(product!!.comment!![2].time!!)
-            comments_see_all.visibility = View.VISIBLE
-            comments_see_all.text = (product!!.comment!!.size - 3).toString() + getString(R.string.more_comment)
+
         }
         val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
         mapView_location.getMapAsync(this)

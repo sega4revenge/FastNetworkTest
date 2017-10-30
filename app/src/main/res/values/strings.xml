@@ -168,7 +168,7 @@
     //======================================
     <string name="save">Save</string>
     <string name="saved">Saved</string>
-    <string name="more_comment">More comment...</string>
+    <string name="more_comment"> More comment...</string>
     //======================================layout
     <string name="title">Title</string>
     <string name="txt_price">Price</string>
@@ -203,7 +203,7 @@
     <string name="txt_productlist">Product list</string>
     <string name="txt_productsave">Product saved</string>
     <string name="txt_seemore">See more</string>
-    <string name="txt_addcomment">Add comment</string>
+    <string name="txt_addcomment">Add a new comment</string>
     //
     <string name="txt_call">Call</string>
     <string name="txt_sms">SMS</string>

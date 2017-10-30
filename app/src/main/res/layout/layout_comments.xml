@@ -41,7 +41,7 @@
                 android:layout_marginStart="@dimen/product_compact_text_margin"
                 android:layout_toEndOf="@+id/commentpic"
                 android:layout_toRightOf="@+id/commentpic"
-                android:gravity="center_vertical"
+
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -56,8 +56,8 @@
                         android:layout_toLeftOf="@+id/commentdate"
                         android:maxLines="1"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/text_large"
-                        android:textStyle="bold"
+
+
                         tools:text="My Awesome product Title 1" />
 
                     <TextView
@@ -116,7 +116,7 @@
             android:paddingBottom="7dp"
             android:paddingLeft="69dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_large"
+
             tools:text="My Awesome product Title 1" />
 
     </LinearLayout>

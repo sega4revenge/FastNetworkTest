@@ -516,7 +516,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
-        <Button
+      <!--  <Button
             android:id="@+id/comments_see_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -526,7 +526,7 @@
             android:text="@string/txt_seemore"
             android:textAllCaps="false"
 
-            />
+            />-->
 
         <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
         <!--android:id="@+id/comments_see_all"-->
@@ -538,10 +538,10 @@
             android:id="@+id/add_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/roundtextview"
+            android:textColor="@color/white"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/txt_addcomment"
