@@ -44,6 +44,7 @@
                         android:background="@drawable/radiusbottomview"
                         android:orientation="vertical" />
 
+
                     <LinearLayout
                         android:id="@+id/pintop"
                         android:layout_width="match_parent"
@@ -111,7 +112,7 @@
                                     android:text="Nguyen Vuong Vinh"
                                     android:textColor="@color/black"
                                     android:textSize="15sp"
-                                    android:textStyle="bold"
+
                                     android:maxLines="2"
                                     android:ellipsize="end"
                                     />
@@ -159,7 +160,7 @@
                                     android:gravity="center"
                                     android:text="@string/cate_vehicle"
                                     android:textColor="@color/black"
-                                    android:textSize="13dp" />
+                                    android:textSize="12sp" />
                             </LinearLayout>
 
                             <View
@@ -188,7 +189,7 @@
                                     android:gravity="center"
                                     android:text="@string/cate_electronic"
                                     android:textColor="@color/black"
-                                    android:textSize="13dp" />
+                                    android:textSize="12sp" />
                             </LinearLayout>
 
                             <View
@@ -217,7 +218,7 @@
                                     android:gravity="center"
                                     android:text="@string/cate_fashion"
                                     android:textColor="@color/black"
-                                    android:textSize="13dp" />
+                                    android:textSize="12sp" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -226,7 +227,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0.2dp"
                             android:background="@color/colorDivide"
-                            android:visibility="gone"></View>
+                            android:visibility="gone" />
 
                         <LinearLayout
                             android:id="@+id/linmoreInfor"
@@ -267,7 +268,7 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
 
                             <LinearLayout
                                 android:id="@+id/changePass"
@@ -298,7 +299,7 @@
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
-                                android:background="@color/colorDivide"></View>
+                                android:background="@color/colorDivide" />
 
                             <LinearLayout
                                 android:id="@+id/save"
@@ -326,7 +327,7 @@
                                     android:textSize="12sp" />
                             </LinearLayout>
                         </LinearLayout>
-                        android:background="@color/colorDivide" />
+
 
                         <LinearLayout
                             android:id="@+id/linmore"
@@ -571,7 +572,7 @@
                             android:gravity="center"
                             android:text="Toolbar Title"
                             android:textColor="@color/white"
-                            android:textSize="22sp" />
+                            android:textSize="15sp" />
                         <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
                         <!--android:id="@+id/toolbar_title"-->
                         <!--android:layout_width="wrap_content"-->
@@ -621,7 +622,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#FFF"
-        android:clickable="true"
+
         android:clipToPadding="false"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
@@ -631,6 +632,6 @@
         app:itemBackground="@drawable/menu_background_color"
         app:itemIconTint="@color/menu_icon_color"
         app:itemTextColor="@color/menu_text_color"
-        app:menu="@menu/activity_main_drawer"></android.support.design.widget.NavigationView>
+        app:menu="@menu/activity_main_drawer" />
     <!---->
 </android.support.v4.widget.DrawerLayout>

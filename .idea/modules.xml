@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FastNetworkTest.iml" filepath="$PROJECT_DIR$/FastNetworkTest.iml" />
-      <module fileurl="file://D:\Android\VNRents\VIRents\FastNetworkTest\FastNetworkTest.iml" filepath="D:\Android\VNRents\VIRents\FastNetworkTest\FastNetworkTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Android\VNRents\VIRents\FastNetworkTest\app\app.iml" filepath="D:\Android\VNRents\VIRents\FastNetworkTest\app\app.iml" />
     </modules>
   </component>
 </project>

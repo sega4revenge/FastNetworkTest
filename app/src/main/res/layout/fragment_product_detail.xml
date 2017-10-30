@@ -57,14 +57,14 @@
                             android:gravity="center"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:textSize="16sp"
+                            android:textSize="14sp"
                           android:textColor="@color/white"
                             />
                         <TextView
                             android:id="@+id/toolbar_username"
                             android:layout_width="match_parent"
                             android:gravity="center"
-                            android:textColor="#737373"
+                            android:textColor="#c1c1c1"
 
                             android:layout_height="wrap_content"
                             android:singleLine="true"

@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.support.annotation.Nullable
 import android.util.Log
 import android.widget.Toast
-import com.facebook.FacebookSdk.getApplicationContext
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -77,15 +76,15 @@ object AppManager {
         val type = am.getUserData(accountsFromFirstApp[0], AppManager.USER_TYPE)
         when(type) {
             "0" -> {
-                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show()
-                val i = Intent(getApplicationContext(), LoginActivity::class.java)
+                Toast.makeText(context, "Logged Out", Toast.LENGTH_SHORT).show()
+                val i = Intent(context, LoginActivity::class.java)
                 (context as Activity).finish()
                 context.startActivity(i)
             }
             "1" -> {
                 LoginManager.getInstance().logOut()
-                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show()
-                val i = Intent(getApplicationContext(), LoginActivity::class.java)
+                Toast.makeText(context, "Logged Out", Toast.LENGTH_SHORT).show()
+                val i = Intent(context, LoginActivity::class.java)
                 (context as Activity).finish()
                 context.startActivity(i)
             }
@@ -104,8 +103,8 @@ object AppManager {
                         if (mGoogleApiClient.isConnected) {
                             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback {
                                 // ...
-                                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show()
-                                val i = Intent(getApplicationContext(), LoginActivity::class.java)
+                                Toast.makeText(context, "Logged Out", Toast.LENGTH_SHORT).show()
+                                val i = Intent(context, LoginActivity::class.java)
                                 (context as Activity).finish()
                                 context.startActivity(i)
                             }

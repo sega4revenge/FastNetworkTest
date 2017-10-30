@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import com.androidnetworking.AndroidNetworking
 import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
@@ -210,11 +209,7 @@ class SavedProductFragment : Fragment(), ProductAdapter.OnproductClickListener, 
 
     override fun onproductClicked(position: Int) {
 
-        if (isTablet) {
-            //                Toast.makeText(getActivity(),"3",Toast.LENGTH_LONG).show();
 
-            (activity as MainActivity).loadDetailFragmentWith(adapter!!.productList[position]._id!!)
-        } else {
             //                Toast.makeText(getActivity(),"4",Toast.LENGTH_LONG).show();
 //            val intent = Intent(context, ProductDetailActivity::class.java)
 //            intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
@@ -230,7 +225,7 @@ class SavedProductFragment : Fragment(), ProductAdapter.OnproductClickListener, 
 //                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
 //                startActivity(intent)
 //            }
-        }
+
     }
 
 //    internal inner class TabsAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {

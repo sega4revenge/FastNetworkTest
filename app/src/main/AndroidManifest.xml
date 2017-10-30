@@ -38,11 +38,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
@@ -133,7 +129,13 @@
 
             android:name=".activity.MainActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.ProductDetailActivity"
             android:label="@string/title_activity_home"
@@ -145,13 +147,18 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="freemarkets.ga"
-                    android:pathPrefix="/link.php/"
+                    android:host="45.77.36.109"
+                    android:pathPrefix="/api/v1/link/"
                     android:scheme="http" />
                 <data
-                    android:host="freemarkets.ga"
-                    android:pathPrefix="/link.php"
+                    android:host="45.77.36.109"
                     android:scheme="http" />
+                <data
+                    android:host="45.77.36.109"
+                    android:pathPrefix="/api/v1/link"
+                    android:scheme="http" />
+                <data android:scheme="45.77.36.109"
+                    android:host="/api/v1/link" />
             </intent-filter>
         </activity>
         <activity

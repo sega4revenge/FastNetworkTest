@@ -19,8 +19,8 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:text="My Awesome Movie Title"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="@dimen/text_productname"
+
+        android:textSize="16sp"
         android:layout_alignLeft="@+id/product_user_address"
         android:layout_alignStart="@+id/product_user_address"
         android:layout_alignEnd="@+id/btn_save"
@@ -57,7 +57,7 @@
             android:minWidth="50dp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="5dp"
@@ -308,7 +308,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
         android:textColor="#737373"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:textStyle="normal"
         tools:text="My movie overview goes here"
         android:layout_height="wrap_content"
@@ -421,15 +421,13 @@
                 android:id="@+id/product_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/product_user_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="2dp"
                 android:textColor="#aaaaaa" />
         </LinearLayout>
@@ -524,4 +522,15 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:id="@+id/line_5"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/layout_contact"
+        android:layout_height="0.5dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/dist_large"
+        android:layout_marginStart="@dimen/dist_large"
+        android:layout_toLeftOf="@id/tv_text"
+        android:layout_toStartOf="@id/tv_text"
+        android:background="@color/btn_color_login" />
 </RelativeLayout>

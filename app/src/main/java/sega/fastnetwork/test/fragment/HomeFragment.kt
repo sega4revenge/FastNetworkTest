@@ -16,7 +16,6 @@ import android.widget.ProgressBar
 import kotlinx.android.synthetic.main.layout_error_message.*
 import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.activity.ProductDetailActivity
 import sega.fastnetwork.test.activity.SearchActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
@@ -301,11 +300,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
     override fun onproductClicked(position: Int) {
 
-        if (isTablet) {
-            //                Toast.makeText(getActivity(),"3",Toast.LENGTH_LONG).show();
 
-            (activity as MainActivity).loadDetailFragmentWith(adapter!!.productList[position]._id!!)
-        } else {
 //            if (adapter!!.productList[position].type == "1") {
                 val intent = Intent(context, ProductDetailActivity::class.java)
                 intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
@@ -317,7 +312,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 //                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
 //                startActivity(intent)
 //            }
-        }
+
     }
     private fun showSnackBarMessage(message: String?) {
 

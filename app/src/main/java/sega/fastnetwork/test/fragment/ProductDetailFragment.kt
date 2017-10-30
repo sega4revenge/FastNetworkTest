@@ -43,6 +43,7 @@ import kotlinx.android.synthetic.main.layout_error_message.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
+import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
 import sega.fastnetwork.test.lib.SliderTypes.DefaultSliderView
@@ -220,9 +221,16 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         //==============================back button=================
 
         v.back_detail.setOnClickListener {
-            slider?.stopAutoCycle()
-            slider?.removeAllSliders()
-            activity.finish()
+            if (activity.intent.data == null) {
+                slider?.stopAutoCycle()
+                slider?.removeAllSliders()
+                activity.finish()
+            } else {
+                val i = Intent(activity, MainActivity::class.java)
+                startActivity(i)
+                activity.finish()
+            }
+
         }
 //===================================================================
         // Download product details if new instance, else restore from saved instance
@@ -244,7 +252,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         } else {
 
             id = savedInstanceState.getString(Constants.product_ID)
-            id = savedInstanceState.getString(Constants.seller_ID)
+            id_user = savedInstanceState.getString(Constants.seller_ID)
 
             product = savedInstanceState.get(Constants.product_OBJECT) as Product
             Log.e("BBB", id + " " + product)
@@ -255,6 +263,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 
         v.layout_chat.setOnClickListener {
+
             val intent = Intent(activity, ChatActivity::class.java)
             intent.putExtra("avatar", photoprofile)
             intent.putExtra("iduser", userCreateProduct)
@@ -315,33 +324,31 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .check()
         }
         v.layout_share.setOnClickListener {
-            val sendIntent = Intent()
-            val linkapp = "https://www.facebook.com/groups/727189854084530/"
-            val numberFormat = DecimalFormat("###,###")
-            sendIntent.action = Intent.ACTION_SEND
+
+
+            Intent().action = Intent.ACTION_SEND
 
             if (product?.price == null || product?.price == "") {
-                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                Intent().putExtra(Intent.EXTRA_TEXT,
                         "- Productname(tên sản phẩm): ${product!!.productname}\n" +
                                 "- Category(thể loại): ${product!!.category}\n" +
                                 "- Address(địa chỉ): ${product!!.location!!.address}\n" +
                                 "- Time(thời gian): ${product!!.time} giờ\n" +
                                 "- Description(Mô tả): ${product!!.description}\n" +
-                                "- Tham khảo thêm tại: ${linkapp}")
+                                "- Tham khảo thêm tại: ${Constants.BASE_URL + "link?productid=" + product?._id + "&userid=" + product?.user?._id}")
             } else {
-                val gia = numberFormat.format(product!!.price!!.toLong()).toString()
-                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                Intent().putExtra(Intent.EXTRA_TEXT,
                         "- Productname(tên sản phẩm): ${product!!.productname}\n" +
                                 "- Category(thể loại): ${product!!.category}\n" +
-                                "- Price(giá): ${gia} VNĐ\n" +
+                                "- Price(giá): ${DecimalFormat("###,###").format(product!!.price!!.toLong())} VNĐ\n" +
                                 "- Address(địa chỉ): ${product!!.location!!.address}\n" +
                                 "- Time(thời gian): ${product!!.time} giờ\n" +
                                 "- Description(Mô tả): ${product!!.description}\n" +
-                                "- Tham khảo thêm tại: ${linkapp}")
+                                "- Tham khảo thêm tại: ${Constants.BASE_URL + "link?productid=" + product?._id + "&userid=" + product?.user?._id}")
 
             }
-            sendIntent.type = "text/plain"
-            startActivity(sendIntent)
+            Intent().type = "text/plain"
+            startActivity(Intent())
         }
         v.btn_save.setOnClickListener {
 
@@ -412,11 +419,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             Log.e("getProductDetail", "saidjasd")
             btn_save.visibility = View.GONE
         }
-        userCreate = response?.product?.user
-        userCreateProduct = response?.product?.user?._id.toString()
+        userCreate = response.product?.user
+        userCreateProduct = response.product?.user?._id.toString()
         this.product = response.product
         Log.e("getProductDetail", userCreateProduct + "//" + AppManager.getAppAccountUserId(activity.applicationContext))
-        if (userCreateProduct.equals(AppManager.getAppAccountUserId(activity.applicationContext))) {
+        if (userCreateProduct == AppManager.getAppAccountUserId(activity.applicationContext)) {
             fab_menu.visibility = View.GONE
         } else {
             fab_menu.visibility = View.VISIBLE
@@ -557,7 +564,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     txt_category.text = getString(R.string.cate_other)
                 }
             }
+            product_status.setOnClickListener {
 
+            }
         } else {
 
             product_status.text = getString(R.string.need_rent)

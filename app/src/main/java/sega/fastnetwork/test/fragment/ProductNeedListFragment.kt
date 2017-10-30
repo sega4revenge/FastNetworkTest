@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.DetailNeedProductActivity
-import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
 import sega.fastnetwork.test.customview.DividerItemDecoration
 import sega.fastnetwork.test.lib.ShimmerRecycleView.OnLoadMoreListener
@@ -171,16 +170,12 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
 
     override fun onproductClicked(position: Int) {
         println("da nhan")
-        if (isTablet) {
-            //                Toast.makeText(getActivity(),"3",Toast.LENGTH_LONG).show();
 
-            (activity as MainActivity).loadDetailFragmentWith(adapter!!.productList[position]._id!!)
-        } else {
              val intent = Intent(context, DetailNeedProductActivity::class.java)
              intent.putExtra("product", adapter!!.productList[position])
              startActivity(intent)
         }
-    }
+
 
 
 
