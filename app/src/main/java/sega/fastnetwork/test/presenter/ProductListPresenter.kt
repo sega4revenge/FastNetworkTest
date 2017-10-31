@@ -28,6 +28,7 @@ class ProductListPresenter(view: ProductListView) {
     var userdetail = "USERDETAIL"
     private val jsonObject = JSONObject()
     private val disposables = CompositeDisposable()
+
     fun getProductList(type: Int,page :Int,category: Int) {
         Log.e(userdetail, page.toString()+category)
 

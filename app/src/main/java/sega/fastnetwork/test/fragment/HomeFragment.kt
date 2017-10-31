@@ -80,9 +80,13 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
 
+
+
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
-            Log.d("aaaaaaa","ssssssss")
+
+            mProductListPresenter!!.stopRequest()
+
             adapter!!.pageToDownload = 1
             adapter!!.productList.clear()
             adapter!!.initShimmer()
@@ -90,7 +94,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             isFirstLoad = true
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
-           // product_recycleview.isNestedScrollingEnabled = false
+            product_recycleview.isNestedScrollingEnabled = false
         })
         search_view.setOnClickListener {
             startActivity(Intent(activity, SearchActivity::class.java))
@@ -132,60 +136,42 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         mDrawarPresenter?.cancelRequest()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-    private fun onDownloadSuccessful() {
-        //product_recycleview.isNestedScrollingEnabled = true
-        if (isTablet && adapter?.productList?.size!! > 0) {
-            /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
-        }
-        error_message.visibility = View.GONE
-
-        swipe_refresh.isRefreshing = false
-        swipe_refresh.isEnabled = true
-        swipe_refresh.visibility = View.VISIBLE
-
-        adapter?.notifyDataSetChanged()
+    override fun onResume() {
+        super.onResume()
         user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
         Log.e("Phone", "Name: " + user!!.name + "Email: " + user!!.email + "Phone: " + user!!.phone)
         if (user!!.phone.equals("") || user!!.phone == null) {
             Log.e("HERE", "Here")
 
-                val dl_phonenumber = AlertDialog.Builder(activity)
-                val inflater = layoutInflater
-                val v = inflater.inflate(R.layout.dialog_phonenumber, null)
-                val phonenumber = v.findViewById<EditText>(R.id.edt_phonenumber)
-                val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
-                val accept = v.findViewById<Button>(R.id.btn_accept_phonenumber)
-                dl_phonenumber.setView(v)
-                dl_phonenumber.setCancelable(false)
-                val dg = dl_phonenumber.show()
+            val dl_phonenumber = AlertDialog.Builder(activity)
+            val inflater = layoutInflater
+            val v = inflater.inflate(R.layout.dialog_phonenumber, null)
+            val phonenumber = v.findViewById<EditText>(R.id.edt_phonenumber)
+            val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
+            val accept = v.findViewById<Button>(R.id.btn_accept_phonenumber)
+            dl_phonenumber.setView(v)
+            dl_phonenumber.setCancelable(false)
+            val dg = dl_phonenumber.show()
 
-                accept.setOnClickListener {
-                    CircularAnim.hide(accept)
-                            .endRadius((progressBar.height / 2).toFloat())
-                            .go(object : CircularAnim.OnAnimationEndListener {
-                                override fun onAnimationEnd() {
-                                    progressBar.visibility = View.VISIBLE
-                                    phonenumber!!.error = null
-                                    var err = 0
-                                    if (!Validation.validateFields(phonenumber.text.toString())) {
+            accept.setOnClickListener {
+                CircularAnim.hide(accept)
+                        .endRadius((progressBar.height / 2).toFloat())
+                        .go(object : CircularAnim.OnAnimationEndListener {
+                            override fun onAnimationEnd() {
+                                progressBar.visibility = View.VISIBLE
+                                phonenumber!!.error = null
+                                var err = 0
+                                if (!Validation.validateFields(phonenumber.text.toString())) {
 
-                                        err++
-                                        phonenumber.error = getString(R.string.st_errpass)
-                                    }
+                                    err++
+                                    phonenumber.error = getString(R.string.st_errpass)
+                                }
 
-                                    if (err == 0) {
+                                if (err == 0) {
 //                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
 //                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
-                                        mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString())
-                                        dg.dismiss()
+                                    mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString())
+                                    dg.dismiss()
 
 //                    val user = User()
 //                    user.name = name.text.toString()
@@ -194,14 +180,14 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 //                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
 //                    mRegisterPresenter!!.register(user,Constants.LOCAL)
 
-                                    } else {
-                                        progressBar.visibility = View.GONE
-                                        CircularAnim.show(accept).go()
+                                } else {
+                                    progressBar.visibility = View.GONE
+                                    CircularAnim.show(accept).go()
 //                                    showSnackBarMessage("Enter Valid Details !")
-                                    }                            }
-                            })
+                                }                            }
+                        })
 
-                }
+            }
 
 //            val aleftdialog = AlertDialog.Builder(activity)
 //            aleftdialog.setMessage("Enter phone number:")
@@ -228,6 +214,28 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 //            mAleftdialog.show()
 
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+    }
+    private fun onDownloadSuccessful() {
+        product_recycleview.isNestedScrollingEnabled = true
+        if (isTablet && adapter?.productList?.size!! > 0) {
+            /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
+        }
+        error_message.visibility = View.GONE
+
+        swipe_refresh.isRefreshing = false
+        swipe_refresh.isEnabled = true
+        swipe_refresh.visibility = View.VISIBLE
+
+        adapter?.notifyDataSetChanged()
 
     }
 
@@ -280,7 +288,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         adapter!!.productList.removeAt(adapter!!.productList.size - 1)
         adapter!!.notifyItemRemoved(adapter!!.productList.size)
         if (isFirstLoad) {
-            Log.d("sssss","!!!!!")
             adapter!!.productList.clear()
             isFirstLoad = false
         }

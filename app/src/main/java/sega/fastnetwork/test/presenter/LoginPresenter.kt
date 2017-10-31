@@ -65,6 +65,8 @@ class LoginPresenter(view: LoginView) {
                         mLoginView.setErrorMessage("User Not Found !",0)
                     }else if(e.errorCode == 401){
                         mLoginView.setErrorMessage("Incorrect password !",0)
+                    }else if(e.errorCode == 403){
+                        mLoginView.setErrorMessage("Email not authenticated !",0)
                     }
 
 
@@ -117,7 +119,9 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
 
             override fun onNext(response: Response) {
                 Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-                mLoginView.getUserDetail(response.user!!)
+               if(type!=0){
+                   mLoginView.getUserDetail(response.user!!)
+               }
             }
             override fun onError(e: Throwable) {
                 if (e is ANError) {
