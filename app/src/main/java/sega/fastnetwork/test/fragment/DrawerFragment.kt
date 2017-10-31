@@ -27,6 +27,7 @@ import android.widget.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
+import com.facebook.FacebookSdk
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.fragment_drawer_main.*
@@ -688,6 +689,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 startActivity(intent)
             }
             R.id.nav_5 -> {
+                FacebookSdk.sdkInitialize(activity)
                 AppManager.removeAccount(activity)
                 return
             }

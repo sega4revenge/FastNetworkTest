@@ -21,53 +21,93 @@
         android:layout_above="@+id/writelayout">
 
     </android.support.v7.widget.RecyclerView>
-
+    <sega.fastnetwork.test.view.RobotoBoldTextView
+        android:id="@+id/no_cmt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/writelayout"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/no_comment"
+        android:visibility="gone"/>
     <RelativeLayout
         android:id="@+id/writelayout"
+        android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:padding="2dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
+        >
         <EditText
-            android:id="@+id/writecomment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textCursorDrawable="@drawable/text_cursor_cyan"
-            android:textSize="15sp"
-            android:hint="@string/write_comment"
-            android:background="@color/transparent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_height="40dp"
+            android:id="@+id/writecomment"
+            android:background="@color/white"
+            android:layout_toStartOf="@+id/buttoncomment"
             android:layout_toLeftOf="@+id/buttoncomment"
-            android:layout_toStartOf="@+id/buttoncomment" />
-
-
+            android:layout_margin="5dp"
+            android:hint="@string/write_comment"
+            />
         <ImageButton
             android:id="@+id/buttoncomment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SEND"
-            android:background="@drawable/ic_send"
-            android:layout_centerVertical="true"
+            android:background="@android:drawable/ic_menu_send"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="4dp"
+            android:layout_alignBottom="@+id/writecomment"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
-        <sega.fastnetwork.test.view.RobotoBoldTextView
-            android:id="@+id/no_cmt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/no_comment"
-            android:visibility="gone">
-
-        </sega.fastnetwork.test.view.RobotoBoldTextView>
     </RelativeLayout>
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/writelayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true">-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/writecomment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textCursorDrawable="@drawable/text_cursor_cyan"-->
+            <!--android:textSize="15sp"-->
+            <!--android:hint="@string/write_comment"-->
+            <!--android:background="@color/transparent"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_toLeftOf="@+id/buttoncomment"-->
+            <!--android:layout_toStartOf="@+id/buttoncomment" />-->
+
+
+        <!--<ImageButton-->
+            <!--android:id="@+id/buttoncomment"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="SEND"-->
+            <!--android:background="@drawable/ic_send"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentEnd="true" />-->
+
+        <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+            <!--android:id="@+id/no_cmt"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/no_comment"-->
+            <!--android:visibility="gone">-->
+
+        <!--</sega.fastnetwork.test.view.RobotoBoldTextView>-->
+    <!--</RelativeLayout>-->
 </RelativeLayout>

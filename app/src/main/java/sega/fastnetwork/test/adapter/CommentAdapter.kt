@@ -117,7 +117,7 @@ class CommentAdapter// Constructor
 
         //                commentViewHolder.commentRating.setText(comment.price+"");
         //            }
-        viewHolderParent.itemView.setOnLongClickListener {
+        viewHolderParent.itemView.comment_item1.setOnLongClickListener {
             Log.e("oncommentClicked2","oncommentClicked2")
             oncommentClickListener.oncommentClicked(position)
             return@setOnLongClickListener true
