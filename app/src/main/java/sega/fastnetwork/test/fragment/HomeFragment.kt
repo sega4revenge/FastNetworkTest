@@ -85,10 +85,8 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
 
-            mProductListPresenter!!.stopRequest()
-
-            adapter!!.pageToDownload = 1
             adapter!!.productList.clear()
+            adapter!!.pageToDownload = 1
             adapter!!.initShimmer()
             adapter!!.isLoading = false
             isFirstLoad = true
