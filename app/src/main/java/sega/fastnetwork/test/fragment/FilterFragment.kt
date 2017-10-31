@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.util.ArrayMap
 import android.support.v7.widget.LinearLayoutManager
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -36,7 +37,7 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
     private var keysCategory: List<String> = ArrayList()
     private var category_adapter: CategoryAdapter? = null
     private val mBottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
-
+        private var countremoveloca = 0
 
         override fun onStateChanged(bottomSheet: View, newState: Int) {
 
@@ -101,8 +102,10 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
         for (i in keys.indices) {
             val chip = LocationChip(keys[i], keys[i])
             // add contact to the list
+
             mLocationList!!.add(chip)
             if (applied_filters != null && applied_filters!!["location"] != null && applied_filters!!["location"]!!.contains(keys[i])) {
+
                 contentView!!.chips_input.addChip(chip)
             }
         }
@@ -239,11 +242,18 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
         contentView!!.category_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         contentView!!.category_list.adapter = category_adapter
         contentView!!.btn_refresh.setOnClickListener {
-            val locationSelected = contentView!!.chips_input.selectedChipList as List<LocationChip>
-            for (item: LocationChip in locationSelected) {
-                println(item.label)
-                contentView!!.chips_input.removeChipByLabel(item.label)
+            val arrloca = applied_filters!!["location"]!!
+            var locationSelected =  arrloca
+
+            for(i in 0..(locationSelected.size)){
+                println(locationSelected.size)
+                println(locationSelected.get(0))
+                var remo = locationSelected.get(0)
+                contentView!!.chips_input.removeChipByLabel(remo)
             }
+       //     for (item: String in locationSelected) {
+
+          //  }
             val categorySelected = contentView!!.chips_input_category.selectedChipList
             for (i in categorySelected.indices) {
                 contentView!!.chips_input_category.removeChipById(i)
@@ -342,6 +352,7 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
     private fun removeFromSelectedMap(key: String, value: String) {
         if (applied_filters!![key]!!.size == 1) {
             applied_filters!!.remove(key)
+            Log.d("aaaaa","///")
         } else {
             applied_filters!![key]!!.remove(value)
         }
