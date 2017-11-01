@@ -73,6 +73,7 @@
                 android:layout_marginLeft="13dp"
                 app:hint="@string/max_city"
                 app:hintColor="@color/background"
+
                 app:maxHeight="20dp"
                 app:maxRows="3" />
 

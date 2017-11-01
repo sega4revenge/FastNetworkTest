@@ -185,13 +185,18 @@ class TedBottomPicker : BottomSheetDialogFragment() {
 
         MediaStoreHelper.getPhotoDirs(activity, object : MediaStoreHelper.PhotosResultCallback {
             override fun onResultCallback(directories: List<PhotoDirectory>) {
-                activity.runOnUiThread {
-                    galleryAdapter!!.refresh(directories)
+                try{
+                    activity.runOnUiThread {
+                        galleryAdapter!!.refresh(directories)
 
-                    contentView!!.folder.text = directories[0].name
-                    listfolder = directories as ArrayList<PhotoDirectory>
+                        contentView!!.folder.text = directories[0].name
+                        listfolder = directories as ArrayList<PhotoDirectory>
 
+                    }
+                }catch (e: Exception){
+                    print(e.toString())
                 }
+
             }
         })
 

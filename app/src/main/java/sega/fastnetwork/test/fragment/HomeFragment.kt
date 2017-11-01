@@ -42,7 +42,8 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     }
 
     override fun getUserDetail(response: Response) {
-        AppManager.saveAccountUser(context, response.user!!, 0)
+        AppManager.onlyremoveAccount(context,response.user!!)
+//        AppManager.saveAccountUser(context, response.user!!, 0)
         showSnackBarMessage(getString(R.string.update_phonenumber_success))
 //        Toast.makeText(activity, "Update phone success!", Toast.LENGTH_SHORT).show()
     }

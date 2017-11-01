@@ -324,11 +324,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
         v.layout_share.setOnClickListener {
 
-
-            Intent().action = Intent.ACTION_SEND
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
 
             if (product?.price == null || product?.price == "") {
-                Intent().putExtra(Intent.EXTRA_TEXT,
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
                         "- Productname(tên sản phẩm): ${product!!.productname}\n" +
                                 "- Category(thể loại): ${product!!.category}\n" +
                                 "- Address(địa chỉ): ${product!!.location!!.address}\n" +
@@ -336,7 +336,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                                 "- Description(Mô tả): ${product!!.description}\n" +
                                 "- Tham khảo thêm tại: ${Constants.BASE_URL + "link?productid=" + product?._id + "&userid=" + product?.user?._id}")
             } else {
-                Intent().putExtra(Intent.EXTRA_TEXT,
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
                         "- Productname(tên sản phẩm): ${product!!.productname}\n" +
                                 "- Category(thể loại): ${product!!.category}\n" +
                                 "- Price(giá): ${DecimalFormat("###,###").format(product!!.price!!.toLong())} VNĐ\n" +
@@ -346,9 +346,38 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                                 "- Tham khảo thêm tại: ${Constants.BASE_URL + "link?productid=" + product?._id + "&userid=" + product?.user?._id}")
 
             }
-            Intent().type = "text/plain"
-            startActivity(Intent())
+            sendIntent.type = "text/plain"
+            startActivity(sendIntent)
         }
+//        v.layout_share.setOnClickListener {
+//            val sendIntent = Intent()
+//            val linkapp = "https://www.facebook.com/groups/727189854084530/"
+//            val numberFormat = DecimalFormat("###,###")
+//            sendIntent.action = Intent.ACTION_SEND
+//
+//            if (product?.price == null || product?.price == "") {
+//                sendIntent.putExtra(Intent.EXTRA_TEXT,
+//                        "- Productname(tên sản phẩm): ${product!!.productname}\n" +
+//                                "- Category(thể loại): ${product!!.category}\n" +
+//                                "- Address(địa chỉ): ${product!!.location!!.address}\n" +
+//                                "- Time(thời gian): ${product!!.time} giờ\n" +
+//                                "- Description(Mô tả): ${product!!.description}\n" +
+//                                "- Tham khảo thêm tại: ${linkapp}")
+//            } else {
+//                val gia = numberFormat.format(product!!.price!!.toLong()).toString()
+//                sendIntent.putExtra(Intent.EXTRA_TEXT,
+//                        "- Productname(tên sản phẩm): ${product!!.productname}\n" +
+//                                "- Category(thể loại): ${product!!.category}\n" +
+//                                "- Price(giá): ${gia} VNĐ\n" +
+//                                "- Address(địa chỉ): ${product!!.location!!.address}\n" +
+//                                "- Time(thời gian): ${product!!.time} giờ\n" +
+//                                "- Description(Mô tả): ${product!!.description}\n" +
+//                                "- Tham khảo thêm tại: ${linkapp}")
+//
+//            }
+//            sendIntent.type = "text/plain"
+//            startActivity(sendIntent)
+//        }
         v.btn_save.setOnClickListener {
 
             if (statussave) {

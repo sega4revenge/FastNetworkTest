@@ -107,6 +107,7 @@ private fun getObservable_eidtInfoUser(typesearch: String): Observable<Response>
         return object : DisposableObserver<Response>() {
 
             override fun onNext(response: Response) {
+                Log.e("ALOALO","AlO")
                 mDrawerView.getUserDetail(response)
 
             }

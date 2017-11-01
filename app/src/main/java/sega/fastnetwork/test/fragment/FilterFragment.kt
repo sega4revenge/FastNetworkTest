@@ -102,10 +102,8 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
         for (i in keys.indices) {
             val chip = LocationChip(keys[i], keys[i])
             // add contact to the list
-
             mLocationList!!.add(chip)
             if (applied_filters != null && applied_filters!!["location"] != null && applied_filters!!["location"]!!.contains(keys[i])) {
-
                 contentView!!.chips_input.addChip(chip)
             }
         }
@@ -164,7 +162,10 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
 
             override fun onChipRemoved(chip: ChipInterface, newSize: Int) {
                 removeFromSelectedMap("category", chip.id.toString())
-
+                if (category_adapter!!.categoryList[chip.id.toString().toInt()].selected) {
+                    category_adapter!!.categoryList[chip.id.toString().toInt()].selected = false
+                    category_adapter!!.notifyItemChanged(chip.id.toString().toInt())
+                }
              /*   category_adapter!!.categoryList.indexOf(chip.label).selected = false
                 contentView!!.chips_input_category.removeChipByLabel(category_adapter!!.categoryList[position].name)
 
@@ -251,18 +252,18 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
                 var remo = locationSelected.get(0)
                 contentView!!.chips_input.removeChipByLabel(remo)
             }
-       //     for (item: String in locationSelected) {
+            var categorySelected = contentView!!.chips_input_category.selectedChipList
 
-          //  }
-            val categorySelected = contentView!!.chips_input_category.selectedChipList
-            for (i in categorySelected.indices) {
-                contentView!!.chips_input_category.removeChipById(i)
-                if (category_adapter!!.categoryList[i].selected) {
-                    category_adapter!!.categoryList[i].selected = false
-                    category_adapter!!.notifyItemChanged(i)
-
-
-
+            Log.e("categorySelected: ", "categorySelected: "+categorySelected)
+            for (i in 0..(categorySelected.size-1)) {
+                Log.e("removecate: ", "removecate: "+categorySelected.size)
+                Log.e("removecate: ", "removecate: "+categorySelected[0].label)
+                var id = (categorySelected[0].id).toString().toInt()
+                Log.e("removecate: ", "removecate: id"+id)
+                contentView!!.chips_input_category.removeChipByLabel(categorySelected[0].label)
+                if (category_adapter!!.categoryList[id].selected) {
+                    category_adapter!!.categoryList[id].selected = false
+                    category_adapter!!.notifyItemChanged(id)
                 }
             }
             contentView!!.filter.text = filterAdapter.getItem(0).label
@@ -352,7 +353,6 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
     private fun removeFromSelectedMap(key: String, value: String) {
         if (applied_filters!![key]!!.size == 1) {
             applied_filters!!.remove(key)
-            Log.d("aaaaa","///")
         } else {
             applied_filters!![key]!!.remove(value)
         }

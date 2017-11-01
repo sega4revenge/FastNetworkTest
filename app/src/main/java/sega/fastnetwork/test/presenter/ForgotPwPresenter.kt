@@ -73,9 +73,9 @@ class ForgotPwPresenter(view : ForgotPwView) {
             }
         }
     }
-    fun forgot(email: String) {
+    fun forgot(phone: String) {
         try {
-            jsonObject.put("email", email)
+            jsonObject.put("phone", phone)
 
         } catch (e: JSONException) {
             e.printStackTrace()

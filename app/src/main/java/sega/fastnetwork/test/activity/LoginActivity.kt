@@ -145,9 +145,9 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
 
         var err = 0
-        if (!validateFields(email!!.text.toString())) {
+        if (!validateFields(phone_number!!.text.toString())) {
             err++
-            email!!.error = getString(R.string.st_errpass)
+            phone_number!!.error = getString(R.string.st_errpass)
         }
         if (!validateFields(password!!.text.toString())) {
             err++
@@ -156,9 +156,9 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         if (err == 0) {
             val user = User()
             user.hashed_password = password.text.toString()
-            user.email = email.text.toString()
+            user.email = phone_number.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
-            mLoginPresenter!!.login(email.text.toString(), password.text.toString())
+            mLoginPresenter!!.login(phone_number.text.toString(), password.text.toString())
 
 
         } else {
@@ -169,7 +169,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     private fun setError() {
-        email.error = null
+        phone_number.error = null
         password.error = null
     }
 

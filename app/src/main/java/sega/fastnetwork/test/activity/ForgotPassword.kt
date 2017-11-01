@@ -35,7 +35,7 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
             forgot_repassword.visibility = View.VISIBLE
 
             forgot_action_email.visibility = View.GONE
-            forgot_email.visibility = View.GONE
+            phone.visibility = View.GONE
         }
         else {
             if (isForgotPwSuccessful) {
@@ -49,7 +49,7 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
 
     }
     var mForgotPwPresenter: ForgotPwPresenter? = null
-    var email : String? = null
+    var phone_number : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
@@ -114,7 +114,7 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
 
         }
         if(err==0){
-            mForgotPwPresenter!!.newpw(newpw, code, email!!)
+            mForgotPwPresenter!!.newpw(newpw, code, phone_number!!)
         }
         else {
             forgot_progressBar.visibility = View.GONE
@@ -126,17 +126,13 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
     private fun forgot() {
         var err = 0
 
-        email = forgot_email.text.toString()
-        if (!Validation.validateFields(forgot_email!!.text.toString())) {
+        phone_number = phone.text.toString()
+        if (!Validation.validateFields(phone!!.text.toString())) {
             err++
-            forgot_email!!.error = getString(R.string.st_errpass)
-        }
-        if (!Validation.validateEmail(forgot_email!!.text.toString())) {
-            err++
-            forgot_email!!.error = getString(R.string.invalid_email)
+            phone!!.error = getString(R.string.st_errpass)
         }
         if(err==0){
-            mForgotPwPresenter!!.forgot(email!!)
+            mForgotPwPresenter!!.forgot(phone_number!!)
         }
         else {
             forgot_progressBar.visibility = View.GONE

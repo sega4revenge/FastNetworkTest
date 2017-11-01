@@ -82,11 +82,11 @@ class LoginPresenter(view: LoginView) {
             }
         }
     }
-    fun login(email: String, password: String) {
+    fun login(phone_number: String, password: String) {
 
         val tokenfirebase = FirebaseInstanceId.getInstance().token
         try {
-            jsonObject.put("email", email)
+            jsonObject.put("phone", phone_number)
             jsonObject.put("password", password)
             jsonObject.put("tokenfirebase", tokenfirebase)
         } catch (e: JSONException) {

@@ -33,7 +33,6 @@ import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import kotlinx.android.synthetic.main.header.view.*
 import sega.fastnetwork.test.R
-import sega.fastnetwork.test.R.id.*
 import sega.fastnetwork.test.activity.AboutUsActivity
 import sega.fastnetwork.test.activity.AddActivity
 import sega.fastnetwork.test.activity.LoginActivity
@@ -57,7 +56,9 @@ import java.util.*
 
 class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener,DrawerPresenter.DrawerView, ChangePasswordPresenter.ChangePasswordView {
     override fun getUserDetail(user: User) {
-        AppManager.saveAccountUser(context,user,0)
+        AppManager.onlyremoveAccount(context,user)
+//        AppManager.saveAccountUser(context,user,0)
+
     }
 
     override fun isgetUserDetailSuccess(success: Boolean) {
@@ -69,7 +70,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     }
 
     override fun changeAvatarSuccess(t: Response) {
-        AppManager.saveAccountUser(context, t.user!!, 0)
+        AppManager.onlyremoveAccount(context,t.user!!)
+//        AppManager.saveAccountUser(context, t.user!!, 0)
                         Log.e("pic",Constants.IMAGE_URL+ t.user!!.photoprofile)
                         Glide.with(context)
                                 .load(Constants.IMAGE_URL+ t.user!!.photoprofile)
@@ -84,11 +86,13 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     }
 
     override fun getUserDetail(response: Response) {
+        Log.e("getUserDetail", response.user?.name + " " + response.user?.phone)
         showSnackBarMessage(getString(R.string.changeinfo_success))
-        AppManager.saveAccountUser(context,response.user!!,0)
-//        Log.e("getUserDetail",user.name + " " + user.email)
+        AppManager.onlyremoveAccount(context,response.user!!)
+//        AppManager.saveAccountUser(context,response.user!!,0)
         navigation_view.getHeaderView(0).username_header.text = response.user!!.name
         txtname.text  = response.user!!.name
+        user = response.user!!
     }
 
 
@@ -266,6 +270,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 val v = inflater.inflate(R.layout.dialog_changeinfo, null)
                 val newname = v.findViewById<EditText>(R.id.edt_newname)
                 val newphone = v.findViewById<EditText>(R.id.edt_newphone)
+                Log.e("namd and sdt: ", user!!.name + " " + user!!.phone)
                 newname.setText(user!!.name, TextView.BufferType.EDITABLE)
                 newphone.setText(user!!.phone, TextView.BufferType.EDITABLE)
                 val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_changeinfo)
@@ -274,7 +279,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 dl_changeinfo.setView(v)
                 val dg = dl_changeinfo.show()
                 cancel.setOnClickListener {
-                    dg.dismiss()
+                    dg.cancel()
                 }
                 accept.setOnClickListener {
                     CircularAnim.hide(accept)
