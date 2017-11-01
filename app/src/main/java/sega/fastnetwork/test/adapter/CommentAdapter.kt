@@ -1,11 +1,13 @@
 package sega.fastnetwork.test.adapter
 
 
+
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
+
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +22,7 @@ import sega.fastnetwork.test.fragment.ProifileSellerFragment
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Comment
 import sega.fastnetwork.test.util.Constants
-import java.lang.Long
+
 import java.text.DecimalFormat
 import java.util.*
 
@@ -134,7 +136,7 @@ class CommentAdapter// Constructor
     }
     private fun timeAgo(time: String): CharSequence? {
         return DateUtils.getRelativeTimeSpanString(
-                Long.parseLong(time),
+                time.toLong(),
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
     }
 

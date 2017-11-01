@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import com.google.firebase.iid.FirebaseInstanceId
+
 import kotlinx.android.synthetic.main.activity_register.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
@@ -24,14 +25,14 @@ import sega.fastnetwork.test.util.Validation.validateFields
 
 class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
-    var user: User? = null
+    var user = User()
 
     override fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int) {
         if(isRegisterSuccessful)
         {
             Log.e("toi day roi", "ne")
             name.visibility = View.GONE
-           email.visibility = View.GONE
+           phone.visibility = View.GONE
             password.visibility = View.GONE
             repassword.visibility = View.GONE
             btn_join.visibility = View.GONE
@@ -39,7 +40,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             code.visibility = View.VISIBLE
             btn_finish.visibility = View.VISIBLE
 
-            showSnackBarMessage("Check Email")
+            showSnackBarMessage("Check Phone")
             progressBar.visibility = View.GONE
 //            CircularAnim.show(btn_join).go()
         }
@@ -76,18 +77,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
                         }
                     })
         }
-        btn_finish!!.setOnClickListener {
-            CircularAnim.hide(btn_finish)
-                    .endRadius((progressBar.height / 2).toFloat())
-                    .go(object : CircularAnim.OnAnimationEndListener {
-                        override fun onAnimationEnd() {
-                            progressBar.visibility = View.VISIBLE
-                            /*
-                                }*/
-                            register_finish()
-                        }
-                    })
-        }
+
         btn_backtologin!!.setOnClickListener {
             gotologin()
         }
@@ -101,7 +91,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             password!!.error = getString(R.string.st_errpass)
         }
         if (err == 0) {
-            mRegisterPresenter!!.register_finish(email!!.text.toString(),code!!.text.toString())
+            mRegisterPresenter!!.register_finish(user,code.text.toString(),0)
 
         } else {
             progressBar.visibility = View.GONE
@@ -124,10 +114,10 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             name!!.error = getString(R.string.st_errpass)
         }
 
-        if (!validateEmail(email!!.text.toString())) {
+        if (!validateEmail(phone!!.text.toString())) {
 
             err++
-            email!!.error = getString(R.string.invalid_email)
+            phone!!.error = getString(R.string.invalid_email)
         }
 
         if (!validateFields(password!!.text.toString())) {
@@ -143,12 +133,22 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
         }
         if (err == 0) {
-            val user = User()
+
             user.name = name.text.toString()
             user.hashed_password = password.text.toString()
-            user.email = email.text.toString()
+            user.email = phone.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
-           mRegisterPresenter!!.register(user,Constants.LOCAL)
+            btn_phone.visibility = View.VISIBLE
+            input_phone.visibility = View.VISIBLE
+            name.visibility = View.GONE
+            phone.visibility = View.GONE
+            password.visibility = View.GONE
+            repassword.visibility = View.GONE
+            btn_join.visibility = View.GONE
+            btn_phone.setOnClickListener {
+                user.phone = input_phone.text.toString()
+                mRegisterPresenter!!.linkaccount(user,0)
+            }
 
         } else {
             progressBar.visibility = View.GONE
@@ -168,7 +168,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     private fun setError() {
 
         name!!.error = null
-        email!!.error = null
+        phone!!.error = null
         password!!.error = null
         repassword!!.error = null
         code!!.error = null
@@ -182,6 +182,25 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     }
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
+        if(errorMessage == "202") {
+            code.visibility = View.VISIBLE
+            btn_finish.visibility = View.VISIBLE
+            input_phone.visibility = View.GONE
+            btn_phone.visibility = View.GONE
+            btn_finish!!.setOnClickListener {
+                CircularAnim.hide(btn_finish)
+                        .endRadius((progressBar.height / 2).toFloat())
+                        .go(object : CircularAnim.OnAnimationEndListener {
+                            override fun onAnimationEnd() {
+                                progressBar.visibility = View.VISIBLE
+                                /*
+                                    }*/
+                                register_finish()
+                            }
+                        })
+            }
+        }
+
         showSnackBarMessage(errorMessage)
 
         if(type == 1){

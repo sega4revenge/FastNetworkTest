@@ -24,7 +24,6 @@
         android:id="@+id/layout_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_alignEnd="@+id/layout_singup"
         android:layout_alignLeft="@+id/layout_singup"
         android:layout_alignRight="@+id/layout_singup"
@@ -61,7 +60,7 @@
 
             <android.support.design.widget.TextInputEditText
 
-                android:id="@+id/email"
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -129,6 +128,27 @@
 
 
 
+        <android.support.design.widget.TextInputEditText
+
+            android:id="@+id/input_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/lock"
+            android:drawablePadding="10dp"
+            android:drawableStart="@mipmap/lock"
+            android:ems="10"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:paddingLeft="20dp"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textSize="14sp"
+            android:background="@drawable/roundeditttext"
+
+            />
 
             <android.support.design.widget.TextInputEditText
 
@@ -179,6 +199,15 @@
 
             android:background="@drawable/roundbutton"
             android:text="@string/btn_join"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+        <Button
+            android:id="@+id/btn_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_size_large"
+            android:visibility="gone"
+            android:background="@drawable/roundbutton"
+            android:text="Phone"
             android:textAllCaps="false"
             android:textColor="@color/white" />
         <Button

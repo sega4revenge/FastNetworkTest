@@ -8,8 +8,8 @@ import org.json.JSONObject
 
 
 class Response {
-
-    var user: User? = null
+    val status : Int?=null
+    val user: User? = null
     val message: String? = null
     val token: String? = null
     var product : Product? =null

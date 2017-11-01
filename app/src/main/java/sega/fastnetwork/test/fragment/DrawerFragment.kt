@@ -33,6 +33,7 @@ import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.fragment_drawer_main.*
 import kotlinx.android.synthetic.main.header.view.*
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.R.id.*
 import sega.fastnetwork.test.activity.AboutUsActivity
 import sega.fastnetwork.test.activity.AddActivity
 import sega.fastnetwork.test.activity.LoginActivity
@@ -170,8 +171,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             startActivityForResult(Intent(this@DrawerFragment.activity, AddActivity::class.java), Constants.CREATEPRODUCT)
         }
 
-            if(user!!.photoprofile!!.startsWith("http")){
-                photoprofile = user!!.photoprofile
+            if(user?.photoprofile?.startsWith("http")!!){
+                photoprofile = user?.photoprofile
             }
             else{
                 photoprofile = Constants.IMAGE_URL+user!!.photoprofile

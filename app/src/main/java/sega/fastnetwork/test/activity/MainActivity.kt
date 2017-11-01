@@ -1,15 +1,19 @@
 package sega.fastnetwork.test.activity
 
+
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+
 import android.util.Log
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+
 import io.socket.client.Socket
 import kotlinx.android.synthetic.main.activity_main.*
 import sega.fastnetwork.test.R
+
 import sega.fastnetwork.test.fragment.DrawerFragment
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User

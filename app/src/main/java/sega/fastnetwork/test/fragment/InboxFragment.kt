@@ -34,7 +34,7 @@ class InboxFragment : Fragment(), InboxPressenter.InboxListView {
         mInboxPressenter = InboxPressenter(this)
         product_recycleview.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(activity)
-        product_recycleview.layoutManager = this!!.layoutManager
+        product_recycleview.layoutManager = this.layoutManager
 
         mInboxPressenter?.getProductList(user?._id!!)
 

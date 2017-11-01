@@ -5,7 +5,6 @@ import android.accounts.AccountManager
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.StrictMode
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -35,7 +34,7 @@ import sega.fastnetwork.test.util.Validation.validateFields
 class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiClient.OnConnectionFailedListener {
     var mAccountManager: AccountManager? = null
     var account: Account? = null
-    var user: User? = null
+    var user = User()
     var TAG = "Login Activity"
     private var callbackManager: CallbackManager? = null
 
@@ -61,10 +60,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             finish()
             overridePendingTransition(0, 0)
         }
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-            StrictMode.setThreadPolicy(policy)
-        }
+
         AppEventsLogger.activateApp(this)
         mLoginPresenter = LoginPresenter(this)
 
@@ -102,7 +98,6 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                         val tokenfirebase = FirebaseInstanceId.getInstance().token
                         val id = response.jsonObject.getString("id")
                         val url = "https://graph.facebook.com/$id/picture?type=large"
-                        val user = User()
                         user.facebook!!.name = response.jsonObject.getString("name")
                         user.facebook!!.email = response.jsonObject.getString("email")
                         user.facebook!!.id = id
@@ -223,6 +218,35 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
+        if (errorMessage == "201")
+        {
+            layout_input.visibility = View.GONE
+            layout_social_button.visibility = View.GONE
+            btn_singin.visibility = View.GONE
+            layout_input_phone.visibility = View.VISIBLE
+            input_phone.visibility = View.VISIBLE
+            btn_input_phone.setOnClickListener{
+                user.phone = input_phone.text.toString()
+                mLoginPresenter!!.linkaccount(user,type)
+
+            }
+
+
+
+        }
+        if(errorMessage == "202")
+        {
+            layout_input_phone.visibility = View.GONE
+            input_phone.visibility = View.GONE
+            layout_finish_code.visibility = View.VISIBLE
+            input_code.visibility = View.VISIBLE
+            println("mot code da gui den tai khoan")
+            btn_finish_code.setOnClickListener {
+                mLoginPresenter!!.register_finish(user,input_code.text.toString(),type)
+            }
+        }
+
+
         showSnackBarMessage(errorMessage)
     }
 
@@ -271,7 +295,6 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             val acct: GoogleSignInAccount? = result.signInAccount
             Log.e(TAG, "display name: " + acct!!.displayName)
             val tokenfirebase = FirebaseInstanceId.getInstance().token
-            val user = User()
             user.google!!.id = acct.id
             user.google!!.token = acct.idToken
             user.google!!.name = acct.displayName

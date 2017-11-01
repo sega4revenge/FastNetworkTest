@@ -118,10 +118,15 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
         return object : DisposableObserver<Response>() {
 
             override fun onNext(response: Response) {
-                Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-               if(type!=0){
-                   mLoginView.getUserDetail(response.user!!)
-               }
+                if(response.status == 201)
+                    mLoginView.setErrorMessage("201",type)
+                else
+                {
+                    Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+                    mLoginView.getUserDetail(response.user!!)
+                    mLoginView.isRegisterSuccessful(true, type)
+                }
+
             }
             override fun onError(e: Throwable) {
                 if (e is ANError) {
@@ -183,6 +188,94 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
                 .subscribeWith(getDisposableObserver_register(type)))
 
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private fun getObservable_linkaccount(typesearch: String): Observable<Response> {
+        return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
+                .setTag(register)
+                .addJSONObjectBody(jsonObject)
+                .build()
+
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(register, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(register, " bytesSent : " + bytesSent)
+                    Log.d(register, " bytesReceived : " + bytesReceived)
+                    Log.d(register, " isFromCache : " + isFromCache)
+                }
+
+                .getObjectObservable(Response::class.java)
+    }
+    private fun getDisposableObserver_linkaccount(type: Int): DisposableObserver<Response> {
+
+        return object : DisposableObserver<Response>() {
+
+            override fun onNext(response: Response) {
+                Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+                mLoginView.setErrorMessage(response.status.toString(),type)
+            }
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+                    Log.d(register, "onError errorCode : " + e.errorCode)
+                    Log.d(register, "onError errorBody : " + e.errorBody)
+                    Log.d(register, e.errorDetail + " : " + e.message)
+                    mLoginView.setErrorMessage(e.errorBody,1)
+                } else {
+                    Log.d(register, "onError errorMessage : " + e.message)
+                    mLoginView.setErrorMessage(e.message!!,1)
+                }
+            }
+
+            override fun onComplete() {
+
+            }
+        }
+    }
+    fun linkaccount(user: User, type: Int) {
+        println(type)
+        try {
+            if (type == Constants.FACEBOOK) {
+
+                jsonObject.put("id", user.facebook!!.id)
+                jsonObject.put("token", user.facebook!!.token)
+                jsonObject.put("name", user.facebook!!.name)
+                jsonObject.put("phone", user.phone)
+                jsonObject.put("email", user.facebook!!.email)
+                jsonObject.put("password", user.hashed_password)
+                jsonObject.put("photoprofile", user.facebook!!.photoprofile)
+                jsonObject.put("type", type)
+                jsonObject.put("tokenfirebase", user.tokenfirebase)
+            } else if (type == Constants.GOOGLE) {
+                jsonObject.put("id", user.google!!.id)
+                jsonObject.put("token", user.google!!.token)
+                jsonObject.put("name", user.google!!.name)
+                jsonObject.put("phone", user.phone)
+                jsonObject.put("email", user.google!!.email)
+                jsonObject.put("password", user.hashed_password)
+                jsonObject.put("photoprofile", user.google!!.photoprofile)
+                jsonObject.put("type", type)
+                jsonObject.put("tokenfirebase", user.tokenfirebase)
+            }
+            else{
+
+                jsonObject.put("name", user.name)
+                jsonObject.put("phone", user.phone)
+                jsonObject.put("email", user.email)
+                jsonObject.put("password", user.hashed_password)
+                jsonObject.put("photoprofile", user.photoprofile)
+                jsonObject.put("type", type)
+                jsonObject.put("tokenfirebase", user.tokenfirebase)
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        disposables.add(getObservable_linkaccount("linkaccount")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver_linkaccount(type)))
+
+    }
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun getObservable_register_finish(typesearch: String): Observable<Response> {
         return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
@@ -236,11 +329,12 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
         }
     }
 
-    fun register_finish(email: String, code: String) {
+    fun register_finish(user: User, code: String,type: Int) {
 
         try {
-            jsonObject.put("email", email)
+            jsonObject.put("phone", user.phone)
             jsonObject.put("code", code)
+            jsonObject.put("type", type)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
