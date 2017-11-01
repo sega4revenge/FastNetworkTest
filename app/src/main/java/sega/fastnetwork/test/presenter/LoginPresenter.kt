@@ -118,6 +118,7 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
         return object : DisposableObserver<Response>() {
 
             override fun onNext(response: Response) {
+                println(response.status)
                 if(response.status == 201)
                     mLoginView.setErrorMessage("201",type)
                 else
@@ -147,7 +148,7 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
             }
 
             override fun onComplete() {
-                mLoginView.isRegisterSuccessful(true, type)
+
             }
         }
     }
