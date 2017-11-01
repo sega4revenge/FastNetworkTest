@@ -151,6 +151,7 @@ class ForgotPwPresenter(view : ForgotPwView) {
                 .subscribeWith(getDisposableObserver_newpw()))
 
     }
+
     fun cancelRequest() {
         Log.e("Cancel","Cancel Request")
         disposables.clear()
