@@ -24,11 +24,14 @@ import org.json.JSONException
 import sega.fastnetwork.test.MyApplication
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
+import sega.fastnetwork.test.lib.smsverifycatcher.OnSmsCatchListener
+import sega.fastnetwork.test.lib.smsverifycatcher.SmsVerifyCatcher
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.LoginPresenter
 import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.util.Validation.validateFields
+import java.util.regex.Pattern
 
 
 class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiClient.OnConnectionFailedListener {
@@ -36,6 +39,8 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     var account: Account? = null
     var user = User()
     var TAG = "Login Activity"
+    var smsVerifyCatcher : SmsVerifyCatcher?= null
+
     private var callbackManager: CallbackManager? = null
 
 
@@ -231,19 +236,44 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
             }
 
-
-
         }
         if(errorMessage == "202")
         {
+
+//            val permissionlistener = object : PermissionListener {
+//                @SuppressLint("MissingPermission")
+//
+//                override fun onPermissionGranted() {
+//
+//                    smsVerifyCatcher = SmsVerifyCatcher(this@LoginActivity, OnSmsCatchListener<String> { message ->
+//                        Log.e("message", message)
+//                        val code = parseCode(message)//Parse verification code
+//                        Log.e("code", code)
+//                        input_code.setText(code)//set code in edit text
+//                        //then you can send verification code to server
+//                    })
+//                }
+//
+//
+//                override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
+//                        Toast.makeText(applicationContext, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+//
+//            }
+//            TedPermission.with(this)
+//                    .setPermissionListener(permissionlistener)
+//                    .setDeniedMessage(getString(R.string.per_turnon))
+//                    .setPermissions(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
+//                    .check()
             layout_input_phone.visibility = View.GONE
             input_phone.visibility = View.GONE
             layout_finish_code.visibility = View.VISIBLE
             input_code.visibility = View.VISIBLE
+
             println("mot code da gui den tai khoan")
             btn_finish_code.setOnClickListener {
                 mLoginPresenter!!.register_finish(user,input_code.text.toString(),type)
             }
+
         }
 
 
@@ -342,7 +372,36 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         super.onDestroy()
         mLoginPresenter?.cancelRequest()
     }
+    override fun onStart() {
+        super.onStart()
+        smsVerifyCatcher = SmsVerifyCatcher(this@LoginActivity, OnSmsCatchListener<String> { message ->
+            Log.e("message", message)
+            val code = parseCode(message)//Parse verification code
+            Log.e("code", code)
+            input_code.setText(code)//set code in edit text
+            //then you can send verification code to server
+        })
+        smsVerifyCatcher?.onStart()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        smsVerifyCatcher?.onStop()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        smsVerifyCatcher?.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+    private fun parseCode(message: String): String {
+        val p = Pattern.compile("\\b\\d{6}\\b")
+        val m = p.matcher(message)
+        var code = ""
+        while (m.find()) {
+            code = m.group(0)
+        }
+        return code
+    }
     /*override fun onPause() {
         super.onPause()
 
