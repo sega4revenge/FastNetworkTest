@@ -6,9 +6,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.*
 import com.facebook.*
 import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginManager
@@ -40,7 +42,13 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     var user = User()
     var TAG = "Login Activity"
     var smsVerifyCatcher : SmsVerifyCatcher?= null
-
+    var editcode: EditText? = null
+    var dialog: AlertDialog? =  null
+    var btn_sendcode: Button? = null
+    var btn_sendphone: Button? = null
+    var txt_hd: TextView? = null
+    var progressbar_sendcode: ProgressBar? = null
+    var progressbar_sendphone: ProgressBar? = null
     private var callbackManager: CallbackManager? = null
 
 
@@ -179,7 +187,8 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     override fun isLoginSuccessful(isLoginSuccessful: Boolean) {
-        if (isLoginSuccessful)
+        if (isLoginSuccessful) {
+            dialog?.dismiss()
             CircularAnim.fullActivity(this@LoginActivity, progressBar)
                     .colorOrImageRes(R.color.color_background_button)
                     .go(object : CircularAnim.OnAnimationEndListener {
@@ -188,7 +197,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                             finish()
                         }
                     })
-        else {
+        }else {
             progressBar.visibility = View.GONE
             CircularAnim.show(btn_singin).go()
         }
@@ -225,20 +234,55 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     override fun setErrorMessage(errorMessage: String, type: Int) {
         if (errorMessage == "201")
         {
-            layout_input.visibility = View.GONE
-            layout_social_button.visibility = View.GONE
-            btn_singin.visibility = View.GONE
-            layout_input_phone.visibility = View.VISIBLE
-            input_phone.visibility = View.VISIBLE
-            btn_input_phone.setOnClickListener{
-                user.phone = input_phone.text.toString()
-                mLoginPresenter!!.linkaccount(user,type)
-
+            val dl_verifycode = AlertDialog.Builder(this)
+            dl_verifycode.setCancelable(false)
+            val inflater = layoutInflater
+            val v = inflater.inflate(R.layout.verify_phone_layout, null)
+            val phonenumber = v.findViewById<EditText>(R.id.edit_phonenumber)
+            var btn_out = v.findViewById<ImageView>(R.id.btn_out)
+            val verifycode = v.findViewById<EditText>(R.id.edit_verifycode)
+            val sendcode = v.findViewById<Button>(R.id.send_code)
+            val progressbar = v.findViewById<ProgressBar>(R.id.progressBar_dialog)
+            val progressbar_verify = v.findViewById<ProgressBar>(R.id.progressBar2)
+            val accept_verifycode = v.findViewById<Button>(R.id.login_verifycode)
+            txt_hd =  v.findViewById<TextView>(R.id.txt_huongdan)
+            editcode = verifycode
+            btn_sendcode = sendcode
+            btn_sendphone = accept_verifycode
+            progressbar_sendcode = progressbar_verify
+            progressbar_sendphone = progressbar
+            dl_verifycode.setView(v)
+            dialog = dl_verifycode.create()
+            dialog?.show()
+          //  val dg = dl_verifycode.show()
+            btn_out.setOnClickListener(){
+                dialog?.dismiss()
+            }
+            sendcode.setOnClickListener(){
+                if(phonenumber.text.toString().equals(""))
+                {
+                    progressbar_sendphone?.visibility = View.GONE
+                    CircularAnim.show(sendcode).go()
+                }else{
+                    CircularAnim.hide(sendcode).go()
+                    progressbar.visibility = View.VISIBLE
+                    user.phone = phonenumber.text.toString()
+                    mLoginPresenter!!.linkaccount(user,type)
+                }
+            }
+            accept_verifycode.setOnClickListener(){
+                CircularAnim.hide(accept_verifycode).go()
+                progressbar_verify.visibility = View.VISIBLE
+                mLoginPresenter!!.register_finish(user,verifycode.text.toString(),type)
             }
 
         }
         if(errorMessage == "202")
         {
+            txt_hd?.visibility = View.VISIBLE
+            progressbar_sendphone?.visibility = View.GONE
+            btn_sendphone?.isEnabled = true
+
 
 //            val permissionlistener = object : PermissionListener {
 //                @SuppressLint("MissingPermission")
@@ -264,15 +308,15 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 //                    .setDeniedMessage(getString(R.string.per_turnon))
 //                    .setPermissions(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
 //                    .check()
-            layout_input_phone.visibility = View.GONE
-            input_phone.visibility = View.GONE
-            layout_finish_code.visibility = View.VISIBLE
-            input_code.visibility = View.VISIBLE
+//            layout_input_phone.visibility = View.GONE
+//            input_phone.visibility = View.GONE
+//            layout_finish_code.visibility = View.VISIBLE
+//            input_code.visibility = View.VISIBLE
 
-            println("mot code da gui den tai khoan")
-            btn_finish_code.setOnClickListener {
-                mLoginPresenter!!.register_finish(user,input_code.text.toString(),type)
-            }
+//            println("mot code da gui den tai khoan")
+//            btn_finish_code.setOnClickListener {
+//                mLoginPresenter!!.register_finish(user,input_code.text.toString(),type)
+//            }
 
         }
 
@@ -378,7 +422,9 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             Log.e("message", message)
             val code = parseCode(message)//Parse verification code
             Log.e("code", code)
-            input_code.setText(code)//set code in edit text
+            editcode?.setText(code)
+
+                    // input_code.setText(code)//set code in edit text
             //then you can send verification code to server
         })
         smsVerifyCatcher?.onStart()
