@@ -5,12 +5,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
+import sega.fastnetwork.test.lib.smsverifycatcher.OnSmsCatchListener
+import sega.fastnetwork.test.lib.smsverifycatcher.SmsVerifyCatcher
 import sega.fastnetwork.test.presenter.ForgotPwPresenter
 import sega.fastnetwork.test.util.Validation
+import java.util.regex.Pattern
 
 class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
     override fun setErrorMessage(errorMessage: String, type: Int) {
@@ -21,6 +25,24 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
         }
         else
         CircularAnim.show(forgot_action_newpw).go()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        smsVerifyCatcher?.onStart()
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        smsVerifyCatcher?.onStop()
+
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        smsVerifyCatcher?.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
     }
 
@@ -48,11 +70,19 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
         }
 
     }
+    var smsVerifyCatcher : SmsVerifyCatcher ?= null
     var mForgotPwPresenter: ForgotPwPresenter? = null
     var phone_number : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
+        smsVerifyCatcher = SmsVerifyCatcher(this, OnSmsCatchListener<String> { message ->
+            Log.e("message", message)
+            val code = parseCode(message)//Parse verification code
+            Log.e("code", code)
+            forgot_code.setText(code)//set code in edit text
+            //then you can send verification code to server
+        })
         mForgotPwPresenter = ForgotPwPresenter(this)
         forgot_action_newpw.visibility = View.GONE
         forgot_newpw.visibility = View.GONE
@@ -142,6 +172,15 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
 
     }
 
+    private fun parseCode(message: String): String {
+        val p = Pattern.compile("\\b\\d{6}\\b")
+        val m = p.matcher(message)
+        var code = ""
+        while (m.find()) {
+            code = m.group(0)
+        }
+        return code
+    }
     private fun showSnackBarMessage(message: String?) {
         Snackbar.make(findViewById(R.id.root_forgotpw), message!!, Snackbar.LENGTH_SHORT).show()
     }

@@ -8,16 +8,18 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import com.google.firebase.iid.FirebaseInstanceId
-
 import kotlinx.android.synthetic.main.activity_register.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.customview.CircularAnim
+import sega.fastnetwork.test.lib.smsverifycatcher.OnSmsCatchListener
+import sega.fastnetwork.test.lib.smsverifycatcher.SmsVerifyCatcher
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
 import sega.fastnetwork.test.presenter.LoginPresenter
 import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.util.Validation.validateEmail
 import sega.fastnetwork.test.util.Validation.validateFields
+import java.util.regex.Pattern
 
 /**
  * Created by sega4 on 23/05/2017.
@@ -37,11 +39,12 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             repassword.visibility = View.GONE
             btn_join.visibility = View.GONE
 
-            code.visibility = View.VISIBLE
+            input_code.visibility = View.VISIBLE
             btn_finish.visibility = View.VISIBLE
 
             showSnackBarMessage("Check Phone")
             progressBar.visibility = View.GONE
+
 //            CircularAnim.show(btn_join).go()
         }
         if(type == 3){
@@ -59,11 +62,18 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
         }
     }
-
+    var smsVerifyCatcher : SmsVerifyCatcher?= null
     var mRegisterPresenter: LoginPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        smsVerifyCatcher = SmsVerifyCatcher(this, OnSmsCatchListener<String> { message ->
+            Log.e("message", message)
+            val code = parseCode(message)//Parse verification code
+            Log.e("code", code)
+            input_code.setText(code)//set code in edit text
+            //then you can send verification code to server
+        })
         mRegisterPresenter = LoginPresenter(this)
         btn_join!!.setOnClickListener {
             CircularAnim.hide(btn_join)
@@ -86,12 +96,12 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     private fun register_finish() {
         setError()
         var err = 0
-        if (!validateFields(code!!.text.toString())) {
+        if (!validateFields(input_code!!.text.toString())) {
             err++
             password!!.error = getString(R.string.st_errpass)
         }
         if (err == 0) {
-            mRegisterPresenter!!.register_finish(user,code.text.toString(),0)
+            mRegisterPresenter!!.register_finish(user,input_code.text.toString(),0)
 
         } else {
             progressBar.visibility = View.GONE
@@ -171,7 +181,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         phone!!.error = null
         password!!.error = null
         repassword!!.error = null
-        code!!.error = null
+        input_code!!.error = null
     }
 
 
@@ -183,7 +193,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
         if(errorMessage == "202") {
-            code.visibility = View.VISIBLE
+            input_code.visibility = View.VISIBLE
             btn_finish.visibility = View.VISIBLE
             input_phone.visibility = View.GONE
             btn_phone.visibility = View.GONE
@@ -221,6 +231,20 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         this.user = user
     }
 
+    override fun onStart() {
+        super.onStart()
+        smsVerifyCatcher?.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        smsVerifyCatcher?.onStop()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        smsVerifyCatcher?.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
 
     private fun showSnackBarMessage(message: String?) {
 
@@ -229,7 +253,15 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
     }
 
-
+    private fun parseCode(message: String): String {
+        val p = Pattern.compile("\\b\\d{6}\\b")
+        val m = p.matcher(message)
+        var code = ""
+        while (m.find()) {
+            code = m.group(0)
+        }
+        return code
+    }
     public override fun onDestroy() {
         super.onDestroy()
         mRegisterPresenter?.cancelRequest()

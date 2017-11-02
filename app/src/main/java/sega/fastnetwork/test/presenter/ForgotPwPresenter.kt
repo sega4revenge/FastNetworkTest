@@ -137,9 +137,9 @@ class ForgotPwPresenter(view : ForgotPwView) {
             }
         }
     }
-    fun newpw(newpw: String,code : String, email: String) {
+    fun newpw(newpw: String,code : String, phone: String) {
         try {
-            jsonObject.put("email", email)
+            jsonObject.put("phone", phone)
             jsonObject.put("password", newpw)
             jsonObject.put("code",code)
         } catch (e: JSONException) {
