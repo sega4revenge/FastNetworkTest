@@ -4,9 +4,11 @@ package sega.fastnetwork.test.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.*
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_register.*
 import sega.fastnetwork.test.R
@@ -28,7 +30,13 @@ import java.util.regex.Pattern
 class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
     var user = User()
-
+    var editcode: EditText? = null
+    var dialog: AlertDialog? =  null
+    var btn_sendcode: Button? = null
+    var btn_sendphone: Button? = null
+    var txt_hd: TextView? = null
+    var progressbar_sendcode: ProgressBar? = null
+    var progressbar_sendphone: ProgressBar? = null
     override fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int) {
         if(isRegisterSuccessful)
         {
@@ -96,12 +104,12 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     private fun register_finish() {
         setError()
         var err = 0
-        if (!validateFields(input_code!!.text.toString())) {
+        if (!validateFields(editcode?.text.toString())) {
             err++
             password!!.error = getString(R.string.st_errpass)
         }
         if (err == 0) {
-            mRegisterPresenter!!.register_finish(user,input_code.text.toString(),0)
+            mRegisterPresenter!!.register_finish(user,editcode?.text.toString(),0)
 
         } else {
             progressBar.visibility = View.GONE
@@ -118,6 +126,11 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
         var err = 0
 
+        if (!validateFields(txt_phone!!.text.toString())) {
+
+            err++
+            txt_phone!!.error = getString(R.string.st_errpass)
+        }
         if (!validateFields(name!!.text.toString())) {
 
             err++
@@ -142,23 +155,72 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             repassword!!.error = getString(R.string.st_errpass)
 
         }
-        if (err == 0) {
 
+
+        if (err == 0){
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_join).go()
+
+            user.phone = txt_phone.text.toString()
             user.name = name.text.toString()
             user.hashed_password = password.text.toString()
             user.email = phone.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
-            btn_phone.visibility = View.VISIBLE
-            input_phone.visibility = View.VISIBLE
-            name.visibility = View.GONE
-            phone.visibility = View.GONE
-            password.visibility = View.GONE
-            repassword.visibility = View.GONE
-            btn_join.visibility = View.GONE
-            btn_phone.setOnClickListener {
-                user.phone = input_phone.text.toString()
-                mRegisterPresenter!!.linkaccount(user,0)
+
+            val dl_verifycode = AlertDialog.Builder(this)
+            dl_verifycode.setCancelable(false)
+            val inflater = layoutInflater
+            val v = inflater.inflate(R.layout.verify_phone_layout, null)
+            val phonenumber = v.findViewById<EditText>(R.id.edit_phonenumber)
+            var btn_out = v.findViewById<ImageView>(R.id.btn_out)
+            val verifycode = v.findViewById<EditText>(R.id.edit_verifycode)
+            val sendcode = v.findViewById<Button>(R.id.send_code)
+            val progressbar = v.findViewById<ProgressBar>(R.id.progressBar_dialog)
+            val progressbar_verify = v.findViewById<ProgressBar>(R.id.progressBar2)
+            val accept_verifycode = v.findViewById<Button>(R.id.login_verifycode)
+            txt_hd =  v.findViewById<TextView>(R.id.txt_huongdan)
+            editcode = verifycode
+            btn_sendcode = sendcode
+            btn_sendphone = accept_verifycode
+            progressbar_sendcode = progressbar_verify
+            progressbar_sendphone = progressbar
+            dl_verifycode.setView(v)
+            dialog = dl_verifycode.create()
+            dialog?.show()
+            //  val dg = dl_verifycode.show()
+            btn_out.setOnClickListener(){
+                dialog?.dismiss()
             }
+            sendcode.setOnClickListener(){
+                if(phonenumber.text.toString().equals(""))
+                {
+                    progressbar_sendphone?.visibility = View.GONE
+                    CircularAnim.show(sendcode).go()
+                }else{
+                    CircularAnim.hide(sendcode).go()
+                    progressbar.visibility = View.VISIBLE
+                    user.phone = phonenumber.text.toString()
+                    mRegisterPresenter!!.linkaccount(user,0)
+                }
+            }
+            accept_verifycode.setOnClickListener(){
+                CircularAnim.hide(accept_verifycode).go()
+                progressbar_verify.visibility = View.VISIBLE
+                register_finish()
+            }
+
+       // }
+//            btn_phone.visibility = View.VISIBLE
+//            input_phone.visibility = View.VISIBLE
+//            name.visibility = View.GONE
+//            phone.visibility = View.GONE
+//            password.visibility = View.GONE
+//            repassword.visibility = View.GONE
+//            btn_join.visibility = View.GONE
+//            btn_phone.setOnClickListener {
+//                user.phone = input_phone.text.toString()
+//                mRegisterPresenter!!.linkaccount(user,0)
+//            }
 
         } else {
             progressBar.visibility = View.GONE
@@ -182,6 +244,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         password!!.error = null
         repassword!!.error = null
         input_code!!.error = null
+        txt_phone!!.error = null
     }
 
 
@@ -193,22 +256,26 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
         if(errorMessage == "202") {
-            input_code.visibility = View.VISIBLE
-            btn_finish.visibility = View.VISIBLE
-            input_phone.visibility = View.GONE
-            btn_phone.visibility = View.GONE
-            btn_finish!!.setOnClickListener {
-                CircularAnim.hide(btn_finish)
-                        .endRadius((progressBar.height / 2).toFloat())
-                        .go(object : CircularAnim.OnAnimationEndListener {
-                            override fun onAnimationEnd() {
-                                progressBar.visibility = View.VISIBLE
-                                /*
-                                    }*/
-                                register_finish()
-                            }
-                        })
-            }
+            txt_hd?.visibility = View.VISIBLE
+            progressbar_sendphone?.visibility = View.GONE
+            btn_sendphone?.isEnabled = true
+            register_finish()
+//            input_code.visibility = View.VISIBLE
+//            btn_finish.visibility = View.VISIBLE
+//            input_phone.visibility = View.GONE
+//            btn_phone.visibility = View.GONE
+//            btn_finish!!.setOnClickListener {
+//                CircularAnim.hide(btn_finish)
+//                        .endRadius((progressBar.height / 2).toFloat())
+//                        .go(object : CircularAnim.OnAnimationEndListener {
+//                            override fun onAnimationEnd() {
+//                                progressBar.visibility = View.VISIBLE
+//                                /*
+//                                    }*/
+//                                register_finish()
+//                            }
+//                        })
+//            }
         }
 
         showSnackBarMessage(errorMessage)

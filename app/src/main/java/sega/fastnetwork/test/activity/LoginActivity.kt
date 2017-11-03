@@ -232,6 +232,14 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
     }
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
+        if(errorMessage.equals("404"))
+        {
+            showSnackBarMessage("User Not Found !")
+        }else if(errorMessage.equals("401")){
+            showSnackBarMessage("Incorrect password !")
+        }else if(errorMessage.equals("403")){
+            showSnackBarMessage("Email not authenticated !")
+        }
         if (errorMessage == "201")
         {
             val dl_verifycode = AlertDialog.Builder(this)
@@ -283,45 +291,12 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             progressbar_sendphone?.visibility = View.GONE
             btn_sendphone?.isEnabled = true
 
-
-//            val permissionlistener = object : PermissionListener {
-//                @SuppressLint("MissingPermission")
-//
-//                override fun onPermissionGranted() {
-//
-//                    smsVerifyCatcher = SmsVerifyCatcher(this@LoginActivity, OnSmsCatchListener<String> { message ->
-//                        Log.e("message", message)
-//                        val code = parseCode(message)//Parse verification code
-//                        Log.e("code", code)
-//                        input_code.setText(code)//set code in edit text
-//                        //then you can send verification code to server
-//                    })
-//                }
-//
-//
-//                override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
-//                        Toast.makeText(applicationContext, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
-//
-//            }
-//            TedPermission.with(this)
-//                    .setPermissionListener(permissionlistener)
-//                    .setDeniedMessage(getString(R.string.per_turnon))
-//                    .setPermissions(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS)
-//                    .check()
-//            layout_input_phone.visibility = View.GONE
-//            input_phone.visibility = View.GONE
-//            layout_finish_code.visibility = View.VISIBLE
-//            input_code.visibility = View.VISIBLE
-
-//            println("mot code da gui den tai khoan")
-//            btn_finish_code.setOnClickListener {
-//                mLoginPresenter!!.register_finish(user,input_code.text.toString(),type)
-//            }
-
+            showSnackBarMessage(errorMessage)
         }
-
-
-        showSnackBarMessage(errorMessage)
+        if(errorMessage == "0")
+        {
+            showSnackBarMessage(resources.getString(R.string.server_unreachable))
+        }
     }
 
     override fun getUserDetail(user: User) {
