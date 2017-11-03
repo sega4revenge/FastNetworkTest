@@ -21,6 +21,7 @@ import sega.fastnetwork.test.presenter.LoginPresenter
 import sega.fastnetwork.test.util.Constants
 import sega.fastnetwork.test.util.Validation.validateEmail
 import sega.fastnetwork.test.util.Validation.validateFields
+import sega.fastnetwork.test.util.Validation.validatePassword
 import java.util.regex.Pattern
 
 /**
@@ -98,9 +99,9 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     private fun register_finish() {
         setError()
         var err = 0
-        if (!validateFields(editcode?.text.toString())) {
+        if (!validatePassword(editcode?.text.toString())) {
             err++
-            password!!.error = getString(R.string.st_errpass)
+            password!!.error = getString(R.string.st_errpass2)
         }
         if (err == 0) {
             mRegisterPresenter!!.register_finish(user,editcode?.text.toString(),0)
@@ -137,10 +138,10 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             phone!!.error = getString(R.string.invalid_email)
         }
 
-        if (!validateFields(password!!.text.toString())) {
+        if (!validatePassword(password!!.text.toString())) {
 
             err++
-            password!!.error = getString(R.string.st_errpass)
+            password!!.error = getString(R.string.st_errpass2)
         }
         if (password!!.text.toString() != repassword!!.text.toString()||repassword!!.text.toString()=="") {
 

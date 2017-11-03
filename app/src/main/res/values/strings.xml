@@ -105,6 +105,9 @@
     <string name="sp_saved">Product saved</string>
     <string name="txt_mess">Message</string>
     <string name="st_errpass">Should not be empty !</string>
+    <string name="st_errpass2">Should not be empty or less than 6  character !</string>
+    <string name="st_errpass3">Should not be empty or repassword not match !</string>
+
     //======================================
     <string name="ac_add">Add product</string>
     <string name="noselect">No select</string>

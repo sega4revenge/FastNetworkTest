@@ -942,7 +942,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
             override fun onPermissionGranted() {
                 val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
-                mapView_location.getMapAsync(this)
+                mapView_location.getMapAsync(
+                        this)
             }
 
 

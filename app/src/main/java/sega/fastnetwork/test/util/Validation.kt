@@ -14,6 +14,10 @@ object Validation {
 
         return !(TextUtils.isEmpty(name) || name!!.trim { it <= ' ' } == "")
     }
+    fun validatePassword(name: String?): Boolean {
+
+        return !(TextUtils.isEmpty(name) || name!!.trim { it <= ' ' } == "" || name.length < 6)
+    }
 
     fun validateEmail(string: String?): Boolean {
 

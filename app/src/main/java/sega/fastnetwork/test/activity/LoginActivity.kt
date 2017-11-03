@@ -238,7 +238,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         }else if(errorMessage.equals("401")){
             showSnackBarMessage("Incorrect password !")
         }else if(errorMessage.equals("403")){
-            showSnackBarMessage("Email not authenticated !")
+            showSnackBarMessage("Phone not authenticated !")
         }
         if (errorMessage == "201")
         {

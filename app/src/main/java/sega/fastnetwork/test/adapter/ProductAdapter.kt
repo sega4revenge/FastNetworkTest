@@ -146,14 +146,14 @@ internal class ProductAdapter// Constructor
 
             when (product.category) {
                 "0" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_vehicle)
-                "1" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_toy)
-                "2" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_electronic)
-                "3" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_furniture)
-                "4" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_fashion)
-                "5" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_home)
-                "6" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_education)
-                "7" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_music)
-                "8" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_machine)
+                "1" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_electronic)
+                "2" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_fashion)
+                "3" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_home)
+                "4" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_toy)
+                "5" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_furniture)
+                "6" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cup)
+                "7" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.printer)
+                "8" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_more)
                 else -> { // Note the block
                     viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_more)
                 }
