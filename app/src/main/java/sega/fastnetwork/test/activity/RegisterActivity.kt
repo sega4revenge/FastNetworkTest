@@ -75,13 +75,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        smsVerifyCatcher = SmsVerifyCatcher(this, OnSmsCatchListener<String> { message ->
-            Log.e("message", message)
-            val code = parseCode(message)//Parse verification code
-            Log.e("code", code)
-            input_code.setText(code)//set code in edit text
-            //then you can send verification code to server
-        })
+
         mRegisterPresenter = LoginPresenter(this)
         btn_join!!.setOnClickListener {
             CircularAnim.hide(btn_join)
@@ -179,6 +173,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             val progressbar_verify = v.findViewById<ProgressBar>(R.id.progressBar2)
             val accept_verifycode = v.findViewById<Button>(R.id.login_verifycode)
             txt_hd =  v.findViewById<TextView>(R.id.txt_huongdan)
+            phonenumber.setText(user.phone)
             editcode = verifycode
             btn_sendcode = sendcode
             btn_sendphone = accept_verifycode
@@ -300,6 +295,13 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
     override fun onStart() {
         super.onStart()
+        smsVerifyCatcher = SmsVerifyCatcher(this, OnSmsCatchListener<String> { message ->
+            Log.e("message", message)
+            val code = parseCode(message)//Parse verification code
+            Log.e("code", code)
+            editcode?.setText(code)//set code in edit text
+            //then you can send verification code to server
+        })
         smsVerifyCatcher?.onStart()
     }
 

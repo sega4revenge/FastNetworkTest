@@ -49,7 +49,7 @@ class MyApplication : Application() {
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
         AndroidNetworking.enableLogging()
-        mSocket = IO.socket("http://10.0.2.2:8080").connect()
+        mSocket = IO.socket("http://45.77.36.109:8080").connect()
         AndroidNetworking.setConnectionQualityChangeListener { connectionQuality, _ ->
             when (connectionQuality) {
                 ConnectionQuality.EXCELLENT -> System.out.println("Tot")

@@ -255,7 +255,12 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
             mLocation?.position = myLocation
             if(intent.getBooleanExtra("first",false))
-                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(mLocation?.position, 17.0f))
+                try{
+                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(mLocation?.position, 17.0f))
+                }catch (e: Exception){
+                    print(e.message.toString())
+                }
+
             Toast.makeText(this@SearchActivity, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
         }

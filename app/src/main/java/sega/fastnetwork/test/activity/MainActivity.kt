@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             }).start()
             user = AppManager.getUserDatafromAccount(this, AppManager.getAppAccount(this)!!)
             type = AppManager.getTypeuser(this, AppManager.getAppAccount(this)!!)
-            Log.e("Adasd", "ACCOUNT_TYPE" + type + "PW " + user!!.hashed_password)
+            Log.e("Adasd", "ACCOUNT_TYPE" + type + "PW " + user?._id)
+
             mSocket = AppManager.getSocket(application)
             mSocket!!.emit("connected", user?._id)
         }

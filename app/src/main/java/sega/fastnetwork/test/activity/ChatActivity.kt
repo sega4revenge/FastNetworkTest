@@ -181,6 +181,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     override fun isgetUserDetailSuccess(success: Boolean) {
 
         if (success) {
+            Log.d("sssssssss","aaaaaaaaaa")
             if(user?._id!!.compareTo(userid)>0)
             {
                 mUserFrom = user?._id!!
