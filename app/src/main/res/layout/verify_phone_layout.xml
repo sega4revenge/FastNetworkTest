@@ -76,7 +76,7 @@
             android:layout_marginTop="5dp"
             android:visibility="gone"
             android:textColor="@color/red"
-            android:text="Chúng đã gửi mã xác nhận tới số điện thoại này, bạn hãy kiểm tra tin nhắn."/>
+            android:text="We sent a code to this phone number. Please check message !"/>
      <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -533,7 +533,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_user_email.text = product!!.user?.email
         product_user_address.text = product!!.location!!.address
         product_date.text = timeAgo(product!!.created_at.toString())
-        product_view.text = product!!.view.toString() + " lượt xem"
+        product_view.text = product!!.view.toString() +" "+ getString(R.string.view)
         println(product!!._id)
         if (product!!.status == "1")
             Log.e("time: ", product!!.time)
@@ -755,7 +755,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments3.text = product!!.comment!![2].content
             datecomment3.text = timeAgo(product!!.comment!![2].time!!)
 
-            add_comment.text = (product!!.comment!!.size - 3).toString() +  getString(R.string.more_comment)
+            add_comment.text = getString(R.string.more_comment)+"("+(product!!.comment!!.size - 3).toString()+")"
         }
         val listUserComments = ArrayList<String>()
         product!!.comment!!
@@ -1140,7 +1140,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             comments3.text = listcomment[listcomment.size - 3].content
             datecomment3.text = timeAgo(listcomment[listcomment.size - 3].time!!)
 
-            add_comment.text = (listcomment.size - 3).toString() + getString(R.string.more_comment)
+            add_comment.text =getString(R.string.more_comment)+((listcomment.size - 3).toString())
         }
     }
 }

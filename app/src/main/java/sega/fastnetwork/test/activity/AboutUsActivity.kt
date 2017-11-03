@@ -25,13 +25,13 @@ class AboutUsActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowCustomEnabled(true)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         val v = LayoutInflater.from(this).inflate(R.layout.toolbar,null)
-        v.toolbar_title.text = "About"
+        v.toolbar_title.text = getString(R.string.nav_about)
         supportActionBar!!.customView = v
         val aboutPage = AboutPage(this)
 
 
                 .isRTL(false)
-                .setImage(R.drawable.logo_fn)
+                .setImage(R.drawable.aa)
                 .addItem(Element().setTitle("Version 1.2"))
                 //                .addItem(adsElement)
                 .addGroup("Connect with us")
@@ -39,7 +39,7 @@ class AboutUsActivity : AppCompatActivity() {
                 .addFacebook("apptimviec")
                 .addPlayStore("com.finger.jobfind")
                 .addWebsite("http://www.finger.co.kr/home/index.jsp")
-                .setDescription(resources.getString(R.string.btn_forgot))
+                .setDescription(resources.getString(R.string.txt_slogan))
                 //                .addFacebook("the.medy")
                 //                .addTwitter("medyo80")
                 //                .addYoutube("UCdPQtdWIsg7_pi4mrRu46vA")

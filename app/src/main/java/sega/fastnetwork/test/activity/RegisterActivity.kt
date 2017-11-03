@@ -51,7 +51,8 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             input_code.visibility = View.VISIBLE
             btn_finish.visibility = View.VISIBLE
 
-            showSnackBarMessage("Check Phone")
+            showSnackBarMessage(getString(R.string.txt_checkmail))
+
             progressBar.visibility = View.GONE
 
 //            CircularAnim.show(btn_join).go()
@@ -147,7 +148,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
             err++
 
-            repassword!!.error = getString(R.string.st_errpass)
+            repassword!!.error = getString(R.string.err_repass)
 
         }
 

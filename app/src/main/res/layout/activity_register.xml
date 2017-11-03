@@ -17,7 +17,7 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/logo" />
+            android:background="@drawable/logo_fn1" />
     </RelativeLayout>
 
     <LinearLayout
@@ -84,9 +84,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@mipmap/account"
+                android:drawableLeft="@drawable/ic_action_email"
                 android:drawablePadding="10dp"
-                android:drawableStart="@mipmap/account"
+                android:drawableStart="@drawable/ic_action_email"
                 android:ems="10"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
@@ -108,9 +108,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@mipmap/lock"
+                android:drawableLeft="@drawable/ic_action_lock"
                 android:drawablePadding="10dp"
-                android:drawableStart="@mipmap/lock"
+                android:drawableStart="@drawable/ic_action_lock"
                 android:ems="10"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
@@ -131,9 +131,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
-                android:drawableLeft="@mipmap/lock"
+                android:drawableLeft="@drawable/ic_action_lock"
                 android:drawablePadding="10dp"
-                android:drawableStart="@mipmap/lock"
+                android:drawableStart="@drawable/ic_action_lock"
                 android:ems="10"
                 android:hint="@string/hint_repassword"
                 android:inputType="textPassword"

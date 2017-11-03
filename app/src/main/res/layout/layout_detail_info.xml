@@ -64,7 +64,7 @@
             android:paddingBottom="5dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/roundtextview"
-            android:text="lượt xem"
+            android:text="@string/view"
             />
     </LinearLayout>
 
@@ -280,7 +280,7 @@
                 android:layout_margin="5dp"
                 android:maxLines="2"
                 android:minLines="2"
-                android:text="Thời trang"
+                android:text="@string/view"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:gravity="center_horizontal"/>

@@ -32,7 +32,7 @@
     <string name="delete_comment">Bạn có thật sự muốn xóa bình luận này?</string>
     <string name="title_comment">Xóa bình luận</string>
     <string name="detail_comment">Detail comment</string>
-    <string name="view">view</string>
+    <string name="view">Lượt xem</string>
     <string name="money">Money</string>
     <string name="delete_event">Do do want delete event?</string>
     <string name="delete_title_event">Delete Event</string>
@@ -51,7 +51,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     //======================================
     <string name="btn_signin">Đăng nhập</string>
-    <string name="btn_join">Đăng nhập ngay</string>
+    <string name="btn_join">Đăng ký</string>
     <string name="btn_forgot">Quên mật khẩu</string>
     <string name="btn_signup">Bạn chưa có tài khoản?</string>
     <string name="btn_backtologin">Bạn đã có tài khoản</string>
@@ -61,7 +61,7 @@
     <string name="hint_password">Mật khẩu</string>
     <string name="tv_social_login">Hoặc</string>
     <string name="message_signin">Tham gia thành công</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">VIREN</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -149,11 +149,13 @@
     <string name="price_high">Giá cao nhất</string>
     <string name="price_high_des">Sắp xếp theo sản phẩm có giá cao nhất</string>
     //====================================== inbox
-    <string name="inbox_send">Bạn đã gửi 1 tin nhắn ảnh</string>
-    <string name="inbox_send1">đã gửi 1 tin nhắn ảnh</string>
+    <string name="inbox_send"> đã gửi 1 tin nhắn ảnh</string>
+    <string name="inbox_send1">Bạn đã gửi 1 tin nhắn ảnh</string>
     //====================================== chothue canthue.
     <string name="rent">Cho thuê</string>
     <string name="need_rent">Cần thuê</string>
+    <string name="renting">Đang thuê</string>
+    <string name="rented">Đã thuê</string>
     //======================================success
     <string name="delete_success">Xóa sản phẩm thành công</string>
     <string name="edit_success">Sửa sản phẩm thành công</string>
@@ -165,10 +167,11 @@
     <string name="max_city">Nhập tối đa 5 thành phố!</string>
     <string name="max_cate">Chọn tối đa 5 danh mục!</string>
     <string name="sms_fail">SMS bị lỗi, Vui lòng thử lại sau.</string>
+    <string name="err_repass">Mật khẩu không trùng khớp hoặc bị trống</string>
     //======================================
     <string name="save">Lưu</string>
     <string name="saved">Đã lưu</string>
-    <string name="more_comment">Thêm bình luận...</string>
+    <string name="more_comment">Xem thêm</string>
     //======================================layout
     <string name="title">Tiêu đề</string>
     <string name="txt_price">Giá</string>
@@ -205,11 +208,15 @@
     <string name="txt_seemore">Xem thêm</string>
     <string name="txt_addcomment">Thêm comment</string>
     <string name="txt_sortby">Sắp xếp theo :</string>
+    <string name="txt_per">cho</string>
     //
     <string name="txt_call">Gọi điện</string>
     <string name="txt_sms">Nhắn tin</string>
     <string name="txt_chat">Nhắn tin trực tuyến</string>
     <string name="txt_share">Chia sẻ</string>
+    <string name="txt_slogan">Trao giá trị - Mượn yêu thương</string>
+    <string name="txt_checkmail">Vui lòng kiểm tra số điện thoại !</string>
+    <string name="txt_nodata">Không có dữ liệu !</string>
     //
     <string name="nav_about">Thông tin ứng dụng</string>
     <string name="nav_logout">Đăng xuất</string>

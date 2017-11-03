@@ -134,7 +134,7 @@ internal class ProductAdapter// Constructor
                         .setSlantedBackgroundColor(context.resources.getColor(R.color.btn_login))
                         .setTextSize(15)
                         .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
-                viewHolderParent.itemView.price_compact.text = formatprice!!.format(product.price!!.toInt()) + format + " cho " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()]
+                viewHolderParent.itemView.price_compact.text = formatprice!!.format(product.price!!.toInt()) + format + " "+context.getString(R.string.txt_per)+" " + context.resources.getStringArray(R.array.timeid)[product.time!!.toInt()]
             } else {
                 viewHolderParent.itemView.type_view.setText(R.string.need_rent)
                         .setTextColor(Color.WHITE)
