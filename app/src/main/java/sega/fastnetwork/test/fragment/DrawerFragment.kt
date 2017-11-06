@@ -490,8 +490,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                 .setPeekHeight(1600)
                                 .showTitle(false)
                                 .setSelectMaxCount(1)
-                                .setCompleteButtonText("Done")
-                                .setEmptySelectionText("No Select")
+                                .setCompleteButtonText(context.getString(R.string.done))
+                                .setEmptySelectionText(context.getString(R.string.noselect))
                                 .create()
 
 

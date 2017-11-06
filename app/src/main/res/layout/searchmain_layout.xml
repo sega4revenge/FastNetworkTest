@@ -43,7 +43,7 @@
                 android:layout_centerVertical="true"
                 android:background="@color/actionBarColor"
                 android:gravity="right"
-                android:src="@drawable/action_grid" />
+                android:src="@drawable/icon_map" />
 
             <ImageButton
                 android:id="@+id/back_button"

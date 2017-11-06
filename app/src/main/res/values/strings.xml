@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VIREN</string>
+    <string name="app_name">THUÊ TỐT</string>
     <string name="no">No</string>
     <string name="facebook_app_id">251217995359869</string>
     <string name="google_maps_key">AIzaSyDBfdxli_eMNGalQDD19n2r0d4807UYlJQ</string>
@@ -61,7 +61,7 @@
     <string name="hint_password">Password</string>
     <string name="tv_social_login">Or</string>
     <string name="message_signin">Join success</string>
-    <string name="title_activity_home">VIREN</string>
+    <string name="title_activity_home">THUÊ TỐT</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -218,10 +218,17 @@
     <string name="txt_share">Share</string>
     <string name="txt_slogan">Hire love - Give value</string>
     <string name="txt_checkmail">Please check phone number !</string>
-    <string name="txt_nodata">Do not have data !</string>
+    <string name="txt_nodata">Do not have a conversation !</string>
 
 
     //nav
     <string name="nav_about">About us</string>
     <string name="nav_logout">Logout</string>
+    //verify
+    <string name="vr_title">Verify your phone number</string>
+    <string name="vr_send">We send you a text with a code. The text is free, you are not charged for it.</string>
+    <string name="vr_step1">Step 1: </string>
+    <string name="vr_step2">Step 2: </string>
+    <string name="vr_inputcode">Enter your code that you received in your text message</string>
+    <string name="vr_sent">We sent a code to this phone number. Please check message !</string>
 </resources>

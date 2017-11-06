@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VIREN</string>
+    <string name="app_name">Thuê Tốt</string>
     <string name="no">Không</string>
     <string name="facebook_app_id">251217995359869</string>
     <string name="google_maps_key">AIzaSyDBfdxli_eMNGalQDD19n2r0d4807UYlJQ</string>
@@ -17,36 +17,36 @@
     <string name="re_hint_repass">Nhập lại mật khẩu</string>
     <string name="re_btn_confirm">Xác nhận</string>
     //==================================
-    <string name="people_participation_detail_event">Participation person</string>
-    <string name="people_care_detail_event">Participation person</string>
-    <string name="created_event">has created the event</string>
-    <string name="participation_detail_event">Partici..</string>
-    <string name="time_event">Time:</string>
-    <string name="day_event">Date:</string>
-    <string name="cancelnot">Cancel</string>
-    <string name="comment">Comment</string>
-    <string name="share">Share</string>
-    <string name="in">- in</string>
-    <string name="you">You </string>
-    <string name="youand">You and </string>
+    <string name="people_participation_detail_event">Người tham gia</string>
+    <string name="people_care_detail_event">Người tham gia</string>
+    <string name="created_event">đã tạo sự kiện</string>
+    <string name="participation_detail_event">Đang tham gia..</string>
+    <string name="time_event">Thời gian:</string>
+    <string name="day_event">Ngày:</string>
+    <string name="cancelnot">Hủy</string>
+    <string name="comment">Bình luận</string>
+    <string name="share">Chia sẻ</string>
+    <string name="in">- trong</string>
+    <string name="you">Bạn </string>
+    <string name="youand">Bạn và </string>
     <string name="delete_comment">Bạn có thật sự muốn xóa bình luận này?</string>
     <string name="title_comment">Xóa bình luận</string>
-    <string name="detail_comment">Detail comment</string>
+    <string name="detail_comment">Thông tin bình luận</string>
     <string name="view">Lượt xem</string>
-    <string name="money">Money</string>
-    <string name="delete_event">Do do want delete event?</string>
-    <string name="delete_title_event">Delete Event</string>
+    <string name="money">Tiền</string>
+    <string name="delete_event">Bạn muốn số sự kiện này?</string>
+    <string name="delete_title_event">Xóa sự kiện</string>
     //=================================== imagepicker
     <string name="remain_time_minute">Còn lại %1$d phút</string>
     <string name="remain_time_second">Còn lại %1$d giây</string>
     <string name="uploading" formatted="false">Đang tải lên %d of %d</string>
-    <string name="uploaded_title" formatted="false">%d of %d photos</string>
+    <string name="uploaded_title" formatted="false">%d của %d ảnh</string>
     <string name="tedbottompicker_title">Chọn ảnh</string>
     <string name="no_image">Không có ảnh</string>
     <string name="done">Xong</string>
-    <string name="select_max_count">Already %1$d images selected</string>
-    <string name="select_min_count">You have to choice %1$d images</string>
-    <string name="gallery_num">%s photos</string>
+    <string name="select_max_count">Đã có %1$d ảnh được chọn</string>
+    <string name="select_min_count">Bạn đã chọn %1$d ảnh</string>
+    <string name="gallery_num">%s ảnh</string>
     <string name="all_photo">Tất cả ảnh</string>
     <string name="title_activity_main2">Main2Activity</string>
     //======================================
@@ -61,7 +61,7 @@
     <string name="hint_password">Mật khẩu</string>
     <string name="tv_social_login">Hoặc</string>
     <string name="message_signin">Tham gia thành công</string>
-    <string name="title_activity_home">VIREN</string>
+    <string name="title_activity_home">Thuê Tốt</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -216,8 +216,16 @@
     <string name="txt_share">Chia sẻ</string>
     <string name="txt_slogan">Trao giá trị - Mượn yêu thương</string>
     <string name="txt_checkmail">Vui lòng kiểm tra số điện thoại !</string>
-    <string name="txt_nodata">Không có dữ liệu !</string>
+    <string name="txt_nodata">Bạn không có cuộc trò chuyện nào !</string>
     //
     <string name="nav_about">Thông tin ứng dụng</string>
     <string name="nav_logout">Đăng xuất</string>
+    //verify
+    <string name="vr_title">Xác minh số điện thoại của bạn</string>
+    <string name="vr_send">Chúng tôi gửi cho bạn một đoạn văn bản dưới dạng mã code. Văn bản này là miễn phí, bạn sẽ không bị tính phí.</string>
+    <string name="vr_step1">Bước 1: </string>
+    <string name="vr_step2">Bước 2: </string>
+    <string name="vr_inputcode">Nhập đoạn mã mà bạn nhận được trong tin nhắn văn bản.</string>
+    <string name="vr_sent">Chúng tôi đã gửi một đoạn mã số cho số điện thoại này. Hãy kiểm tra tin nhắn !</string>
+
 </resources>
