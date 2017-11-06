@@ -55,26 +55,6 @@
             android:textSize="13sp"
 
             />
-        <android.support.design.widget.TextInputEditText
-
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/roundeditttext"
-            android:drawableLeft="@mipmap/lock"
-            android:drawablePadding="15dp"
-            android:drawableStart="@mipmap/lock"
-            android:ems="10"
-            android:hint="@string/hint_password"
-            android:inputType="textPassword"
-            android:paddingLeft="20dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textColorLink="@color/white"
-            android:textSize="13sp"
-
-            />
 
         <Button
             android:id="@+id/btn_forgot"
@@ -297,15 +277,16 @@
 
 
     </FrameLayout>
+
     <Button
         android:id="@+id/btn_signup"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/button_size_large"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textSize="13sp"
         android:background="@color/transparent"
         android:text="@string/btn_signup"
         android:textAllCaps="false"
-        android:textColor="@color/btn_color_login" />
+        android:textColor="@color/btn_color_login"
+        android:textSize="13sp" />
 </RelativeLayout>

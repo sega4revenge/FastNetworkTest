@@ -18,7 +18,7 @@
             android:layout_width="42dp"
             android:layout_gravity="center_vertical"
             android:layout_height="42dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/logo" />
 
         <LinearLayout
@@ -28,15 +28,16 @@
             android:layout_marginLeft="16dp"
             android:orientation="vertical">
 
-            <sega.fastnetwork.test.view.RobotoBoldTextView
+            <TextView
                 android:id="@+id/username_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sega"
+                android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                />
 
-            <sega.fastnetwork.test.view.RobotoRegularTextView
+            <TextView
                 android:id="@+id/email_header"
 
                 android:layout_width="wrap_content"
@@ -44,7 +45,7 @@
                 android:layout_marginTop="4dp"
                 android:text="What the fuck are you doing"
                 android:textColor="#767676"
-                android:textSize="14dp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
     </LinearLayout>

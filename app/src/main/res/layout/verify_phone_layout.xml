@@ -30,9 +30,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/vr_title"
+        android:text="Verify Your Phone"
         android:textStyle="bold"
-        android:textSize="22sp"
+        android:textSize="17sp"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
         />
@@ -42,8 +42,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="@string/vr_send"
-        android:textSize="15sp"
+        android:text="We send you a text with a code. The text is free, you're not charged for it."
+        android:textSize="14sp"
         android:layout_gravity="center_horizontal"
         />
     <LinearLayout
@@ -64,9 +64,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_phonenumber"
+            android:text="Enter your phone number"
             android:layout_marginTop="5dp"
-            android:textSize="15sp"
+            android:textSize="13sp"
             />
         <TextView
             android:id="@+id/txt_huongdan"
@@ -76,7 +76,7 @@
             android:layout_marginTop="5dp"
             android:visibility="gone"
             android:textColor="@color/red"
-            android:text="@string/vr_sent"/>
+            android:text="We sent a code to this phone number. Please check message !"/>
      <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:text="+84"
                 android:layout_marginRight="5dp"
-                android:textSize="13sp"/>
+                android:textSize="14sp"/>
             <EditText
                 android:id="@+id/edit_phonenumber"
                 android:layout_width="0dp"
@@ -120,9 +120,10 @@
                     android:id="@+id/send_code"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:textSize="14sp"
                     android:background="@drawable/roundbutton_cancel"
                     android:textAllCaps="false"
-                    android:text="@string/send"
+                    android:text="Send"
                     android:textColor="@color/white"/>
             </RelativeLayout>
 
@@ -148,12 +149,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vr_inputcode"
+            android:text="Enter your code you received in your text mesage"
             android:layout_marginTop="5dp"
-            android:textSize="15sp"
+            android:textSize="13sp"
             />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -163,22 +164,22 @@
 
             <EditText
                 android:id="@+id/edit_verifycode"
-                android:layout_width="0dp"
+                android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:layout_weight="40"
+                android:background="@drawable/radius_edit"
+                android:ellipsize="end"
+                android:gravity="center"
                 android:hint="e.g.123456"
-                android:textSize="14sp"
+                android:layout_centerInParent="true"
+                android:inputType="numberSigned"
+                android:maxLines="1"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:gravity="center"
-                android:maxLines="1"
                 android:singleLine="true"
-                android:ellipsize="end"
-                android:inputType="numberSigned"
-                android:background="@drawable/radius_edit"/>
+                android:textSize="14sp" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
     <RelativeLayout
@@ -198,7 +199,8 @@
             android:layout_height="40dp"
             android:background="@drawable/roundbutton"
             android:textAllCaps="false"
-            android:text="@string/vr_title"
+            android:textSize="14sp"
+            android:text="Verify number"
             android:layout_margin="10dp"
             android:textColor="@color/white"
             android:enabled="false"/>

@@ -50,6 +50,66 @@ class LoginPresenter(view: LoginView) {
             override fun onNext(response: Response) {
                 Log.d(login, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
 
+                mLoginView.setErrorMessage("202",999)
+            }
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+
+
+                    Log.d(login, "onError errorCode : " + e.errorCode)
+                    Log.d(login, "onError errorBody : " + e.errorBody)
+                    Log.d(login, e.errorDetail + " : " + e.message)
+                    mLoginView.isLoginSuccessful(false)
+                    mLoginView.setErrorMessage(e.errorCode.toString(),999)
+
+                } else {
+                    Log.d(login, "onError errorMessage : " + e.message)
+                    mLoginView.isLoginSuccessful(false)
+                }
+            }
+
+            override fun onComplete() {
+
+
+            }
+        }
+    }
+    fun login(phone_number: String) {
+
+
+        try {
+            jsonObject.put("phone", phone_number)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservable_login("authenticate")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver_login()))
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+private fun getObservable_loginfinish(typesearch: String): Observable<Response> {
+    return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
+            .setTag(login)
+            .addJSONObjectBody(jsonObject)
+            .build()
+
+            .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                Log.d(login, " timeTakenInMillis : " + timeTakenInMillis)
+                Log.d(login, " bytesSent : " + bytesSent)
+                Log.d(login, " bytesReceived : " + bytesReceived)
+                Log.d(login, " isFromCache : " + isFromCache)
+            }
+
+            .getObjectObservable(Response::class.java)
+}
+    private fun getDisposableObserver_loginfinish(): DisposableObserver<Response> {
+
+        return object : DisposableObserver<Response>() {
+
+            override fun onNext(response: Response) {
+                Log.d(login, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+
                 mLoginView.getUserDetail(response.user!!)
             }
             override fun onError(e: Throwable) {
@@ -74,20 +134,20 @@ class LoginPresenter(view: LoginView) {
             }
         }
     }
-    fun login(phone_number: String, password: String) {
+    fun loginfinish(phone_number: String,code: String) {
 
         val tokenfirebase = FirebaseInstanceId.getInstance().token
         try {
             jsonObject.put("phone", phone_number)
-            jsonObject.put("password", password)
+            jsonObject.put("code", code)
             jsonObject.put("tokenfirebase", tokenfirebase)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        disposables.add(getObservable_login("authenticate")
+        disposables.add(getObservable_loginfinish("authenticatefinish")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(getDisposableObserver_login()))
+                .subscribeWith(getDisposableObserver_loginfinish()))
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 private fun getObservable_register(typesearch: String): Observable<Response> {

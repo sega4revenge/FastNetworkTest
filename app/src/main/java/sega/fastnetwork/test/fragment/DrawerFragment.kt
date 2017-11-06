@@ -78,6 +78,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                 .thumbnail(0.1f)
                                 .apply(options)
                                 .into(navigation_view.getHeaderView(0).avatar_header)
+
     }
 
     override fun setErrorMessage(errorMessage: String) {

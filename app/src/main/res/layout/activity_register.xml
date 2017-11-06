@@ -235,17 +235,14 @@
     </FrameLayout>
 
 
-
-
     <Button
         android:id="@+id/btn_backtologin"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/button_size_large"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:background="@color/transparent"
         android:text="@string/btn_backtologin"
         android:textAllCaps="false"
-        android:textColor="@color/btn_color_login"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textColor="@color/btn_color_login" />
 </RelativeLayout>
