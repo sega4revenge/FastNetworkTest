@@ -93,6 +93,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         }
     }
 
+
     private fun register_finish() {
         setError()
         var err = 0
