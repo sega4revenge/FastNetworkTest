@@ -85,7 +85,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
-
+            swipe_refresh.isEnabled = false
             adapter!!.productList.clear()
             adapter!!.pageToDownload = 1
             adapter!!.initShimmer()
@@ -294,6 +294,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         adapter!!.pageToDownload++
         adapter!!.isLoading = false
         adapter!!.isLoadingLocked = false
+        swipe_refresh.isEnabled = true
         onDownloadSuccessful()
     }
 

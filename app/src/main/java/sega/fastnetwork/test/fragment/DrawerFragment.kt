@@ -104,7 +104,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     var temp: Int = 0
     var uriList: Uri? = null
     internal var list: List<ImageBean>? = null
-
+    var categorySelected : Boolean = false
+    var categoryId = 999
     var fragment: Fragment? = null
     var user :User?=null
     var user2 : User?=null
@@ -601,22 +602,76 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         super.onResume()
     }
     private fun changeCategory(mCategory: Int, mFragment: Fragment){
-        Log.d("Runnnnnnn",mCategory.toString())
-         if (fragment != null) {
-             if(mSelectedId == R.id.nav_1){
-             val bundle = Bundle()
-                 bundle.putInt("Category",mCategory)
-             val transaction = activity.supportFragmentManager.beginTransaction()
-             try {
-                 var frag = mFragment
-                 frag.arguments =  bundle
-                 transaction.replace(R.id.content_frame, frag).commit()
-             } catch (ignored: IllegalStateException) {
-             }
-         }
-     }
-    }
+        if(categorySelected){
 
+            if(mCategory == categoryId){
+                categorySelected = false
+                categoryId = 999
+                selectCategory(categoryId,mFragment)
+                showSelected(mCategory,0)
+            }
+            else{
+                categorySelected = true
+                showSelected(categoryId,0)
+                showSelected(mCategory,1)
+                selectCategory(mCategory,mFragment)
+
+            }
+        }else{
+            categorySelected = true
+            selectCategory(mCategory,mFragment)
+            showSelected(mCategory,1)
+        }
+    }
+    fun showSelected(position : Int, type : Int){
+        if(type == 0){
+            when(position){
+                0 -> selected_1.visibility = View.GONE
+                1 -> selected_2.visibility = View.GONE
+                2 -> selected_3.visibility = View.GONE
+                3 -> selected_4.visibility = View.GONE
+                4 -> selected_5.visibility = View.GONE
+                5 -> selected_6.visibility = View.GONE
+                6 -> selected_7.visibility = View.GONE
+                7 -> selected_8.visibility = View.GONE
+                8 -> selected_9.visibility = View.GONE
+
+            }
+        }
+        else{
+
+            when(position){
+                0 -> selected_1.visibility = View.VISIBLE
+                1 -> selected_2.visibility = View.VISIBLE
+                2 -> selected_3.visibility = View.VISIBLE
+                3 -> selected_4.visibility = View.VISIBLE
+                4 -> selected_5.visibility = View.VISIBLE
+                5 -> selected_6.visibility = View.VISIBLE
+                6 -> selected_7.visibility = View.VISIBLE
+                7 -> selected_8.visibility = View.VISIBLE
+                8 -> selected_9.visibility = View.VISIBLE
+
+            }
+        }
+
+    }
+    fun selectCategory(mCategory: Int, mFragment: Fragment){
+        categorySelected = true
+        if (fragment != null) {
+            if(mSelectedId == R.id.nav_1){
+                categoryId = mCategory
+                val bundle = Bundle()
+                bundle.putInt("Category",mCategory)
+                val transaction = activity.supportFragmentManager.beginTransaction()
+                try {
+                    var frag = mFragment
+                    frag.arguments =  bundle
+                    transaction.replace(R.id.content_frame, frag).commit()
+                } catch (ignored: IllegalStateException) {
+                }
+            }
+        }
+    }
 
     private fun hideMoreAction(){
         linmore.visibility = View.GONE
@@ -630,9 +685,11 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 mSelectedId = itemId
                 toolbar_title.setText(R.string.nav_home)
                 fragment = HomeFragment()
-
+                morecategory = false
                 hideMoreAction()
                 // change status show/hide action profile => category
+                moreCategory.setImageResource(R.mipmap.ic_launcher)
+                divide.visibility = View.GONE
                 if(categorylist.visibility != View.VISIBLE)
                 {
                     categorylist.visibility = View.VISIBLE
@@ -643,7 +700,6 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 if(linCate.visibility != View.VISIBLE){
                     linCate.visibility = View.VISIBLE
                 }
-                morecategory = false
             }
 //            R.id.nav_search -> {
 //                val intent = Intent((activity as AppCompatActivity), SearchActivity::class.java)
@@ -675,7 +731,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 fragment = DetailProfileFragment()
 
                 hideMoreAction()
-
+                moreCategory.setImageResource(R.mipmap.ic_launcher)
+                divide.visibility = View.GONE
                 // change status show/hide action category => profile
                 if(categorylist.visibility != View.VISIBLE)
                 {

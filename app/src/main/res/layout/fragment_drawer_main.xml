@@ -138,47 +138,61 @@
                             android:orientation="horizontal"
                             android:weightSum="100">
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:id="@+id/linMotobike"
                                 android:layout_width="0dp"
                                 android:layout_height="100dp"
                                 android:layout_weight="33"
                                 android:gravity="center"
                                 android:orientation="vertical">
-
-                                <ImageView
-                                    android:id="@+id/imageView4"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:background="@drawable/cate_vehicle" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="5dp"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:gravity="center"
-                                    android:text="@string/cate_vehicle"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
+                                    android:orientation="vertical">
+                                    <ImageView
+                                        android:id="@+id/imageView4"
+                                        android:layout_width="30dp"
+                                        android:layout_height="30dp"
+                                        android:background="@drawable/cate_vehicle" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="5dp"
+                                        android:gravity="center"
+                                        android:text="@string/cate_vehicle"
+                                        android:textColor="@color/black"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+                                <include
+                                    android:id="@+id/selected_1"
+                                    layout="@layout/layout_selected" />
+
+                            </RelativeLayout>
 
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
                                 android:background="@color/colorDivide" />
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:id="@+id/linelectronic"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
                                 android:gravity="center"
                                 android:orientation="vertical">
-
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
                                 <ImageView
+                                    android:id="@+id/imageView2"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
+                                    android:layout_centerInParent="true"
                                     android:layout_marginBottom="5dp"
                                     android:background="@drawable/cate_electronic" />
 
@@ -186,27 +200,38 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="5dp"
+                                    android:layout_below="@+id/imageView2"
+                                    android:layout_centerInParent="true"
                                     android:gravity="center"
                                     android:text="@string/cate_electronic"
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
-                            </LinearLayout>
+                                </LinearLayout>
+                                <include
+                                    android:id="@+id/selected_2"
+                                    layout="@layout/layout_selected" />
+                            </RelativeLayout>
 
                             <View
                                 android:layout_width="0.2dp"
                                 android:layout_height="60dp"
                                 android:background="@color/colorDivide" />
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:id="@+id/linfashion"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="33"
                                 android:gravity="center"
                                 android:orientation="vertical"
-                                android:paddingTop="10dp">
-
+                                >
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
                                 <ImageView
+                                    android:id="@+id/imageView3"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
                                     android:background="@drawable/cate_fashion" />
@@ -219,7 +244,11 @@
                                     android:text="@string/cate_fashion"
                                     android:textColor="@color/black"
                                     android:textSize="12sp" />
-                            </LinearLayout>
+                                </LinearLayout>
+                                <include
+                                    android:id="@+id/selected_3"
+                                    layout="@layout/layout_selected" />
+                            </RelativeLayout>
                         </LinearLayout>
 
                         <View
@@ -343,14 +372,18 @@
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
-                                <LinearLayout
+                                <RelativeLayout
                                     android:id="@+id/linhome"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="33"
                                     android:gravity="center"
                                     android:orientation="vertical">
-
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
                                     <ImageView
                                         android:layout_width="30dp"
                                         android:layout_height="30dp"
@@ -365,21 +398,29 @@
                                         android:text="@string/cate_house"
                                         android:textColor="@color/black"
                                         android:textSize="13dp" />
-                                </LinearLayout>
+                                    </LinearLayout>
+                                    <include
+                                        android:id="@+id/selected_4"
+                                        layout="@layout/layout_selected" />
+                                </RelativeLayout>
 
                                 <View
                                     android:layout_width="0.2dp"
                                     android:layout_height="60dp"
                                     android:background="@color/colorDivide"></View>
 
-                                <LinearLayout
+                                <RelativeLayout
                                     android:id="@+id/linmombaby"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="33"
                                     android:gravity="center"
                                     android:orientation="vertical">
-
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
                                     <ImageView
                                         android:id="@+id/imageView5"
                                         android:layout_width="30dp"
@@ -395,22 +436,29 @@
                                         android:text="@string/cate_motherandbaby"
                                         android:textColor="@color/black"
                                         android:textSize="13dp" />
-                                </LinearLayout>
+                                    </LinearLayout>
+                                    <include
+                                        android:id="@+id/selected_5"
+                                        layout="@layout/layout_selected" />
+                                </RelativeLayout>
 
                                 <View
                                     android:layout_width="0.2dp"
                                     android:layout_height="60dp"
                                     android:background="@color/colorDivide"></View>
 
-                                <LinearLayout
+                                <RelativeLayout
                                     android:id="@+id/lingdnt"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="33"
                                     android:gravity="center"
-                                    android:orientation="vertical"
-                                    android:paddingTop="10dp">
-
+                                    android:orientation="vertical">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
                                     <ImageView
                                         android:layout_width="30dp"
                                         android:layout_height="30dp"
@@ -424,7 +472,11 @@
                                         android:text="@string/cate_furniture"
                                         android:textColor="@color/black"
                                         android:textSize="13dp" />
-                                </LinearLayout>
+                                    </LinearLayout>
+                                    <include
+                                        android:id="@+id/selected_6"
+                                        layout="@layout/layout_selected" />
+                                </RelativeLayout>
 
                             </LinearLayout>
 
@@ -439,14 +491,18 @@
                                 android:gravity="center"
                                 android:orientation="horizontal">
 
-                                <LinearLayout
+                                <RelativeLayout
                                     android:id="@+id/linshort"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="33"
                                     android:gravity="center"
                                     android:orientation="vertical">
-
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
                                     <ImageView
                                         android:layout_width="30dp"
                                         android:layout_height="30dp"
@@ -461,21 +517,29 @@
                                         android:text="@string/cate_entertaiment"
                                         android:textColor="@color/black"
                                         android:textSize="13dp" />
-                                </LinearLayout>
+                                    </LinearLayout>
+                                    <include
+                                        android:id="@+id/selected_7"
+                                        layout="@layout/layout_selected" />
+                                </RelativeLayout>
 
                                 <View
                                     android:layout_width="0.2dp"
                                     android:layout_height="60dp"
                                     android:background="@color/colorDivide"></View>
 
-                                <LinearLayout
+                                <RelativeLayout
                                     android:id="@+id/linvpnn"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="33"
                                     android:gravity="center"
                                     android:orientation="vertical">
-
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
                                     <ImageView
                                         android:layout_width="30dp"
                                         android:layout_height="30dp"
@@ -490,25 +554,33 @@
                                         android:text="@string/cate_office"
                                         android:textColor="@color/black"
                                         android:textSize="13dp" />
-                                </LinearLayout>
+                                    </LinearLayout>
+                                    <include
+                                        android:id="@+id/selected_8"
+                                        layout="@layout/layout_selected" />
+                                </RelativeLayout>
 
                                 <View
                                     android:layout_width="0.2dp"
                                     android:layout_height="60dp"
                                     android:background="@color/colorDivide"></View>
 
-                                <LinearLayout
+                                <RelativeLayout
                                     android:id="@+id/lindeff"
                                     android:layout_width="0dp"
                                     android:layout_height="match_parent"
                                     android:layout_weight="33"
                                     android:gravity="center"
-                                    android:orientation="vertical"
-                                    android:paddingTop="10dp">
+                                    android:orientation="vertical">
                                     <!--<ImageView-->
                                     <!--android:layout_width="30dp"-->
                                     <!--android:layout_height="30dp"-->
                                     <!--android:background="@drawable/service"/>-->
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -517,7 +589,11 @@
                                         android:text="@string/cate_other"
                                         android:textColor="@color/black"
                                         android:textSize="13dp" />
-                                </LinearLayout>
+                                    </LinearLayout>
+                                    <include
+                                        android:id="@+id/selected_9"
+                                        layout="@layout/layout_selected" />
+                                </RelativeLayout>
                             </LinearLayout>
                         </LinearLayout>
 

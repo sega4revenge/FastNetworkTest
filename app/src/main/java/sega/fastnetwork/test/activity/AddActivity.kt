@@ -90,8 +90,10 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         }
 ///=======================Lay dia chi=========================
         addressEdit.setOnClickListener {
+            map_loading.visibility = View.VISIBLE
+            addressEdit.visibility = View.GONE
             locationPlacesIntent()
-            addressEdit.isEnabled = false
+//            addressEdit.isEnabled = false
         }
 ///=======================Spinner danh muc=========================
 
@@ -191,6 +193,8 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        map_loading.visibility = View.GONE
+        addressEdit.visibility = View.VISIBLE
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
@@ -202,7 +206,6 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     val add = place.address as String
                     //
                     addressText.setText(add)
-                    addressEdit.isEnabled = true
                 }
             }
 
@@ -280,10 +283,10 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         mTimeRemain = 0.0
         mPercent = 0
         mRemoteView = RemoteViews(packageName, R.layout.notification_upload)
-        mRemoteView!!.setImageViewResource(R.id.image, R.mipmap.ic_arrow_right_white)
+        mRemoteView!!.setImageViewResource(R.id.image, R.drawable.logo_fn)
         mRemoteView!!.setTextViewText(R.id.title, getString(R.string.uploading, temp + 1, uriList!!.size))
         val mBuilder = NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.logo2)
+                .setSmallIcon(R.drawable.logo_fn)
                 .setContent(mRemoteView)
         val notification = mBuilder.build()
         notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL

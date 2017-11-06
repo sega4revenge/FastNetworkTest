@@ -118,8 +118,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
 
     }
     private fun showNotification(productid : String, useridproduct: String, useridcmt : String) {
-
-        if(AppManager.getAppAccountUserId(application) != useridcmt && useridproduct == AppManager.getAppAccountUserId(application))  {
+        try{
+            if(AppManager.getAppAccountUserId(application) != useridcmt && useridproduct == AppManager.getAppAccountUserId(application))  {
             val typenotification = 2
             val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -134,12 +134,12 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                     PendingIntent.FLAG_ONE_SHOT)
             notif = Notification.Builder(this)
                     .setContentIntent(pendingIntent)
-                    .setContentTitle("RENT")
-                    .setContentText("Co nguoi binh luan san pham cua ban")
+                    .setContentTitle("Thuê tốt")
+                    .setContentText("Có người bình luận sản phẩm của bạn!")
                     .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                     .setLights(Color.RED, 3000, 3000)
                     .setSound(defaultSoundUri)
-                    .setSmallIcon(R.mipmap.home_icon)
+                    .setSmallIcon(R.drawable.logo_fn)
                     .build()
 
             notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
@@ -154,7 +154,11 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
             val x = Intent()
             x.action = "commmentactivity"
             x.putExtra("reload", true)
-            this.sendBroadcast(x)
+            this.sendBroadcast(x)}
+        catch (e : Exception){
+            Log.e("Noti", e.toString())
+        }
+
 
     }
 

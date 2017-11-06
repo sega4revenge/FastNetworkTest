@@ -113,12 +113,19 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
 
         buttoncomment.setOnClickListener {
             //            Log.e("cmtttt",AppAccountManager.)
-            Log.e("cmtttt", AppManager.getAppAccountUserId(activity) + " " + id + " " + writecomment.text.toString())
-            mCommentPresenter!!.addcomment(AppManager.getAppAccountUserId(activity), id, writecomment.text.toString())
-            val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(writecomment.windowToken, 0)
-            writecomment.setText("")
-            writecomment.clearFocus()
+            if(writecomment.text == null || writecomment.text.toString() == "")
+            {
+            }
+            else
+            {
+                Log.e("cmtttt", AppManager.getAppAccountUserId(activity) + " " + id + " " + writecomment.text.toString())
+                mCommentPresenter!!.addcomment(AppManager.getAppAccountUserId(activity), id, writecomment.text.toString())
+                val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(writecomment.windowToken, 0)
+                writecomment.setText("")
+                writecomment.clearFocus()
+            }
+
 
         }
         back_button.setOnClickListener {
@@ -128,12 +135,11 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_comment, container, false)
+                              savedInstanceState: Bundle?): View? =
+            inflater!!.inflate(R.layout.fragment_comment, container, false)
 
 //        var v = inflater!!.inflate(R.layout.fragment_comment, container, false) as View
-        // Inflate the layout for this fragment
-    }
+    // Inflate the layout for this fragment
 
     override fun onResume() {
         super.onResume()

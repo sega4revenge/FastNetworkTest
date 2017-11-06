@@ -34,7 +34,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     var editcode: EditText? = null
     var dialog: AlertDialog? =  null
     var btn_sendcode: Button? = null
-    var btn_sendphone: Button? = null
+    var btnsendphone: Button? = null
     var txt_hd: TextView? = null
     var progressbar_sendcode: ProgressBar? = null
     var progressbar_sendphone: ProgressBar? = null
@@ -178,7 +178,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             phonenumber.setText(user.phone)
             editcode = verifycode
             btn_sendcode = sendcode
-            btn_sendphone = accept_verifycode
+            btnsendphone = accept_verifycode
             progressbar_sendcode = progressbar_verify
             progressbar_sendphone = progressbar
             dl_verifycode.setView(v)
@@ -255,7 +255,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         if(errorMessage == "202") {
             txt_hd?.visibility = View.VISIBLE
             progressbar_sendphone?.visibility = View.GONE
-            btn_sendphone?.isEnabled = true
+            btnsendphone?.isEnabled = true
             register_finish()
 //            input_code.visibility = View.VISIBLE
 //            btn_finish.visibility = View.VISIBLE
