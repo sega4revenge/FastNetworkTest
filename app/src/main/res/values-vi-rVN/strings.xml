@@ -230,5 +230,6 @@
     <string name="vr_sent">Chúng tôi đã gửi một đoạn mã số cho số điện thoại này. Hãy kiểm tra tin nhắn !</string>
     //err
     <string name="err_usernotfound">Không tìm thấy tài khoản !</string>
-
+    <string name="err_invalidcode">Sai mã!</string>
+    <string name="err_timeout">Hết thời gian! Vui lòng thử lại !</string>
 </resources>

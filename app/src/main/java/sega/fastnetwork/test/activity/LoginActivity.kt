@@ -230,7 +230,14 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         if (errorMessage.equals("404")) {
             showSnackBarMessage(getString(R.string.err_usernotfound))
 
+        }else if (errorMessage.equals("405")) {
+            showSnackBarMessage(getString(R.string.err_timeout))
+
+        } else if (errorMessage.equals("401")) {
+            showSnackBarMessage(getString(R.string.err_invalidcode))
+
         }
+
         if (errorMessage == "201") {
             println("den day")
             val dl_verifycode = AlertDialog.Builder(this)
