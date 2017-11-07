@@ -188,7 +188,7 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
                     Log.d(register, e.errorDetail + " : " + e.message)
                     if(e.errorCode == 409)
                     {
-                        mLoginView.setErrorMessage("User Already Registered !",0)
+                        mLoginView.setErrorMessage(e.errorCode.toString(),0)
                     }else{
                         mLoginView.setErrorMessage(e.errorCode.toString(),0)
                     }

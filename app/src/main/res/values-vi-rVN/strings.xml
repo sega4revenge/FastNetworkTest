@@ -232,4 +232,5 @@
     <string name="err_usernotfound">Không tìm thấy số điện thoại !</string>
     <string name="err_invalidcode">Sai mã!</string>
     <string name="err_timeout">Hết thời gian! Vui lòng thử lại !</string>
+    <string name="err_phonealready">Số điện thoại đã tồn tại !</string>
 </resources>

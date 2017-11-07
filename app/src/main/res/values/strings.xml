@@ -236,4 +236,5 @@
     <string name="err_usernotfound">Phone number not found !</string>
     <string name="err_invalidcode">Invalid code!</string>
     <string name="err_timeout">Time out! Please try again !</string>
+    <string name="err_phonealready">Phone number already registered !</string>
 </resources>
