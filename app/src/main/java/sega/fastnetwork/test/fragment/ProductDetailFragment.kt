@@ -75,7 +75,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     private var id_user: String = ""
     private var product: Product? = null
     private var seller: User? = null
-    internal var formatprice: DecimalFormat? = DecimalFormat("#0,000");
+    internal var formatprice: DecimalFormat? = DecimalFormat("###,###,###")
     var isTablet: Boolean = false
     var mProductDetailPresenter: ProductDetailPresenter? = null
     var mCommentPresenter: CommentPresenter? = null
@@ -339,7 +339,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
                         "- Productname(tên sản phẩm): ${product!!.productname}\n" +
                                 "- Category(thể loại): ${product!!.category}\n" +
-                                "- Price(giá): ${DecimalFormat("###,###").format(product!!.price!!.toLong())} VNĐ\n" +
+                                "- Price(giá): ${formatprice?.format(product!!.price!!.toLong())} VNĐ\n" +
                                 "- Address(địa chỉ): ${product!!.location!!.address}\n" +
                                 "- Time(thời gian): ${product!!.time} giờ\n" +
                                 "- Description(Mô tả): ${product!!.description}\n" +

@@ -79,7 +79,7 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
             }else{
                 if(mess?.email.equals(user.email))
                 {
-                    holder.txtmessFrom.text = mContext?.resources?.getString(R.string.inbox_send)
+                    holder.txtmessFrom.text = mContext?.resources?.getString(R.string.inbox_send1)
                 }else{
                     holder.txtmessFrom.text = mess?.name+mContext?.resources?.getString(R.string.inbox_send)
                 }

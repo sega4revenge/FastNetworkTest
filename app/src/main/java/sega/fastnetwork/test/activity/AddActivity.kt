@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.Notification
 import android.app.NotificationManager
+import android.app.ProgressDialog
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -65,6 +66,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
     var lat1: String = ""
     var lot1: String = ""
     var mDoubleCreate = false
+    var progressDialog : ProgressDialog ?= null
     private var mAddPresenter: AddPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +78,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
         supportActionBar!!.title = getString(R.string.ac_add)
+        progressDialog = ProgressDialog(this)
 ///=======================Cho thue/ Can thue=========================
         toggle.setOnCheckedChangeListener { _, checkedId ->
             run {
@@ -266,14 +269,16 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
             if (type == "1") {
                 uploadImage(File(getRealFilePath(this@AddActivity, uriList!![temp])), productid)
             }else{
-                progressBar_addproduct.visibility = View.GONE
+//                progressBar_addproduct.visibility = View.GONE
+                progressDialog?.dismiss()
                 setResult(Activity.RESULT_OK,Intent())
                 finish()
                 mDoubleCreate = true
             }
         }
         else {
-            progressBar_addproduct.visibility = View.GONE
+//            progressBar_addproduct.visibility = View.GONE
+            progressDialog?.dismiss()
             Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.server_unreachable), Snackbar.LENGTH_SHORT).show()
         }
     }
@@ -367,7 +372,8 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                         } else {
                             Log.d(TAG + "_1", "onError errorMessage : " + e.message)
                         }
-                        progressBar_addproduct.visibility = View.GONE
+//                        progressBar_addproduct.visibility = View.GONE
+                        progressDialog?.dismiss()
                         Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.server_unreachable), Snackbar.LENGTH_SHORT).show()
                         timer.cancel()
                         timer.purge()
@@ -396,7 +402,8 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                             FirebaseMessaging.getInstance().subscribeToTopic(productid)
                             mNotificationManager?.cancel(1)
                             mNotificationManager?.notify(1, notification)
-                            progressBar_addproduct.visibility = View.GONE
+//                            progressBar_addproduct.visibility = View.GONE
+                            progressDialog?.dismiss()
                             setResult(Activity.RESULT_OK,Intent())
                             finish()
                         }
@@ -428,7 +435,12 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     Toast.makeText(this, getString(R.string.st_errpass), Toast.LENGTH_LONG).show()
                 } else {
                     if(!mDoubleCreate) {
-                        progressBar_addproduct.visibility = View.VISIBLE
+//                        progressBar_addproduct.visibility = View.VISIBLE
+                        progressDialog?.setMessage("Uploading . . . ")
+                        progressDialog?.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                        progressDialog?.isIndeterminate = false
+                        progressDialog?.setCancelable(false)
+                        progressDialog?.show()
                         temp = 0
                         mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
                     }else{
@@ -441,7 +453,12 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                     Toast.makeText(this, getString(R.string.input), Toast.LENGTH_LONG).show()
                 } else {
                     if(!mDoubleCreate) {
-                        progressBar_addproduct.visibility = View.VISIBLE
+//                        progressBar_addproduct.visibility = View.VISIBLE
+                        progressDialog?.setMessage("Uploading . . . ")
+                        progressDialog?.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                        progressDialog?.isIndeterminate = false
+                        progressDialog?.setCancelable(false)
+                        progressDialog?.show()
                         temp = 0
                         mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.NEEDBORROW)
                     }else{

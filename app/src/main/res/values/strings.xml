@@ -149,7 +149,7 @@
     <string name="price_high">Lowest price</string>
     <string name="price_high_des">Sort by product have highest price</string>
     //====================================== inbox
-    <string name="inbox_send">sent 1 image</string>
+    <string name="inbox_send"> sent 1 image</string>
     <string name="inbox_send1">You sent 1 image</string>
     //====================================== chothue canthue.
     <string name="rent">For rent</string>

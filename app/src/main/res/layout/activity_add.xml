@@ -512,15 +512,15 @@
             <!--/>-->
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-            <ProgressBar
-                android:id="@+id/progressBar_addproduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                style="?android:attr/progressBarStyleInverse"
-                android:visibility="gone"
-                android:layout_centerInParent="true"
-                />
+            <!--<ProgressBar-->
+                <!--android:id="@+id/progressBar_addproduct"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:indeterminate="true"-->
+                <!--style="?android:attr/progressBarStyleInverse"-->
+                <!--android:visibility="gone"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--/>-->
         </RelativeLayout>
         <!--<include-->
         <!--layout="@layout/layout_detail_fab"-->
