@@ -18,7 +18,7 @@
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/logo_thuetot" />
+            android:background="@drawable/logo_thuetot2" />
     </RelativeLayout>
 
 
