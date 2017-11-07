@@ -38,9 +38,9 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         if (isRegisterSuccessful) {
             Log.e("toi day roi", "ne")
             name.visibility = View.GONE
-            phone.visibility = View.GONE
-            password.visibility = View.GONE
-            repassword.visibility = View.GONE
+            email.visibility = View.GONE
+//            password.visibility = View.GONE
+//            repassword.visibility = View.GONE
             btn_join.visibility = View.GONE
 
             input_code.visibility = View.VISIBLE
@@ -99,7 +99,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
         var err = 0
         if (!validatePassword( v!!.edit_verifycode.text.toString())) {
             err++
-            password!!.error = getString(R.string.st_errpass2)
+            v?.edit_verifycode!!.error = getString(R.string.st_errpass2)
         }
         if (err == 0) {
             mRegisterPresenter!!.register_finish(user,  v!!.edit_verifycode.text.toString(), 0)
@@ -130,24 +130,24 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             name!!.error = getString(R.string.st_errpass)
         }
 
-        if (!validateEmail(phone!!.text.toString())) {
+        if (!validateEmail(email!!.text.toString())) {
 
             err++
-            phone!!.error = getString(R.string.invalid_email)
+            email!!.error = getString(R.string.invalid_email)
         }
 
-        if (!validatePassword(password!!.text.toString())) {
-
-            err++
-            password!!.error = getString(R.string.st_errpass2)
-        }
-        if (password!!.text.toString() != repassword!!.text.toString() || repassword!!.text.toString() == "") {
-
-            err++
-
-            repassword!!.error = getString(R.string.err_repass)
-
-        }
+//        if (!validatePassword(password!!.text.toString())) {
+//
+//            err++
+//            password!!.error = getString(R.string.st_errpass2)
+//        }
+//        if (password!!.text.toString() != repassword!!.text.toString() || repassword!!.text.toString() == "") {
+//
+//            err++
+//
+//            repassword!!.error = getString(R.string.err_repass)
+//
+//        }
 
 
         if (err == 0) {
@@ -156,8 +156,8 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
             user.phone = txt_phone.text.toString()
             user.name = name.text.toString()
-            user.hashed_password = password.text.toString()
-            user.email = phone.text.toString()
+            user.hashed_password = ""
+            user.email = email.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
 
             val dl_verifycode = AlertDialog.Builder(this)
@@ -214,9 +214,9 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     private fun setError() {
 
         name!!.error = null
-        phone!!.error = null
-        password!!.error = null
-        repassword!!.error = null
+        email!!.error = null
+//        password!!.error = null
+//        repassword!!.error = null
         input_code!!.error = null
         txt_phone!!.error = null
     }
@@ -232,7 +232,7 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             v!!.txt_huongdan.visibility = View.VISIBLE
             v!!.progressBar_dialog.visibility = View.GONE
             v!!.login_verifycode.isEnabled = true
-            register_finish()
+
 //            input_code.visibility = View.VISIBLE
 //            btn_finish.visibility = View.VISIBLE
 //            input_phone.visibility = View.GONE

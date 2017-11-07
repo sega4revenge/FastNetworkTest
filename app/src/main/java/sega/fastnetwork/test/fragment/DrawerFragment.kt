@@ -746,8 +746,12 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
             }
             R.id.nav_4 -> {
+                mSelectedId = itemId
+                morecategory = false
+                fragment = null
                 val intent = Intent((activity as AppCompatActivity), AboutUsActivity::class.java)
                 startActivity(intent)
+
             }
             R.id.nav_5 -> {
                 FacebookSdk.sdkInitialize(activity)

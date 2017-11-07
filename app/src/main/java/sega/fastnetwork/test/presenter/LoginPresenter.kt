@@ -309,7 +309,6 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
                 jsonObject.put("tokenfirebase", user.tokenfirebase)
             }
             else{
-
                 jsonObject.put("name", user.name)
                 jsonObject.put("phone", user.phone)
                 jsonObject.put("email", user.email)
@@ -363,11 +362,11 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
                         Log.d(register, "onError errorCode : " + e.errorCode)
                         Log.d(register, "onError errorBody : " + e.errorBody)
                         Log.d(register, "onError errorDetail : " + e.errorDetail)
-                        mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"), 2)
+                        mLoginView.setErrorMessage(e.errorCode.toString(), 2)
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                         Log.d(register, "onError errorDetail : " + e.errorDetail)
-                        mLoginView.setErrorMessage(JSONObject(e.errorBody.toString()).getString("message"), 2)
+                        mLoginView.setErrorMessage(e.errorCode.toString(), 2)
                     }
                 } else {
                     Log.d(register, "onError errorMessage : " + e.message)

@@ -57,7 +57,7 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
             forgot_repassword.visibility = View.VISIBLE
 
             forgot_action_email.visibility = View.GONE
-            phone.visibility = View.GONE
+            email.visibility = View.GONE
         }
         else {
             if (isForgotPwSuccessful) {
@@ -156,10 +156,10 @@ class ForgotPassword : AppCompatActivity(), ForgotPwPresenter.ForgotPwView {
     private fun forgot() {
         var err = 0
 
-        phone_number = phone.text.toString()
-        if (!Validation.validateFields(phone!!.text.toString())) {
+        phone_number = email.text.toString()
+        if (!Validation.validateFields(email!!.text.toString())) {
             err++
-            phone!!.error = getString(R.string.st_errpass)
+            email!!.error = getString(R.string.st_errpass)
         }
         if(err==0){
             mForgotPwPresenter!!.forgot(phone_number!!)

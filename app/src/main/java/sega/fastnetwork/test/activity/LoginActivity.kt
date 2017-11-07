@@ -237,7 +237,6 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             showSnackBarMessage(getString(R.string.err_invalidcode))
 
         }
-
         if (errorMessage == "201") {
             println("den day")
             val dl_verifycode = AlertDialog.Builder(this)
@@ -308,9 +307,11 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
             showSnackBarMessage(errorMessage)
         }
+
         if (errorMessage == "0") {
             showSnackBarMessage(resources.getString(R.string.server_unreachable))
         }
+
     }
 
     private fun login_finish() {
