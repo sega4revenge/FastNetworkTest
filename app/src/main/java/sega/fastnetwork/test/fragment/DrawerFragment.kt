@@ -54,9 +54,9 @@ import java.util.*
  * Created by sega4 on 08/08/2017.
  */
 
-class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener,DrawerPresenter.DrawerView, ChangePasswordPresenter.ChangePasswordView {
+class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener, DrawerPresenter.DrawerView, ChangePasswordPresenter.ChangePasswordView {
     override fun getUserDetail(user: User) {
-        AppManager.onlyremoveAccount(context,user)
+        AppManager.onlyremoveAccount(context, user)
 //        AppManager.saveAccountUser(context,user,0)
 
     }
@@ -70,14 +70,14 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     }
 
     override fun changeAvatarSuccess(t: Response) {
-        AppManager.onlyremoveAccount(context,t.user!!)
+        AppManager.onlyremoveAccount(context, t.user!!)
 //        AppManager.saveAccountUser(context, t.user!!, 0)
-                        Log.e("pic",Constants.IMAGE_URL+ t.user!!.photoprofile)
-                        Glide.with(context)
-                                .load(Constants.IMAGE_URL+ t.user!!.photoprofile)
-                                .thumbnail(0.1f)
-                                .apply(options)
-                                .into(navigation_view.getHeaderView(0).avatar_header)
+        Log.e("pic", Constants.IMAGE_URL + t.user!!.photoprofile)
+        Glide.with(context)
+                .load(Constants.IMAGE_URL + t.user!!.photoprofile)
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(navigation_view.getHeaderView(0).avatar_header)
 
     }
 
@@ -89,10 +89,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     override fun getUserDetail(response: Response) {
         Log.e("getUserDetail", response.user?.name + " " + response.user?.phone)
         showSnackBarMessage(getString(R.string.changeinfo_success))
-        AppManager.onlyremoveAccount(context,response.user!!)
+        AppManager.onlyremoveAccount(context, response.user!!)
 //        AppManager.saveAccountUser(context,response.user!!,0)
         navigation_view.getHeaderView(0).username_header.text = response.user!!.name
-        txtname.text  = response.user!!.name
+        txtname.text = response.user!!.name
         user = response.user!!
     }
 
@@ -105,13 +105,13 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     var temp: Int = 0
     var uriList: Uri? = null
     internal var list: List<ImageBean>? = null
-    var categorySelected : Boolean = false
+    var categorySelected: Boolean = false
     var categoryId = 999
     var fragment: Fragment? = null
-    var user :User?=null
-    var user2 : User?=null
+    var user: User? = null
+    var user2: User? = null
 
-    var photoprofile : String? = null
+    var photoprofile: String? = null
     var mChangePasswordPresenter: ChangePasswordPresenter? = null
     private var mDrawerPresenter: DrawerPresenter? = null
     val options = RequestOptions()
@@ -120,17 +120,15 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             .placeholder(R.drawable.logo)
             .error(R.drawable.img_error)
             .priority(Priority.HIGH)!!
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         println("b")
-        if(AppManager.getAppAccount(context)==null)
-        {
+        if (AppManager.getAppAccount(context) == null) {
             println("null")
             val i = Intent(activity, LoginActivity::class.java)
             startActivity(i)
             activity.finish()
-        }
-        else
-        {
+        } else {
             isTablet = resources.getBoolean(R.bool.is_tablet)
             mDrawerPresenter = DrawerPresenter(this)
             mChangePasswordPresenter = ChangePasswordPresenter(this)
@@ -171,17 +169,16 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             addproduct.setOnClickListener {
                 startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
             }
-        navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true
-        navigate(R.id.nav_1)
-        addproduct.setOnClickListener {
-            startActivityForResult(Intent(this@DrawerFragment.activity, AddActivity::class.java), Constants.CREATEPRODUCT)
-        }
-
-            if(user?.photoprofile?.startsWith("http")!!){
-                photoprofile = user?.photoprofile
+            navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true
+            navigate(R.id.nav_1)
+            addproduct.setOnClickListener {
+                startActivityForResult(Intent(this@DrawerFragment.activity, AddActivity::class.java), Constants.CREATEPRODUCT)
             }
-            else{
-                photoprofile = Constants.IMAGE_URL+user!!.photoprofile
+
+            if (user?.photoprofile?.startsWith("http")!!) {
+                photoprofile = user?.photoprofile
+            } else {
+                photoprofile = Constants.IMAGE_URL + user!!.photoprofile
             }
             Glide.with(this)
                     .load(photoprofile)
@@ -189,60 +186,59 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                     .apply(options)
                     .into(navigation_view.getHeaderView(0).avatar_header)
             navigation_view.getHeaderView(0).username_header.text = user!!.name
-            navigation_view.getHeaderView(0).email_header.text  = user!!.email
-            linMotobike.setOnClickListener(){
-                changeCategory(0,HomeFragment())
+            navigation_view.getHeaderView(0).email_header.text = user!!.email
+            linMotobike.setOnClickListener() {
+                changeCategory(0, HomeFragment())
             }
-            linelectronic.setOnClickListener(){
-                changeCategory(1,HomeFragment())
+            linelectronic.setOnClickListener() {
+                changeCategory(1, HomeFragment())
             }
-            linfashion.setOnClickListener(){
-                changeCategory(2,HomeFragment())
+            linfashion.setOnClickListener() {
+                changeCategory(2, HomeFragment())
             }
-            linhome.setOnClickListener(){
-                changeCategory(3,HomeFragment())
+            linhome.setOnClickListener() {
+                changeCategory(3, HomeFragment())
             }
-            linmombaby.setOnClickListener(){
-                changeCategory(4,HomeFragment())
+            linmombaby.setOnClickListener() {
+                changeCategory(4, HomeFragment())
             }
-            lingdnt.setOnClickListener(){
-                changeCategory(5,HomeFragment())
+            lingdnt.setOnClickListener() {
+                changeCategory(5, HomeFragment())
             }
-            linshort.setOnClickListener(){
-                changeCategory(6,HomeFragment())
+            linshort.setOnClickListener() {
+                changeCategory(6, HomeFragment())
             }
-            linvpnn.setOnClickListener(){
-                changeCategory(7,HomeFragment())
+            linvpnn.setOnClickListener() {
+                changeCategory(7, HomeFragment())
             }
-            lindeff.setOnClickListener(){
-                changeCategory(8,HomeFragment())
+            lindeff.setOnClickListener() {
+                changeCategory(8, HomeFragment())
             }
-            moreCategory.setOnClickListener(){
-                if(mSelectedId == R.id.nav_1)
-                {
-                    if(!morecategory)
-                    {
+            moreCategory.setOnClickListener() {
+                if (mSelectedId == R.id.nav_1) {
+                    if (!morecategory) {
+
+
                         linmore.visibility = View.VISIBLE
                         divide.visibility = View.VISIBLE
                         moreCategory.setImageResource(R.mipmap.ic_hidecategory)
                         morecategory = true
 
-                    }else{
+                    } else {
 
-                        linmore.setVisibility(View.GONE)
+                        linmore.visibility = View.GONE
                         moreCategory.setImageResource(R.mipmap.ic_launcher)
                         divide.visibility = View.GONE
                         morecategory = false
                     }
-                }else if(mSelectedId == R.id.nav_3){
-                    if(!morecategory)
-                    {
+                } else if (mSelectedId == R.id.nav_3) {
+                    if (!morecategory) {
                         linmoreInfor.visibility = View.VISIBLE
                         divide.visibility = View.VISIBLE
                         moreCategory.setImageResource(R.mipmap.ic_hidecategory)
                         morecategory = true
 
-                    }else{
+                    } else {
 
                         linmoreInfor.setVisibility(View.GONE)
                         moreCategory.setImageResource(R.mipmap.ic_launcher)
@@ -294,19 +290,19 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                     var err = 0
                                     if (!validateFields(newname.text.toString())) {
 
-                                    err++
-                                    newname.error = getString(R.string.st_errpass)
-                                }
-                                if (!validateFields(newphone.text.toString())) {
+                                        err++
+                                        newname.error = getString(R.string.st_errpass)
+                                    }
+                                    if (!validateFields(newphone.text.toString())) {
 
-                                    err++
-                                    newphone.error = getString(R.string.st_errpass)
-                                }
+                                        err++
+                                        newphone.error = getString(R.string.st_errpass)
+                                    }
 
-                                if (err == 0) {
+                                    if (err == 0) {
 //                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
-                                      mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
-                                    dg.dismiss()
+                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(), newname.text.toString(), newphone.text.toString())
+                                        dg.dismiss()
 
 //                    val user = User()
 //                    user.name = name.text.toString()
@@ -319,7 +315,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                         progressBar.visibility = View.GONE
                                         CircularAnim.show(accept).go()
 //                                    showSnackBarMessage("Enter Valid Details !")
-                                    }                            }
+                                    }
+                                }
                             })
 
                 }
@@ -338,7 +335,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 val accept = v.findViewById<Button>(R.id.btn_accept_changepass)
                 tvoldpass.visibility = View.VISIBLE
                 oldpass.visibility = View.VISIBLE
-                if(user2!!.hashed_password == null || user2!!.hashed_password.equals("")){
+                if (user2!!.hashed_password == null || user2!!.hashed_password.equals("")) {
                     tvoldpass.visibility = View.GONE
                     oldpass.visibility = View.GONE
                 }
@@ -359,28 +356,28 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                     renewpass!!.error = null
                                     var err = 0
 
-                                    if(user!!.hashed_password != null && !user!!.hashed_password.equals("")){
+                                    if (user!!.hashed_password != null && !user!!.hashed_password.equals("")) {
                                         if (!validateFields(oldpass.text.toString())) {
 
-                                        err++
-                                        oldpass.error = getString(R.string.st_errpass)
+                                            err++
+                                            oldpass.error = getString(R.string.st_errpass)
+                                        }
                                     }
-                                }
 
-                                if (!validateFields(newpass.text.toString())) {
+                                    if (!validateFields(newpass.text.toString())) {
 
-                                    err++
-                                    newpass.error = getString(R.string.st_errpass)
-                                }
-                                if (newpass.text.toString() != renewpass.text.toString()||renewpass.text.toString()=="") {
+                                        err++
+                                        newpass.error = getString(R.string.st_errpass)
+                                    }
+                                    if (newpass.text.toString() != renewpass.text.toString() || renewpass.text.toString() == "") {
 
                                         err++
 
-                                    renewpass.error = getString(R.string.pass_notmatch)
+                                        renewpass.error = getString(R.string.pass_notmatch)
 
                                     }
                                     if (err == 0) {
-                                        Log.e("ChangePass","id:"+user!!._id+":old pass:"+ oldpass.text.toString() + ":new pass:"+newpass.text.toString())
+                                        Log.e("ChangePass", "id:" + user!!._id + ":old pass:" + oldpass.text.toString() + ":new pass:" + newpass.text.toString())
                                         mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
 
                                         dg.dismiss()
@@ -396,7 +393,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                         progressBar.visibility = View.GONE
                                         CircularAnim.show(accept).go()
 //                                    showSnackBarMessage("Enter Valid Details !")
-                                    }                            }
+                                    }
+                                }
                             })
 
                 }
@@ -406,9 +404,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 val transaction = activity.supportFragmentManager.beginTransaction()
                 try {
                     val bundle = Bundle()
-                    bundle.putInt("Category",999)
+                    bundle.putInt("Category", 999)
                     println("chuan bi")
-                    fragment?.arguments =  bundle
+                    fragment?.arguments = bundle
                     transaction.replace(R.id.content_frame, fragment).commit()
 
                     //elevation shadow
@@ -431,9 +429,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 val transaction = activity.supportFragmentManager.beginTransaction()
                 try {
                     val bundle = Bundle()
-                    bundle.putInt("Category",999)
+                    bundle.putInt("Category", 999)
                     println("chuan bi")
-                    fragment?.arguments =  bundle
+                    fragment?.arguments = bundle
                     transaction.replace(R.id.content_frame, fragment).commit()
 
                     //elevation shadow
@@ -503,27 +501,24 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                     }
 
 
-                override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
-                        Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+                    override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
+                            Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
-
-
-
+                }
+                TedPermission.with(activity)
+                        .setPermissionListener(permissionlistener)
+                        .setDeniedMessage(getString(R.string.per_turnon))
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .check()
+                //
             }
-            TedPermission.with(activity)
-                    .setPermissionListener(permissionlistener)
-                    .setDeniedMessage(getString(R.string.per_turnon))
-                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .check()
-            //
-        }
 
 
         }
         // Setup toolbar
 
-}
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -565,7 +560,8 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         }
         return data
     }
-    private fun showUriList(uriList:Uri) {
+
+    private fun showUriList(uriList: Uri) {
         // Remove all views before
         // adding the new ones.
 
@@ -580,13 +576,14 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .thumbnail(0.1f)
                 .apply(options)
                 .into(imgAvatar)
-        mDrawerPresenter!!.changeAvatar(File(getRealFilePath(activity, uriList)), user!!._id!!,user!!.photoprofile!!,context)
+        mDrawerPresenter!!.changeAvatar(File(getRealFilePath(activity, uriList)), user!!._id!!, user!!.photoprofile!!, context)
 //        uploadImage(File(getRealFilePath(activity, uriList)), user!!._id!!,user!!.photoprofile!!)
 
 //            edit_avatar!!.addData(ImageBean(getRealFilePath(activity, uriList)!!))
 
 
     }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater!!.inflate(R.layout.fragment_drawer_main, container, false)
 
@@ -602,31 +599,32 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     override fun onResume() {
         super.onResume()
     }
-    private fun changeCategory(mCategory: Int, mFragment: Fragment){
-        if(categorySelected){
 
-            if(mCategory == categoryId){
+    private fun changeCategory(mCategory: Int, mFragment: Fragment) {
+        if (categorySelected) {
+
+            if (mCategory == categoryId) {
                 categorySelected = false
                 categoryId = 999
-                selectCategory(categoryId,mFragment)
-                showSelected(mCategory,0)
-            }
-            else{
+                selectCategory(categoryId, mFragment)
+                showSelected(mCategory, 0)
+            } else {
                 categorySelected = true
-                showSelected(categoryId,0)
-                showSelected(mCategory,1)
-                selectCategory(mCategory,mFragment)
+                showSelected(categoryId, 0)
+                showSelected(mCategory, 1)
+                selectCategory(mCategory, mFragment)
 
             }
-        }else{
+        } else {
             categorySelected = true
-            selectCategory(mCategory,mFragment)
-            showSelected(mCategory,1)
+            selectCategory(mCategory, mFragment)
+            showSelected(mCategory, 1)
         }
     }
-    fun showSelected(position : Int, type : Int){
-        if(type == 0){
-            when(position){
+
+    fun showSelected(position: Int, type: Int) {
+        if (type == 0) {
+            when (position) {
                 0 -> selected_1.visibility = View.GONE
                 1 -> selected_2.visibility = View.GONE
                 2 -> selected_3.visibility = View.GONE
@@ -638,10 +636,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 8 -> selected_9.visibility = View.GONE
 
             }
-        }
-        else{
+        } else {
 
-            when(position){
+            when (position) {
                 0 -> selected_1.visibility = View.VISIBLE
                 1 -> selected_2.visibility = View.VISIBLE
                 2 -> selected_3.visibility = View.VISIBLE
@@ -656,17 +653,18 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         }
 
     }
-    fun selectCategory(mCategory: Int, mFragment: Fragment){
+
+    fun selectCategory(mCategory: Int, mFragment: Fragment) {
         categorySelected = true
         if (fragment != null) {
-            if(mSelectedId == R.id.nav_1){
+            if (mSelectedId == R.id.nav_1) {
                 categoryId = mCategory
                 val bundle = Bundle()
-                bundle.putInt("Category",mCategory)
+                bundle.putInt("Category", mCategory)
                 val transaction = activity.supportFragmentManager.beginTransaction()
                 try {
                     var frag = mFragment
-                    frag.arguments =  bundle
+                    frag.arguments = bundle
                     transaction.replace(R.id.content_frame, frag).commit()
                 } catch (ignored: IllegalStateException) {
                 }
@@ -674,10 +672,11 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         }
     }
 
-    private fun hideMoreAction(){
+    private fun hideMoreAction() {
         linmore.visibility = View.GONE
         linmoreInfor.visibility = View.GONE
     }
+
     private fun navigate(itemId: Int) {
         /*  val elevation = findViewById(R.id.elevation)*/
 
@@ -691,14 +690,13 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 // change status show/hide action profile => category
                 moreCategory.setImageResource(R.mipmap.ic_launcher)
                 divide.visibility = View.GONE
-                if(categorylist.visibility != View.VISIBLE)
-                {
+                if (categorylist.visibility != View.VISIBLE) {
                     categorylist.visibility = View.VISIBLE
                 }
-                if(linInfor.visibility != View.GONE){
+                if (linInfor.visibility != View.GONE) {
                     linInfor.visibility = View.GONE
                 }
-                if(linCate.visibility != View.VISIBLE){
+                if (linCate.visibility != View.VISIBLE) {
                     linCate.visibility = View.VISIBLE
                 }
             }
@@ -721,7 +719,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 toolbar_title.setText(R.string.txt_mess)
                 fragment = InboxFragment()
 
-                if(categorylist.visibility != View.GONE){
+                if (categorylist.visibility != View.GONE) {
                     categorylist.visibility = View.GONE
                 }
                 morecategory = false
@@ -735,14 +733,13 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 moreCategory.setImageResource(R.mipmap.ic_launcher)
                 divide.visibility = View.GONE
                 // change status show/hide action category => profile
-                if(categorylist.visibility != View.VISIBLE)
-                {
+                if (categorylist.visibility != View.VISIBLE) {
                     categorylist.visibility = View.VISIBLE
                 }
-                if(linCate.visibility != View.GONE){
+                if (linCate.visibility != View.GONE) {
                     linCate.visibility = View.GONE
                 }
-                if(linInfor.visibility != View.VISIBLE){
+                if (linInfor.visibility != View.VISIBLE) {
                     linInfor.visibility = View.VISIBLE
                 }
                 morecategory = false
@@ -777,9 +774,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             val transaction = activity.supportFragmentManager.beginTransaction()
             try {
                 val bundle = Bundle()
-                bundle.putInt("Category",999)
+                bundle.putInt("Category", 999)
                 println("chuan bi")
-                fragment?.arguments =  bundle
+                fragment?.arguments = bundle
                 transaction.replace(R.id.content_frame, fragment).commit()
 
                 //elevation shadow
@@ -824,12 +821,11 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .show()
 
     }
+
     companion object {
 
         private val SELECTED_ITEM_ID = "SELECTED_ITEM_ID"
     }
-
-
 
 
 }
