@@ -228,11 +228,8 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
         if (errorMessage.equals("404")) {
-            showSnackBarMessage("User Not Found !")
-        } else if (errorMessage.equals("401")) {
-            showSnackBarMessage("Incorrect password !")
-        } else if (errorMessage.equals("403")) {
-            showSnackBarMessage("Phone not authenticated !")
+            showSnackBarMessage(getString(R.string.err_usernotfound))
+
         }
         if (errorMessage == "201") {
             println("den day")

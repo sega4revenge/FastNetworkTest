@@ -197,7 +197,7 @@
     <string name="txt_changeacc">Change information</string>
     <string name="txt_newname">Input new name</string>
     <string name="txt_newphone">Input new phone number</string>
-    <string name="txt_phone">Phone</string>
+    <string name="txt_phone">Phone number</string>
     <string name="btn_accept">Accept</string>
     <string name="btn_cancel">Cancel</string>
     <string name="txt_or">OR</string>
@@ -219,6 +219,7 @@
     <string name="txt_slogan">Hire love - Give value</string>
     <string name="txt_checkmail">Please check phone number !</string>
     <string name="txt_nodata">Do not have a conversation !</string>
+    <string name="txt_finish">Finish !</string>
 
 
     //nav
@@ -231,4 +232,6 @@
     <string name="vr_step2">Step 2: </string>
     <string name="vr_inputcode">Enter your code that you received in your text message</string>
     <string name="vr_sent">We sent a code to this phone number. Please check message !</string>
+    //err
+    <string name="err_usernotfound">User Not Found !</string>
 </resources>

@@ -30,7 +30,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Verify Your Phone"
+        android:text="@string/vr_title"
         android:textStyle="bold"
         android:textSize="17sp"
         android:textColor="@color/black"
@@ -42,7 +42,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="We send you a text with a code. The text is free, you're not charged for it."
+        android:text="@string/vr_send"
         android:textSize="14sp"
         android:layout_gravity="center_horizontal"
         />
@@ -57,14 +57,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Step 1:"
+            android:text="@string/vr_step1"
             android:textColor="@color/black"
             android:textStyle="bold"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter your phone number"
+            android:text="@string/txt_phonenumber"
             android:layout_marginTop="5dp"
             android:textSize="13sp"
             />
@@ -76,7 +76,7 @@
             android:layout_marginTop="5dp"
             android:visibility="gone"
             android:textColor="@color/red"
-            android:text="We sent a code to this phone number. Please check message !"/>
+            android:text="@string/vr_sent"/>
      <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                     android:textSize="14sp"
                     android:background="@drawable/roundbutton_cancel"
                     android:textAllCaps="false"
-                    android:text="Send"
+                    android:text="@string/send"
                     android:textColor="@color/white"/>
             </RelativeLayout>
 
@@ -142,14 +142,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Step 2:"
+            android:text="@string/vr_step2"
             android:textColor="@color/black"
             android:textStyle="bold"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enter your code you received in your text mesage"
+            android:text="@string/vr_inputcode"
             android:layout_marginTop="5dp"
             android:textSize="13sp"
             />
@@ -200,7 +200,7 @@
             android:background="@drawable/roundbutton"
             android:textAllCaps="false"
             android:textSize="14sp"
-            android:text="Verify number"
+            android:text="@string/vr_title"
             android:layout_margin="10dp"
             android:textColor="@color/white"
             android:enabled="false"/>
