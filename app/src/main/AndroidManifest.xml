@@ -42,7 +42,11 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
 
         </activity>
+        <activity
+            android:name=".activity.Fullscreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
 
+        </activity>
         <service
             android:name=".service.AuthenticationService"
             android:exported="true">

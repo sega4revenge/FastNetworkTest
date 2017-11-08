@@ -305,7 +305,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                 v!!.login_verifycode.isEnabled = true
             }
 
-            showSnackBarMessage(errorMessage)
+//            showSnackBarMessage(errorMessage)
         }
 
         if (errorMessage == "0") {

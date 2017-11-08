@@ -1,6 +1,7 @@
 package sega.fastnetwork.test.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import sega.fastnetwork.test.R
+import sega.fastnetwork.test.activity.Fullscreen
 import sega.fastnetwork.test.customview.CircleImageView
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.ChatMessager
@@ -31,6 +33,7 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerV
     var mContext : Context? = context
     var user : User =  AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(mContext!!)!!)
     var imguserto = ""
+    var listImages : ArrayList<String>? = ArrayList()
     val options = RequestOptions()
             .centerCrop()
             .dontAnimate()
@@ -134,6 +137,26 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerV
                         holder.imgAvatarTo.setImageResource(R.drawable.useravatar)
                     }
             }
+        }
+        holder.imgSend.setOnClickListener{
+            Log.e("FULL","FULL")
+            listImages?.clear()
+            listImages?.add(item?.photoprofile.toString())
+            val i = Intent(mContext, Fullscreen::class.java)
+            i.putExtra("pos", 0)
+            i.putExtra("data", listImages)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            mContext?.startActivity(i)
+        }
+        holder.imgSendTo.setOnClickListener{
+            Log.e("FULL","FULL")
+            listImages?.clear()
+            listImages?.add(item?.photoprofile.toString())
+            val i = Intent(mContext, Fullscreen::class.java)
+            i.putExtra("pos", 0)
+            i.putExtra("data", listImages)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            mContext?.startActivity(i)
         }
         mItems?.get(position)!!.mStatus = true
     }

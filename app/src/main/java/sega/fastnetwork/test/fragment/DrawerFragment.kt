@@ -321,84 +321,84 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
                 }
             }
-            changePass.setOnClickListener {
-                user2 = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
-                val dl_changepass = AlertDialog.Builder(activity)
-                val inflater = layoutInflater
-                val v = inflater.inflate(R.layout.dialog_changepass, null)
-                val tvoldpass = v.findViewById<TextView>(R.id.tv_oldpass)
-                val oldpass = v.findViewById<EditText>(R.id.edt_oldpass)
-                val newpass = v.findViewById<EditText>(R.id.edt_newpass)
-                val renewpass = v.findViewById<EditText>(R.id.edt_renewpass)
-                val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_changepassword)
-                val cancel = v.findViewById<Button>(R.id.btn_cancel_changepass)
-                val accept = v.findViewById<Button>(R.id.btn_accept_changepass)
-                tvoldpass.visibility = View.VISIBLE
-                oldpass.visibility = View.VISIBLE
-                if (user2!!.hashed_password == null || user2!!.hashed_password.equals("")) {
-                    tvoldpass.visibility = View.GONE
-                    oldpass.visibility = View.GONE
-                }
-
-                dl_changepass.setView(v)
-                val dg = dl_changepass.show()
-                cancel.setOnClickListener {
-                    dg.dismiss()
-                }
-                accept.setOnClickListener {
-                    CircularAnim.hide(accept)
-                            .endRadius((progressBar.height / 2).toFloat())
-                            .go(object : CircularAnim.OnAnimationEndListener {
-                                override fun onAnimationEnd() {
-                                    progressBar.visibility = View.VISIBLE
-                                    oldpass!!.error = null
-                                    newpass!!.error = null
-                                    renewpass!!.error = null
-                                    var err = 0
-
-                                    if (user!!.hashed_password != null && !user!!.hashed_password.equals("")) {
-                                        if (!validateFields(oldpass.text.toString())) {
-
-                                            err++
-                                            oldpass.error = getString(R.string.st_errpass)
-                                        }
-                                    }
-
-                                    if (!validateFields(newpass.text.toString())) {
-
-                                        err++
-                                        newpass.error = getString(R.string.st_errpass)
-                                    }
-                                    if (newpass.text.toString() != renewpass.text.toString() || renewpass.text.toString() == "") {
-
-                                        err++
-
-                                        renewpass.error = getString(R.string.pass_notmatch)
-
-                                    }
-                                    if (err == 0) {
-                                        Log.e("ChangePass", "id:" + user!!._id + ":old pass:" + oldpass.text.toString() + ":new pass:" + newpass.text.toString())
-                                        mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
-
-                                        dg.dismiss()
-
-//                    val user = User()
-//                    user.name = name.text.toString()
-//                    user.password = password.text.toString()
-//                    user.email = email.text.toString()
-//                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
-//                    mRegisterPresenter!!.register(user,Constants.LOCAL)
-
-                                    } else {
-                                        progressBar.visibility = View.GONE
-                                        CircularAnim.show(accept).go()
-//                                    showSnackBarMessage("Enter Valid Details !")
-                                    }
-                                }
-                            })
-
-                }
-            }
+//            changePass.setOnClickListener {
+//                user2 = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
+//                val dl_changepass = AlertDialog.Builder(activity)
+//                val inflater = layoutInflater
+//                val v = inflater.inflate(R.layout.dialog_changepass, null)
+//                val tvoldpass = v.findViewById<TextView>(R.id.tv_oldpass)
+//                val oldpass = v.findViewById<EditText>(R.id.edt_oldpass)
+//                val newpass = v.findViewById<EditText>(R.id.edt_newpass)
+//                val renewpass = v.findViewById<EditText>(R.id.edt_renewpass)
+//                val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_changepassword)
+//                val cancel = v.findViewById<Button>(R.id.btn_cancel_changepass)
+//                val accept = v.findViewById<Button>(R.id.btn_accept_changepass)
+//                tvoldpass.visibility = View.VISIBLE
+//                oldpass.visibility = View.VISIBLE
+//                if (user2!!.hashed_password == null || user2!!.hashed_password.equals("")) {
+//                    tvoldpass.visibility = View.GONE
+//                    oldpass.visibility = View.GONE
+//                }
+//
+//                dl_changepass.setView(v)
+//                val dg = dl_changepass.show()
+//                cancel.setOnClickListener {
+//                    dg.dismiss()
+//                }
+//                accept.setOnClickListener {
+//                    CircularAnim.hide(accept)
+//                            .endRadius((progressBar.height / 2).toFloat())
+//                            .go(object : CircularAnim.OnAnimationEndListener {
+//                                override fun onAnimationEnd() {
+//                                    progressBar.visibility = View.VISIBLE
+//                                    oldpass!!.error = null
+//                                    newpass!!.error = null
+//                                    renewpass!!.error = null
+//                                    var err = 0
+//
+//                                    if (user!!.hashed_password != null && !user!!.hashed_password.equals("")) {
+//                                        if (!validateFields(oldpass.text.toString())) {
+//
+//                                            err++
+//                                            oldpass.error = getString(R.string.st_errpass)
+//                                        }
+//                                    }
+//
+//                                    if (!validateFields(newpass.text.toString())) {
+//
+//                                        err++
+//                                        newpass.error = getString(R.string.st_errpass)
+//                                    }
+//                                    if (newpass.text.toString() != renewpass.text.toString() || renewpass.text.toString() == "") {
+//
+//                                        err++
+//
+//                                        renewpass.error = getString(R.string.pass_notmatch)
+//
+//                                    }
+//                                    if (err == 0) {
+//                                        Log.e("ChangePass", "id:" + user!!._id + ":old pass:" + oldpass.text.toString() + ":new pass:" + newpass.text.toString())
+//                                        mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
+//
+//                                        dg.dismiss()
+//
+////                    val user = User()
+////                    user.name = name.text.toString()
+////                    user.password = password.text.toString()
+////                    user.email = email.text.toString()
+////                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
+////                    mRegisterPresenter!!.register(user,Constants.LOCAL)
+//
+//                                    } else {
+//                                        progressBar.visibility = View.GONE
+//                                        CircularAnim.show(accept).go()
+////                                    showSnackBarMessage("Enter Valid Details !")
+//                                    }
+//                                }
+//                            })
+//
+//                }
+//            }
             listproduct.setOnClickListener {
                 fragment = DetailProfileFragment()
                 val transaction = activity.supportFragmentManager.beginTransaction()

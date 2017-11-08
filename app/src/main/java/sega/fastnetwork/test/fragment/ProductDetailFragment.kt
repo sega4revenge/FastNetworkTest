@@ -42,6 +42,7 @@ import kotlinx.android.synthetic.main.layout_error_message.view.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ChatActivity
 import sega.fastnetwork.test.activity.CommentActivity
+import sega.fastnetwork.test.activity.Fullscreen
 import sega.fastnetwork.test.activity.MainActivity
 import sega.fastnetwork.test.lib.SliderTypes.Animations.DescriptionAnimation
 import sega.fastnetwork.test.lib.SliderTypes.BaseSliderView
@@ -995,10 +996,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
     override fun onSliderClick(slider: BaseSliderView) {
 
-        /*    val i = Intent(activity, Fullscreen::class.java)
+        val i = Intent(activity, Fullscreen::class.java)
             i.putExtra("pos", slider.bundle.getInt("index"))
-            i.putExtra("data", product!!.productimage)
-            startActivity(i)*/
+            i.putExtra("data", product?.images)
+            startActivity(i)
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
