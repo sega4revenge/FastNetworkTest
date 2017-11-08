@@ -1,5 +1,6 @@
 package sega.fastnetwork.test.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -52,15 +53,19 @@ class AboutUsActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        val intent = Intent(this@AboutUsActivity, MainActivity::class.java)
+        startActivity(intent)
         finish()
+        super.onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val ids = item?.itemId
         if (ids == android.R.id.home) {
-            onBackPressed()
-            return true
+            val intent = Intent(this@AboutUsActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+         //   super.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }

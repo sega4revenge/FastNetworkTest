@@ -315,8 +315,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                                         progressBar.visibility = View.GONE
                                         CircularAnim.show(accept).go()
 //                                    showSnackBarMessage("Enter Valid Details !")
-                                    }
-                                }
+                                    }                            }
                             })
 
                 }
@@ -733,25 +732,23 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 moreCategory.setImageResource(R.mipmap.ic_launcher)
                 divide.visibility = View.GONE
                 // change status show/hide action category => profile
-                if (categorylist.visibility != View.VISIBLE) {
+                if(categorylist.visibility != View.VISIBLE)
+                {
                     categorylist.visibility = View.VISIBLE
                 }
-                if (linCate.visibility != View.GONE) {
+                if(linCate.visibility != View.GONE){
                     linCate.visibility = View.GONE
                 }
-                if (linInfor.visibility != View.VISIBLE) {
+                if(linInfor.visibility != View.VISIBLE){
                     linInfor.visibility = View.VISIBLE
                 }
                 morecategory = false
 
             }
             R.id.nav_4 -> {
-                mSelectedId = itemId
-                morecategory = false
-                fragment = null
                 val intent = Intent((activity as AppCompatActivity), AboutUsActivity::class.java)
                 startActivity(intent)
-
+                activity.finish()
             }
             R.id.nav_5 -> {
                 FacebookSdk.sdkInitialize(activity)
@@ -778,9 +775,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             val transaction = activity.supportFragmentManager.beginTransaction()
             try {
                 val bundle = Bundle()
-                bundle.putInt("Category", 999)
+                bundle.putInt("Category",999)
                 println("chuan bi")
-                fragment?.arguments = bundle
+                fragment?.arguments =  bundle
                 transaction.replace(R.id.content_frame, fragment).commit()
 
                 //elevation shadow

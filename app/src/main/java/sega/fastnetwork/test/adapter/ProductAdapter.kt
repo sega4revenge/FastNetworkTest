@@ -2,7 +2,6 @@ package sega.fastnetwork.test.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
 import android.view.LayoutInflater
@@ -23,7 +22,7 @@ import java.util.*
  * Created by sega4 on 07/08/2017.
  */
 internal class ProductAdapter// Constructor
-(private val context: Context, private val onproductClickListener: OnproductClickListener, mRecyclerView: RecyclerView, linearLayoutManager: LinearLayoutManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+(private val context: Context, private val onproductClickListener: OnproductClickListener, mRecyclerView: RecyclerView, lastposition: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mOnLoadMoreListener: OnLoadMoreListener? = null
     var productList: ArrayList<Product> = ArrayList()
     var isLoading: Boolean = false
@@ -43,18 +42,22 @@ internal class ProductAdapter// Constructor
         val current = Locale("vi", "VN")
         val cur = Currency.getInstance(current)
         format = cur.symbol
-        println(mRecyclerView.layoutManager)
+      //  println(mRecyclerView.layoutManager)
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                totalItemCount = linearLayoutManager.itemCount
-                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition()
+
+                totalItemCount = mRecyclerView.layoutManager.itemCount
+                lastVisibleItem = lastposition
+
                 if (!isLoading && !isLoadingLocked && lastVisibleItem == productList.size - 1) {
+
                     if (mOnLoadMoreListener != null && pageToDownload < TOTAL_PAGES) {
                         mOnLoadMoreListener!!.onLoadMore()
                         println(pageToDownload.toString() + " tong so")
                     }
                     isLoading = true
+
                 }
             }
         })
@@ -161,6 +164,8 @@ internal class ProductAdapter// Constructor
 
         }
         viewHolderParent.itemView.setOnClickListener { onproductClickListener.onproductClicked(position) }
+
+
     }
 
 

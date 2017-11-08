@@ -6,24 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/input_register_bg"
     android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/layout_input">
 
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layout_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/layout_singup"
-        android:layout_alignLeft="@+id/layout_singup"
-        android:layout_alignRight="@+id/layout_singup"
-        android:layout_alignStart="@+id/layout_singup"
-        android:layout_above="@id/layout_singup"
-        android:layout_marginBottom="53dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
 
 
 
@@ -195,43 +187,28 @@
         android:layout_marginLeft="@dimen/dist_large"
         android:layout_marginRight="@dimen/dist_large"
         android:layout_marginStart="@dimen/dist_large"
-        android:layout_above="@+id/btn_backtologin"
-        android:layout_centerHorizontal="true">
+
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout_input"
+        android:layout_marginTop="30dp">
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:visibility="visible"
+            />
 
         <Button
             android:id="@+id/btn_join"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_size_large"
-
             android:background="@drawable/roundbutton"
             android:text="@string/btn_join"
             android:textAllCaps="false"
             android:textColor="@color/white" />
-        <Button
-            android:id="@+id/btn_phone"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_size_large"
-            android:visibility="gone"
-            android:background="@drawable/roundbutton"
-            android:text="Phone"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
-        <Button
-            android:id="@+id/btn_finish"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/button_size_large"
-            android:visibility="gone"
-            android:background="@drawable/roundbutton"
-            android:text="OK"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+
     </FrameLayout>
 
 
@@ -243,6 +220,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/transparent"
         android:text="@string/btn_backtologin"
+        android:textStyle="bold"
         android:textAllCaps="false"
         android:textColor="@color/btn_color_login" />
 </RelativeLayout>

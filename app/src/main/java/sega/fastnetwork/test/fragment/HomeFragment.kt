@@ -75,25 +75,17 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         layoutManager = LinearLayoutManager(activity)
         product_recycleview.layoutManager = layoutManager
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
+        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!.findLastVisibleItemPosition())
         product_recycleview.adapter = adapter
 
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
-
+        mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
 
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
-            swipe_refresh.isEnabled = false
-            adapter!!.productList.clear()
-            adapter!!.pageToDownload = 1
-            adapter!!.initShimmer()
-            adapter!!.isLoading = false
-            isFirstLoad = true
-            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
-
-            product_recycleview.isNestedScrollingEnabled = false
+            RefreshListener()
         })
         search_view.setOnClickListener {
             startActivity(Intent(activity, SearchActivity::class.java))
@@ -122,6 +114,17 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
             mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
         })
+    }
+    fun RefreshListener(){
+        swipe_refresh.isEnabled = false
+        adapter!!.productList.clear()
+        adapter!!.pageToDownload = 1
+        adapter!!.initShimmer()
+        adapter!!.isLoading = false
+        isFirstLoad = true
+        mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
+
+        product_recycleview.isNestedScrollingEnabled = false
     }
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.tab_home, container, false)

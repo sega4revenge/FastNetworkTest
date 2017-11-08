@@ -91,9 +91,9 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             gotoregister()
         }
 //================================fogot==============================
-        btn_forgot!!.setOnClickListener {
-            gotoforgot()
-        }
+//        btn_forgot!!.setOnClickListener {
+//            gotoforgot()
+//        }
         //==============================================================
 
 
@@ -238,7 +238,6 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
         }
         if (errorMessage == "201") {
-            println("den day")
             val dl_verifycode = AlertDialog.Builder(this)
             dl_verifycode.setCancelable(false)
             val inflater = layoutInflater
@@ -248,6 +247,8 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             dialog?.show()
             //  val dg = dl_verifycode.show()
             v!!.btn_out.setOnClickListener() {
+                progressBar.visibility = View.GONE
+                CircularAnim.show(btn_singin).go()
                 dialog?.dismiss()
             }
             v!!.send_code.setOnClickListener {
@@ -288,6 +289,8 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                 dialog?.show()
                 //  val dg = dl_verifycode.show()
                 v!!.btn_out.setOnClickListener() {
+                    progressBar.visibility = View.GONE
+                    CircularAnim.show(btn_singin).go()
                     dialog?.dismiss()
                 }
                 v!!.send_code.visibility = View.GONE
@@ -305,7 +308,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                 v!!.login_verifycode.isEnabled = true
             }
 
-//            showSnackBarMessage(errorMessage)
+           // showSnackBarMessage(errorMessage)
         }
 
         if (errorMessage == "0") {
@@ -339,9 +342,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
     private fun gotoregister() {
         val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-
         startActivity(intent)
-        finish()
         overridePendingTransition(0, 0)
 
     }

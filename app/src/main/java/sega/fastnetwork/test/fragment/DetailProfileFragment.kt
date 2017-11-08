@@ -50,7 +50,7 @@ class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileV
         product_list.setHasFixedSize(true)
         product_list.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_list.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        adapter = ProductAdapter(this.activity, this, product_list, layoutManager!!)
+        adapter = ProductAdapter(this.activity, this, product_list, layoutManager!!.findLastVisibleItemPosition())
         adapter!!.user = AppManager.getUserDatafromAccount(activity, AppManager.getAppAccount(activity)!!).name
         product_list.adapter = adapter
 

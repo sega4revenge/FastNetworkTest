@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/toolbar">
+    <sega.fastnetwork.test.view.RobotoBoldTextView
+        android:id="@+id/title_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="Bạn muốn kiếm thêm thu nhập hàng tháng?"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:id="@+id/img_intro"
+        android:layout_width="200dp"
+        android:layout_height="350dp"
+        android:maxWidth="200dp"
+        android:maxHeight="500dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/intro_profile"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        >
+        <sega.fastnetwork.test.view.RobotoRegularTextView
+            android:id="@+id/detail_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn có vật dụng không sử dụng? bạn muốn kiếm thêm thu nhập hàng tháng? Với ThueTot bạn sẽ dễ dàng đăng sản phẩm của mình một cách nhanh chóng."
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:gravity="center"
+
+            />
+    </LinearLayout>
+</LinearLayout>

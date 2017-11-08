@@ -80,7 +80,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
         layoutManager = LinearLayoutManager(this)
-        adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
+        adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!.findLastVisibleItemPosition())
 
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -120,17 +120,21 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         override fun onMapReady(map: GoogleMap?) {
                             if (!isMap)
                                 layout_map.visibility = View.GONE
+
+                            var iconMe = BitmapDescriptorFactory.fromResource(R.drawable.man)
                             mMap = map
-                            mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+
+                            mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("My Location"))
                             mMap!!.setOnMapClickListener { latLng ->
 
-
+                                var iconpick = BitmapDescriptorFactory.fromResource(R.drawable.pin)
                                 mMap!!.clear()
                                 mMap!!.addMarker(MarkerOptions()
                                         .position(latLng)
-                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                        .icon(iconpick)
                                         .title(getString(R.string.location)))
-                                mMap!!.addMarker(MarkerOptions().position(myLocation!!).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("My Location"))
+                                mMap!!.addMarker(MarkerOptions().position(myLocation!!).title("My Location"))
+                                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation!!, 17.0f))
                                 val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
 
                                 circle = mMap!!.addCircle(circleOptions)
@@ -141,7 +145,12 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                             mMap!!.isMyLocationEnabled = true
                             mMap!!.setOnMyLocationButtonClickListener({
 
-                                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
+                                try{
+                                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
+                                }catch (e: Exception){
+                                    print(e.message.toString())
+                                }
+
                                 true
                             })
 
@@ -254,14 +263,14 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
             myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
             mLocation?.position = myLocation
-            if(intent.getBooleanExtra("first",false))
-                try{
-                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(mLocation?.position, 17.0f))
-                }catch (e: Exception){
-                    print(e.message.toString())
-                }
+          //  if(intent.getBooleanExtra("first",false))
+         //       try{
+         //           mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(mLocation?.position, 17.0f))
+        //        }catch (e: Exception){
+         //           print(e.message.toString())
+        //        }
 
-            Toast.makeText(this@SearchActivity, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this@SearchActivity, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -337,21 +346,56 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     override fun setErrorMessage(errorMessage: String) {
         onDownloadFailed()
     }
+   fun geticonCategory(cate: String): BitmapDescriptor{
+       var iconMe: BitmapDescriptor? = null
+        when(cate)
+        {
+            "0" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_1)
+            "1" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_2)
+            "2" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_3)
+            "3" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_4)
+            "4" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_5)
+            "5" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_6)
+            "6" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_7)
+            "7" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_8)
+            "8" -> iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_9)
+            else -> { // Note the block
+                iconMe = BitmapDescriptorFactory.fromResource(R.drawable.maker_9)
+            }
+        }
 
+       return iconMe
+   }
     override fun getListProduct(productlist: ArrayList<Product>) {
         if (isMap) {
 
 
             for (i in productlist.indices) {
-
+                var iconCate: BitmapDescriptor? = null
+                iconCate= geticonCategory(productlist[i]?.category!!)
                 val PERTH = LatLng(productlist[i].location!!.coordinates!![1], productlist[i].location!!.coordinates!![0])
                 mMap!!.addMarker(MarkerOptions()
+                        .icon(iconCate)
                         .position(PERTH)
                         .snippet(productlist[i].category)
                         .snippet(productlist[i].price)
                         .title(productlist[i].productname))
+                        .tag = i
+
+
+
 
             }
+         mMap!!.setOnInfoWindowClickListener(GoogleMap.OnInfoWindowClickListener()
+        {
+
+            @Override
+            fun onInfoWindowClick(arg0: Marker ) {
+                Log.d("aaaasasasasa",arg0.tag.toString())
+            }
+        })
+
+
         } else {
             if (adapter!!.productList.size > 0) {
                 adapter!!.productList.clear()

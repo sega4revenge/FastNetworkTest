@@ -36,19 +36,19 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     var v: View? = null
     override fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int) {
         if (isRegisterSuccessful) {
-            Log.e("toi day roi", "ne")
-            name.visibility = View.GONE
-            email.visibility = View.GONE
-//            password.visibility = View.GONE
-//            repassword.visibility = View.GONE
-            btn_join.visibility = View.GONE
-
-            input_code.visibility = View.VISIBLE
-            btn_finish.visibility = View.VISIBLE
-
-            showSnackBarMessage(getString(R.string.txt_checkmail))
-
-            progressBar.visibility = View.GONE
+//            Log.e("toi day roi", "ne")
+//            name.visibility = View.GONE
+//            email.visibility = View.GONE
+////            password.visibility = View.GONE
+////            repassword.visibility = View.GONE
+//            btn_join.visibility = View.GONE
+//
+//            input_code.visibility = View.VISIBLE
+//            btn_finish.visibility = View.VISIBLE
+//
+//            showSnackBarMessage(getString(R.string.txt_checkmail))
+//
+//            progressBar.visibility = View.GONE
 
 //            CircularAnim.show(btn_join).go()
         }
@@ -105,8 +105,8 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             mRegisterPresenter!!.register_finish(user,  v!!.edit_verifycode.text.toString(), 0)
 
         } else {
-            progressBar.visibility = View.GONE
-            CircularAnim.show(btn_join).go()
+            v?.progressBar2?.visibility = View.GONE
+            CircularAnim.show(v!!.login_verifycode).go()
             showSnackBarMessage(getString(R.string.enter_valid))
         }
     }
@@ -151,8 +151,8 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
 
         if (err == 0) {
-            progressBar.visibility = View.GONE
-            CircularAnim.show(btn_join).go()
+//            progressBar.visibility = View.GONE
+//            CircularAnim.show(btn_join).go()
 
             user.phone = txt_phone.text.toString()
             user.name = name.text.toString()
@@ -160,41 +160,8 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
             user.email = email.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
 
-            val dl_verifycode = AlertDialog.Builder(this)
-            dl_verifycode.setCancelable(false)
-            val inflater = layoutInflater
-            v = inflater.inflate(R.layout.verify_phone_layout, null)
-            v!!.edit_phonenumber.setText(user.phone)
-            dl_verifycode.setView(v)
-            dialog = dl_verifycode.create()
-            dialog?.show()
-            //  val dg = dl_verifycode.show()
-            v!!.btn_out.setOnClickListener() {
-                dialog?.dismiss()
-            }
-            v!!.progressBar_dialog.visibility = View.VISIBLE
-            user.phone = v!!.edit_phonenumber.text.toString()
             mRegisterPresenter!!.linkaccount(user, 0)
-            v!!.send_code.visibility = View.GONE
-            v!!.edit_phonenumber.isEnabled = false
-            v!!.login_verifycode.setOnClickListener() {
-                CircularAnim.hide(v!!.login_verifycode).go()
-                v!!.progressBar2.visibility = View.VISIBLE
-                register_finish()
-            }
 
-            // }
-//            btn_phone.visibility = View.VISIBLE
-//            input_phone.visibility = View.VISIBLE
-//            name.visibility = View.GONE
-//            phone.visibility = View.GONE
-//            password.visibility = View.GONE
-//            repassword.visibility = View.GONE
-//            btn_join.visibility = View.GONE
-//            btn_phone.setOnClickListener {
-//                user.phone = input_phone.text.toString()
-//                mRegisterPresenter!!.linkaccount(user,0)
-//            }
 
         } else {
             progressBar.visibility = View.GONE
@@ -228,38 +195,48 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
     }
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
+
         if (errorMessage == "202") {
+
+
+            val dl_verifycode = AlertDialog.Builder(this)
+            dl_verifycode.setCancelable(false)
+            val inflater = layoutInflater
+            v = inflater.inflate(R.layout.verify_phone_layout, null)
+            v!!.edit_phonenumber.setText(user.phone)
             v!!.txt_huongdan.visibility = View.VISIBLE
             v!!.progressBar_dialog.visibility = View.GONE
             v!!.login_verifycode.isEnabled = true
+            dl_verifycode.setView(v)
+            dialog = dl_verifycode.create()
+            dialog?.show()
+            //  val dg = dl_verifycode.show()
+            v!!.btn_out.setOnClickListener() {
+                dialog?.dismiss()
+            }
+            v!!.progressBar_dialog.visibility = View.VISIBLE
 
-//            input_code.visibility = View.VISIBLE
-//            btn_finish.visibility = View.VISIBLE
-//            input_phone.visibility = View.GONE
-//            btn_phone.visibility = View.GONE
-//            btn_finish!!.setOnClickListener {
-//                CircularAnim.hide(btn_finish)
-//                        .endRadius((progressBar.height / 2).toFloat())
-//                        .go(object : CircularAnim.OnAnimationEndListener {
-//                            override fun onAnimationEnd() {
-//                                progressBar.visibility = View.VISIBLE
-//                                /*
-//                                    }*/
-//                                register_finish()
-//                            }
-//                        })
-//            }
+            v!!.send_code.visibility = View.GONE
+            v!!.edit_phonenumber.isEnabled = false
+            v!!.login_verifycode.setOnClickListener() {
+                CircularAnim.hide(v!!.login_verifycode).go()
+                v!!.progressBar2.visibility = View.VISIBLE
+                register_finish()
+            }
+
+        }else if(errorMessage == "409"){
+            showSnackBarMessage(getString(R.string.err_phonealready))
+        }else if(errorMessage == "401"){
+            dialog?.dismiss()
+            showSnackBarMessage(getString(R.string.err_invalidcode))
         }
 
-        showSnackBarMessage(errorMessage)
 
-        if (type == 1) {
+
+        //if (type == 1) {
             progressBar.visibility = View.GONE
             CircularAnim.show(btn_join).go()
-        } else if (type == 2) {
-            progressBar.visibility = View.GONE
-            CircularAnim.show(btn_finish).go()
-        }
+      //  }
 
 
     }

@@ -26,6 +26,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 buildscript {
     repositories {
@@ -61,6 +64,7 @@ dependencies {
     compile('com.sothree.slidinguppanel:library:3.3.1') {
         exclude group: 'com.android.support', module: 'support-v4'
     }
+    compile 'com.heinrichreimersoftware:material-intro:1.6.2'
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
     compile 'com.android.support:multidex:1.0.2'
     compile 'com.google.maps.android:android-maps-utils:0.4.4'
@@ -78,6 +82,7 @@ dependencies {
     compile 'com.github.medyo:android-about-page:1.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -87,7 +87,7 @@ class DetailProfileActivity : Activity(), DetailProfilePressenter.DetailProfileV
         product_list.setHasFixedSize(true)
         product_list.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_list.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        adapter = ProductAdapter(this.applicationContext, this,product_list, layoutManager!!)
+        adapter = ProductAdapter(this.applicationContext, this,product_list, layoutManager!!.findLastVisibleItemPosition())
         adapter!!.user = mUser!!.name
         product_list.adapter = adapter
         detailprofile = DetailProfilePressenter(this)

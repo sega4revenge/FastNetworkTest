@@ -72,7 +72,7 @@ class SavedProductFragment : Fragment(), ProductAdapter.OnproductClickListener, 
         layoutManager = LinearLayoutManager(activity)
         product_recycleview.layoutManager = layoutManager
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
+        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!.findLastVisibleItemPosition())
         product_recycleview.adapter = adapter
         searchbar.visibility = View.GONE
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)

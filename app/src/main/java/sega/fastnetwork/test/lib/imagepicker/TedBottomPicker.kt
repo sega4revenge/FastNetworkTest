@@ -2,6 +2,7 @@ package sega.fastnetwork.test.lib.imagepicker
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
@@ -135,6 +136,7 @@ class TedBottomPicker : BottomSheetDialogFragment() {
 
     }
 
+    @SuppressLint("RestrictedApi")
     override fun setupDialog(dialog: Dialog, style: Int) {
         super.setupDialog(dialog, style)
         contentView = View.inflate(context, R.layout.tedbottompicker_content_view, null)
@@ -171,11 +173,14 @@ class TedBottomPicker : BottomSheetDialogFragment() {
         contentView!!.gallery_rcl.adapter = galleryAdapter
         galleryAdapter!!.setOnItemClickListener(object : PhotoGalleryAdapter.OnItemClickListener {
             override fun onClick(photos: List<Photo>, position: Int) {
-
-                contentView!!.slidingUpPanelLayout!!.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-                contentView!!.folder.text = listfolder!![position].name
-                imageGalleryAdapter!!.refresh(photos)
-                selectedfolder = position
+                try{
+                    contentView!!.slidingUpPanelLayout!!.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                    contentView!!.folder.text = listfolder!![position].name
+                    imageGalleryAdapter!!.refresh(photos)
+                    selectedfolder = position
+                }catch (e: Exception){
+                    print(e.message.toString())
+                }
 
             }
         })

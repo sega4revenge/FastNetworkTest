@@ -30,6 +30,7 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/edit_radius"
         android:paddingLeft="15dp"
+        android:gravity="center"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -42,12 +43,13 @@
         android:id="@+id/edt_newphone"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:textColor="@color/black"
+        android:textColor="@color/shimmer_color"
         android:layout_marginTop="2dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/edit_radius"
         android:paddingLeft="15dp"
-
+        android:enabled="false"
+        android:gravity="center"
         />
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->

@@ -210,7 +210,7 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
         contentView!!.product_list.setHasFixedSize(true)
         contentView!!.product_list.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         contentView!!.product_list.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        adapter = ProductAdapter(mContext!!, this,contentView!!.product_list, layoutManager!!)
+        adapter = ProductAdapter(mContext!!, this,contentView!!.product_list, layoutManager!!.findLastVisibleItemPosition())
         adapter!!.user = mUser!!.name
         contentView!!.product_list.adapter = adapter
         detailprofile = DetailProfilePressenter(this)
