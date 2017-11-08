@@ -94,9 +94,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             val inputManager = this
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-            //check if no view has focus:
-           ed_search.clearFocus()
-
+            //check if no view has focus:+a
 
             val v = this.currentFocus
             if (v != null)

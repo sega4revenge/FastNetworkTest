@@ -164,6 +164,11 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
         //=============================try again=======================
         v.try_again.setOnClickListener {
+            error_message.visibility = View.GONE
+            product_detail_holder.visibility = View.VISIBLE
+//        toolbar_text_holder.visibility = View.GONE
+//        toolbar.title = ""
+            layout_detail_header.visibility = View.VISIBLE
             mProductDetailPresenter!!.getProductDetail(id, AppManager.getAppAccountUserId(activity))
         }
         v.userimage1.setOnClickListener() {

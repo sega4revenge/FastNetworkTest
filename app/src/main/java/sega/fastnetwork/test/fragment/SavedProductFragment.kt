@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.androidnetworking.AndroidNetworking
+import kotlinx.android.synthetic.main.layout_error_message.*
 import kotlinx.android.synthetic.main.tab_home.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.ProductDetailActivity
@@ -76,6 +77,12 @@ class SavedProductFragment : Fragment(), ProductAdapter.OnproductClickListener, 
         product_recycleview.adapter = adapter
         searchbar.visibility = View.GONE
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
+        try_again.setOnClickListener {
+            swipe_refresh.isRefreshing = true
+            swipe_refresh.visibility = View.VISIBLE
+            error_message.visibility = View.GONE
+            mProductListPresenter!!.getSavedProductList(Constants.BORROW, adapter!!.pageToDownload , AppManager.getAppAccountUserId(activity))
+        }
         swipe_refresh.setOnRefreshListener({
 
 
@@ -90,6 +97,7 @@ class SavedProductFragment : Fragment(), ProductAdapter.OnproductClickListener, 
         })
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
+        mProductListPresenter!!.getSavedProductList(Constants.BORROW, adapter!!.pageToDownload , AppManager.getAppAccountUserId(activity))
 
 
 
