@@ -133,7 +133,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                                         .position(latLng)
                                         .icon(iconpick)
                                         .title(getString(R.string.location)))
-                                mMap!!.addMarker(MarkerOptions().position(myLocation!!).title("My Location"))
+                                mMap!!.addMarker(MarkerOptions().position(myLocation!!).title("Me"))
                                 mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation!!, 17.0f))
                                 val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
 
@@ -180,6 +180,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
 
                                         try {
+
 
                                             status.startResolutionForResult(
                                                     this@SearchActivity,

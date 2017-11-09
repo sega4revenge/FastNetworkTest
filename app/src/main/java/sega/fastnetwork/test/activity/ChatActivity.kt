@@ -360,6 +360,8 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         var result = ""
         if(!link.startsWith("http")){
             result = Constants.IMAGE_URL+link
+        }else{
+            result = link
         }
         return result
     }

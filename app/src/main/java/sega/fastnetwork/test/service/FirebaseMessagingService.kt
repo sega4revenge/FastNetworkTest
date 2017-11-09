@@ -30,8 +30,10 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         Log.e("firebase: messager ", remoteMessage?.data?.toString())
 
         if(remoteMessage?.data?.get("productid")!= null){
+            Log.d("firebase: messager: ","1111111111111")
             showNotification(remoteMessage?.data?.get("productid").toString(),remoteMessage?.data?.get("useridproduct").toString(),remoteMessage?.data?.get("useridcmt").toString())
         }else{
+            Log.d("firebase: messager: ","222222222222")
             showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString())
         }
     }
@@ -39,6 +41,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         var result = ""
         if(!link.startsWith("http")){
             result = Constants.IMAGE_URL+link
+        }else{
+            result = link
         }
         return result
     }
@@ -61,7 +65,6 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
 
 
             if (avata.equals("") || avata == null) {
-
                 val pendingIntent = PendingIntent.getActivity(this, 100, intent,
                         PendingIntent.FLAG_ONE_SHOT)
                 notif = Notification.Builder(this)
@@ -85,6 +88,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
 
             } else {
                 var avata2 = avatacmt(avata)
+                Log.d("firebase: messager: ","323232"+avata)
+                Log.d("firebase: messager: ","323232"+avata2)
                 try {
                     val url = URL(avata2)
                     image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
@@ -111,6 +116,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                     this.sendBroadcast(x)
 
                 } catch (e: IOException) {
+                    Log.d("firebase: messager: ",e.toString())
                     System.out.println(e)
                 }
 
