@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.detailprofile.*
+import kotlinx.android.synthetic.main.layout_error_message.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.activity.EditProductActivity
 import sega.fastnetwork.test.adapter.ProductAdapter
@@ -88,7 +89,11 @@ class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileV
             }
         }
         //    detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
-
+        try_again.setOnClickListener{
+            error_message.visibility = View.GONE
+            product_list.visibility = View.VISIBLE
+            detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
+        }
 
     }
 
@@ -99,7 +104,8 @@ class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileV
     }
 
     override fun setErrorMessage(errorMessage: String) {
-
+    error_message.visibility = View.VISIBLE
+        product_list.visibility = View.GONE
     }
 
     override fun getListProduct(productlist: ArrayList<Product>, user: User) {

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.inboxlayout.*
+import kotlinx.android.synthetic.main.layout_error_message.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.adapter.InboxAdapter
 import sega.fastnetwork.test.manager.AppManager
@@ -35,9 +36,14 @@ class InboxFragment : Fragment(), InboxPressenter.InboxListView {
         product_recycleview.setHasFixedSize(true)
         layoutManager = LinearLayoutManager(activity)
         product_recycleview.layoutManager = this.layoutManager
-
         mInboxPressenter?.getProductList(user?._id!!)
-
+        try_again.setOnClickListener {
+            error_message.visibility = View.GONE
+            swipe_refresh.visibility = View.VISIBLE
+            swipe_refresh.isRefreshing = true
+            swipe_refresh.isEnabled = false
+            mInboxPressenter?.getProductList(user?._id!!)
+        }
 
     }
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,12 +71,16 @@ class InboxFragment : Fragment(), InboxPressenter.InboxListView {
             mItemsData = mChat
             onDownloadSuccessful()
         }else{
-            setErrorMessage("")
+//            setErrorMessage("")
+            swipe_refresh.visibility = View.GONE
+            swipe_refresh.isRefreshing = false
+            swipe_refresh.isEnabled = true
+            nodata.visibility = View.VISIBLE
         }
 
     }
     private fun onDownloadFailed() {
-            nodata.visibility = View.VISIBLE
+            error_message.visibility = View.VISIBLE
             swipe_refresh.visibility = View.GONE
             swipe_refresh.isRefreshing = false
             swipe_refresh.isEnabled = true
