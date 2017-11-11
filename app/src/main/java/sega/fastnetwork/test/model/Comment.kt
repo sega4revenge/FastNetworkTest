@@ -9,6 +9,7 @@ class Comment {
     var user: User? = null
     var content: String? = null
     var time: String? = null
-
+    var listlike: ArrayList<String>? = ArrayList()
+    var stt: Boolean = false
 
 }

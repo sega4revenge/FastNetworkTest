@@ -74,7 +74,6 @@
                 android:layout_marginStart="@dimen/product_compact_text_margin"
                 android:layout_toEndOf="@+id/userimage1"
                 android:layout_toRightOf="@+id/userimage1"
-
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -85,22 +84,26 @@
                         android:id="@+id/usercomments1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/datecomment1"
                         android:maxLines="1"
                         android:textColor="@color/black"
-
-
-                        tools:text="My Awesome product Title 1" />
-
+                        tools:text="My Awesome product Title 1"
+                        android:layout_toLeftOf="@id/txt_num_like"/>
                     <TextView
-                        android:id="@+id/datecomment1"
+                        android:id="@+id/txt_num_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toLeftOf="@id/img_like"
+                        android:layout_centerVertical="true"
+                        />
+                    <ImageView
+                        android:id="@+id/img_like"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:gravity="right"
-                        android:layout_centerInParent="true"
-                        android:textSize="@dimen/text_small"
-                        tools:text="Nov 20, 6:20 AM" />
+                        android:background="@drawable/icon_like"/>
 
                 </RelativeLayout>
 
@@ -111,13 +114,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/cardview_default_elevation"
                     android:orientation="horizontal">
-
+                    <TextView
+                        android:id="@+id/datecomment1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM" />
                     <TextView
                         android:id="@+id/email_comment1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
-                        tools:text="Ho Hoang Linhh" />
+                        tools:text="Ho Hoang Linhh"
+                        android:visibility="gone"/>
 
                 </RelativeLayout>
 
@@ -186,23 +195,29 @@
                         android:id="@+id/usercomments2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/datecomment2"
+                        android:layout_toLeftOf="@+id/txt_num_like2"
 
                         android:maxLines="1"
                         android:textColor="@color/black"
 
                         tools:text="My Awesome product Title 1" />
-
                     <TextView
-                        android:id="@+id/datecomment2"
+                        android:id="@+id/txt_num_like2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:textSize="@dimen/text_small"
-                        tools:text="Nov 20, 6:20 AM"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toLeftOf="@id/img_like2"
+                        android:layout_centerVertical="true"
                         />
+                    <ImageView
+                        android:id="@+id/img_like2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/icon_like"/>
+
 
                 </RelativeLayout>
 
@@ -213,13 +228,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/cardview_default_elevation"
                     android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/datecomment2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM"
 
+                        />
                     <TextView
                         android:id="@+id/email_comment2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
-                        tools:text="Nov 20, 6:20 AM" />
+                        tools:text="Nov 20, 6:20 AM"
+                        android:visibility="gone"/>
 
                 </RelativeLayout>
 
@@ -378,17 +401,24 @@
                         android:textColor="@color/black"
 
                         tools:text="My Awesome product Title 2"
-                        android:layout_toLeftOf="@+id/datecomment3"/>
-
+                        android:layout_toLeftOf="@+id/txt_num_like3"/>
                     <TextView
-                        android:id="@+id/datecomment3"
+                        android:id="@+id/txt_num_like3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:textSize="@dimen/text_small"
-                        tools:text="Nov 20, 6:20 AM"
-                        android:layout_centerInParent="true"
-                        android:layout_alignParentRight="true" />
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toLeftOf="@id/img_like3"
+                        android:layout_centerVertical="true"
+                        />
+                    <ImageView
+                        android:id="@+id/img_like3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/icon_like"/>
+
 
                 </RelativeLayout>
 
@@ -405,8 +435,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
-                        tools:text="Nov 20, 6:20 AM" />
-
+                        tools:text="Nov 20, 6:20 AM"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/datecomment3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Nov 20, 6:20 AM"
+                        />
                 </RelativeLayout>
 
             </LinearLayout>

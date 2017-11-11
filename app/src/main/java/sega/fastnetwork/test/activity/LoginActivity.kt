@@ -228,14 +228,22 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
     override fun setErrorMessage(errorMessage: String, type: Int) {
         if (errorMessage.equals("404")) {
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_singin).go()
             showSnackBarMessage(getString(R.string.err_usernotfound))
 
         }else if (errorMessage.equals("405")) {
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_singin).go()
             showSnackBarMessage(getString(R.string.err_timeout))
 
         } else if (errorMessage.equals("401")) {
-            showSnackBarMessage(getString(R.string.err_invalidcode))
-
+            progressBar.visibility = View.GONE
+            CircularAnim.show(btn_singin).go()
+            v!!.progressBar2.visibility = View.GONE
+            v!!.progressBar3.visibility = View.GONE
+            CircularAnim.show(v!!.login_verifycode).go()
+            Snackbar.make(v!!.content_verify, getString(R.string.err_invalidcode), Snackbar.LENGTH_SHORT).show()
         }
         if (errorMessage == "201") {
             val dl_verifycode = AlertDialog.Builder(this)
@@ -268,7 +276,11 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
 
             v!!.login_verifycode.setOnClickListener() {
-                verifycode()
+                if(v!!.edit_verifycode.text.toString().equals("")){
+
+                }else{
+                    verifycode(v!!.edit_verifycode.text.toString())
+                }
             }
 
 
@@ -295,7 +307,12 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                 }
                 v!!.send_code.visibility = View.GONE
                 v!!.login_verifycode.setOnClickListener {
-                  verifycode()
+                    if(v!!.edit_verifycode.text.toString().equals("")){
+
+                    }else{
+                        verifycode(v!!.edit_verifycode.text.toString())
+                    }
+
                 }
                 v!!.txt_huongdan.visibility = View.VISIBLE
                 v!!.progressBar_dialog.visibility = View.GONE
@@ -368,10 +385,10 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             }
         }
     }
-    private fun verifycode(){
+    private fun verifycode(code: String){
         CircularAnim.hide(v!!.login_verifycode).go()
         v!!.progressBar2.visibility = View.VISIBLE
-        mLoginPresenter!!.register_finish(user,v!!.edit_verifycode.text.toString(),type)
+        mLoginPresenter!!.register_finish(user,code,type)
     }
     private fun handleSignInResult(result: GoogleSignInResult) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess)
@@ -436,7 +453,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             val code = parseCode(message)//Parse verification code
             Log.e("code", code)
             v!!.edit_verifycode.setText(code)
-            verifycode()
+            verifycode(code)
             // input_code.setText(code)//set code in edit text
             //then you can send verification code to server
         })

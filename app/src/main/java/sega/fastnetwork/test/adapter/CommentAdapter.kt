@@ -7,7 +7,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
-
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,24 +20,26 @@ import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.ProifileSellerFragment
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.Comment
+import sega.fastnetwork.test.presenter.CommentPresenter
 import sega.fastnetwork.test.util.Constants
-
 import java.text.DecimalFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by cc on 8/16/2017.
  */
 class CommentAdapter// Constructor
-(private val context: Context, private val oncommentClickListener: OncommentClickListener,fragment: FragmentManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+(private val context: Context, private val oncommentClickListener: OncommentClickListener,fragment: FragmentManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CommentPresenter.CommentView {
     private val format: String
     private val sharedPref: SharedPreferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
     var commentsList: ArrayList<Comment>
     var photoprofile : String? = null
     var mFragmentManager: FragmentManager = fragment
+    var mCommentPresenter: CommentPresenter? = CommentPresenter(this)
     private val imageWidth: Int
     internal var formatprice: DecimalFormat? = DecimalFormat("#0,000")
-
+    private var Myid: String = AppManager.getAppAccountUserId(context.applicationContext)
     init {
         imageWidth = sharedPref.getInt(Constants.THUMBNAIL_SIZE,
                 0)   // Load image width for grid view
@@ -77,7 +78,7 @@ class CommentAdapter// Constructor
 
      
             // COMPACT MODE
-            val viewHolder = viewHolderParent as CommentsViewHolder
+        val viewHolder = viewHolderParent as CommentsViewHolder
         viewHolder.itemView.commentname.text = comment.user!!.name
         viewHolder.itemView.commentdata.text = comment.content
         viewHolder.itemView.email_comment.text = comment.user?.email
@@ -106,8 +107,48 @@ class CommentAdapter// Constructor
                 dialogFrag.show(mFragmentManager, comment.user!!, context.applicationContext)
             }
         }
+        // ======= Check like ==============/
+        if(comment?.listlike!!.size != 0){
+            viewHolder.itemView.txt_num_like.text = comment?.listlike!!.size.toString()
 
+            for(i in 0..(comment?.listlike!!.size-1)){
+                if(Myid.equals(comment?.listlike!![i])){
+                    comment?.stt = true
+                    break
+                }
+            }
+            if(comment?.stt) {
+                viewHolder.itemView.img_like.setImageDrawable(context.resources.getDrawable(R.drawable.icon_liked))
+            }else{
+                viewHolder.itemView.img_like.setImageDrawable(context.resources.getDrawable(R.drawable.icon_like))
+            }
+        }
+        //==================================/
+        viewHolder.itemView.img_like.setOnClickListener(){
+            var num: Int = 0
+            if(viewHolder.itemView.txt_num_like.text.toString().equals("") || viewHolder.itemView.txt_num_like.text.toString().equals("0")){
+                num = 0
+            }else{
+                num = viewHolder.itemView.txt_num_like.text.toString().toInt()
 
+            }
+            if(comment?.stt ){
+                mCommentPresenter?.likecomment(comment?._id!!,Myid,1.toString())
+                viewHolder.itemView.img_like.setImageDrawable(context.resources.getDrawable(R.drawable.icon_like))
+                if((num-1)!=0){
+                    viewHolder.itemView.txt_num_like.text = (num-1).toString()
+                }else{
+                    viewHolder.itemView.txt_num_like.text = ""
+                }
+
+                comment?.stt  = false
+            }else{
+                mCommentPresenter?.likecomment(comment?._id!!,Myid,0.toString())
+                viewHolder.itemView.img_like.setImageDrawable(context.resources.getDrawable(R.drawable.icon_liked))
+                viewHolder.itemView.txt_num_like.text = (num+1).toString()
+                comment?.stt  = true
+            }
+        }
         
 
 
@@ -138,6 +179,17 @@ class CommentAdapter// Constructor
         return DateUtils.getRelativeTimeSpanString(
                 time.toLong(),
                 System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+    }
+    override fun isCommentSuccessful(isCommentSuccessful: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setErrorMessage(errorMessage: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getCommentDetail(listcomment: ArrayList<Comment>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

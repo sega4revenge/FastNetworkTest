@@ -93,6 +93,57 @@ class CommentPresenter(view: CommentView) {
                 .subscribeWith(getDisposableObserver()))
 
     }
+
+    fun likecomment(idcomment : String, iduserlike : String,type : String) {
+        try {
+            jsonObject.put("idcomment", idcomment)
+            jsonObject.put("iduserlike", iduserlike)
+            jsonObject.put("type", type)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservable("likecomment")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserverlikecomment()))
+
+    }
+
+    private fun getDisposableObserverlikecomment(): DisposableObserver<ResponseListComment> {
+
+        return object : DisposableObserver<ResponseListComment>() {
+
+            override fun onNext(response: ResponseListComment) {
+                Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+            }
+
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+                    if (e.errorCode != 0) {
+                        // received ANError from server
+                        // error.getErrorCode() - the ANError code from server
+                        // error.getErrorBody() - the ANError body from server
+                        // error.getErrorDetail() - just a ANError detail
+                        Log.d(register, "onError errorCode : " + e.errorCode)
+                        Log.d(register, "onError errorBody : " + e.errorBody)
+                        Log.d(register, "onError errorDetail : " + e.errorDetail)
+                        Log.d("Comment","Like Faile")
+                    } else {
+                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                        Log.d(register, "onError errorDetail : " + e.errorDetail)
+                        Log.d("Comment","Like Faile")
+                    }
+                } else {
+                    Log.d(register, "onError errorMessage : " + e.message)
+                    Log.d("Comment","Like Faile")
+                }
+            }
+
+            override fun onComplete() {
+                Log.d("Comment","Like Success")
+            }
+        }
+    }
     fun refreshcomment(productid : String) {
         try {
             jsonObject.put("productid", productid)

@@ -16,7 +16,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.android.gms.location.*
@@ -83,7 +82,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!.findLastVisibleItemPosition())
 
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+       // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
 
         fab_search.setOnClickListener {
 
@@ -132,7 +131,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                                         .icon(iconpick)
                                         .title(getString(R.string.location)))
                                 mMap!!.addMarker(MarkerOptions().position(myLocation!!).title("Me"))
-                                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation!!, 17.0f))
+                                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
                                 val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
 
                                 circle = mMap!!.addCircle(circleOptions)
@@ -222,31 +221,56 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
         product_recycleview.adapter = adapter
         pageToDownload = 1
-        ed_search.isFocusable = false
-        ed_search.setIconifiedByDefault(false)
-        ed_search.isIconified = false
+       // ed_search.isFocusable = false
+      //  ed_search.isActivated = true
+      //  ed_search.queryHint = "Search"
+     //   ed_search.onActionViewExpanded()
+    //    ed_search.setIconifiedByDefault(true)
+     //   ed_search.isIconified = false
 
-
+        ed_search.setOnClickListener(){
+            ed_search.isIconified = false
+        }
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String): Boolean {
 
                 SearchView!!.cancelRequest()
                 SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
-                ed_search.clearFocus()
-
+               // ed_search.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if(newText == "")
+                {
                     SearchView!!.searchWithList("", loca, cate, mFilter)
+                }
                 return true
             }
 
 
         })
+
+//        ed_search.setOnClickListener(){
+//            ed
+//        }
+//        ed_search.addTextChangedListener(object : TextWatcher{
+//            override fun afterTextChanged(p0: Editable?) {
+//
+//            }
+//
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//
+//            }
+//
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//
+//            }
+//
+//        })
         SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
+
         try_again.setOnClickListener {
             SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
         }
@@ -380,20 +404,13 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         .snippet(productlist[i].price)
                         .title(productlist[i].productname))
                         .tag = i
-
-
-
-
             }
-         mMap!!.setOnInfoWindowClickListener(GoogleMap.OnInfoWindowClickListener()
-        {
-
-            @Override
-            fun onInfoWindowClick(arg0: Marker ) {
-                Log.d("aaaasasasasa",arg0.tag.toString())
+            mMap!!.setOnInfoWindowClickListener { marker ->
+                val intent = Intent(this, ProductDetailActivity::class.java)
+                intent.putExtra(Constants.product_ID, productlist.get(marker.tag.toString().toInt())._id)
+                intent.putExtra(Constants.seller_ID, productlist.get(marker.tag.toString().toInt()).user?._id)
+                startActivity(intent)
             }
-        })
-
 
         } else {
             if (adapter!!.productList.size > 0) {
@@ -476,3 +493,5 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     }
 
 }
+
+

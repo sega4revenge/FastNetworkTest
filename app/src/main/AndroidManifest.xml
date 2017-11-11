@@ -30,7 +30,7 @@
         android:name=".MyApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
-        android:icon="@drawable/logo_icon"
+        android:icon="@drawable/logo_final4"
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo_thuetot2"
         android:supportsRtl="true"
@@ -127,7 +127,7 @@
         <activity android:name=".activity.EditProductActivity" />
         <activity
             android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+             />
         <activity android:name=".activity.AboutUsActivity"
             android:theme="@style/Theme.AppCompat.Light.ActionBar.FullScreen"
  />

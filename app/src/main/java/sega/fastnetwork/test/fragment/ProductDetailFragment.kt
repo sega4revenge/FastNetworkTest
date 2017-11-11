@@ -72,6 +72,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     internal var width: Int = 0
     private var format: String = ""
     private var userCreateProduct: String = ""
+    private var Myid: String = ""
     private var id: String = ""
     private var id_user: String = ""
     private var product: Product? = null
@@ -85,6 +86,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     var mTypeSave = "0"
     var doubleClick = false
     var statussave = false
+    var stt = false
+    var stt2 = false
+    var stt3 = false
     var photoprofile: String? = null
     private var isMap: Boolean = false
     val options = RequestOptions()
@@ -108,6 +112,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         val current = Locale("vi", "VN")
         val cur = Currency.getInstance(current)
         format = cur.symbol
+        Myid = AppManager.getAppAccountUserId(activity.applicationContext)
         mProductDetailPresenter = ProductDetailPresenter(this)
         mCommentPresenter = CommentPresenter(this)
 
@@ -116,13 +121,84 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             doubleClick = true
             mCommentPresenter!!.refreshcomment(id)
         }
-//=============================see all comment=======================
+        //=============================see all comment=======================
         v.add_comment.setOnClickListener {
             gotoallcomment()
         }
-        //=============================add comment=======================
-        v.add_comment.setOnClickListener {
-            gotoallcomment()
+
+        v.img_like.setOnClickListener(){
+            var num: Int = 0
+            if(v.txt_num_like.text.toString().equals("") || v.txt_num_like.text.toString().equals("0")){
+                num = 0
+            }else{
+                num = v.txt_num_like.text.toString().toInt()
+
+            }
+            if(stt){
+                mCommentPresenter?.likecomment(product!!.comment!![0]._id!!,Myid,1.toString())
+                v.img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+                if((num-1)!=0){
+                    v.txt_num_like.text = (num-1).toString()
+                }else{
+                    v.txt_num_like.text = ""
+                }
+                stt = false
+            }else{
+                mCommentPresenter?.likecomment(product!!.comment!![0]._id!!,Myid,0.toString())
+                v.img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+                v.txt_num_like.text = (num+1).toString()
+                stt = true
+            }
+        }
+        v.img_like2.setOnClickListener(){
+            var num: Int = 0
+            if(v.txt_num_like2.text.toString().equals("") || v.txt_num_like2.text.toString().equals("0")){
+                num = 0
+            }else{
+                num = v.txt_num_like2.text.toString().toInt()
+
+            }
+            if(stt2){
+                mCommentPresenter?.likecomment(product!!.comment!![1]._id!!,Myid,1.toString())
+                v.img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+                if((num-1)!=0){
+                    v.txt_num_like2.text = (num-1).toString()
+                }else{
+                    v.txt_num_like2.text = ""
+                }
+                stt2 = false
+            }else{
+                mCommentPresenter?.likecomment(product!!.comment!![1]._id!!,Myid,0.toString())
+                v.img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+                v.txt_num_like2.text = (num+1).toString()
+                stt2 = true
+            }
+        }
+        v.img_like3.setOnClickListener(){
+            var num: Int = 0
+            if(v.txt_num_like3.text.toString().equals("") || v.txt_num_like3.text.toString().equals("0")){
+                num = 0
+            }else{
+                num = v.txt_num_like3.text.toString().toInt()
+
+            }
+            if(stt3){
+                mCommentPresenter?.likecomment(product!!.comment!![2]._id!!,Myid,1.toString())
+                v.img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+                if((num-1)!=0){
+                    v.txt_num_like3.text = (num-1).toString()
+                }else{
+                    v.txt_num_like3.text = ""
+                }
+
+                stt3 = false
+            }else{
+
+                mCommentPresenter?.likecomment(product!!.comment!![2]._id!!,Myid,0.toString())
+                v.img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+                v.txt_num_like3.text = (num+1).toString()
+                stt3 = true
+            }
         }
         v.userimage1.setOnClickListener() {
             if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
@@ -415,8 +491,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         intent.putExtra(Constants.product_ID, id)
         intent.putExtra(Constants.product_NAME, product!!.productname)
         intent.putExtra(Constants.seller_name, product!!.user!!.name)
-        startActivity(intent)
+        startActivityForResult(intent,105)
     }
+
+
 
     override fun setErrorMessage(errorMessage: String) {
         println(errorMessage)
@@ -661,108 +739,57 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 //=======================1 cmt========================
         else if (product!!.comment!!.size == 1) {
-
-            comment_item2.visibility = View.GONE
-            comment_item3.visibility = View.GONE
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = product!!.comment!![0].user!!.name
-            Log.e("Email: ", product?.comment!![0].user!!.email)
-            email_comment1.text = product?.comment!![0].user!!.email
-            comments1.text = product!!.comment!![0].content
-            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+            setDatafromComment1(product!!.comment!![0])
         }
 //=======================2 cmt========================
 
         else if (product!!.comment!!.size == 2) {
-
-            comment_item3.visibility = View.GONE
-
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = product!!.comment!![0].user!!.name
-            email_comment1.text = product?.comment!![0].user!!.email
-            comments1.text = product!!.comment!![0].content
-            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = product!!.comment!![1].user!!.name
-            email_comment2.text = product?.comment!![1].user!!.email
-            comments2.text = product!!.comment!![1].content
-            datecomment2.text = timeAgo(product!!.comment!![1].time!!)
+            setDatafromComment1(product!!.comment!![0])
+            setDatafromComment2(product!!.comment!![1])
         }
 
 
 //=======================3 cmt========================
         else if (product!!.comment!!.size == 3) {
-
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = product!!.comment!![0].user!!.name
-            email_comment1.text = product?.comment!![0].user!!.email
-            comments1.text = product!!.comment!![0].content
-            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = product!!.comment!![1].user!!.name
-            email_comment2.text = product?.comment!![1].user!!.email
-            comments2.text = product!!.comment!![1].content
-            datecomment2.text = timeAgo(product!!.comment!![1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage3)
-            usercomments3.text = product!!.comment!![2].user!!.name
-            email_comment3.text = product?.comment!![2].user!!.email
-            comments3.text = product!!.comment!![2].content
-            datecomment3.text = timeAgo(product!!.comment!![2].time!!)
-        } else {
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = product!!.comment!![0].user!!.name
-            email_comment1.text = product?.comment!![0].user!!.email
-            comments1.text = product!!.comment!![0].content
-            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = product!!.comment!![1].user!!.name
-            email_comment2.text = product?.comment!![1].user!!.email
-            comments2.text = product!!.comment!![1].content
-            datecomment2.text = timeAgo(product!!.comment!![1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage3)
-            usercomments3.text = product!!.comment!![2].user!!.name
-            email_comment3.text = product?.comment!![2].user!!.email
-            comments3.text = product!!.comment!![2].content
-            datecomment3.text = timeAgo(product!!.comment!![2].time!!)
-
-            add_comment.text = getString(R.string.more_comment)+"("+(product!!.comment!!.size - 3).toString()+")"
+            setDatafromComment1(product!!.comment!![0])
+            setDatafromComment2(product!!.comment!![1])
+            setDatafromComment3(product!!.comment!![2])
+        }else{
+            setDatafromComment1(product!!.comment!![0])
+            setDatafromComment2(product!!.comment!![1])
+            setDatafromComment3(product!!.comment!![2])
         }
+//        } else {
+//            Glide.with(this)
+//                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
+//                    .thumbnail(0.1f)
+//                    .apply(options)
+//                    .into(userimage1)
+//            usercomments1.text = product!!.comment!![0].user!!.name
+//            email_comment1.text = product?.comment!![0].user!!.email
+//            comments1.text = product!!.comment!![0].content
+//            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
+//            Glide.with(this)
+//                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
+//                    .thumbnail(0.1f)
+//                    .apply(options)
+//                    .into(userimage2)
+//            usercomments2.text = product!!.comment!![1].user!!.name
+//            email_comment2.text = product?.comment!![1].user!!.email
+//            comments2.text = product!!.comment!![1].content
+//            datecomment2.text = timeAgo(product!!.comment!![1].time!!)
+//            Glide.with(this)
+//                    .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
+//                    .thumbnail(0.1f)
+//                    .apply(options)
+//                    .into(userimage3)
+//            usercomments3.text = product!!.comment!![2].user!!.name
+//            email_comment3.text = product?.comment!![2].user!!.email
+//            comments3.text = product!!.comment!![2].content
+//            datecomment3.text = timeAgo(product!!.comment!![2].time!!)
+//
+//            add_comment.text = getString(R.string.more_comment)+"("+(product!!.comment!!.size - 3).toString()+")"
+//        }
         val listUserComments = ArrayList<String>()
         product!!.comment!!
                 .asSequence()
@@ -888,7 +915,106 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 
     }
+    fun setDatafromComment1(mProduct: Comment?){
+        // ======= Check like ==============/
+        if(mProduct?.listlike!!.size != 0){
+            txt_num_like.text = mProduct?.listlike!!.size.toString()
 
+            for(i in 0..(mProduct?.listlike!!.size-1)){
+                if(Myid.equals(mProduct?.listlike!![i])){
+                    stt = true
+                    break
+                }
+            }
+            if(stt) {
+                img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+            }else{
+                img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+            }
+        }else{
+            txt_num_like.text = ""
+            img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+        }
+        //==================================/
+
+
+        comment_item2.visibility = View.GONE
+        comment_item3.visibility = View.GONE
+        Glide.with(this)
+                .load(avatacmt(mProduct?.user!!.photoprofile!!))
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(userimage1)
+        usercomments1.text = mProduct?.user!!.name
+        Log.e("Email: ", mProduct?.user!!.email)
+        email_comment1.text = mProduct?.user!!.email
+        comments1.text = mProduct?.content
+        datecomment1.text = timeAgo(mProduct?.time!!)
+    }
+    fun setDatafromComment2(mProduct: Comment?){
+
+        if(mProduct?.listlike!!.size != 0){
+            txt_num_like2.text = mProduct?.listlike!!.size.toString()
+
+            for(i in 0..(mProduct?.listlike!!.size-1)){
+                if(Myid.equals(mProduct?.listlike!![i])){
+                    stt2 = true
+                    break
+                }
+            }
+            if(stt2) {
+                img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+            }else{
+                img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+            }
+        }else{
+            txt_num_like2.text = ""
+            img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+        }
+
+        comment_item2.visibility = View.VISIBLE
+        comment_item3.visibility = View.GONE
+
+        Glide.with(this)
+                .load(avatacmt(mProduct?.user!!.photoprofile!!))
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(userimage2)
+        usercomments2.text = mProduct?.user!!.name
+        email_comment2.text = mProduct?.user!!.email
+        comments2.text = mProduct?.content
+        datecomment2.text = timeAgo(mProduct?.time!!)
+    }
+    fun setDatafromComment3(mProduct: Comment?){
+        if(mProduct?.listlike!!.size != 0){
+            txt_num_like3.text = mProduct?.listlike!!.size.toString()
+
+            for(i in 0..(mProduct?.listlike!!.size-1)){
+                if(Myid.equals(mProduct?.listlike!![i])){
+                    stt3 = true
+                    break
+                }
+            }
+            if(stt3) {
+                img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+            }else{
+                img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+            }
+        }else{
+            txt_num_like3.text = ""
+            img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+        }
+        comment_item3.visibility = View.VISIBLE
+        Glide.with(this)
+                .load(avatacmt(mProduct?.user!!.photoprofile!!))
+                .thumbnail(0.1f)
+                .apply(options)
+                .into(userimage3)
+        usercomments3.text = mProduct?.user!!.name
+        email_comment3.text = product?.user!!.email
+        comments3.text = mProduct?.content
+        datecomment3.text = timeAgo(mProduct?.time!!)
+    }
     fun destroyfragment() {
 //        mProductDetailPresenter!!.cancelRequest()
         if (AppManager.getAppAccountUserId(activity) != id_user)
@@ -989,6 +1115,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 /*downloadproductDetails(id)*/
 
             }
+        }else if(requestCode == 105){
+            mCommentPresenter!!.refreshcomment(id)
         }
     }
 
@@ -1024,7 +1152,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     }
 
     override fun getCommentDetail(listcomment: ArrayList<Comment>) {
-        Log.e("adasdasd", listcomment.size.toString())
         no_cmt.visibility = View.GONE
 
 //=======================0 cmt========================
@@ -1036,117 +1163,27 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             no_cmt.visibility = View.VISIBLE
         }
 //=======================1 cmt========================
-
         else if (listcomment.size == 1) {
-
-            comment_item2.visibility = View.GONE
-            comment_item3.visibility = View.GONE
-            comment_item1.visibility = View.VISIBLE
-            Glide.with(this)
-                    .load(avatacmt(listcomment[0].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = listcomment[0].user!!.name
-            email_comment1.text = listcomment[0].user!!.email
-            comments1.text = listcomment[0].content
-            datecomment1.text = timeAgo(listcomment[0].time!!)
+            setDatafromComment1(listcomment.get(0))
         }
 //=======================2 cmt========================
 
         else if (listcomment.size == 2) {
-
-            comment_item3.visibility = View.GONE
-            comment_item1.visibility = View.VISIBLE
-            comment_item2.visibility = View.VISIBLE
-
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = listcomment[listcomment.size - 1].user!!.name
-            email_comment1.text = listcomment[listcomment.size - 1].user!!.email
-            comments1.text = listcomment[listcomment.size - 1].content
-            datecomment1.text = timeAgo(listcomment[listcomment.size - 1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = listcomment[listcomment.size - 2].user!!.name
-            email_comment2.text = listcomment[listcomment.size - 2].user!!.email
-            comments2.text = listcomment[listcomment.size - 2].content
-            datecomment2.text = timeAgo(listcomment[listcomment.size - 2].time!!)
+            setDatafromComment1(listcomment.get(1))
+            setDatafromComment2(listcomment.get(0))
         }
+
 
 //=======================3 cmt========================
         else if (listcomment.size == 3) {
-
-            comment_item1.visibility = View.VISIBLE
-            comment_item2.visibility = View.VISIBLE
-            comment_item3.visibility = View.VISIBLE
-
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = listcomment[listcomment.size - 1].user!!.name
-            email_comment1.text = listcomment[listcomment.size - 1].user!!.email
-            comments1.text = listcomment[listcomment.size - 1].content
-            datecomment1.text = timeAgo(listcomment[listcomment.size - 1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = listcomment[listcomment.size - 2].user!!.name
-            email_comment2.text = listcomment[listcomment.size - 2].user!!.email
-            comments2.text = listcomment[listcomment.size - 2].content
-            datecomment2.text = timeAgo(listcomment[listcomment.size - 2].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 3].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage3)
-            usercomments3.text = listcomment[listcomment.size - 3].user!!.name
-            email_comment3.text = listcomment[listcomment.size - 3].user!!.email
-            comments3.text = listcomment[listcomment.size - 3].content
-            datecomment3.text = timeAgo(listcomment[listcomment.size - 3].time!!)
-        } else {
-            comment_item1.visibility = View.VISIBLE
-            comment_item2.visibility = View.VISIBLE
-            comment_item3.visibility = View.VISIBLE
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 1].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage1)
-            usercomments1.text = listcomment[listcomment.size - 1].user!!.name
-            email_comment1.text = listcomment[listcomment.size - 1].user!!.email
-            comments1.text = listcomment[listcomment.size - 1].content
-            datecomment1.text = timeAgo(listcomment[listcomment.size - 1].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 2].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage2)
-            usercomments2.text = listcomment[listcomment.size - 2].user!!.name
-            email_comment2.text = listcomment[listcomment.size - 2].user!!.email
-            comments2.text = listcomment[listcomment.size - 2].content
-            datecomment2.text = timeAgo(listcomment[listcomment.size - 2].time!!)
-            Glide.with(this)
-                    .load(avatacmt(listcomment[listcomment.size - 3].user!!.photoprofile!!))
-                    .thumbnail(0.1f)
-                    .apply(options)
-                    .into(userimage3)
-            usercomments3.text = listcomment[listcomment.size - 3].user!!.name
-            email_comment3.text = listcomment[listcomment.size - 3].user!!.email
-            comments3.text = listcomment[listcomment.size - 3].content
-            datecomment3.text = timeAgo(listcomment[listcomment.size - 3].time!!)
-
-            add_comment.text =getString(R.string.more_comment)+((listcomment.size - 3).toString())
+            setDatafromComment1(listcomment.get(2))
+            setDatafromComment2(listcomment.get(1))
+            setDatafromComment3(listcomment.get(0))
+        }else{
+            setDatafromComment1(listcomment.get(listcomment.size-1))
+            setDatafromComment2(listcomment.get(listcomment.size-2))
+            setDatafromComment3(listcomment.get(listcomment.size-3))
+            add_comment.text = getString(R.string.more_comment)+" ("+(listcomment.size -3)+")".toString()
         }
     }
 }
