@@ -1,274 +1,600 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/input_register_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="100">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/layout_input">
+        android:layout_height="0dp"
+        android:layout_weight="70"
+        android:layout_above="@+id/layout_input"
+        >
 
         <ImageView
             android:id="@+id/logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/logo_final3" />
-    </RelativeLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layout_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@+id/layout_text_social"
-        android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-
-
-        <android.support.design.widget.TextInputEditText
-
-            android:id="@+id/phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/roundeditttext"
-            android:drawableLeft="@mipmap/account"
-            android:drawablePadding="15dp"
-            android:drawableStart="@mipmap/account"
-            android:ems="10"
-            android:hint="@string/txt_phone"
-            android:inputType="phone"
-            android:paddingLeft="20dp"
+            android:background="@drawable/logo_final3"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_above="@id/nameapp"
+            />
+        <sega.fastnetwork.test.view.RobotoRegularTextView
+            android:id="@+id/nameapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="THUÊ TỐT"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textColorLink="@color/white"
-            android:textSize="13sp"
+            android:layout_above="@id/layout_input"
+            android:layout_marginBottom="20dp"
 
             />
-
-        <FrameLayout
-            android:id="@+id/layout_singin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_signup"
-            android:layout_marginTop="10dp"
-          >
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btn_singin"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_size_large"
-                android:background="@drawable/roundbutton"
-                android:textSize="14sp"
-                android:text="@string/btn_signin"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/layout_input_phone"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btn_signup"
-          >
-
-            <ProgressBar
-                android:id="@+id/progressBar2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btn_input_phone"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_size_large"
-                android:background="@drawable/roundbutton"
-                android:text="Send code"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/layout_finish_code"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
-            <ProgressBar
-                android:id="@+id/progressBar_finish_code"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btn_finish_code"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_size_large"
-                android:background="@drawable/roundbutton"
-                android:text="@string/txt_finish"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-
-
-        </FrameLayout>
         <LinearLayout
+            android:id="@+id/layout_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right">
-            <Button
-                android:id="@+id/btn_signup"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_size_large"
-                android:background="@color/transparent"
-                android:text="@string/btn_signup"
-                android:textAllCaps="false"
-                android:textColor="@color/btn_color_login"
-                android:textSize="13sp" />
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom">
+
+
+            <android.support.design.widget.TextInputEditText
+
+                android:id="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/roundeditttext"
+                android:drawableLeft="@mipmap/account"
+                android:drawablePadding="15dp"
+                android:drawableStart="@mipmap/account"
+                android:ems="10"
+                android:hint="@string/txt_phone"
+                android:inputType="phone"
+                android:paddingLeft="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textColorLink="@color/white"
+                android:textSize="13sp"
+
+                />
+
+            <FrameLayout
+                android:id="@+id/layout_singin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/btn_signup"
+                android:layout_marginTop="10dp"
+                >
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_singin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_size_large"
+                    android:background="@drawable/roundbutton"
+                    android:textSize="14sp"
+                    android:text="@string/btn_signin"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/layout_input_phone"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/btn_signup"
+                >
+
+                <ProgressBar
+                    android:id="@+id/progressBar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_input_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_size_large"
+                    android:background="@drawable/roundbutton"
+                    android:text="Send code"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/layout_finish_code"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+                <ProgressBar
+                    android:id="@+id/progressBar_finish_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_finish_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_size_large"
+                    android:background="@drawable/roundbutton"
+                    android:text="@string/txt_finish"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
+
+
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+                <Button
+                    android:id="@+id/btn_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_size_large"
+                    android:background="@color/transparent"
+                    android:text="@string/btn_signup"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_text_social"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/layout_social_button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/tv_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginEnd="@dimen/dist_medium"
-            android:layout_marginLeft="@dimen/dist_medium"
-            android:layout_marginRight="@dimen/dist_medium"
-            android:layout_marginStart="@dimen/dist_medium"
-            android:text="@string/tv_social_login"
-            android:textColor="@color/btn_color_login" />
-
-        <View
-            android:layout_width="wrap_content"
-
-            android:layout_height="1dp"
-
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/dist_large"
-            android:layout_marginStart="@dimen/dist_large"
-            android:layout_toLeftOf="@id/tv_text"
-            android:layout_toStartOf="@id/tv_text"
-            android:background="@color/btn_color_login" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_centerInParent="true"
-
-            android:layout_marginEnd="@dimen/dist_large"
-
-            android:layout_marginRight="@dimen/dist_large"
-            android:layout_toEndOf="@id/tv_text"
-            android:layout_toRightOf="@id/tv_text"
-            android:background="@color/btn_color_login" />
-
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/layout_social_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        >
 
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/layout_social_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/btn_facebook"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/facebook" />
+            <LinearLayout
+                android:id="@+id/layout_text_social"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:weightSum="100">
 
-        <ImageButton
-            android:id="@+id/btn_google"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginStart="50dp"
-            android:background="@drawable/google" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="50"
+                    android:background="@color/btn_color_login" />
+                <TextView
+                    android:id="@+id/tv_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign up with"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="50"
+                    android:background="@color/btn_color_login" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/btn_facebook"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/facebook"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="30dp"
+                    />
+
+
+
+                <Button
+                    android:id="@+id/btn_google"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/google"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="30dp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+        <!--<android.support.design.widget.TextInputEditText-->
+
+        <!--android:id="@+id/input_phone"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@drawable/roundeditttext"-->
+        <!--android:drawableLeft="@mipmap/lock"-->
+        <!--android:drawablePadding="15dp"-->
+        <!--android:drawableStart="@mipmap/lock"-->
+        <!--android:ems="10"-->
+        <!--android:hint="@string/hint_password"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:paddingLeft="20dp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textColorHint="@color/white"-->
+        <!--android:textColorLink="@color/white"-->
+        <!--android:textSize="14sp"-->
+        <!--/>-->
+        <!--<android.support.design.widget.TextInputEditText-->
+
+        <!--android:id="@+id/input_code"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@drawable/roundeditttext"-->
+        <!--android:drawableLeft="@mipmap/lock"-->
+        <!--android:drawablePadding="15dp"-->
+        <!--android:drawableStart="@mipmap/lock"-->
+        <!--android:ems="10"-->
+
+        <!--android:hint="@string/hint_password"-->
+        <!--android:inputType="number"-->
+        <!--android:paddingLeft="20dp"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textColorHint="@color/white"-->
+        <!--android:textColorLink="@color/white"-->
+        <!--android:textSize="14sp"-->
+
+        <!--/>-->
+
+
     </LinearLayout>
-    <android.support.design.widget.TextInputEditText
 
-        android:id="@+id/input_phone"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/roundeditttext"
-        android:drawableLeft="@mipmap/lock"
-        android:drawablePadding="15dp"
-        android:drawableStart="@mipmap/lock"
-        android:ems="10"
+</LinearLayout>
 
-        android:hint="@string/hint_password"
-        android:inputType="textPassword"
-        android:paddingLeft="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textColorLink="@color/white"
-        android:textSize="14sp"
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/root_login"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/white"-->
+    <!--android:orientation="vertical"-->
+    <!--android:weightSum="100">-->
 
-        />
-    <android.support.design.widget.TextInputEditText
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="70"-->
+        <!--android:layout_above="@+id/layout_input"-->
+        <!--&gt;-->
 
-        android:id="@+id/input_code"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/roundeditttext"
-        android:drawableLeft="@mipmap/lock"
-        android:drawablePadding="15dp"
-        android:drawableStart="@mipmap/lock"
-        android:ems="10"
+        <!--<ImageView-->
+            <!--android:id="@+id/logo"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:background="@drawable/logo_final3"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:layout_above="@id/nameapp"-->
+           <!--/>-->
+        <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+            <!--android:id="@+id/nameapp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="THUÊ TỐT"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:textSize="20sp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:layout_above="@id/layout_input"-->
+            <!--android:layout_marginBottom="20dp"-->
 
-        android:hint="@string/hint_password"
-        android:inputType="number"
-        android:paddingLeft="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textColorLink="@color/white"
-        android:textSize="14sp"
+            <!--/>-->
+        <!--<LinearLayout-->
+            <!--android:id="@+id/layout_input"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:gravity="bottom">-->
 
-        />
+
+            <!--<android.support.design.widget.TextInputEditText-->
+
+                <!--android:id="@+id/phone_number"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:background="@drawable/roundeditttext"-->
+                <!--android:drawableLeft="@mipmap/account"-->
+                <!--android:drawablePadding="15dp"-->
+                <!--android:drawableStart="@mipmap/account"-->
+                <!--android:ems="10"-->
+                <!--android:hint="@string/txt_phone"-->
+                <!--android:inputType="phone"-->
+                <!--android:paddingLeft="20dp"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textColorHint="@color/white"-->
+                <!--android:textColorLink="@color/white"-->
+                <!--android:textSize="13sp"-->
+
+                <!--/>-->
+
+            <!--<FrameLayout-->
+                <!--android:id="@+id/layout_singin"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_above="@+id/btn_signup"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--&gt;-->
+
+                <!--<ProgressBar-->
+                    <!--android:id="@+id/progressBar"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:visibility="gone" />-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btn_singin"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/button_size_large"-->
+                    <!--android:background="@drawable/roundbutton"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:text="@string/btn_signin"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:textColor="@color/white" />-->
+
+
+            <!--</FrameLayout>-->
+
+            <!--<FrameLayout-->
+                <!--android:id="@+id/layout_input_phone"-->
+                <!--android:visibility="gone"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_above="@+id/btn_signup"-->
+                <!--&gt;-->
+
+                <!--<ProgressBar-->
+                    <!--android:id="@+id/progressBar2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:visibility="gone" />-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btn_input_phone"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/button_size_large"-->
+                    <!--android:background="@drawable/roundbutton"-->
+                    <!--android:text="Send code"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:textColor="@color/white" />-->
+
+
+            <!--</FrameLayout>-->
+
+            <!--<FrameLayout-->
+                <!--android:id="@+id/layout_finish_code"-->
+                <!--android:visibility="gone"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+
+                <!--&gt;-->
+
+                <!--<ProgressBar-->
+                    <!--android:id="@+id/progressBar_finish_code"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:visibility="gone" />-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btn_finish_code"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/button_size_large"-->
+                    <!--android:background="@drawable/roundbutton"-->
+                    <!--android:text="@string/txt_finish"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:textColor="@color/white" />-->
+
+
+            <!--</FrameLayout>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="right">-->
+                <!--<Button-->
+                    <!--android:id="@+id/btn_signup"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="@dimen/button_size_large"-->
+                    <!--android:background="@color/transparent"-->
+                    <!--android:text="@string/btn_signup"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textSize="13sp" />-->
+            <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+    <!--</RelativeLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="30"-->
+        <!--android:orientation="vertical"-->
+        <!--android:gravity="bottom"-->
+        <!--&gt;-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/layout_social_button"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginBottom="15dp"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_margin="20dp"-->
+            <!--android:gravity="center">-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/layout_text_social"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:weightSum="100">-->
+
+
+                <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_weight="50"-->
+                    <!--android:background="@color/btn_color_login" />-->
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_text"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Sign up with"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:layout_marginRight="5dp"-->
+                    <!--android:layout_marginLeft="5dp"/>-->
+                <!--<View-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="1dp"-->
+                    <!--android:layout_weight="50"-->
+                    <!--android:background="@color/btn_color_login" />-->
+
+            <!--</LinearLayout>-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btn_facebook"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="45dp"-->
+                    <!--android:background="@drawable/radius_button_login"-->
+                    <!--android:text="Login With Facebook"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:drawableLeft="@drawable/logo_facebook"-->
+                    <!--android:paddingLeft="30dp"-->
+                    <!--android:drawablePadding="-40dp"-->
+                    <!--android:layout_marginBottom="10dp"-->
+                    <!--/>-->
 
 
 
-</RelativeLayout>
+            <!--<Button-->
+                <!--android:id="@+id/btn_google"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="45dp"-->
+                <!--android:background="@drawable/radius_button_login_google"-->
+                <!--android:text="Login With Google"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:drawableLeft="@drawable/google_plus"-->
+                <!--android:paddingLeft="30dp"-->
+                <!--android:drawablePadding="-65dp"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
+
+
+
+
+
+
+    <!--&lt;!&ndash;<android.support.design.widget.TextInputEditText&ndash;&gt;-->
+
+        <!--&lt;!&ndash;android:id="@+id/input_phone"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:visibility="gone"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="10dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="@drawable/roundeditttext"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:drawableLeft="@mipmap/lock"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:drawablePadding="15dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:drawableStart="@mipmap/lock"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:ems="10"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:hint="@string/hint_password"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:inputType="textPassword"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:paddingLeft="20dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColorHint="@color/white"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColorLink="@color/white"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textSize="14sp"&ndash;&gt;-->
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<android.support.design.widget.TextInputEditText&ndash;&gt;-->
+
+        <!--&lt;!&ndash;android:id="@+id/input_code"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:visibility="gone"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="50dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="10dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="@drawable/roundeditttext"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:drawableLeft="@mipmap/lock"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:drawablePadding="15dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:drawableStart="@mipmap/lock"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:ems="10"&ndash;&gt;-->
+
+        <!--&lt;!&ndash;android:hint="@string/hint_password"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:inputType="number"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:paddingLeft="20dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColorHint="@color/white"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColorLink="@color/white"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textSize="14sp"&ndash;&gt;-->
+
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+
+    <!--</LinearLayout>-->
+
+<!--</LinearLayout>-->

@@ -68,7 +68,7 @@
     <dimen name="toolbar_elevation">4dp</dimen>
 
     <!-- Default Navigation Drawer. -->
-    <dimen name="nav_drawer_width">264dp</dimen>
+    <dimen name="nav_drawer_width">284dp</dimen>
     <dimen name="floating_height">650dp</dimen>
     <dimen name="floating_width">500dp</dimen>
 

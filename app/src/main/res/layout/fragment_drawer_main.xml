@@ -698,10 +698,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#FFF"
-
         android:clipToPadding="false"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
         android:theme="@style/AppTheme.NavigationView"
         app:headerLayout="@layout/header"
         app:insetForeground="#44383838"

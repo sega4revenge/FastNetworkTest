@@ -32,7 +32,7 @@ class AboutUsActivity : AppCompatActivity() {
 
 
                 .isRTL(false)
-                .setImage(R.drawable.logo_thuetot2)
+                .setImage(R.drawable.logo_final4)
                 .addItem(Element().setTitle("Version 1.2"))
                 //                .addItem(adsElement)
                 .addGroup("Connect with us")
