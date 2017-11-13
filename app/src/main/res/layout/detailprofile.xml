@@ -32,6 +32,38 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             >
+            <LinearLayout
+                android:id="@+id/layout_give"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="0"
+                    android:id="@+id/tv_number_give"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rent"
+                    android:textColor="@color/text_light"
+                    android:textSize="13sp"
+                    android:id="@+id/tv_give"/>
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorAccent"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/color_give"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_need"
@@ -169,45 +201,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/layout_give"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toEndOf="@+id/error_message"
-                    android:layout_toRightOf="@+id/error_message"
-                    android:layout_weight="50"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_number_give"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="0"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_give"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/rent"
-                        android:textColor="@color/text_light"
-                        android:textSize="13sp" />
-
-                    <View
-                        android:id="@+id/color_give"
-                        android:layout_width="25dp"
-                        android:layout_height="5dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/colorAccent" />
-                </LinearLayout>
-
                 <!-- <include
                      android:id="@+id/progress_circle"
                      layout="@layout/layout_progress_circle"
