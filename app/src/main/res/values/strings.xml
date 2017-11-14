@@ -220,6 +220,7 @@
     <string name="txt_checkmail">Please check phone number !</string>
     <string name="txt_nodata">Do not have a conversation !</string>
     <string name="txt_finish">Finish !</string>
+    <string name="txt_havecm">Have comments in your product !</string>
 
 
     //nav
@@ -237,4 +238,5 @@
     <string name="err_invalidcode">Invalid code!</string>
     <string name="err_timeout">Time out! Please try again !</string>
     <string name="err_phonealready">Phone number already registered !</string>
+
 </resources>

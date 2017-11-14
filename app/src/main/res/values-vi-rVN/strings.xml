@@ -218,6 +218,7 @@
     <string name="txt_checkmail">Vui lòng kiểm tra số điện thoại !</string>
     <string name="txt_nodata">Bạn không có cuộc trò chuyện nào !</string>
     <string name="txt_finish">Kết thúc !</string>
+    <string name="txt_havecm">Có người bình luận trong sản phẩm của bạn !</string>
     //
     <string name="nav_about">Thông tin ứng dụng</string>
     <string name="nav_logout">Đăng xuất</string>
@@ -229,8 +230,8 @@
     <string name="vr_inputcode">Nhập đoạn mã mà bạn nhận được trong tin nhắn văn bản.</string>
     <string name="vr_sent">Chúng tôi đã gửi một đoạn mã số cho số điện thoại này. Hãy kiểm tra tin nhắn !</string>
     //err
-    <string name="err_usernotfound">Không tìm thấy số điện thoại !</string>
-    <string name="err_invalidcode">Sai mã!</string>
+    <string name="err_usernotfound">Số điện thoại chưa được đăng ký !</string>
+    <string name="err_invalidcode">Mã code không đúng!</string>
     <string name="err_timeout">Hết thời gian! Vui lòng thử lại !</string>
     <string name="err_phonealready">Số điện thoại đã tồn tại !</string>
 </resources>
