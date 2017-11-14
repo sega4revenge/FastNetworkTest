@@ -2,6 +2,7 @@ package sega.fastnetwork.test.activity
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Notification
 import android.app.ProgressDialog
 import android.content.ContentResolver
@@ -435,26 +436,41 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
             }
 
         }else if (ids == R.id.menu_delproduct){
-            imglistDel = ""
-            uriList?.clear()
-            if(imglist != null && imglist?.size!! >0) {
-                for (i in 0..(imglist?.size!! - 1)) {
-                    if (!imglistDel.equals("")) {
-                        imglistDel = imglistDel + " , " + imglist?.get(i)
-                    } else {
-                        imglistDel = imglist?.get(i).toString()
+            var build = AlertDialog.Builder(this)
+            build.setMessage(R.string.delete_product)
+                    .setPositiveButton(R.string.btn_ok, { _, _ ->
+                        run {
+                            imglistDel = ""
+                            uriList?.clear()
+                            if (imglist != null && imglist?.size!! > 0) {
+                                for (i in 0..(imglist?.size!! - 1)) {
+                                    if (!imglistDel.equals("")) {
+                                        imglistDel = imglistDel + " , " + imglist?.get(i)
+                                    } else {
+                                        imglistDel = imglist?.get(i).toString()
 
-                        if(imglist?.size == 1){
-                            imglistDel += " , "
+                                        if (imglist?.size == 1) {
+                                            imglistDel += " , "
+                                        }
+                                    }
+                                }
+                            }
+                            if (imglistDel.equals("")) {
+                                imglistDel = "0"
+                            }
+                            progress = ProgressDialog.show(this, "", getString(R.string.loading), true)
+                            progress?.show()
+                            editProduct!!.ConnectHttpDeleteProduct(mProduct?._id.toString(), imglistDel)
                         }
-                    }
-                }
-            }
-            if(imglistDel.equals(""))
-            {imglistDel="0"}
-            progress  =  ProgressDialog.show(this, "", getString(R.string.loading), true)
-            progress?.show()
-            editProduct!!.ConnectHttpDeleteProduct(mProduct?._id.toString(),imglistDel)
+
+            })
+                    .setNegativeButton(R.string.cancelnot, { _, _ ->
+                        run {
+
+                        }
+                    })
+                var alert = build.create()
+                alert.show()
         }
 
         return super.onOptionsItemSelected(item)

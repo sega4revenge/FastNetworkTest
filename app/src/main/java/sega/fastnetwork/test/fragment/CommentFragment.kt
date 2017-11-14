@@ -113,13 +113,14 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
 
         buttoncomment.setOnClickListener {
             //            Log.e("cmtttt",AppAccountManager.)
-            if(writecomment.text == null || writecomment.text.toString() == "")
+            if(writecomment.text.trim().isEmpty())
             {
+                writecomment.setText("")
             }
             else
             {
                 Log.e("cmtttt", AppManager.getAppAccountUserId(activity) + " " + id + " " + writecomment.text.toString())
-                mCommentPresenter!!.addcomment(AppManager.getAppAccountUserId(activity), id, writecomment.text.toString())
+                mCommentPresenter!!.addcomment(AppManager.getAppAccountUserId(activity), id, writecomment.text.trim().toString())
                 val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(writecomment.windowToken, 0)
                 writecomment.setText("")

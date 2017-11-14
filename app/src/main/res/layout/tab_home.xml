@@ -139,9 +139,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/txt_nodata"
-                android:visibility="gone"
-                />
+                android:text="@string/pro_not_found"
+                android:textSize="15dp"
+                android:visibility="gone"/>
             <include
                 android:id="@+id/error_message"
                 layout="@layout/layout_error_message"

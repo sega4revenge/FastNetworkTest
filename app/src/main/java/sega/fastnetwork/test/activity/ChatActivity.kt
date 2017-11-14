@@ -92,8 +92,14 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         mDetailUserPresenter!!.getUserDetail(AppManager.getAppAccountUserId(this))
 
         buttonMessage.setOnClickListener {
-            mSocket!!.emit("sendchat",user?._id!!,userid,mUserFrom,mUserTo,user?.email,user?.name,editTextMessage.text,0)
-            editTextMessage.setText("")
+            if(editTextMessage.text.trim().isEmpty()){
+                editTextMessage.setText("")
+            }
+            else {
+                mSocket!!.emit("sendchat",user?._id!!,userid,mUserFrom,mUserTo,user?.email,user?.name,editTextMessage.text.trim(),0)
+                editTextMessage.setText("")
+            }
+
         }
         imgback.setOnClickListener(){
             finish()

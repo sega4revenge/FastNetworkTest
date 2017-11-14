@@ -81,7 +81,7 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
                 {
                     holder.txtmessFrom.text = mContext?.resources?.getString(R.string.inbox_send1)
                 }else{
-                    holder.txtmessFrom.text = mess?.name+mContext?.resources?.getString(R.string.inbox_send)
+                    holder.txtmessFrom.text = mess?.name+" "+mContext?.resources?.getString(R.string.inbox_send)
                 }
 
             }
@@ -105,10 +105,10 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val LinFrom = view.findViewById<LinearLayout>(R.id.LinFrom)
-        val txtnameFrom = view.findViewById<TextView>(R.id.txtnameFrom)
-        val txtmessFrom = view.findViewById<TextView>(R.id.txtmessFrom)
-        val imgAvatarFrom = view.findViewById<CircleImageView>(R.id.imgAvatarFrom)
+        val LinFrom = view.findViewById<LinearLayout>(R.id.LinTo)
+        val txtnameFrom = view.findViewById<TextView>(R.id.txtnameTo)
+        val txtmessFrom = view.findViewById<TextView>(R.id.txtmessTo)
+        val imgAvatarFrom = view.findViewById<CircleImageView>(R.id.imgAvatarTo)
         val txttime = view.findViewById<TextView>(R.id.txttime)
     }
     private fun timeAgo(time: String): CharSequence? {

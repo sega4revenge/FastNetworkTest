@@ -30,6 +30,7 @@
     <string name="you">Bạn </string>
     <string name="youand">Bạn và </string>
     <string name="delete_comment">Bạn có thật sự muốn xóa bình luận này?</string>
+    <string name="delete_product">Bạn có thật sự muốn xóa sản phẩm này?</string>
     <string name="title_comment">Xóa bình luận</string>
     <string name="detail_comment">Thông tin bình luận</string>
     <string name="view">Lượt xem</string>

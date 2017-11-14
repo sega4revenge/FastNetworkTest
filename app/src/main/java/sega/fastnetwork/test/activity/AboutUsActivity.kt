@@ -29,17 +29,15 @@ class AboutUsActivity : AppCompatActivity() {
         v.toolbar_title.text = getString(R.string.nav_about)
         supportActionBar!!.customView = v
         val aboutPage = AboutPage(this)
-
-
                 .isRTL(false)
-                .setImage(R.drawable.logo_final4)
+                .setImage(R.drawable.logo_about)
                 .addItem(Element().setTitle("Version 1.2"))
                 //                .addItem(adsElement)
                 .addGroup("Connect with us")
                 .addEmail("hhl190295@gmail.com")
-                .addFacebook("apptimviec")
-                .addPlayStore("com.finger.jobfind")
-                .addWebsite("http://www.finger.co.kr/home/index.jsp")
+                .addFacebook("Thuê-Tốt-Ứng-Dụng-Thuê-Cho-Thuê-505014126541746")
+                .addPlayStore("")
+                .addWebsite("http://thuetot.vn/")
                 .setDescription(resources.getString(R.string.txt_slogan))
                 //                .addFacebook("the.medy")
                 //                .addTwitter("medyo80")

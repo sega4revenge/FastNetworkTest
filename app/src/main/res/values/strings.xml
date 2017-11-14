@@ -30,6 +30,7 @@
     <string name="you">You </string>
     <string name="youand">You and </string>
     <string name="delete_comment">Are you sure you want to delete this comment?</string>
+    <string name="delete_product">Are you sure you want to delete this product?</string>
     <string name="title_comment">Delete Comment</string>
     <string name="detail_comment">Detail comment</string>
     <string name="view">views</string>

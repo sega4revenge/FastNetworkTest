@@ -5,18 +5,18 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/LinFrom"
+        android:id="@+id/LinTo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="5dp"
         android:layout_margin="5dp">
 
         <sega.fastnetwork.test.customview.CircleImageView
-            android:id="@+id/imgAvatarFrom"
+            android:id="@+id/imgAvatarTo"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_margin="5dp"
@@ -26,15 +26,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
+            android:layout_marginRight="5dp"
             >
-            <TextView
-                android:id="@+id/txttime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:textSize="12dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +35,7 @@
                 android:gravity="center_vertical"
                 >
             <TextView
-                android:id="@+id/txtnameFrom"
+                android:id="@+id/txtnameTo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
@@ -63,14 +56,14 @@
                     android:maxHeight="200dp"
                     android:maxWidth="400dp"
                    >
-                    <ProgressBar
-                       android:id="@+id/progressBarLoading"
-                        android:visibility="gone"
-                        android:layout_width="@dimen/progress_circle_small_width"
-                        android:layout_height="@dimen/progress_circle_small_width" />
+                    <!--<ProgressBar-->
+                       <!--android:id="@+id/progressBarLoading"-->
+                        <!--android:visibility="gone"-->
+                        <!--android:layout_width="@dimen/progress_circle_small_width"-->
+                        <!--android:layout_height="@dimen/progress_circle_small_width" />-->
                     <ImageView
                         android:padding="7dp"
-                        android:id="@+id/imgSend"
+                        android:id="@+id/imgSendTo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -80,7 +73,7 @@
                         />
                     <TextView
                         android:padding="7dp"
-                        android:id="@+id/txtmessFrom"
+                        android:id="@+id/txtmessTo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
@@ -91,71 +84,161 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-
     <LinearLayout
-        android:id="@+id/LinTo"
+        android:id="@+id/LinFrom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
         android:gravity="right|center"
-        android:layout_margin="5dp"
-        >
-        <LinearLayout
-            android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="right"
+            android:layout_marginLeft="55dp"
             >
+
             <TextView
-                android:id="@+id/txtnameTo"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textSize="19sp"
-                android:text="vinh"
-                android:singleLine="true"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:gravity="right"
-                android:textStyle="bold"
-                />
-            <LinearLayout
+                android:id="@+id/txttime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:maxHeight="200dp"
-                android:maxWidth="400dp"
-                android:background="@drawable/border_textchat"
-                >
-                <ImageView
-                    android:padding="7dp"
-                    android:id="@+id/imgSendTo"
-                    android:maxHeight="200dp"
-                    android:maxWidth="400dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:visibility="gone"
-                    />
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:textSize="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="vertical">
+
                 <TextView
-                    android:padding="7dp"
-                    android:id="@+id/txtmessTo"
-                    android:gravity="right"
+                    android:id="@+id/txtnameFrom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="vuongvinh"
                     android:textSize="15sp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_textchat"
+                    android:gravity="center"
+                    android:maxHeight="200dp"
+                    android:maxWidth="400dp"
+                    android:orientation="horizontal">
+
+                    <ProgressBar
+                        android:id="@+id/progressBarLoading"
+                        android:layout_width="@dimen/progress_circle_small_width"
+                        android:layout_height="@dimen/progress_circle_small_width"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/imgSend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:maxHeight="200dp"
+                        android:maxWidth="400dp"
+                        android:padding="7dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/txtmessFrom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="7dp"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
         <sega.fastnetwork.test.customview.CircleImageView
-            android:id="@+id/imgAvatarTo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/imgAvatarFrom"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_margin="5dp"
-        />
+            />
     </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:id="@+id/LinTo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:visibility="gone"-->
+        <!--android:gravity="right|center"-->
+        <!--android:layout_margin="5dp"-->
+        <!--&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:gravity="right"-->
+            <!--&gt;-->
+            <!--<TextView-->
+                <!--android:id="@+id/txtnameTo"-->
+                <!--android:visibility="gone"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:textSize="19sp"-->
+                <!--android:text="vinh"-->
+                <!--android:singleLine="true"-->
+                <!--android:maxLines="1"-->
+                <!--android:ellipsize="end"-->
+                <!--android:gravity="right"-->
+                <!--android:textStyle="bold"-->
+                <!--/>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:maxHeight="200dp"-->
+                <!--android:maxWidth="400dp"-->
+                <!--android:background="@drawable/border_textchat"-->
+                <!--&gt;-->
+                <!--<ImageView-->
+                    <!--android:padding="7dp"-->
+                    <!--android:id="@+id/imgSendTo"-->
+                    <!--android:maxHeight="200dp"-->
+                    <!--android:maxWidth="400dp"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:visibility="gone"-->
+                    <!--/>-->
+                <!--<TextView-->
+                    <!--android:padding="7dp"-->
+                    <!--android:id="@+id/txtmessTo"-->
+                    <!--android:gravity="right"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="15sp"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textStyle="bold"/>-->
+            <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+        <!--<sega.fastnetwork.test.customview.CircleImageView-->
+            <!--android:id="@+id/imgAvatarTo"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_margin="5dp"-->
+        <!--/>-->
+    <!--</LinearLayout>-->
 </LinearLayout>

@@ -1,5 +1,6 @@
 package sega.fastnetwork.test.fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -87,6 +88,32 @@ class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileV
                 product_list.visibility = View.GONE
                 mess_notfound.visibility = View.VISIBLE
             }
+        }
+        layout_gived.setOnClickListener {
+            var build = AlertDialog.Builder(activity)
+            build.setMessage("Coming soon !")
+                    .setPositiveButton(R.string.btn_ok, { _, _ ->
+                        run {
+
+                        }
+
+                    })
+                  
+            var alert = build.create()
+            alert.show()
+        }
+        layout_needed.setOnClickListener {
+            var build = AlertDialog.Builder(activity)
+            build.setMessage("Coming soon !")
+                    .setPositiveButton(R.string.btn_ok, { _, _ ->
+                        run {
+
+                        }
+
+                    })
+
+            var alert = build.create()
+            alert.show()
         }
         //    detailprofile!!.ConnectHttp(AppManager.getAppAccountUserId(activity))
         try_again.setOnClickListener{
