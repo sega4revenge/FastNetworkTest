@@ -48,6 +48,7 @@ import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.presenter.AddPresenter
 import sega.fastnetwork.test.util.CompressImage
 import sega.fastnetwork.test.util.Constants
+import sega.fastnetwork.test.util.Validation
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -435,8 +436,6 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
 //                Toast.makeText(this, time.selectedIndex.toString() + " " + category.selectedIndex.toString(), Toast.LENGTH_LONG).show()
                 if (uriList!!.size == 0) {
                     Toast.makeText(this, getString(R.string.choose_image), Toast.LENGTH_LONG).show()
-                } else if (productname!!.text.toString() == "" || price!!.text.toString() == "" || number!!.text.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
-                    Toast.makeText(this, getString(R.string.st_errpass), Toast.LENGTH_LONG).show()
                 } else {
                     if(!mDoubleCreate) {
 //                        progressBar_addproduct.visibility = View.VISIBLE
@@ -446,16 +445,14 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                         progressDialog?.setCancelable(false)
                         progressDialog?.show()
                         temp = 0
-                        mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
+                        upload_borow()
+//                        mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
                     }else{
                      Snackbar.make(findViewById(R.id.root_addproduct), getString(R.string.up_success), Snackbar.LENGTH_SHORT).show()
                     }
                 }
             } else if (toggle.checkedRadioButtonId == needborrow.id) {
 
-                if (productname!!.text.toString() == "" || number!!.text.toString() == "" || category.selectedIndex.toString() == "" || addressText!!.text.toString() == "" || description!!.text.toString() == "") {
-                    Toast.makeText(this, getString(R.string.input), Toast.LENGTH_LONG).show()
-                } else {
                     if(!mDoubleCreate) {
 //                        progressBar_addproduct.visibility = View.VISIBLE
                         progressDialog?.setMessage("Uploading . . . ")
@@ -464,11 +461,12 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                         progressDialog?.setCancelable(false)
                         progressDialog?.show()
                         temp = 0
-                        mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.NEEDBORROW)
+                        upload_needborow()
+//                        mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.NEEDBORROW)
                     }else{
                         Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.up_success), Snackbar.LENGTH_SHORT).show()
                     }
-                }
+
             }
             System.out.println("upload")
 //            startActivity(Intent(applicationContext, AddActivity::class.java))
@@ -480,7 +478,87 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         }
         return super.onOptionsItemSelected(item)
     }
+    private fun setError() {
 
+        productname!!.error = null
+        price!!.error = null
+        number!!.error = null
+        addressText!!.error = null
+        description!!.error = null
+    }
+    private fun upload_borow() {
+
+        setError()
+
+        var err = 0
+
+        if (!Validation.validateFields(productname!!.text.toString())) {
+
+            err++
+            productname!!.error = getString(R.string.st_errpass)
+        }
+        if (!Validation.validateFields(price!!.text.toString())) {
+
+            err++
+            price!!.error = getString(R.string.st_errpass)
+        }
+        if (!Validation.validateFields(number!!.text.toString())) {
+
+            err++
+            number!!.error = getString(R.string.st_errpass)
+        }
+        if (!Validation.validateFields(addressText!!.text.toString())) {
+
+            err++
+            addressText!!.error = getString(R.string.st_errpass)
+        }
+        if (!Validation.validateFields(description!!.text.toString())) {
+
+            err++
+            description!!.error = getString(R.string.st_errpass)
+        }
+
+        if (err == 0) {
+            mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), price.text.toString(), time.selectedIndex.toString(), number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.BORROW)
+        } else {
+            progressDialog?.dismiss()
+//            Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.err), Snackbar.LENGTH_SHORT).show()
+        }
+    }
+    private fun upload_needborow() {
+
+        setError()
+
+        var err = 0
+
+        if (!Validation.validateFields(productname!!.text.toString())) {
+
+            err++
+            productname!!.error = getString(R.string.st_errpass)
+        }
+        if (!Validation.validateFields(number!!.text.toString())) {
+
+            err++
+            number!!.error = getString(R.string.st_errpass)
+        }
+        if (!Validation.validateFields(addressText!!.text.toString())) {
+
+            err++
+            addressText!!.error = getString(R.string.st_errpass)
+        }
+        if (!Validation.validateFields(description!!.text.toString())) {
+
+            err++
+            description!!.error = getString(R.string.st_errpass)
+        }
+
+        if (err == 0) {
+            mAddPresenter!!.createProduct(AppManager.getAppAccountUserId(this), productname.text.toString(), "", "", number.text.toString(), category.selectedIndex.toString(), addressText.text.toString(), description.text.toString(), lat1, lot1, Constants.NEEDBORROW)
+        } else {
+            progressDialog?.dismiss()
+//            Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.err), Snackbar.LENGTH_SHORT).show()
+        }
+    }
     override fun onBackPressed() {
         finish()
         super.onBackPressed()

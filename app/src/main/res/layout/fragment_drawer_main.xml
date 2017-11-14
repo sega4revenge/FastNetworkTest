@@ -63,71 +63,83 @@
                         android:background="@drawable/radius_all_view"
                         android:orientation="vertical"
                         android:paddingBottom="20dp">
-
-                        <LinearLayout
-                            android:id="@+id/linInfor"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:orientation="horizontal"
-                            android:visibility="gone">
-
-                            <RelativeLayout
-                                android:layout_width="80dp"
-                                android:layout_height="80dp">
-
-                                <sega.fastnetwork.test.customview.CircleImageView
-                                    android:id="@+id/imgAvatar"
-                                    android:layout_width="80dp"
-                                    android:layout_height="80dp"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_margin="5dp"
-                                    android:alpha="0.5"
-                                    android:background="@drawable/img_error" />
-
-                                <ImageButton
-                                    android:id="@+id/edit_avatar"
-                                    android:layout_width="25dp"
-                                    android:layout_height="25dp"
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_centerVertical="true"
-                                    android:background="@drawable/ic_photo_camera_black_24dp"
-
-                                    />
-                            </RelativeLayout>
-
+                            android:layout_height="wrap_content">
                             <LinearLayout
-                                android:id="@+id/changeInfor"
+                                android:id="@+id/linInfor"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
-                                android:gravity="center"
-                                android:orientation="vertical">
+                                android:orientation="horizontal"
+                                android:visibility="visible">
 
-                                <TextView
-                                    android:id="@+id/txtname"
+                                <RelativeLayout
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp">
+
+                                    <sega.fastnetwork.test.customview.CircleImageView
+                                        android:id="@+id/imgAvatar"
+                                        android:layout_width="80dp"
+                                        android:layout_height="80dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_margin="5dp"
+                                        android:alpha="0.5"
+                                        android:background="@drawable/img_error" />
+
+                                    <ImageButton
+                                        android:id="@+id/edit_avatar"
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_centerVertical="true"
+                                        android:background="@drawable/ic_photo_camera_black_24dp"
+
+                                        />
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/changeInfor"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
 
-                                    android:text="Nguyen Vuong Vinh"
-                                    android:textColor="@color/black"
-                                    android:textSize="15sp"
+                                    <TextView
+                                        android:id="@+id/txtname"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Nguyen Vuong Vinh"
+                                        android:textColor="@color/black"
+                                        android:textSize="15sp"
 
-                                    android:maxLines="2"
-                                    android:ellipsize="end"
-                                    />
-                                <TextView
-                                    android:id="@+id/txtemail"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
-                                    android:singleLine="true"
-                                    android:text="vuongvinh1993@gmail.com"
-                                    android:textSize="14sp" />
+                                        android:maxLines="2"
+                                        android:ellipsize="end"
+                                        />
+                                    <TextView
+                                        android:id="@+id/txtemail"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:maxLines="1"
+                                        android:singleLine="true"
+                                        android:text="vuongvinh1993@gmail.com"
+                                        android:textSize="14sp" />
+                                </LinearLayout>
+
                             </LinearLayout>
 
-                        </LinearLayout>
+                            <ImageButton
+                                android:id="@+id/setting_changeInfo"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_margin="5dp"
+                                android:visibility="gone"
+                                android:background="@mipmap/ic_setting"
+                                android:layout_alignParentRight="true"/>
+                        </RelativeLayout>
+
 
                         <LinearLayout
                             android:id="@+id/linCate"
