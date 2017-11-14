@@ -243,15 +243,21 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
         contentView!!.category_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         contentView!!.category_list.adapter = category_adapter
         contentView!!.btn_refresh.setOnClickListener {
-            val arrloca = applied_filters!!["location"]!!
-            var locationSelected =  arrloca
+            try{
+                val arrloca = applied_filters!!["location"]!!
+                var locationSelected =  arrloca
 
-            for(i in 0..(locationSelected.size)){
-                println(locationSelected.size)
-                println(locationSelected.get(0))
-                var remo = locationSelected.get(0)
-                contentView!!.chips_input.removeChipByLabel(remo)
+                for(i in 0..(locationSelected.size)){
+                    println(locationSelected.size)
+                    println(locationSelected.get(0))
+                    var remo = locationSelected.get(0)
+                    contentView!!.chips_input.removeChipByLabel(remo)
+                }
             }
+            catch (e: Exception){
+                Log.e("ASDASd",e.toString())
+            }
+
             var categorySelected = contentView!!.chips_input_category.selectedChipList
 
             Log.e("categorySelected: ", "categorySelected: "+categorySelected)
