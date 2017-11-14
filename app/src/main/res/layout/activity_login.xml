@@ -23,21 +23,9 @@
             android:background="@drawable/logo_final2"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_above="@id/nameapp"
-            />
-        <sega.fastnetwork.test.view.RobotoRegularTextView
-            android:id="@+id/nameapp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="THUÊ TỐT"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:layout_above="@id/layout_input"
-            android:layout_marginBottom="20dp"
 
             />
+
         <LinearLayout
             android:id="@+id/layout_input"
             android:layout_width="match_parent"

@@ -279,6 +279,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 cancel.setOnClickListener {
                     dg.cancel()
                 }
+
                 accept.setOnClickListener {
                     CircularAnim.hide(accept)
                             .endRadius((progressBar.height / 2).toFloat())

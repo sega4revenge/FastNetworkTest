@@ -527,8 +527,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             statussave = response.statussave!!
             if (statussave) {
                 btn_save.setImageResource(R.drawable.favorite_checked)
+                img_save.setImageResource(R.drawable.favorite_checked)
+                txt_save.text = getString(R.string.saved)
             } else {
                 btn_save.setImageResource(R.drawable.favorite_unchecked)
+                img_save.setImageResource(R.drawable.favorite_unchecked)
+                txt_save.text = getString(R.string.save)
             }
         } catch (e: Exception) {
             Log.e("getProductDetail", "saidjasd")
