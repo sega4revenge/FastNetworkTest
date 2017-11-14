@@ -41,7 +41,7 @@
             />
         <ImageView
             android:id="@+id/buttonMessage"
-            android:src="@android:drawable/ic_menu_send"
+            android:background="@android:drawable/ic_menu_send"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:padding="4dp"

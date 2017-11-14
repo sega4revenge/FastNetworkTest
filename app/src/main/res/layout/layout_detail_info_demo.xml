@@ -259,17 +259,15 @@
                 android:gravity="center_horizontal"/>
         </LinearLayout>
     </LinearLayout>
-    <View
-        android:id="@+id/line_2"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/product_info"
-        android:layout_height="0.5dp"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/dist_large"
-        android:layout_marginStart="@dimen/dist_large"
-        android:layout_toLeftOf="@id/tv_text"
-        android:layout_toStartOf="@id/tv_text"
-        android:background="@color/btn_color_login" />
+
+        <View
+            android:id="@+id/line_2"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_alignLeft="@+id/layout_share_favorite"
+            android:layout_alignStart="@+id/layout_share_favorite"
+            android:layout_below="@+id/product_info"
+            android:background="@color/btn_color_login" />
 
     <TextView
         android:id="@+id/product_overview"
@@ -279,11 +277,10 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="20dp"
-        android:textColor="#737373"
+        android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="normal"
         android:alpha="0.1"
-        android:background="@color/shimmer_background_color"
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
 

@@ -16,7 +16,6 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -137,6 +136,9 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
             intent.putExtra("iduser", mUser!!._id)
             startActivity(intent)
         }
+        contentView!!.img_back.setOnClickListener(){
+            dismissAllowingStateLoss()
+        }
         contentView!!.btn_call.setOnClickListener(){
 
             val permissionlistener = object : PermissionListener {
@@ -220,6 +222,8 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
         var result = ""
         if(!link.startsWith("http")){
             result = Constants.IMAGE_URL+link
+        }else{
+            result = link
         }
         return result
     }
@@ -284,8 +288,6 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
 
     override fun onproductClicked(position: Int) {
      //   Log.d("test",adapter!!.productList[position]._id!!+"//"+adapter!!.productList[position].user!!._id)
-        Log.d("test",position.toString())
-        Log.d("test",adapter?.productList?.get(position)?.user?.toString())
 
         val intent = Intent(mContext, ProductDetailActivity::class.java)
         intent.putExtra(Constants.product_ID, adapter?.productList?.get(position)?._id)

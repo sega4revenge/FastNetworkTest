@@ -127,6 +127,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 
         v.img_like.setOnClickListener(){
+            Log.d("aaaaaaaaaa",stt.toString())
             var num: Int = 0
             if(v.txt_num_like.text.toString().equals("") || v.txt_num_like.text.toString().equals("0")){
                 num = 0
@@ -151,6 +152,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
         v.img_like2.setOnClickListener(){
+            Log.d("aaaaaaaaaa",stt2.toString())
             var num: Int = 0
             if(v.txt_num_like2.text.toString().equals("") || v.txt_num_like2.text.toString().equals("0")){
                 num = 0
@@ -175,6 +177,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
         v.img_like3.setOnClickListener(){
+            Log.d("aaaaaaaaaa",stt3.toString())
             var num: Int = 0
             if(v.txt_num_like3.text.toString().equals("") || v.txt_num_like3.text.toString().equals("0")){
                 num = 0
@@ -759,37 +762,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             setDatafromComment2(product!!.comment!![1])
             setDatafromComment3(product!!.comment!![2])
         }
-//        } else {
-//            Glide.with(this)
-//                    .load(avatacmt(product!!.comment!![0].user!!.photoprofile!!))
-//                    .thumbnail(0.1f)
-//                    .apply(options)
-//                    .into(userimage1)
-//            usercomments1.text = product!!.comment!![0].user!!.name
-//            email_comment1.text = product?.comment!![0].user!!.email
-//            comments1.text = product!!.comment!![0].content
-//            datecomment1.text = timeAgo(product!!.comment!![0].time!!)
-//            Glide.with(this)
-//                    .load(avatacmt(product!!.comment!![1].user!!.photoprofile!!))
-//                    .thumbnail(0.1f)
-//                    .apply(options)
-//                    .into(userimage2)
-//            usercomments2.text = product!!.comment!![1].user!!.name
-//            email_comment2.text = product?.comment!![1].user!!.email
-//            comments2.text = product!!.comment!![1].content
-//            datecomment2.text = timeAgo(product!!.comment!![1].time!!)
-//            Glide.with(this)
-//                    .load(avatacmt(product!!.comment!![2].user!!.photoprofile!!))
-//                    .thumbnail(0.1f)
-//                    .apply(options)
-//                    .into(userimage3)
-//            usercomments3.text = product!!.comment!![2].user!!.name
-//            email_comment3.text = product?.comment!![2].user!!.email
-//            comments3.text = product!!.comment!![2].content
-//            datecomment3.text = timeAgo(product!!.comment!![2].time!!)
-//
-//            add_comment.text = getString(R.string.more_comment)+"("+(product!!.comment!!.size - 3).toString()+")"
-//        }
+
         val listUserComments = ArrayList<String>()
         product!!.comment!!
                 .asSequence()
@@ -916,6 +889,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
     }
     fun setDatafromComment1(mProduct: Comment?){
+        stt = false
         // ======= Check like ==============/
         if(mProduct?.listlike!!.size != 0){
             txt_num_like.text = mProduct?.listlike!!.size.toString()
@@ -926,18 +900,20 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     break
                 }
             }
-            if(stt) {
-                img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-            }else{
-                img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
-            }
+
         }else{
+
             txt_num_like.text = ""
+            img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+        }
+        if(stt) {
+            img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+        }else{
             img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
         //==================================/
 
-
+        comment_item1.visibility = View.VISIBLE
         comment_item2.visibility = View.GONE
         comment_item3.visibility = View.GONE
         Glide.with(this)
@@ -952,7 +928,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         datecomment1.text = timeAgo(mProduct?.time!!)
     }
     fun setDatafromComment2(mProduct: Comment?){
-
+        stt2 = false
         if(mProduct?.listlike!!.size != 0){
             txt_num_like2.text = mProduct?.listlike!!.size.toString()
 
@@ -962,16 +938,16 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     break
                 }
             }
-            if(stt2) {
-                img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-            }else{
-                img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
-            }
+
         }else{
             txt_num_like2.text = ""
             img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
-
+        if(stt2) {
+            img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+        }else{
+            img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+        }
         comment_item2.visibility = View.VISIBLE
         comment_item3.visibility = View.GONE
 
@@ -986,6 +962,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         datecomment2.text = timeAgo(mProduct?.time!!)
     }
     fun setDatafromComment3(mProduct: Comment?){
+        stt3 = false
         if(mProduct?.listlike!!.size != 0){
             txt_num_like3.text = mProduct?.listlike!!.size.toString()
 
@@ -995,13 +972,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     break
                 }
             }
-            if(stt3) {
-                img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-            }else{
-                img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
-            }
+
         }else{
             txt_num_like3.text = ""
+            img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
+        }
+        if(stt3) {
+            img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
+        }else{
             img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
         comment_item3.visibility = View.VISIBLE
@@ -1164,11 +1142,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 //=======================1 cmt========================
         else if (listcomment.size == 1) {
+            product?.comment?.add(0,listcomment.get(0))
             setDatafromComment1(listcomment.get(0))
         }
 //=======================2 cmt========================
 
         else if (listcomment.size == 2) {
+            product?.comment?.add(0,listcomment.get(1))
+            product?.comment?.add(1,listcomment.get(0))
             setDatafromComment1(listcomment.get(1))
             setDatafromComment2(listcomment.get(0))
         }
@@ -1176,10 +1157,16 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 //=======================3 cmt========================
         else if (listcomment.size == 3) {
+            product?.comment?.add(0,listcomment.get(2))
+            product?.comment?.add(1,listcomment.get(1))
+            product?.comment?.add(2,listcomment.get(0))
             setDatafromComment1(listcomment.get(2))
             setDatafromComment2(listcomment.get(1))
             setDatafromComment3(listcomment.get(0))
         }else{
+            product?.comment?.add(0,listcomment.get(listcomment.size-1))
+            product?.comment?.add(1,listcomment.get(listcomment.size-2))
+            product?.comment?.add(2,listcomment.get(listcomment.size-3))
             setDatafromComment1(listcomment.get(listcomment.size-1))
             setDatafromComment2(listcomment.get(listcomment.size-2))
             setDatafromComment3(listcomment.get(listcomment.size-3))

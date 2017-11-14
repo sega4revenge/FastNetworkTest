@@ -74,7 +74,7 @@ class CommentAdapter// Constructor
     override fun onBindViewHolder(viewHolderParent: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(0)
         val comment = commentsList[position]
-        
+        Log.d("position:::  "+position,"///"+comment.listlike?.size)
 
      
             // COMPACT MODE
@@ -122,6 +122,9 @@ class CommentAdapter// Constructor
             }else{
                 viewHolder.itemView.img_like.setImageDrawable(context.resources.getDrawable(R.drawable.icon_like))
             }
+        }else{
+            viewHolder.itemView.txt_num_like.text = ""
+            viewHolder.itemView.img_like.setImageDrawable(context.resources.getDrawable(R.drawable.icon_like))
         }
         //==================================/
         viewHolder.itemView.img_like.setOnClickListener(){

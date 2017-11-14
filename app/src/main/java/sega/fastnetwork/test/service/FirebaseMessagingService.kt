@@ -30,10 +30,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         Log.e("firebase: messager ", remoteMessage?.data?.toString())
 
         if(remoteMessage?.data?.get("productid")!= null){
-            Log.d("firebase: messager: ","1111111111111")
             showNotification(remoteMessage?.data?.get("productid").toString(),remoteMessage?.data?.get("useridproduct").toString(),remoteMessage?.data?.get("useridcmt").toString())
         }else{
-            Log.d("firebase: messager: ","222222222222")
             showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString())
         }
     }
@@ -74,7 +72,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                         .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                         .setLights(Color.RED, 3000, 3000)
                         .setSound(defaultSoundUri)
-                        .setSmallIcon(R.mipmap.home_icon)
+                        .setSmallIcon(R.drawable.logo_final4)
                         .build()
 
                 notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
@@ -88,8 +86,6 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
 
             } else {
                 var avata2 = avatacmt(avata)
-                Log.d("firebase: messager: ","323232"+avata)
-                Log.d("firebase: messager: ","323232"+avata2)
                 try {
                     val url = URL(avata2)
                     image = BitmapFactory.decodeStream(url.openConnection().getInputStream())
@@ -102,7 +98,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                             .setLights(Color.RED, 3000, 3000)
                             .setSound(defaultSoundUri)
-                            .setSmallIcon(R.mipmap.home_icon)
+                            .setSmallIcon(R.drawable.logo_final4)
                             .setLargeIcon(getCroppedBitmap(image))
                             .build()
 
@@ -145,7 +141,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                     .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                     .setLights(Color.RED, 3000, 3000)
                     .setSound(defaultSoundUri)
-                    .setSmallIcon(R.drawable.logo_fn)
+                    .setSmallIcon(R.drawable.logo_final4)
                     .build()
 
             notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL

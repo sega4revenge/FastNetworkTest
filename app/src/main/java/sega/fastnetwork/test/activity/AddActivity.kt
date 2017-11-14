@@ -91,7 +91,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                 }
             }
         }
-///=======================Lay dia chi=========================
+///=======================Lay dia chi================================
         addressEdit.setOnClickListener {
             map_loading.visibility = View.VISIBLE
             addressEdit.visibility = View.GONE
@@ -168,6 +168,10 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
             }
 
             override fun delOnClickListener(position: Int, remainNum: Int) {
+                try{
+                    add_picker_view!!.listUri.remove(add_picker_view!!.listUri[position])
+                }catch (e: Exception){
+                    print(e.message)}
 
             }
         })

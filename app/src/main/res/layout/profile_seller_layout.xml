@@ -366,6 +366,7 @@
                     android:layout_centerInParent="true">
 
                     <ImageButton
+                        android:id="@+id/img_back"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_centerVertical="true"

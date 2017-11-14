@@ -38,12 +38,10 @@
                 android:textSize="18sp"
                 />
 
-            <TextView
+            <sega.fastnetwork.test.view.RobotoLightTextView
                 android:id="@+id/email_header"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:text="What the fuck are you doing"
                 android:textColor="@color/text_light"
                 android:textSize="14sp"
