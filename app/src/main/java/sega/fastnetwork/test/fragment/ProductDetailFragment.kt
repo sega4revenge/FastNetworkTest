@@ -176,9 +176,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 stt2 = true
             }
         }
-        v.img_like3.setOnClickListener(){
+
+        v.img_like3.setOnClickListener {
             Log.d("aaaaaaaaaa",stt3.toString())
-            var num: Int = 0
+            var num: Int
             if(v.txt_num_like3.text.toString().equals("") || v.txt_num_like3.text.toString().equals("0")){
                 num = 0
             }else{

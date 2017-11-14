@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/comment_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:clickable="true"
-    android:foreground="?attr/selectableItemBackground"
-    >
+    android:foreground="?attr/selectableItemBackground">
 
     <LinearLayout
         android:id="@+id/comment_item1"
@@ -20,9 +18,12 @@
 
 
         <RelativeLayout
+            android:id="@+id/comment_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/dist_medium">
+            android:paddingLeft="@dimen/dist_medium"
+            android:paddingRight="@dimen/dist_medium"
+           >
 
             <sega.fastnetwork.test.customview.CircleImageView
                 android:id="@+id/commentpic"
@@ -38,6 +39,7 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="@dimen/product_compact_text_margin"
                 android:layout_marginStart="@dimen/product_compact_text_margin"
                 android:layout_toEndOf="@+id/commentpic"
@@ -54,28 +56,14 @@
                         android:id="@+id/commentname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@+id/txt_num_like"
+
                         android:maxLines="1"
                         android:textColor="@color/black"
 
 
                         tools:text="My Awesome product Title 1" />
-                    <TextView
-                        android:id="@+id/txt_num_like"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toLeftOf="@id/img_like"
-                        android:layout_centerVertical="true"
-                        />
-                    <ImageView
-                        android:id="@+id/img_like"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/icon_like"/>
+
+
 
 
                 </RelativeLayout>
@@ -93,48 +81,119 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
-                        tools:text="Ho Hoang Linhh"
-                        android:visibility="gone"/>
+                        android:visibility="gone"
+                        tools:text="Ho Hoang Linhh" />
+
                     <TextView
                         android:id="@+id/commentdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_small"
-                        tools:text="Nov 20, 6:20 AM"
-                        />
+                        tools:text="Nov 20, 6:20 AM" />
                     <!--<TextView-->
-                        <!--android:id="@+id/number_like"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textSize="@dimen/text_small"-->
-                        <!--android:paddingRight="5dp"-->
-                        <!--android:layout_toLeftOf="@+id/btn_like"-->
-                        <!--tools:text="20" />-->
+                    <!--android:id="@+id/number_like"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textSize="@dimen/text_small"-->
+                    <!--android:paddingRight="5dp"-->
+                    <!--android:layout_toLeftOf="@+id/btn_like"-->
+                    <!--tools:text="20" />-->
                     <!--<ImageButton-->
-                        <!--android:id="@+id/btn_like"-->
-                        <!--android:layout_width="15dp"-->
-                        <!--android:layout_height="15dp"-->
-                        <!--android:background="@drawable/about_icon_facebook"-->
-                        <!--android:layout_alignParentEnd="true"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:layout_alignParentTop="true" />-->
+                    <!--android:id="@+id/btn_like"-->
+                    <!--android:layout_width="15dp"-->
+                    <!--android:layout_height="15dp"-->
+                    <!--android:background="@drawable/about_icon_facebook"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_alignParentTop="true" />-->
 
                 </RelativeLayout>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_below="@id/linearLayout"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent">
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="@color/divider_color">
+                    </View>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                  >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/comment_icon"/>
+                        <TextView
+                            android:id="@+id/commentdata"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="10dp"
+                            android:paddingBottom="7dp"
+
+                            tools:text="My Awesome product Title 1" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="30dp">
+                        <ImageView
+                            android:id="@+id/img_like"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/icon_like" />
+                        <TextView
+                            android:id="@+id/txt_num_like"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="20"
+                            android:textSize="15dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            />
+
+
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/line"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:background="@color/divider_color">
+
+                    </View>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/commentdata"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:paddingBottom="7dp"
-            android:paddingLeft="69dp"
-            android:textColor="@color/black"
 
-            tools:text="My Awesome product Title 1" />
 
     </LinearLayout>
 
