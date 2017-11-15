@@ -1,6 +1,12 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
@@ -12,12 +18,12 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -26,10 +32,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+    lintOptions {
+        disable 'ValidFragment'
+        checkReleaseBuilds false
+    }
     dataBinding {
         enabled = true
     }
 }
+
 buildscript {
     repositories {
         mavenCentral()
@@ -63,6 +79,9 @@ dependencies {
     }
     compile('com.sothree.slidinguppanel:library:3.3.1') {
         exclude group: 'com.android.support', module: 'support-v4'
+    }
+    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+        transitive = true;
     }
     compile 'com.heinrichreimersoftware:material-intro:1.6.2'
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'

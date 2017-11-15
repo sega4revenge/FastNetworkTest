@@ -27,7 +27,7 @@
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
     <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/slasp_screen</item>
+        <item name="android:windowBackground">@drawable/slaspscreen</item>
     </style>
     <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
 

@@ -6,17 +6,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.crashlytics.android.Crashlytics
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import io.fabric.sdk.android.Fabric
 import io.socket.client.Socket
 import kotlinx.android.synthetic.main.activity_main.*
 import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.DrawerFragment
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
-
-
 
 
 /**
@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
+        Fabric.with(this, Crashlytics())
 
         setContentView(R.layout.activity_main)
 
