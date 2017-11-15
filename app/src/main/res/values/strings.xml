@@ -239,5 +239,6 @@
     <string name="err_invalidcode">Invalid code!</string>
     <string name="err_timeout">Time out! Please try again !</string>
     <string name="err_phonealready">Phone number already registered !</string>
+    <string name="txt_signinwith">Sign in with </string>
 
 </resources>

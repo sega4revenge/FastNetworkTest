@@ -2,9 +2,12 @@ package sega.fastnetwork.test.activity
 
 
 import android.app.Fragment
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.util.Base64
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.google.android.gms.maps.GoogleMap
@@ -17,6 +20,8 @@ import sega.fastnetwork.test.R
 import sega.fastnetwork.test.fragment.DrawerFragment
 import sega.fastnetwork.test.manager.AppManager
 import sega.fastnetwork.test.model.User
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 /**
@@ -37,6 +42,24 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Fabric.with(this, Crashlytics())
 
         setContentView(R.layout.activity_main)
+        val info: PackageInfo
+        try {
+            info = packageManager.getPackageInfo("sega.fastnetwork.test", PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                val md: MessageDigest
+                md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val something = String(Base64.encode(md.digest(), 0))
+                //String something = new String(Base64.encodeBytes(md.digest()));
+                Log.e("hash key", something)
+            }
+        } catch (e1: PackageManager.NameNotFoundException) {
+            Log.e("name not found", e1.toString())
+        } catch (e: NoSuchAlgorithmException) {
+            Log.e("no such an algorithm", e.toString())
+        } catch (e: Exception) {
+            Log.e("exception", e.toString())
+        }
 
 //       var prefManager = PrefManager(this)
 //        if(!prefManager.isFirstTimeLaunch())
