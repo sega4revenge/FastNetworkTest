@@ -500,6 +500,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         intent.putExtra(Constants.product_NAME, product!!.productname)
         intent.putExtra(Constants.seller_name, product!!.user!!.name)
         startActivityForResult(intent,105)
+        activity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
     }
 
 

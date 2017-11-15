@@ -131,6 +131,7 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
         }
         back_button.setOnClickListener {
             activity.finish()
+            activity.overridePendingTransition(0,R.anim.fade_out)
         }
 
     }

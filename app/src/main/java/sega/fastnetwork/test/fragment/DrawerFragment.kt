@@ -755,6 +755,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             R.id.nav_4 -> {
                 val intent = Intent((activity as AppCompatActivity), AboutUsActivity::class.java)
                 startActivity(intent)
+                activity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
                 activity.finish()
             }
             R.id.nav_5 -> {

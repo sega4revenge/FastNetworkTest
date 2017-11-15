@@ -53,6 +53,7 @@ class AboutUsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this@AboutUsActivity, MainActivity::class.java)
         startActivity(intent)
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
         finish()
         super.onBackPressed()
     }
@@ -62,6 +63,7 @@ class AboutUsActivity : AppCompatActivity() {
         if (ids == android.R.id.home) {
             val intent = Intent(this@AboutUsActivity, MainActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
             finish()
          //   super.onBackPressed()
         }
