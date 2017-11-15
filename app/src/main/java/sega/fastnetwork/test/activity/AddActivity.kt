@@ -293,10 +293,10 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         mTimeRemain = 0.0
         mPercent = 0
         mRemoteView = RemoteViews(packageName, R.layout.notification_upload)
-        mRemoteView!!.setImageViewResource(R.id.image, R.drawable.logo_fn)
+        mRemoteView!!.setImageViewResource(R.id.image, R.drawable.logo_final2)
         mRemoteView!!.setTextViewText(R.id.title, getString(R.string.uploading, temp + 1, uriList!!.size))
         val mBuilder = NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.logo_fn)
+                .setSmallIcon(R.drawable.logo_final2)
                 .setContent(mRemoteView)
         val notification = mBuilder.build()
         notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL
@@ -404,6 +404,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                             mRemoteView!!.setProgressBar(R.id.progressbarupload, 0, 0, false)
                             mRemoteView!!.setTextViewText(R.id.title, getString(R.string.up_success))
                             mRemoteView!!.setTextViewText(R.id.timeremain, getString(R.string.uploaded_title, temp, uriList!!.size))
+                            mRemoteView!!.setViewVisibility(R.id.progressbarupload,View.GONE)
                             FirebaseMessaging.getInstance().subscribeToTopic(productid)
                             mNotificationManager?.cancel(1)
                             mNotificationManager?.notify(1, notification)

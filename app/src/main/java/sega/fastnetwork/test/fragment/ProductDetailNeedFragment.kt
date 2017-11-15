@@ -248,10 +248,10 @@ class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDeta
         mProductDetailPresenter = ProductDetailPresenter(this)
         mCommentPresenter = CommentPresenter(this)
         //========================refresh comment======================
-        v.refresh_comment.setOnClickListener{
-            doubleClick = true
-            mCommentPresenter!!.refreshcomment(id)
-        }
+//        v.refresh_comment.setOnClickListener{
+//            doubleClick = true
+//            mCommentPresenter!!.refreshcomment(id)
+//        }
 //=============================see all comment=======================
 
         //=============================add comment=======================
