@@ -632,6 +632,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         product_date.text = timeAgo(product!!.created_at.toString())
         product_view.text = product!!.view.toString() +" "+ getString(R.string.view)
         println(product!!._id)
+        Log.e("status",product?.status)
+        if(product?.status == "1"){
+            edt_rented.visibility = View.VISIBLE
+        }
         if (product!!.status == "1")
             Log.e("time: ", product!!.time)
         when (product!!.time) {

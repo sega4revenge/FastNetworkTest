@@ -20,6 +20,24 @@
             custom:pager_animation_span="1100">
 
         </sega.fastnetwork.test.lib.SliderTypes.SliderLayout>
+        <LinearLayout
+            android:id="@+id/edt_rented"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@color/blur"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+            <sega.fastnetwork.test.view.RobotoRegularTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="Đã được cho thuê"
+                android:textSize="30sp"
+                android:padding="10dp"/>
+        </LinearLayout>
+
       <!--  <TextView
             android:id="@+id/product_name"
             android:layout_width="match_parent"
