@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<sega.fastnetwork.test.lib.imagepicker.view.TedSquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<finger.thuetot.vn.lib.imagepicker.view.TedSquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
@@ -11,7 +11,7 @@
 
     >
 
-    <sega.fastnetwork.test.lib.imagepicker.view.TedSquareImageView
+    <finger.thuetot.vn.lib.imagepicker.view.TedSquareImageView
         android:id="@+id/iv_thumbnail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,4 +21,4 @@
         />
 
 
-</sega.fastnetwork.test.lib.imagepicker.view.TedSquareFrameLayout>
+</finger.thuetot.vn.lib.imagepicker.view.TedSquareFrameLayout>

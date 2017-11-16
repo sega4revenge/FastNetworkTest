@@ -103,14 +103,14 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:layout_below="@+id/product_user_address">
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/head1"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:visibility="gone"
             />
 
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/head2"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -118,7 +118,7 @@
             android:visibility="gone"
             />
 
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/head3"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -126,14 +126,14 @@
             android:visibility="gone"
             />
 
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/head4"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginLeft="-10dp"
             android:visibility="gone"
             />
-        <sega.fastnetwork.test.customview.CircularTextView
+        <finger.thuetot.vn.customview.CircularTextView
             android:id="@+id/head5"
             android:layout_width="30dp"
             android:textColor="@color/white"
@@ -398,7 +398,7 @@
         android:layout_margin="20dp"
         android:orientation="horizontal">
 
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/productdetail_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"

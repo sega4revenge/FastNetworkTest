@@ -4,6 +4,6 @@
     android:id="@+id/comment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sega.fastnetwork.test.activity.CommentActivity">
+    tools:context="finger.thuetot.vn.activity.CommentActivity">
 
 </FrameLayout>

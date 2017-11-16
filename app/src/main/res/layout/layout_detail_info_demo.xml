@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<sega.fastnetwork.test.lib.ShimmerRecycleView.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<finger.thuetot.vn.lib.ShimmerRecycleView.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/shimmer_layout"
     android:layout_width="match_parent"
@@ -372,7 +372,7 @@
         android:layout_margin="20dp"
         android:orientation="horizontal">
 
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/productdetail_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -508,4 +508,4 @@
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
-</sega.fastnetwork.test.lib.ShimmerRecycleView.ShimmerLayout>
+</finger.thuetot.vn.lib.ShimmerRecycleView.ShimmerLayout>

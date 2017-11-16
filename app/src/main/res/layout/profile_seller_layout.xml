@@ -262,7 +262,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <sega.fastnetwork.test.customview.CircleImageView
+                        <finger.thuetot.vn.customview.CircleImageView
                             android:id="@+id/imgAvatar"
                             android:layout_width="75dp"
                             android:layout_height="75dp"

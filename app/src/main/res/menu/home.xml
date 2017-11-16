@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="sega.fastnetwork.test.activity.HomeActivity">
+    tools:context="finger.thuetot.vn.activity.HomeActivity">
     <item
         android:id="@+id/action_example"
         app:showAsAction="withText|ifRoom"

@@ -235,4 +235,5 @@
     <string name="err_invalidcode">Mã code không đúng!</string>
     <string name="err_timeout">Hết thời gian! Vui lòng thử lại !</string>
     <string name="err_phonealready">Số điện thoại đã tồn tại !</string>
+    <string name="txt_signinwith">Đăng nhập với </string>
 </resources>

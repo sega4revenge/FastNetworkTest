@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@id/imgback">
-                    <sega.fastnetwork.test.customview.CircleImageView
+                    <finger.thuetot.vn.customview.CircleImageView
                         android:id="@+id/imgAva"
                         android:layout_width="45dp"
                         android:layout_height="45dp"

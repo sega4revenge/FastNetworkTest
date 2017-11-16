@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_backdrop_height">
 
-        <sega.fastnetwork.test.lib.SliderTypes.SliderLayout
+        <finger.thuetot.vn.lib.SliderTypes.SliderLayout
             android:id="@+id/slider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/detail_backdrop_height"
@@ -19,7 +19,7 @@
             custom:pager_animation="Accordion"
             custom:pager_animation_span="1100">
 
-        </sega.fastnetwork.test.lib.SliderTypes.SliderLayout>
+        </finger.thuetot.vn.lib.SliderTypes.SliderLayout>
         <LinearLayout
             android:id="@+id/edt_rented"
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
             android:background="@color/blur"
             android:layout_centerInParent="true"
             android:orientation="vertical">
-            <sega.fastnetwork.test.view.RobotoRegularTextView
+            <finger.thuetot.vn.view.RobotoRegularTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

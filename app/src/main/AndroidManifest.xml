@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="sega.fastnetwork.test">
+    package="finger.thuetot.vn">
 
-    <uses-permission
-        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
-        android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission
-        android:name="android.permission.MANAGE_ACCOUNTS"
-        android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,38 +14,36 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission
-        android:name="android.permission.VIBRATE"
-        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <supports-screens
         android:largeScreens="true"
         android:xlargeScreens="true" />
 
     <application
-        android:name=".MyApplication"
+        android:name="finger.thuetot.vn.MyApplication"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@drawable/logo_final2"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/logo_final2"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true"
-        >
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="finger.thuetot.vn.activity.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
 
         </activity>
         <activity
-            android:name=".activity.Fullscreen"
+            android:name="finger.thuetot.vn.activity.Fullscreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
 
         </activity>
+
         <service
-            android:name=".service.AuthenticationService"
-            android:exported="true">
+            android:name="finger.thuetot.vn.service.AuthenticationService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -59,14 +53,17 @@
                 android:resource="@xml/authenticator" />
         </service>
         <service
-            android:name=".service.LocationService"
-            android:exported="true"
+            android:name="finger.thuetot.vn.service.LocationService"
+            android:exported="false"
             android:stopWithTask="true">
             <intent-filter>
                 <action android:name="sega.fastnetwork.test.service.LocationService" />
             </intent-filter>
         </service>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d1d1b70c633bdc569a426196f89166e675829623" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -80,20 +77,18 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="finger.thuetot.vn.activity.RegisterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
-        //=========================================================================
 
-        //==========================================================================
         <service
-            android:name=".service.FirebaseMessagingService"
+            android:name="finger.thuetot.vn.service.FirebaseMessagingService"
             android:permission="exported">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".service.FirebaseInstanceIDService"
+            android:name="finger.thuetot.vn.service.FirebaseInstanceIDService"
             android:permission="exported">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -110,32 +105,17 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <!--
-        <activity android:name=".lib.imagepicker.MainActivity">
-        </activity>
-        -->
-
-        <activity android:name=".activity.AddActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".activity.EditProductActivity" />
+        <activity android:name="finger.thuetot.vn.activity.AddActivity" />
+        <activity android:name="finger.thuetot.vn.activity.EditProductActivity" />
+        <activity android:name="finger.thuetot.vn.activity.SearchActivity" />
         <activity
-            android:name=".activity.SearchActivity"
-             />
-        <activity android:name=".activity.AboutUsActivity"
-            android:theme="@style/Theme.AppCompat.Light.ActionBar.FullScreen"
- />
+            android:name="finger.thuetot.vn.activity.AboutUsActivity"
+            android:theme="@style/Theme.AppCompat.Light.ActionBar.FullScreen" />
         <activity
 
-            android:name=".activity.MainActivity"
+            android:name="finger.thuetot.vn.activity.AppIntroActivity"
             android:label="@string/app_name"
-            android:theme="@style/SplashTheme" >
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -143,7 +123,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ProductDetailActivity"
+            android:name="finger.thuetot.vn.activity.ProductDetailActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
@@ -163,12 +143,13 @@
                     android:host="45.77.36.109"
                     android:pathPrefix="/api/v1/link"
                     android:scheme="http" />
-                <data android:scheme="45.77.36.109"
-                    android:host="/api/v1/link" />
+                <data
+                    android:host="/api/v1/link"
+                    android:scheme="45.77.36.109" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ProductDetailNeedActivity"
+            android:name="finger.thuetot.vn.activity.ProductDetailNeedActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
             <intent-filter>
@@ -187,26 +168,20 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ForgotPassword">
+        <activity android:name="finger.thuetot.vn.activity.ForgotPassword">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".activity.AppIntroActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
-        <activity android:name=".activity.ChatActivity"
-           />
-
-        <activity android:name=".activity.CommentActivity" />
-        <activity android:name=".activity.DetailNeedProductActivity" />
-        <activity android:name=".activity.ChangePasswordActivity" />
         <activity
-            android:name=".activity.DetailProfileActivity"
-            android:label="@string/title_activity_detail_profile_"></activity>
+            android:name="finger.thuetot.vn.activity.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity android:name="finger.thuetot.vn.activity.ChatActivity" />
+
+        <activity android:name="finger.thuetot.vn.activity.CommentActivity" />
+        <activity android:name="finger.thuetot.vn.activity.DetailNeedProductActivity" />
+        <activity android:name="finger.thuetot.vn.activity.ChangePasswordActivity" />
+        <activity
+            android:name="finger.thuetot.vn.activity.DetailProfileActivity"
+           />
     </application>
 
 </manifest>

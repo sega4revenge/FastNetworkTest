@@ -16,7 +16,7 @@
         android:background="@drawable/ripple_chip_view">
 
         <!-- avatar -->
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/icon"
             android:layout_width="32dp"
             android:layout_height="32dp"

@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:background="#eeeeee"
             android:orientation="vertical">
-            <sega.fastnetwork.test.lib.imagepicker.showpicker.ImageShowPickerView
+            <finger.thuetot.vn.lib.imagepicker.showpicker.ImageShowPickerView
                 android:id="@+id/add_picker_view"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
@@ -219,7 +219,7 @@
                                     android:layout_marginLeft="20dp"
                                     android:text="@string/txt_time" />
 
-                                <sega.fastnetwork.test.lib.MaterialSpinner.MaterialSpinner
+                                <finger.thuetot.vn.lib.MaterialSpinner.MaterialSpinner
                                     android:id="@+id/time"
                                     android:layout_width="match_parent"
                                     android:layout_height="40dp"
@@ -286,7 +286,7 @@
                                     android:layout_marginLeft="20dp"
                                     android:text="@string/txt_cate" />
 
-                                <sega.fastnetwork.test.lib.MaterialSpinner.MaterialSpinner
+                                <finger.thuetot.vn.lib.MaterialSpinner.MaterialSpinner
                                     android:id="@+id/category"
                                     android:layout_width="match_parent"
                                     android:layout_height="40dp"

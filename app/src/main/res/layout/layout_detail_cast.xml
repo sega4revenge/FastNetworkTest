@@ -167,7 +167,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:orientation="horizontal">
-                <sega.fastnetwork.test.customview.CircleImageView
+                <finger.thuetot.vn.customview.CircleImageView
                     android:id="@+id/userimage1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -478,7 +478,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:orientation="horizontal">
-            <sega.fastnetwork.test.customview.CircleImageView
+            <finger.thuetot.vn.customview.CircleImageView
                 android:id="@+id/userimage2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -870,7 +870,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:orientation="horizontal">
-            <sega.fastnetwork.test.customview.CircleImageView
+            <finger.thuetot.vn.customview.CircleImageView
                 android:id="@+id/userimage3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

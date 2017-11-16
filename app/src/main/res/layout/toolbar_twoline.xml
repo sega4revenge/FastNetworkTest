@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerInParent="true">
-        <sega.fastnetwork.test.view.RobotoRegularTextView
+        <finger.thuetot.vn.view.RobotoRegularTextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
             android:ellipsize="end"
             tools:text="Movie Name" />
 
-        <sega.fastnetwork.test.view.RobotoLightTextView
+        <finger.thuetot.vn.view.RobotoLightTextView
             android:id="@+id/toolbar_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
