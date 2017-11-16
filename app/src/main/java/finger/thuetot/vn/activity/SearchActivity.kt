@@ -26,8 +26,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.layout_error_message.*
-import kotlinx.android.synthetic.main.searchmain_layout.*
 import finger.thuetot.vn.MyApplication
 import finger.thuetot.vn.R
 import finger.thuetot.vn.adapter.ProductAdapter
@@ -37,6 +35,8 @@ import finger.thuetot.vn.model.Product
 import finger.thuetot.vn.presenter.SearchPresenterImp
 import finger.thuetot.vn.service.LocationService
 import finger.thuetot.vn.util.Constants
+import kotlinx.android.synthetic.main.layout_error_message.*
+import kotlinx.android.synthetic.main.searchmain_layout.*
 
 
 /**
@@ -195,8 +195,16 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         }
 
 
-                        override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
+                        override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) {
+                            try{
                                 Toast.makeText(this@SearchActivity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+                            }
+                            catch (e : Exception){
+                                Log.e("error",e.toString())
+                            }
+                        }
+
 
 
                     }
