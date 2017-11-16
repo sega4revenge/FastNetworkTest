@@ -30,15 +30,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.messaging.FirebaseMessaging
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.content_product_detail.*
-import kotlinx.android.synthetic.main.fragment_product_detail.*
-import kotlinx.android.synthetic.main.fragment_product_detail.view.*
-import kotlinx.android.synthetic.main.layout_detail_backdrop.*
-import kotlinx.android.synthetic.main.layout_detail_cast.*
-import kotlinx.android.synthetic.main.layout_detail_cast.view.*
-import kotlinx.android.synthetic.main.layout_detail_info.*
-import kotlinx.android.synthetic.main.layout_detail_info.view.*
-import kotlinx.android.synthetic.main.layout_error_message.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.ChatActivity
 import finger.thuetot.vn.activity.CommentActivity
@@ -57,6 +48,15 @@ import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.CommentPresenter
 import finger.thuetot.vn.presenter.ProductDetailPresenter
 import finger.thuetot.vn.util.Constants
+import kotlinx.android.synthetic.main.content_product_detail.*
+import kotlinx.android.synthetic.main.fragment_product_detail.*
+import kotlinx.android.synthetic.main.fragment_product_detail.view.*
+import kotlinx.android.synthetic.main.layout_detail_backdrop.*
+import kotlinx.android.synthetic.main.layout_detail_cast.*
+import kotlinx.android.synthetic.main.layout_detail_cast.view.*
+import kotlinx.android.synthetic.main.layout_detail_info.*
+import kotlinx.android.synthetic.main.layout_detail_info.view.*
+import kotlinx.android.synthetic.main.layout_error_message.view.*
 import java.text.DecimalFormat
 import java.util.*
 
@@ -1043,44 +1043,50 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
     // FAB related functions
     fun map() {
-        val permissionlistener = object : PermissionListener, OnMapReadyCallback {
-            @SuppressLint("MissingPermission")
-            override fun onMapReady(map: GoogleMap?) {
+        try{
+            val permissionlistener = object : PermissionListener, OnMapReadyCallback {
+                @SuppressLint("MissingPermission")
+                override fun onMapReady(map: GoogleMap?) {
 
-                change_map.background = resources.getDrawable(R.drawable.photo_camera)
-                slider.visibility = View.GONE
-                mMap = map
-                mMap!!.isMyLocationEnabled = true
+                    change_map.background = resources.getDrawable(R.drawable.photo_camera)
+                    slider.visibility = View.GONE
+                    mMap = map
+                    mMap!!.isMyLocationEnabled = true
 
-                // For dropping a marker at a point on the Map
-                val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
-                Log.e("sydney: ", sydney.toString())
-                mMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address)).showInfoWindow()
+                    // For dropping a marker at a point on the Map
+                    val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
+                    Log.e("sydney: ", sydney.toString())
+                    mMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address)).showInfoWindow()
 
-                // For zooming automatically to the location of the marker
-                val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
-                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 17.0f))
+                    // For zooming automatically to the location of the marker
+                    val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
+                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 17.0f))
 //                            mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
+                }
+
+                override fun onPermissionGranted() {
+                    val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
+                    mapView_location.getMapAsync(
+                            this)
+                }
+
+
+                override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
+                        Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+
             }
-
-            override fun onPermissionGranted() {
-                val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
-                mapView_location.getMapAsync(
-                        this)
-            }
-
-
-            override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
-                    Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
-
-
+            TedPermission.with(activity)
+                    .setPermissionListener(permissionlistener)
+                    .setDeniedMessage(getString(R.string.per_turnon))
+                    .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                    .check()
         }
-        TedPermission.with(activity)
-                .setPermissionListener(permissionlistener)
-                .setDeniedMessage(getString(R.string.per_turnon))
-                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                .check()
+        catch (e : Exception){
+            Log.e("Error: ",e.toString())
+        }
+
     }
 
     override fun onDestroy() {
