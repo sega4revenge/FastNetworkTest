@@ -21,7 +21,7 @@
         android:clickable="true">
 
         <!-- avatar icon -->
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/avatar_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"

@@ -105,7 +105,7 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 
-    <sega.fastnetwork.test.customview.CircleImageView
+    <finger.thuetot.vn.customview.CircleImageView
         android:id="@+id/avatar"
         android:layout_width="@dimen/image_width"
         android:layout_height="@dimen/image_width"

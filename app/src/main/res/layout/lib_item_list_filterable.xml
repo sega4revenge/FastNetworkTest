@@ -8,7 +8,7 @@
     android:foreground="?attr/selectableItemBackground">
 
     <!-- avatar -->
-    <sega.fastnetwork.test.customview.CircleImageView
+    <finger.thuetot.vn.customview.CircleImageView
         android:id="@+id/avatar"
         android:layout_width="40dp"
         android:layout_height="40dp"

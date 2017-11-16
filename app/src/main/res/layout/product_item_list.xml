@@ -57,7 +57,7 @@
         </RelativeLayout>
 
         <!-- product title and rating -->
-        <sega.fastnetwork.test.view.RobotoLightTextView
+        <finger.thuetot.vn.view.RobotoLightTextView
             android:id="@+id/product_name_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,14 +91,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <sega.fastnetwork.test.view.RobotoLightTextView
+                <finger.thuetot.vn.view.RobotoLightTextView
                     android:id="@+id/username_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_medium"
                     tools:text="2015" />
 
-                <sega.fastnetwork.test.view.RobotoLightTextView
+                <finger.thuetot.vn.view.RobotoLightTextView
                     android:id="@+id/product_rating_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                     android:layout_toRightOf="@+id/product_rating_list"/>
             </RelativeLayout>
 
-            <sega.fastnetwork.test.view.RobotoLightTextView
+            <finger.thuetot.vn.view.RobotoLightTextView
                 android:id="@+id/product_description_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -144,7 +144,7 @@
             android:layout_toRightOf="@+id/product_poster_holder_list">
 
 
-            <sega.fastnetwork.test.view.RobotoLightTextView
+            <finger.thuetot.vn.view.RobotoLightTextView
                 android:id="@+id/productdate_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

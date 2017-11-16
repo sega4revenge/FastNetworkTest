@@ -6,7 +6,7 @@
     android:layout_marginRight="7dp"
               android:gravity="left|center_vertical">
 
-    <sega.fastnetwork.test.view.RobotoBoldTextView
+    <finger.thuetot.vn.view.RobotoBoldTextView
         style="@style/ProductSeeAllTextStyle" />
 
     <ImageView

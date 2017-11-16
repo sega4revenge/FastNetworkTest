@@ -14,7 +14,7 @@
         android:gravity="center_vertical"
         >
 
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/avatar_header"
             android:layout_width="65dp"
             android:layout_height="65dp"
@@ -38,7 +38,7 @@
                 android:textSize="18sp"
                 />
 
-            <sega.fastnetwork.test.view.RobotoLightTextView
+            <finger.thuetot.vn.view.RobotoLightTextView
                 android:id="@+id/email_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

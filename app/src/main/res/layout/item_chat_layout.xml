@@ -15,7 +15,7 @@
         android:layout_marginBottom="5dp"
         android:layout_margin="5dp">
 
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/imgAvatarTo"
             android:layout_width="45dp"
             android:layout_height="45dp"
@@ -177,7 +177,7 @@
 
             </LinearLayout>
         </RelativeLayout>
-        <sega.fastnetwork.test.customview.CircleImageView
+        <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/imgAvatarFrom"
             android:layout_width="45dp"
             android:layout_height="45dp"

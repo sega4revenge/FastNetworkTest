@@ -66,7 +66,7 @@
                 android:textColor="@color/actionBarColor"
                 android:textSize="15sp" />
 
-            <sega.fastnetwork.test.lib.MaterialChips.ChipsInput
+            <finger.thuetot.vn.lib.MaterialChips.ChipsInput
                 android:id="@+id/chips_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -95,7 +95,7 @@
                 android:textColor="@color/actionBarColor"
                 android:textSize="15sp" />
 
-            <sega.fastnetwork.test.lib.MaterialChips.ChipsInput
+            <finger.thuetot.vn.lib.MaterialChips.ChipsInput
                 android:id="@+id/chips_input_category"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

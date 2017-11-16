@@ -21,7 +21,7 @@
         android:layout_above="@+id/writelayout">
 
     </android.support.v7.widget.RecyclerView>
-    <sega.fastnetwork.test.view.RobotoBoldTextView
+    <finger.thuetot.vn.view.RobotoBoldTextView
         android:id="@+id/no_cmt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

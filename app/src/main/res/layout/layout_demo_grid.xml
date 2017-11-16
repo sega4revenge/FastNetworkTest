@@ -139,7 +139,7 @@ limitations under the License.
     </LinearLayout>
 
 </LinearLayout>-->
-<sega.fastnetwork.test.lib.ShimmerRecycleView.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<finger.thuetot.vn.lib.ShimmerRecycleView.ShimmerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/shimmer_layout"
     android:layout_width="match_parent"
@@ -235,7 +235,7 @@ limitations under the License.
                         android:gravity="right"
                         android:orientation="horizontal">
 
-                        <sega.fastnetwork.test.view.RobotoLightTextView
+                        <finger.thuetot.vn.view.RobotoLightTextView
                             android:layout_width="30dp"
                             android:layout_height="13dp"
                             android:layout_marginRight="5dp"
@@ -263,13 +263,13 @@ limitations under the License.
                         android:layout_toLeftOf="@+id/userpostlayout"
                         android:orientation="horizontal">
 
-                        <sega.fastnetwork.test.view.RobotoLightTextView
+                        <finger.thuetot.vn.view.RobotoLightTextView
                             android:layout_width="45dp"
                             android:layout_height="16sp"
                             android:alpha="0.1"
                             android:background="@color/shimmer_background_color" />
 
-                        <sega.fastnetwork.test.view.RobotoLightTextView
+                        <finger.thuetot.vn.view.RobotoLightTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
@@ -277,7 +277,7 @@ limitations under the License.
                             android:text="   |   "
                             android:textSize="@dimen/text_small" />
 
-                        <sega.fastnetwork.test.view.RobotoLightTextView
+                        <finger.thuetot.vn.view.RobotoLightTextView
                             android:layout_width="200dp"
                             android:layout_height="16sp"
                             android:alpha="0.1"
@@ -291,4 +291,4 @@ limitations under the License.
         </RelativeLayout>
 
     </LinearLayout>
-</sega.fastnetwork.test.lib.ShimmerRecycleView.ShimmerLayout>
+</finger.thuetot.vn.lib.ShimmerRecycleView.ShimmerLayout>

@@ -78,7 +78,7 @@
                                     android:layout_width="80dp"
                                     android:layout_height="80dp">
 
-                                    <sega.fastnetwork.test.customview.CircleImageView
+                                    <finger.thuetot.vn.customview.CircleImageView
                                         android:id="@+id/imgAvatar"
                                         android:layout_width="80dp"
                                         android:layout_height="80dp"
@@ -658,7 +658,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerInParent="true">
 
-                        <sega.fastnetwork.test.view.RobotoLightTextView
+                        <finger.thuetot.vn.view.RobotoLightTextView
                             android:id="@+id/toolbar_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

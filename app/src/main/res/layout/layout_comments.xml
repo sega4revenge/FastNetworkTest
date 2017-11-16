@@ -25,7 +25,7 @@
             android:paddingRight="@dimen/dist_medium"
            >
 
-            <sega.fastnetwork.test.customview.CircleImageView
+            <finger.thuetot.vn.customview.CircleImageView
                 android:id="@+id/commentpic"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

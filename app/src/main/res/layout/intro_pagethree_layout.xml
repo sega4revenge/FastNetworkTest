@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/toolbar">
-    <sega.fastnetwork.test.view.RobotoBoldTextView
+    <finger.thuetot.vn.view.RobotoBoldTextView
         android:id="@+id/title_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         >
-        <sega.fastnetwork.test.view.RobotoRegularTextView
+        <finger.thuetot.vn.view.RobotoRegularTextView
             android:id="@+id/detail_intro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

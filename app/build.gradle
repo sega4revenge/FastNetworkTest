@@ -19,7 +19,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
     defaultConfig {
-        applicationId "sega.fastnetwork.test"
+        applicationId "finger.thuetot.vn"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -44,10 +44,7 @@ android {
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
     }
-    lintOptions {
-        disable 'ValidFragment'
-        checkReleaseBuilds false
-    }
+
     dataBinding {
         enabled = true
     }
