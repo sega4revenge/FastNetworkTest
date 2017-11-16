@@ -54,8 +54,9 @@
     <string name="btn_signin">Đăng nhập</string>
     <string name="btn_join">Đăng ký</string>
     <string name="btn_forgot">Quên mật khẩu</string>
-    <string name="btn_signup">Bạn chưa có tài khoản?</string>
-    <string name="btn_backtologin">Bạn đã có tài khoản</string>
+    <string name="btn_signup">Không có tài khoản ? </string>
+    <string name="btn_signup_click">NHẤN VÀO ĐÂY</string>
+    <string name="btn_backtologin">Bạn đã có tài khoản ? NHẤN VÀO ĐÂY</string>
     <string name="hint_name">Tên</string>
     <string name="hint_email">Email</string>
     <string name="hint_repassword">Nhập lại mật khẩu</string>

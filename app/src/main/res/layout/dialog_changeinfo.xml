@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Enter new name"
+        android:text="@string/txt_newname"
         android:layout_gravity="center_horizontal"
         />
     <EditText
@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="Enter new phone number"
+        android:text="@string/txt_newphone"
         android:layout_gravity="center_horizontal"
         />
     <EditText
@@ -104,14 +104,14 @@
         android:layout_height="40dp"
         android:background="@drawable/roundbutton"
         android:textAllCaps="false"
-        android:text="Accept"
+        android:text="@string/btn_accept"
         android:textColor="@color/white"/>
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="10sp"
-        android:text="OR"
+        android:text="@string/txt_or"
         android:layout_marginTop="5dp"
         android:layout_gravity="center_horizontal"/>
     <Button
@@ -122,7 +122,7 @@
         android:layout_gravity="center_horizontal"
         android:background="@drawable/roundbutton_cancel"
         android:textAllCaps="false"
-        android:text="Cancel"
+        android:text="@string/btn_cancel"
         android:textColor="@color/white"
         android:layout_marginBottom="40dp"/>
 

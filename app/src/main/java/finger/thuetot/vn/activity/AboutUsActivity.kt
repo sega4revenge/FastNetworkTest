@@ -25,7 +25,7 @@ class AboutUsActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0F
         supportActionBar?.setDisplayShowCustomEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        val v = LayoutInflater.from(this).inflate(R.layout.toolbar,null)
+        val v = LayoutInflater.from(this).inflate(R.layout.toolbar, null)
         v.toolbar_title.text = getString(R.string.nav_about)
         supportActionBar?.customView = v
         val aboutPage = AboutPage(this)
@@ -34,7 +34,7 @@ class AboutUsActivity : AppCompatActivity() {
                 .addItem(Element().setTitle("Version 1.0"))
                 //                .addItem(adsElement)
                 .addGroup("Connect with us")
-                .addEmail("hhl190295@gmail.com")
+                .addEmail("thuetot.vn@gmail.com")
                 .addFacebook("thuetot.vn")
                 .addPlayStore("finger.thuetot.vn")
                 .addWebsite("http://thuetot.vn/")
@@ -53,7 +53,7 @@ class AboutUsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this@AboutUsActivity, MainActivity::class.java)
         startActivity(intent)
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         finish()
         super.onBackPressed()
     }
@@ -63,9 +63,9 @@ class AboutUsActivity : AppCompatActivity() {
         if (ids == android.R.id.home) {
             val intent = Intent(this@AboutUsActivity, MainActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             finish()
-         //   super.onBackPressed()
+            //   super.onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }

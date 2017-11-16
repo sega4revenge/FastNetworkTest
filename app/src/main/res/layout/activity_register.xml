@@ -222,5 +222,5 @@
         android:text="@string/btn_backtologin"
         android:textStyle="bold"
         android:textAllCaps="false"
-        android:textColor="@color/btn_color_login" />
+        android:textColor="@color/white" />
 </RelativeLayout>

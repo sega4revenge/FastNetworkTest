@@ -8,18 +8,25 @@ repositories {
 }
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'thuetot'
+            keyPassword '07081994'
+            storeFile file('E:/OneDrive/Documents/thuetot.jks')
+            storePassword '07081994'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.2"
-
     defaultConfig {
         applicationId "finger.thuetot.vn"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
@@ -40,6 +47,8 @@ android {
 
     dataBinding {
         enabled = true
+    }
+    productFlavors {
     }
 }
 
@@ -65,7 +74,7 @@ allprojects {
     }
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:support-v4:$support_version"
     compile "com.android.support:design:$support_version"
@@ -98,7 +107,6 @@ dependencies {
     compile 'com.github.medyo:android-about-page:1.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
-
 }
 
 apply plugin: 'com.google.gms.google-services'

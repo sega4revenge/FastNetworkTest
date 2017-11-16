@@ -54,8 +54,9 @@
     <string name="btn_signin">Sign in</string>
     <string name="btn_join">Sign up</string>
     <string name="btn_forgot">Forgot password</string>
-    <string name="btn_signup">Do not have account ?</string>
-    <string name="btn_backtologin">Already have account ?</string>
+    <string name="btn_signup">Don\'t have account ?</string>
+    <string name="btn_signup_click">CLICK HERE</string>
+    <string name="btn_backtologin">Already have account ? CLICK HERE</string>
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_repassword">Re-password</string>
