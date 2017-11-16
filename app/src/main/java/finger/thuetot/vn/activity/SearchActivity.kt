@@ -131,7 +131,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                                         .icon(iconpick)
                                         .title(getString(R.string.location)))
                                 mMap!!.addMarker(MarkerOptions().position(myLocation!!).title("Me"))
-                                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17.0f))
+                                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.5f))
                                 val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
 
                                 circle = mMap!!.addCircle(circleOptions)
@@ -154,44 +154,48 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         }
 
                         override fun onPermissionGranted() {
-                            val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-                            mapFragment.getMapAsync(this)
-                          //  Toast.makeText(this@SearchActivity, "ok", Toast.LENGTH_SHORT).show()
-                            mLocationRequestwithBalanced.interval = 30000
-                            mLocationRequestwithBalanced.fastestInterval = 10000
-                            mLocationRequestwithBalanced.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-                            val builder = LocationSettingsRequest.Builder().addLocationRequest(mLocationRequestwithBalanced)
-                            val result = LocationServices.SettingsApi.checkLocationSettings(MyApplication.getGoogleApiHelper()!!.googleApiClient, builder.build())
 
-                            result.setResultCallback { result ->
-                                val status = result.status
+                                try{
+                                    val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+                                    mapFragment.getMapAsync(this)
+                                    //  Toast.makeText(this@SearchActivity, "ok", Toast.LENGTH_SHORT).show()
+                                    mLocationRequestwithBalanced.interval = 30000
+                                    mLocationRequestwithBalanced.fastestInterval = 10000
+                                    mLocationRequestwithBalanced.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+                                    val builder = LocationSettingsRequest.Builder().addLocationRequest(mLocationRequestwithBalanced)
+                                    val result = LocationServices.SettingsApi.checkLocationSettings(MyApplication.getGoogleApiHelper()!!.googleApiClient, builder.build())
 
-                                result.locationSettingsStates
-                                when (status.statusCode) {
-                                    LocationSettingsStatusCodes.SUCCESS -> {
-                                        val intent = Intent(this@SearchActivity, LocationService::class.java)
-                                        intent.putExtra("locationrequest", mLocationRequestwithBalanced)
-                                        startService(intent)
-                                        Toast.makeText(this@SearchActivity, getString(R.string.started), Toast.LENGTH_SHORT).show()
-                                    }
-                                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
+                                    result.setResultCallback { result ->
+                                        val status = result.status
 
-                                        try {
+                                        result.locationSettingsStates
+                                        when (status.statusCode) {
+                                            LocationSettingsStatusCodes.SUCCESS -> {
+                                                val intent = Intent(this@SearchActivity, LocationService::class.java)
+                                                intent.putExtra("locationrequest", mLocationRequestwithBalanced)
+                                                startService(intent)
+                                                Toast.makeText(this@SearchActivity, getString(R.string.started), Toast.LENGTH_SHORT).show()
+                                            }
+                                            LocationSettingsStatusCodes.RESOLUTION_REQUIRED ->
+
+                                                try {
 
 
-                                            status.startResolutionForResult(
-                                                    this@SearchActivity,
-                                                    REQUEST_CHECK_SETTINGS)
-                                        } catch (e: Throwable) {
+                                                    status.startResolutionForResult(
+                                                            this@SearchActivity,
+                                                            REQUEST_CHECK_SETTINGS)
+                                                } catch (e: Throwable) {
 
+                                                }
+
+                                            LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
+                                            }
                                         }
-
-                                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
                                     }
                                 }
-                            }
-
-
+                                catch (e : Exception){
+                                    Log.e("error",e.toString())
+                                }
                         }
 
 
@@ -287,12 +291,27 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
+            if(myLocation == null)
+            {
+                val latitude = intent.getStringExtra("latutide")
+                val longitude = intent.getStringExtra("longitude")
 
+                myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
+                try{
+                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
+                }catch (e: Exception){
+                    print(e.message.toString())
+                }
 
-            val latitude = intent.getStringExtra("latutide")
-            val longitude = intent.getStringExtra("longitude")
+            }
+            else
+            {
+                val latitude = intent.getStringExtra("latutide")
+                val longitude = intent.getStringExtra("longitude")
 
-            myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
+                myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
+
+            }
             mLocation?.position = myLocation
           //  if(intent.getBooleanExtra("first",false))
          //       try{

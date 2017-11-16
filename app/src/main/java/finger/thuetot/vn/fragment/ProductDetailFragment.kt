@@ -1043,50 +1043,57 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
     // FAB related functions
     fun map() {
-        try{
-            val permissionlistener = object : PermissionListener, OnMapReadyCallback {
-                @SuppressLint("MissingPermission")
-                override fun onMapReady(map: GoogleMap?) {
+        val permissionlistener = object : PermissionListener, OnMapReadyCallback {
+            @SuppressLint("MissingPermission")
+            override fun onMapReady(map: GoogleMap?) {
 
-                    change_map.background = resources.getDrawable(R.drawable.photo_camera)
-                    slider.visibility = View.GONE
-                    mMap = map
-                    mMap!!.isMyLocationEnabled = true
+                change_map.background = resources.getDrawable(R.drawable.photo_camera)
+                slider.visibility = View.GONE
+                mMap = map
+                mMap!!.isMyLocationEnabled = true
 
-                    // For dropping a marker at a point on the Map
-                    val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
-                    Log.e("sydney: ", sydney.toString())
-                    mMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address)).showInfoWindow()
+                // For dropping a marker at a point on the Map
+                val sydney = LatLng((product!!.location!!.coordinates!![1].toString()).toDouble(), (product!!.location!!.coordinates!![0].toString()).toDouble())
+                Log.e("sydney: ", sydney.toString())
+                mMap!!.addMarker(MarkerOptions().position(sydney).title(product!!.productname).snippet(product!!.location!!.address)).showInfoWindow()
 
-                    // For zooming automatically to the location of the marker
-                    val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
-                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 17.0f))
+                // For zooming automatically to the location of the marker
+                val cameraPosition = CameraPosition.Builder().target(sydney).zoom(16f).build()
+                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 17.0f))
 //                            mMap!!.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
 
-                }
+            }
 
-                override fun onPermissionGranted() {
+            override fun onPermissionGranted() {
+                try{
                     val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
                     mapView_location.getMapAsync(
                             this)
                 }
-
-
-                override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) =
-                        Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
-
+                catch (e : Exception){
+                    Log.e("error",e.toString())
+                }
 
             }
-            TedPermission.with(activity)
-                    .setPermissionListener(permissionlistener)
-                    .setDeniedMessage(getString(R.string.per_turnon))
-                    .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-                    .check()
-        }
-        catch (e : Exception){
-            Log.e("Error: ",e.toString())
-        }
 
+
+            override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) {
+                try{
+                    Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
+
+                }
+                catch (e : Exception){
+                    Log.e("error",e.toString())
+                }
+            }
+
+
+        }
+        TedPermission.with(activity)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage(getString(R.string.per_turnon))
+                .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .check()
     }
 
     override fun onDestroy() {
