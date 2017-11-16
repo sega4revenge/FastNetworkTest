@@ -20,9 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.iid.FirebaseInstanceId
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.verify_phone_layout.view.*
-import org.json.JSONException
 import finger.thuetot.vn.MyApplication
 import finger.thuetot.vn.R
 import finger.thuetot.vn.customview.CircularAnim
@@ -34,6 +31,10 @@ import finger.thuetot.vn.presenter.LoginPresenter
 import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation.validateFields
 import finger.thuetot.vn.util.Validation.validatePassword
+import finger.thuetot.vn.util.Validation.validatePhone
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.verify_phone_layout.view.*
+import org.json.JSONException
 import java.util.regex.Pattern
 
 
@@ -260,17 +261,34 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                 dialog?.dismiss()
             }
             v!!.send_code.setOnClickListener {
-                if (v!!.edit_phonenumber.toString().equals("")) {
-                    v!!.progressBar_dialog.visibility = View.GONE
-                    CircularAnim.show(v!!.send_code).go()
-                } else {
+                v!!.edit_phonenumber!!.error = null
+                var err = 0
+                if (!validatePhone( v!!.edit_phonenumber.text.toString())) {
+                    err++
+                    v?.edit_phonenumber!!.error = getString(R.string.st_errpass4)
+                }
+                if (err == 0) {
                     CircularAnim.hide(v!!.send_code).go()
                     v!!.progressBar_dialog.visibility = View.VISIBLE
                     user.phone = v!!.edit_phonenumber.text.toString()
                     v!!.edit_phonenumber.isEnabled = false
                     v!!.edit_phonenumber.visibility = View.VISIBLE
                     mLoginPresenter!!.linkaccount(user, type)
+                } else {
+                    v!!.progressBar_dialog.visibility = View.GONE
+                    CircularAnim.show(v!!.send_code).go()
                 }
+//                if (v!!.edit_phonenumber.toString().equals("")) {
+//                    v!!.progressBar_dialog.visibility = View.GONE
+//                    CircularAnim.show(v!!.send_code).go()
+//                } else {
+//                    CircularAnim.hide(v!!.send_code).go()
+//                    v!!.progressBar_dialog.visibility = View.VISIBLE
+//                    user.phone = v!!.edit_phonenumber.text.toString()
+//                    v!!.edit_phonenumber.isEnabled = false
+//                    v!!.edit_phonenumber.visibility = View.VISIBLE
+//                    mLoginPresenter!!.linkaccount(user, type)
+//                }
             }
 
 

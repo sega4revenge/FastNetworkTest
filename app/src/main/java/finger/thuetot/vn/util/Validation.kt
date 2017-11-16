@@ -18,7 +18,10 @@ object Validation {
 
         return !(TextUtils.isEmpty(name) || name!!.trim { it <= ' ' } == "" || name.length < 6)
     }
+    fun validatePhone(name: String?): Boolean {
 
+        return !(TextUtils.isEmpty(name) || name!!.trim { it <= ' ' } == "" || name.length < 8)
+    }
     fun validateEmail(string: String?): Boolean {
 
         return !(TextUtils.isEmpty(string) || !Patterns.EMAIL_ADDRESS.matcher(string).matches() || string!!.trim { it <= ' ' } == "")

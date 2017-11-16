@@ -108,6 +108,8 @@
     <string name="st_errpass">Không thể để trống !</string>
     <string name="st_errpass2">Không thể để trống hoặc ít hơn 6 kí tự !</string>
     <string name="st_errpass3">Không thể để trống hoặc nhập lại chưa đúng !</string>
+    <string name="st_errpass4">Không thể để trống hoặc ít hơn 8 kí tự !</string>
+
     <string name="txt_phone">Số điện thoại</string>
     //======================================
     <string name="ac_add">Thêm sản phẩm</string>

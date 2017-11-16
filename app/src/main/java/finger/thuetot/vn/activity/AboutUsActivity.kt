@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MenuItem
+import finger.thuetot.vn.R
 import kotlinx.android.synthetic.main.toolbar.view.*
 import mehdi.sakout.aboutpage.AboutPage
 import mehdi.sakout.aboutpage.Element
-import finger.thuetot.vn.R
 
 
 class AboutUsActivity : AppCompatActivity() {
@@ -18,16 +18,16 @@ class AboutUsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
-        supportActionBar!!.setBackgroundDrawable(getDrawable(R.color.toolbar))
-        supportActionBar!!.elevation = 0F
-        supportActionBar!!.setDisplayShowCustomEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
+        supportActionBar?.setBackgroundDrawable(getDrawable(R.color.toolbar))
+        supportActionBar?.elevation = 0F
+        supportActionBar?.setDisplayShowCustomEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         val v = LayoutInflater.from(this).inflate(R.layout.toolbar,null)
         v.toolbar_title.text = getString(R.string.nav_about)
-        supportActionBar!!.customView = v
+        supportActionBar?.customView = v
         val aboutPage = AboutPage(this)
                 .isRTL(false)
                 .setImage(R.drawable.logo_about)
@@ -36,7 +36,7 @@ class AboutUsActivity : AppCompatActivity() {
                 .addGroup("Connect with us")
                 .addEmail("hhl190295@gmail.com")
                 .addFacebook("thuetot.vn")
-                .addPlayStore("")
+                .addPlayStore("finger.thuetot.vn")
                 .addWebsite("http://thuetot.vn/")
                 .setDescription(resources.getString(R.string.txt_slogan))
                 //                .addFacebook("the.medy")
