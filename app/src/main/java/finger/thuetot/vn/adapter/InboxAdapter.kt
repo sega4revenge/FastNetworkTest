@@ -35,6 +35,8 @@ class InboxAdapter (item: ArrayList<Chat>?, context: Context, mUserTo: User?) : 
         var result = ""
         if(!link.startsWith("http")){
             result = Constants.IMAGE_URL+link
+        }else{
+            result = link
         }
         return result
     }

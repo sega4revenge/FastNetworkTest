@@ -62,14 +62,16 @@ object CompressImage{
         try {
             bmp = BitmapFactory.decodeFile(imageUri.path, options)
         } catch (exception: OutOfMemoryError) {
-            exception.printStackTrace()
+            print(exception.message)
+        //    exception.printStackTrace()
 
         }
 
         try {
             scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight, Bitmap.Config.ARGB_8888)
         } catch (exception: OutOfMemoryError) {
-            exception.printStackTrace()
+            print(exception.message)
+          //  exception.printStackTrace()
         }
 
         val ratioX = actualWidth / options.outWidth.toFloat()
@@ -106,7 +108,8 @@ object CompressImage{
                     scaledBitmap.width, scaledBitmap.height, matrix,
                     true)
         } catch (e: IOException) {
-            e.printStackTrace()
+            print(e.message)
+        //    e.printStackTrace()
         }
         val filesDir = context.filesDir
         val imagefile = File(filesDir,imageUri.nameWithoutExtension + ".jpg")
@@ -117,7 +120,8 @@ object CompressImage{
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
 
         } catch (e: FileNotFoundException) {
-            e.printStackTrace()
+            print(e.message)
+          //  e.printStackTrace()
         }
 
         return imagefile

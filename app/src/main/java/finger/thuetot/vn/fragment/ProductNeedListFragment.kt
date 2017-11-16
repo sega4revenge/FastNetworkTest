@@ -49,7 +49,7 @@ class ProductNeedListFragment : Fragment(), ProductAdapter.OnproductClickListene
         Log.e("haha", "need")
 
         layoutManager = LinearLayoutManager(activity)
-        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!.findLastVisibleItemPosition())
+        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
         product_recycleview.setHasFixedSize(true)
         product_recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))

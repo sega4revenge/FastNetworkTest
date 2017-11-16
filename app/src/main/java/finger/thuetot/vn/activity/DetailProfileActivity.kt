@@ -11,7 +11,6 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.activity_detail_profile.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.adapter.ProductAdapter
 import finger.thuetot.vn.customview.DividerItemDecoration
@@ -19,6 +18,7 @@ import finger.thuetot.vn.model.Product
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.DetailProfilePressenter
 import finger.thuetot.vn.util.Constants
+import kotlinx.android.synthetic.main.activity_detail_profile.*
 import java.util.*
 
 class DetailProfileActivity : Activity(), DetailProfilePressenter.DetailProfileView, ProductAdapter.OnproductClickListener {
@@ -87,7 +87,7 @@ class DetailProfileActivity : Activity(), DetailProfilePressenter.DetailProfileV
         product_list.setHasFixedSize(true)
         product_list.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_list.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        adapter = ProductAdapter(this.applicationContext, this,product_list, layoutManager!!.findLastVisibleItemPosition())
+        adapter = ProductAdapter(this.applicationContext, this,product_list, layoutManager!!)
         adapter!!.user = mUser!!.name
         product_list.adapter = adapter
         detailprofile = DetailProfilePressenter(this)

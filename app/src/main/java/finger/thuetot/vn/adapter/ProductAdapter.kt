@@ -2,19 +2,20 @@ package finger.thuetot.vn.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.layout_demo_grid.view.*
-import kotlinx.android.synthetic.main.product_item_compact.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.customview.SlantedTextView
 import finger.thuetot.vn.lib.ShimmerRecycleView.OnLoadMoreListener
 import finger.thuetot.vn.lib.ShimmerRecycleView.ShimmerViewHolder
 import finger.thuetot.vn.model.Product
 import finger.thuetot.vn.util.Constants
+import kotlinx.android.synthetic.main.layout_demo_grid.view.*
+import kotlinx.android.synthetic.main.product_item_compact.view.*
 import java.text.DecimalFormat
 import java.util.*
 
@@ -22,12 +23,12 @@ import java.util.*
  * Created by sega4 on 07/08/2017.
  */
 internal class ProductAdapter// Constructor
-(private val context: Context, private val onproductClickListener: OnproductClickListener, mRecyclerView: RecyclerView, lastposition: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+(private val context: Context, private val onproductClickListener: OnproductClickListener, mRecyclerView: RecyclerView, linnerlayout: LinearLayoutManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var mOnLoadMoreListener: OnLoadMoreListener? = null
     var productList: ArrayList<Product> = ArrayList()
     var isLoading: Boolean = false
     var isLoadingLocked: Boolean = false
-    private var lastVisibleItem: Int = 0
+    private var lastVisibleItem: LinearLayoutManager = linnerlayout
     private var totalItemCount: Int = 0
     var pageToDownload: Int = 0
     private val TOTAL_PAGES = 999
@@ -47,10 +48,11 @@ internal class ProductAdapter// Constructor
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                totalItemCount = mRecyclerView.layoutManager.itemCount
-                lastVisibleItem = lastposition
+                totalItemCount = lastVisibleItem.findLastVisibleItemPosition()
+                        //linnerlayout.findLastVisibleItemPosition()
+              //  lastVisibleItem = lastposition
 
-                if (!isLoading && !isLoadingLocked && lastVisibleItem == productList.size - 1) {
+                if (!isLoading && !isLoadingLocked && totalItemCount == productList.size - 1) {
 
                     if (mOnLoadMoreListener != null && pageToDownload < TOTAL_PAGES) {
                         mOnLoadMoreListener!!.onLoadMore()
