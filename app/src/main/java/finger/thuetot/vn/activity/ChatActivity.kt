@@ -15,14 +15,6 @@ import android.view.View
 import android.widget.Toast
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import io.socket.client.Socket
-import io.socket.emitter.Emitter
-import kotlinx.android.synthetic.main.activity_chat.*
-import kotlinx.android.synthetic.main.content_chatting.*
-import kotlinx.android.synthetic.main.type_message_area.*
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
 import finger.thuetot.vn.R
 import finger.thuetot.vn.adapter.ChatAdapter
 import finger.thuetot.vn.lib.imagepicker.TedBottomPicker
@@ -32,6 +24,14 @@ import finger.thuetot.vn.model.ChatMessager
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.DetailUserPresenter
 import finger.thuetot.vn.util.Constants
+import io.socket.client.Socket
+import io.socket.emitter.Emitter
+import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.content_chatting.*
+import kotlinx.android.synthetic.main.type_message_area.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.File
 
 
@@ -58,6 +58,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
     var visibleItemCount = 0
     var totalItemCount = 0
     var pastVisiblesItems = 0
+    var mUploadImage = false
     var adapter: ChatAdapter? = null
     var ProgressLoadingImage: ChatMessager? = ChatMessager()
     var data: ArrayList<ChatMessager> = ArrayList()
@@ -111,40 +112,43 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         })
 
         upimage.setOnClickListener(){
-            val permissionlistener = object : PermissionListener {
-                override fun onPermissionGranted() {
+            if(!mUploadImage){
+                val permissionlistener = object : PermissionListener {
+                    override fun onPermissionGranted() {
 
-                    val bottomSheetDialogFragment = TedBottomPicker.Builder(this@ChatActivity)
-                            .setOnImageSelectedListener(object : TedBottomPicker.OnImageSelectedListener {
-                                override fun onImageSelected(uri: Uri) {
-                                    showUriList(uri)
-                                }
+                        val bottomSheetDialogFragment = TedBottomPicker.Builder(this@ChatActivity)
+                                .setOnImageSelectedListener(object : TedBottomPicker.OnImageSelectedListener {
+                                    override fun onImageSelected(uri: Uri) {
+                                        mUploadImage = true
+                                        showUriList(uri)
+                                    }
 
-                            })
-                            .setPeekHeight(1600)
-                            .showTitle(false)
-                            .setSelectMaxCount(1)
-                            .setCompleteButtonText(getString(R.string.done))
-                            .setEmptySelectionText(getString(R.string.noselect))
-                            .create()
+                                })
+                                .setPeekHeight(1600)
+                                .showTitle(false)
+                                .setSelectMaxCount(1)
+                                .setCompleteButtonText(getString(R.string.done))
+                                .setEmptySelectionText(getString(R.string.noselect))
+                                .create()
 
-                    bottomSheetDialogFragment.show(supportFragmentManager)
+                        bottomSheetDialogFragment.show(supportFragmentManager)
+
+
+                    }
+
+                    override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
+                            Toast.makeText(this@ChatActivity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
 
                 }
 
-                override fun onPermissionDenied(deniedPermissions: ArrayList<String>) =
-                        Toast.makeText(this@ChatActivity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
-
-
+                TedPermission.with(this@ChatActivity)
+                        .setPermissionListener(permissionlistener)
+                        .setDeniedMessage(getString(R.string.per_turnon))
+                        .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .check()
             }
-
-            TedPermission.with(this@ChatActivity)
-                    .setPermissionListener(permissionlistener)
-                    .setDeniedMessage(getString(R.string.per_turnon))
-                    .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    .check()
-        }
+            }
     }
     private fun getRealFilePath(context: Context, uri: Uri?): String? {
         if (null == uri) return null
@@ -218,8 +222,6 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         mSocket?.off("getDataMessage")
     }
     override fun getStatusUpdateImage(mess: String) {
-
-
         mSocket!!.emit("sendchat",user?._id!!,userid,mUserFrom,mUserTo,user?.email,user?.name,mess,1)
 
         Log.d("mess",arrLoadingImage.get(numProgressLoading).toString())
@@ -235,6 +237,11 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         Chatmess?.name = args[3].toString()
         Chatmess?.message = args[4].toString()
         Chatmess?.photoprofile = args[5].toString()
+        if(Chatmess?.photoprofile.equals("")){
+
+        }else{
+            mUploadImage = false
+        }
         mDataMessager?.add(Chatmess!!)
         if(adapter?.itemCount!=null)
         {

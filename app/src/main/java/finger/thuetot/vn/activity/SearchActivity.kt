@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.SearchView
 import android.widget.Toast
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -79,7 +80,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
         layoutManager = LinearLayoutManager(this)
-        adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!.findLastVisibleItemPosition())
+        adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
 
 
        // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -228,6 +229,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             }
 
         }
+        product_recycleview.visibility = View.GONE
         product_recycleview.setHasFixedSize(true)
         product_recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
@@ -240,21 +242,29 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     //    ed_search.setIconifiedByDefault(true)
      //   ed_search.isIconified = false
 
+        ed_search.setOnCloseListener(object : SearchView.OnCloseListener{
+            override fun onClose(): Boolean {
+                ed_search.setQuery("",true)
+                ed_search.onActionViewCollapsed()
+                SearchView!!.searchWithList("", loca, cate, mFilter)
+              return true
+            }
+
+        })
         ed_search.setOnClickListener(){
             ed_search.isIconified = false
         }
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String): Boolean {
-
                 SearchView!!.cancelRequest()
                 SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
-               // ed_search.clearFocus()
+                ed_search.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if(newText == "")
+                if(ed_search.query.toString() == "" || ed_search.query.toString().equals("") )
                 {
                     SearchView!!.searchWithList("", loca, cate, mFilter)
                 }
@@ -288,6 +298,18 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         }
     }
 
+    override fun onBackPressed() {
+        if (!ed_search.isIconified())
+        {
+            ed_search.setIconified(true);
+            ed_search.onActionViewCollapsed();
+        }
+        else
+        {
+            super.onBackPressed();
+        }
+
+    }
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -418,7 +440,6 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
    }
     override fun getListProduct(productlist: ArrayList<Product>) {
         if (isMap) {
-
 
             for (i in productlist.indices) {
                 var iconCate: BitmapDescriptor? = null

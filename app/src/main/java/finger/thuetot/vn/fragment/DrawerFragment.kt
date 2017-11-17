@@ -30,8 +30,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.facebook.FacebookSdk
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.fragment_drawer_main.*
-import kotlinx.android.synthetic.main.header.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.AboutUsActivity
 import finger.thuetot.vn.activity.AddActivity
@@ -46,6 +44,8 @@ import finger.thuetot.vn.presenter.ChangePasswordPresenter
 import finger.thuetot.vn.presenter.DrawerPresenter
 import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation.validateFields
+import kotlinx.android.synthetic.main.fragment_drawer_main.*
+import kotlinx.android.synthetic.main.header.view.*
 import java.io.File
 import java.util.*
 
@@ -78,7 +78,6 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                 .thumbnail(0.1f)
                 .apply(options)
                 .into(navigation_view.getHeaderView(0).avatar_header)
-
     }
 
     override fun setErrorMessage(errorMessage: String) {

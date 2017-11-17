@@ -4,6 +4,9 @@ import android.util.Log
 import com.androidnetworking.error.ANError
 import com.google.android.gms.maps.model.LatLng
 import com.rx2androidnetworking.Rx2AndroidNetworking
+import finger.thuetot.vn.model.Product
+import finger.thuetot.vn.model.ResponseListProduct
+import finger.thuetot.vn.util.Constants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -11,9 +14,6 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import finger.thuetot.vn.model.Product
-import finger.thuetot.vn.model.ResponseListProduct
-import finger.thuetot.vn.util.Constants
 
 /**
  * Created by VinhNguyen on 8/9/2017.
@@ -79,7 +79,6 @@ class SearchPresenterImp(searchView: SearchView){
         return object : DisposableObserver<ResponseListProduct>() {
 
             override fun onNext(response: ResponseListProduct) {
-                Log.d("AAAAAAAAA", response.listproduct!![0].toString())
                 searchview.getListProduct(response.listproduct!!)
             }
 

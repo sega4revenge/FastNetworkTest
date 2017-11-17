@@ -13,8 +13,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
-import kotlinx.android.synthetic.main.layout_error_message.*
-import kotlinx.android.synthetic.main.tab_home.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.ProductDetailActivity
 import finger.thuetot.vn.activity.SearchActivity
@@ -30,6 +28,8 @@ import finger.thuetot.vn.presenter.DrawerPresenter
 import finger.thuetot.vn.presenter.ProductListPresenter
 import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation
+import kotlinx.android.synthetic.main.layout_error_message.*
+import kotlinx.android.synthetic.main.tab_home.*
 
 
 /**
@@ -75,7 +75,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         layoutManager = LinearLayoutManager(activity)
         product_recycleview.layoutManager = layoutManager
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
-        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!.findLastVisibleItemPosition())
+        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
         product_recycleview.adapter = adapter
 
         adapter!!.pageToDownload = 1
