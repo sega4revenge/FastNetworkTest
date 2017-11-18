@@ -30,7 +30,7 @@ class AboutUsActivity : AppCompatActivity() {
         supportActionBar?.customView = v
         val aboutPage = AboutPage(this)
                 .isRTL(false)
-                .setImage(R.drawable.logo_about)
+                .setImage(R.drawable.logo_about1)
                 .addItem(Element().setTitle("Version 1.0"))
                 //                .addItem(adsElement)
                 .addGroup("Connect with us")

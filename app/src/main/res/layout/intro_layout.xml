@@ -1,160 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    >
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.5"
-        android:background="@drawable/backgroud_intro" />
-
+        android:background="@drawable/backgroud_intro"
+        android:alpha="0.5"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blur">
-
+        android:background="@color/blur"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="40dp"
             android:gravity="center"
-            android:orientation="vertical">
-
+            android:layout_marginTop="40dp"
+            >
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:background="@drawable/logo_hihi"
+                android:visibility="visible"
                 android:alpha="0"
-                android:background="@mipmap/ic_logopt"
-                android:visibility="visible" />
-
+                />
             <LinearLayout
                 android:id="@+id/lin_slogan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:gravity="center"
-                android:orientation="vertical">
-
+                >
                 <finger.thuetot.vn.view.RobotoLightTextView
                     android:id="@+id/txt_slogan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:alpha="0"
                     android:text="@string/txt_slogan"
                     android:textColor="@color/white"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    android:alpha="0"/>
             </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
-            android:gravity="center">
-
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            >
             <finger.thuetot.vn.view.RobotoLightTextView
+                android:alpha="0"
                 android:id="@+id/txt_nameapp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0"
                 android:text="THUÊ TỐT"
                 android:textColor="@color/white"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                />
         </LinearLayout>
     </RelativeLayout>
 
 
+
     <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Thuê tốt - tiết kiệm tốt - cuộc sống tốt hơn"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:textStyle="bold"-->
-    <!--android:textSize="18sp"-->
-    <!--android:layout_marginBottom="10dp"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Thuê tốt - tiết kiệm tốt - cuộc sống tốt hơn"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="18sp"-->
+        <!--android:layout_marginBottom="10dp"/>-->
 
     <!--<ImageView-->
-    <!--android:layout_width="200dp"-->
-    <!--android:layout_height="350dp"-->
-    <!--android:maxWidth="200dp"-->
-    <!--android:maxHeight="500dp"-->
-    <!--android:layout_marginBottom="10dp"-->
-    <!--android:background="@drawable/intro_detail"-->
-    <!--/>-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="350dp"-->
+        <!--android:maxWidth="200dp"-->
+        <!--android:maxHeight="500dp"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:background="@drawable/intro_detail"-->
+        <!--/>-->
     <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:layout_marginLeft="10dp"-->
-    <!--android:layout_marginRight="10dp"-->
-    <!--android:weightSum="10">-->
-    <!--<LinearLayout-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical"-->
-    <!--android:gravity="center"-->
-    <!--android:layout_weight="3.3">-->
-    <!--<ImageView-->
-    <!--android:layout_width="60dp"-->
-    <!--android:layout_height="60dp"-->
-    <!--android:background="@drawable/earning"-->
-    <!--android:layout_marginBottom="5dp"/>-->
-    <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Kiếm tiền"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:textStyle="bold"-->
-    <!--android:textSize="15sp"-->
-    <!--android:layout_marginTop="5dp"/>-->
-    <!--</LinearLayout>-->
-    <!--<LinearLayout-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical"-->
-    <!--android:gravity="center"-->
-    <!--android:layout_weight="3.3"-->
-    <!--&gt;-->
-    <!--<ImageView-->
-    <!--android:layout_width="60dp"-->
-    <!--android:layout_height="60dp"-->
-    <!--android:background="@drawable/save_money1"-->
-    <!--android:layout_marginBottom="5dp"/>-->
-    <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Tiết kiệm"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:textStyle="bold"-->
-    <!--android:textSize="15sp"-->
-    <!--android:layout_marginTop="5dp"/>-->
-    <!--</LinearLayout>-->
-    <!--<LinearLayout-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical"-->
-    <!--android:gravity="center"-->
-    <!--android:layout_weight="3.3">-->
-    <!--<ImageView-->
-    <!--android:layout_width="60dp"-->
-    <!--android:layout_height="60dp"-->
-    <!--android:background="@drawable/happy"-->
-    <!--android:layout_marginBottom="5dp"/>-->
-    <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Hạnh phúc"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:textStyle="bold"-->
-    <!--android:textSize="15sp"-->
-    <!--android:layout_marginTop="5dp"/>-->
-    <!--</LinearLayout>-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:weightSum="10">-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_weight="3.3">-->
+            <!--<ImageView-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:background="@drawable/earning"-->
+                <!--android:layout_marginBottom="5dp"/>-->
+            <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Kiếm tiền"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="15sp"-->
+                <!--android:layout_marginTop="5dp"/>-->
+        <!--</LinearLayout>-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_weight="3.3"-->
+            <!--&gt;-->
+            <!--<ImageView-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:background="@drawable/save_money1"-->
+                <!--android:layout_marginBottom="5dp"/>-->
+            <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Tiết kiệm"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="15sp"-->
+                <!--android:layout_marginTop="5dp"/>-->
+        <!--</LinearLayout>-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_weight="3.3">-->
+            <!--<ImageView-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:background="@drawable/happy"-->
+                <!--android:layout_marginBottom="5dp"/>-->
+            <!--<sega.fastnetwork.test.view.RobotoBoldTextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Hạnh phúc"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="15sp"-->
+                <!--android:layout_marginTop="5dp"/>-->
+        <!--</LinearLayout>-->
     <!--</LinearLayout>-->
 </RelativeLayout>
