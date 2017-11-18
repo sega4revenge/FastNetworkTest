@@ -24,9 +24,9 @@
             >
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:background="@drawable/logo_final2"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:background="@drawable/logo_hihi"
                 android:visibility="visible"
                 android:alpha="0"
                 />
