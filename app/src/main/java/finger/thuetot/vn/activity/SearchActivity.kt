@@ -264,10 +264,10 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if(ed_search.query.toString() == "" || ed_search.query.toString().equals("") )
-                {
-                    SearchView!!.searchWithList("", loca, cate, mFilter)
-                }
+//                if(ed_search.query.toString() == "" || ed_search.query.toString().equals("") )
+//                {
+//                    SearchView!!.searchWithList("", loca, cate, mFilter)
+//                }
                 return true
             }
 

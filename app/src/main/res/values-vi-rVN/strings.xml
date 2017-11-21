@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Thuê Tốt</string>
     <string name="no">Không</string>
-    <string name="facebook_app_id">251217995359869</string>
+    <string name="facebook_app_id">305092856672358</string>
+    <string name="fb_login_protocol_scheme">fb305092856672358</string>
     <string name="google_maps_key">AIzaSyDBfdxli_eMNGalQDD19n2r0d4807UYlJQ</string>
     <string name="lg_hint_email">Email</string>
     <string name="lg_hint_pass">Mật khẩu</string>

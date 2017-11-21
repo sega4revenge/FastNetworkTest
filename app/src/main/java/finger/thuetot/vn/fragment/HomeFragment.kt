@@ -58,6 +58,8 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     private var layoutManager: LinearLayoutManager? = null
     private var adapter: ProductAdapter? = null
     var isFirstLoad = true
+    var isLodaing = true
+    var isFistTime = true
     var mCategory = 0
     var user: User? = null
     val mAleftdialog: AlertDialog? = null
@@ -80,12 +82,14 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
-        mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
+        // mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
 
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
-            RefreshListener()
+            if(isLodaing){
+                RefreshListener()
+            }
         })
         search_view.setOnClickListener {
             startActivity(Intent(activity, SearchActivity::class.java))
@@ -103,6 +107,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         }
         adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
+            Log.d("runnnnnnnnnnnnnnnnnnnn","nowwwwwwwwwwwwwwwwwwwwww")
             if (!isFirstLoad) {
                 val a = Product()
                 a.productname = ""
@@ -111,11 +116,18 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                     adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
                 })
             }
+            if(!isFistTime){
+                adapter!!.pageToDownload++
+            }
+            if(isLodaing){
+                mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
+            }
 
-            mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
         })
     }
     fun RefreshListener(){
+        isLodaing = false
+        // product_recycleview.isNestedScrollingEnabled = false
         swipe_refresh.isEnabled = false
         adapter!!.productList.clear()
         adapter!!.pageToDownload = 1
@@ -124,7 +136,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         isFirstLoad = true
         mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
-        product_recycleview.isNestedScrollingEnabled = false
     }
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.tab_home, container, false)
@@ -227,7 +238,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         super.onDetach()
     }
     private fun onDownloadSuccessful() {
-        product_recycleview.isNestedScrollingEnabled = true
         if (isTablet && adapter?.productList?.size!! > 0) {
             /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
         }
@@ -238,11 +248,15 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         swipe_refresh.visibility = View.VISIBLE
 
         adapter?.notifyDataSetChanged()
+        isLodaing = true
+        isFistTime = false
 
     }
 
     private fun onDownloadFailed() {
-
+        // product_recycleview.isNestedScrollingEnabled = true
+        isLodaing = true
+        isFistTime = false
         if (adapter!!.pageToDownload == 1) {
 
 
@@ -268,7 +282,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         onDownloadFailed()
     }
     override fun setErrorNotFound() {
-
         if (adapter!!.pageToDownload == 1) {
             swipe_refresh.isRefreshing = false
             swipe_refresh.visibility = View.GONE
@@ -294,7 +307,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             isFirstLoad = false
         }
         adapter!!.productList.addAll(productlist)
-        adapter!!.pageToDownload++
         adapter!!.isLoading = false
         adapter!!.isLoadingLocked = false
         swipe_refresh.isEnabled = true
@@ -305,10 +317,10 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
 
 //            if (adapter!!.productList[position].type == "1") {
-                val intent = Intent(context, ProductDetailActivity::class.java)
-                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
-                intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
-                startActivity(intent)
+        val intent = Intent(context, ProductDetailActivity::class.java)
+        intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+        intent.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+        startActivity(intent)
 //            } else {
 //                val intent = Intent(context, ProductDetailNeedActivity::class.java)
 //                intent.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)

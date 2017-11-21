@@ -111,6 +111,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "297176297834-qia0nmdv83bo424eunds2vfsn7t9gma3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "finger.thuetot.vn",
+            "certificate_hash": "cfa81b8aa7d68d8fb6338e4ba013f731bfb8ab41"
+          }
+        },
+        {
           "client_id": "297176297834-q2t1s96e0u7detasn7f6mui7hcttti5q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
