@@ -244,5 +244,12 @@
     <string name="err_phonealready">Phone number already registered !</string>
     <string name="txt_signinwith">Sign in with </string>
 
+    <string name="txt_version">Version </string>
+    <string name="txt_Connect_with_us">Connect with us </string>
+    <string name="txt_Connect_mail">Connect us </string>
+    <string name="txt_Connect_fb">Like us on Facebook </string>
+    <string name="txt_Connect_store">Like us on the Play Store </string>
+    <string name="txt_Connect_website">Visit our website </string>
+
 
 </resources>

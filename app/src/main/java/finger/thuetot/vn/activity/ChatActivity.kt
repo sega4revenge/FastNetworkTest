@@ -105,7 +105,8 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         imgback.setOnClickListener(){
             finish()
         }
-
+        swipe_refresh.isRefreshing = true
+        swipe_refresh.isEnabled = false
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
             mSocket!!.emit("getData", mUserFrom,mUserTo,user?._id!!,mPage)
@@ -275,7 +276,10 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
                 imgOff.setImageResource(R.drawable.ic_online_)
             }
         }
-
+        runOnUiThread(Runnable {
+            swipe_refresh.isEnabled = true
+            swipe_refresh.isRefreshing = false
+        })
         if(adapter?.imguserto.equals(""))
         {
             adapter?.imguserto = arrUser.getJSONObject(0).getString("photoprofile")

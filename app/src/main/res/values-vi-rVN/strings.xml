@@ -240,4 +240,14 @@
     <string name="err_timeout">Hết thời gian! Vui lòng thử lại !</string>
     <string name="err_phonealready">Số điện thoại đã tồn tại !</string>
     <string name="txt_signinwith">Đăng nhập với </string>
+
+    <string name="txt_version">Phiên bản </string>
+    <string name="txt_Connect_with_us">Liên hệ với chúng tôi với </string>
+    <string name="txt_Connect_mail">Liên hệ với chúng tôi bằng Mail </string>
+    <string name="txt_Connect_fb">Ủng hộ chúng tôi qua Facebook </string>
+    <string name="txt_Connect_store">Ủng hộ chúng tôi qua Play Store </string>
+    <string name="txt_Connect_website">Ghé thăm trang web của chúng tôi </string>
+
+
+
 </resources>
