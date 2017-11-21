@@ -601,7 +601,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 
 
     private fun onDownloadSuccessful() {
-
+        change_map.visibility = View.VISIBLE
         // status save product
 
 
