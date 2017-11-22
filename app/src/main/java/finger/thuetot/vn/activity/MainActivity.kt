@@ -13,13 +13,14 @@ import com.crashlytics.android.Crashlytics
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import io.fabric.sdk.android.Fabric
-import io.socket.client.Socket
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.firebase.iid.FirebaseInstanceId
 import finger.thuetot.vn.R
 import finger.thuetot.vn.fragment.DrawerFragment
 import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.User
+import io.fabric.sdk.android.Fabric
+import io.socket.client.Socket
+import kotlinx.android.synthetic.main.activity_main.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -90,6 +91,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 mSocket = AppManager.getSocket(application)
                 mSocket!!.emit("connected", user?._id)
+                Log.e("asdasd", FirebaseInstanceId.getInstance().token)
             }
       //  }
 

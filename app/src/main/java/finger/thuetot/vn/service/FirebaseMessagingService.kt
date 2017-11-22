@@ -32,7 +32,13 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         if(remoteMessage?.data?.get("productid")!= null){
             showNotification(remoteMessage?.data?.get("productid").toString(),remoteMessage?.data?.get("useridproduct").toString(),remoteMessage?.data?.get("useridcmt").toString())
         }else{
-            showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString())
+            if(remoteMessage?.data?.get("commentid")!= null)
+            {
+                Log.e("ADASD", remoteMessage.data?.get("msg").toString())
+            }
+            else {
+                showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString())
+            }
         }
     }
     fun avatacmt(link: String): String?{

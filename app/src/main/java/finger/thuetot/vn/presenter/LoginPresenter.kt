@@ -5,6 +5,9 @@ import android.util.Log
 import com.androidnetworking.error.ANError
 import com.google.firebase.iid.FirebaseInstanceId
 import com.rx2androidnetworking.Rx2AndroidNetworking
+import finger.thuetot.vn.model.Response
+import finger.thuetot.vn.model.User
+import finger.thuetot.vn.util.Constants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -12,9 +15,6 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import finger.thuetot.vn.model.Response
-import finger.thuetot.vn.model.User
-import finger.thuetot.vn.util.Constants
 
 class LoginPresenter(view: LoginView) {
 
@@ -384,9 +384,12 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
     fun register_finish(user: User, code: String,type: Int) {
 
         try {
+//            Log.e("weqweqwe",FirebaseInstanceId.getInstance().token)
+//            Log.e("asdasd",user.phone + " / " + user.tokenfirebase)
             jsonObject.put("phone", user.phone)
             jsonObject.put("code", code)
             jsonObject.put("type", type)
+            jsonObject.put("token",user.tokenfirebase)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
