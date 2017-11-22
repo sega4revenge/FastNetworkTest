@@ -35,7 +35,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         }else{
             if(remoteMessage?.data?.get("commentid")!= null)
             {
-                showNotificationReply(remoteMessage?.data?.get("commentid").toString(),remoteMessage?.data?.get("username").toString(),remoteMessage?.data?.get("content").toString(),remoteMessage?.data?.get("msg").toString())
+                showNotificationReply(remoteMessage?.data?.get("commentid").toString(),remoteMessage?.data?.get("username").toString(),remoteMessage?.data?.get("content").toString(),remoteMessage?.data?.get("userreply").toString(),remoteMessage?.data?.get("userown").toString(),remoteMessage?.data?.get("msg").toString())
                 Log.e("ADASD", remoteMessage.data?.get("msg").toString())
             }
             else {
@@ -127,33 +127,38 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
             }
 
     }
-    private fun showNotificationReply(commentid : String, username: String, content : String, msg : String) {
+    private fun showNotificationReply(commentid : String, username: String, content : String, userreply : String, userown : String, msg : String) {
         try{
-                val typenotification = 2
-                val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                var notif: Notification? = null
-                val intent = Intent(this@FirebaseMessagingService, ReplyCommentActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                intent.putExtra(Constants.comment_ID,commentid)
-                intent.putExtra(Constants.seller_name,username)
-                intent.putExtra(Constants.product_NAME,content)
+                if(userreply != AppManager.getAppAccountUserId(this))
+                {
+                    val typenotification = 2
+                    val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                    val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    var notif: Notification? = null
+                    val intent = Intent(this@FirebaseMessagingService, ReplyCommentActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    intent.putExtra(Constants.comment_ID,commentid)
+                    intent.putExtra(Constants.seller_name,username)
+                    intent.putExtra(Constants.product_NAME,content)
 
 //            intent.putExtra("comment", false)
-                val pendingIntent = PendingIntent.getActivity(this, 100, intent,
-                        PendingIntent.FLAG_ONE_SHOT)
-                notif = Notification.Builder(this)
-                        .setContentIntent(pendingIntent)
-                        .setContentTitle(getString(R.string.app_name))
-                        .setContentText(msg)
-                        .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
-                        .setLights(Color.RED, 3000, 3000)
-                        .setSound(defaultSoundUri)
-                        .setSmallIcon(R.drawable.logo_hihi)
-                        .build()
+                    val pendingIntent = PendingIntent.getActivity(this, 100, intent,
+                            PendingIntent.FLAG_ONE_SHOT)
+                    notif = Notification.Builder(this)
+                            .setContentIntent(pendingIntent)
+                            .setContentTitle(getString(R.string.app_name))
+                            .setContentText(msg)
+                            .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
+                            .setLights(Color.RED, 3000, 3000)
+                            .setSound(defaultSoundUri)
+                            .setSmallIcon(R.drawable.logo_hihi)
+                            .build()
 
-                notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
-                notificationManager.notify(typenotification, notif)
+                    notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
+                    notificationManager.notify(typenotification, notif)
+                }
+
+
 
 
 //            val a = Intent()
