@@ -216,8 +216,6 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         catch (e : Exception){
             Log.e("Noti", e.toString())
         }
-
-
     }
 
     fun getCroppedBitmap(bitmap: Bitmap?): Bitmap {
