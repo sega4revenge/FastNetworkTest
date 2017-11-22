@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,6 +85,7 @@ class ReplyCommentFragment: Fragment(), CommentAdapter.OncommentClickListener, C
     private var id: String = ""
     private var product_name: String = ""
     private var seller_name: String = ""
+    private var userid: String = ""
 
     var adapter : CommentAdapter? = null
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -94,7 +96,7 @@ class ReplyCommentFragment: Fragment(), CommentAdapter.OncommentClickListener, C
 
         toolbar_title.text = product_name
         toolbar_subtitle.text = seller_name
-
+        Log.d("TOPICCCCCCCCCCC",id)
         FirebaseMessaging.getInstance().subscribeToTopic(id)
 
         adapter = CommentAdapter(context, this,this.fragmentManager,1)

@@ -36,7 +36,6 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
             if(remoteMessage?.data?.get("commentid")!= null)
             {
                 showNotificationReply(remoteMessage?.data?.get("commentid").toString(),remoteMessage?.data?.get("username").toString(),remoteMessage?.data?.get("content").toString(),remoteMessage?.data?.get("userreply").toString(),remoteMessage?.data?.get("userown").toString(),remoteMessage?.data?.get("msg").toString())
-                Log.e("ADASD", remoteMessage.data?.get("msg").toString())
             }
             else {
                 showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString())

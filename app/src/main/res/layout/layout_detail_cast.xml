@@ -148,7 +148,8 @@
     <!--</LinearLayout>-->
     <LinearLayout
         android:id="@+id/comment_item1"
-        style="@style/ProductCastHolderStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp">
         <!-- Image -->
@@ -156,7 +157,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/dist_medium"
             android:paddingRight="@dimen/dist_medium"
             >
@@ -510,7 +511,8 @@
     <!--</LinearLayout>-->
     <LinearLayout
         android:id="@+id/comment_item2"
-        style="@style/ProductCastHolderStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp">
         <!-- Image -->
@@ -954,7 +956,8 @@
     <!--</LinearLayout>-->
     <LinearLayout
         android:id="@+id/comment_item3"
-        style="@style/ProductCastHolderStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp">
         <!-- Image -->

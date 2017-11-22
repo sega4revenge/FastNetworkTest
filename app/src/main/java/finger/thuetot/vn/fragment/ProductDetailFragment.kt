@@ -31,10 +31,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import finger.thuetot.vn.R
-import finger.thuetot.vn.activity.ChatActivity
-import finger.thuetot.vn.activity.CommentActivity
-import finger.thuetot.vn.activity.Fullscreen
-import finger.thuetot.vn.activity.MainActivity
+import finger.thuetot.vn.activity.*
 import finger.thuetot.vn.lib.SliderTypes.Animations.DescriptionAnimation
 import finger.thuetot.vn.lib.SliderTypes.BaseSliderView
 import finger.thuetot.vn.lib.SliderTypes.DefaultSliderView
@@ -932,6 +929,13 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }else{
 
             }
+            txt_reply.setOnClickListener(){
+                val intent = Intent(activity, ReplyCommentActivity::class.java)
+                intent.putExtra(Constants.comment_ID, mProduct._id)
+                intent.putExtra(Constants.product_NAME, mProduct.content)
+                intent.putExtra(Constants.seller_name, mProduct.user?.name)
+                activity.startActivity(intent)
+            }
             commentname.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
             commentdata.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
 
@@ -999,6 +1003,13 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }else{
 
             }
+            txt_reply2.setOnClickListener(){
+                val intent = Intent(activity, ReplyCommentActivity::class.java)
+                intent.putExtra(Constants.comment_ID, mProduct._id)
+                intent.putExtra(Constants.product_NAME, mProduct.content)
+                intent.putExtra(Constants.seller_name, mProduct.user?.name)
+                activity.startActivity(intent)
+            }
             commentname2.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
             commentdata2.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
 
@@ -1062,6 +1073,13 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                         .into(commentpic3)
             }else{
 
+            }
+            txt_reply3.setOnClickListener(){
+                val intent = Intent(activity, ReplyCommentActivity::class.java)
+                intent.putExtra(Constants.comment_ID, mProduct._id)
+                intent.putExtra(Constants.product_NAME, mProduct.content)
+                intent.putExtra(Constants.seller_name, mProduct.user?.name)
+                activity.startActivity(intent)
             }
             commentname3.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
             commentdata3.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
@@ -1198,9 +1216,9 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     override fun onSliderClick(slider: BaseSliderView) {
 
         val i = Intent(activity, Fullscreen::class.java)
-            i.putExtra("pos", slider.bundle.getInt("index"))
-            i.putExtra("data", product?.images)
-            startActivity(i)
+        i.putExtra("pos", slider.bundle.getInt("index"))
+        i.putExtra("data", product?.images)
+        startActivity(i)
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
