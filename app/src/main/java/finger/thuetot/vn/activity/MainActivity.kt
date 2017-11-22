@@ -9,16 +9,13 @@ import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.util.Log
-import com.crashlytics.android.Crashlytics
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.firebase.iid.FirebaseInstanceId
 import finger.thuetot.vn.R
 import finger.thuetot.vn.fragment.DrawerFragment
 import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.User
-import io.fabric.sdk.android.Fabric
 import io.socket.client.Socket
 import kotlinx.android.synthetic.main.activity_main.*
 import java.security.MessageDigest
@@ -40,7 +37,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
-        Fabric.with(this, Crashlytics())
+       // Fabric.with(this, Crashlytics())
 
         setContentView(R.layout.activity_main)
         val info: PackageInfo
@@ -91,7 +88,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 mSocket = AppManager.getSocket(application)
                 mSocket!!.emit("connected", user?._id)
-                Log.e("asdasd", FirebaseInstanceId.getInstance().token)
             }
       //  }
 

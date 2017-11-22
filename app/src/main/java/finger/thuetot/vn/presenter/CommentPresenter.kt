@@ -4,6 +4,9 @@ import android.os.Looper
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.rx2androidnetworking.Rx2AndroidNetworking
+import finger.thuetot.vn.model.Comment
+import finger.thuetot.vn.model.ResponseListComment
+import finger.thuetot.vn.util.Constants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -11,9 +14,6 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import finger.thuetot.vn.model.Comment
-import finger.thuetot.vn.model.ResponseListComment
-import finger.thuetot.vn.util.Constants
 
 /**
  * Created by cc on 8/17/2017.
@@ -65,7 +65,7 @@ class CommentPresenter(view: CommentView) {
                         mCommentView.setErrorMessage(e.errorDetail)
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        Log.d(register, "onError errorDetail : " + e.errorDetail)
+                        Log.d(register, "onError errorDetail : " + e.message)
                         mCommentView.setErrorMessage(e.errorDetail)
                     }
                 } else {
@@ -88,6 +88,20 @@ class CommentPresenter(view: CommentView) {
             e.printStackTrace()
         }
         disposables.add(getObservable("addcomment")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver()))
+
+    }
+    fun addreplycomment(userid : String, productid : String, content : String) {
+        try {
+            jsonObject.put("userid", userid)
+                jsonObject.put("commentid", productid)
+            jsonObject.put("content", content)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservable("addreplycomment")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver()))
@@ -130,7 +144,7 @@ class CommentPresenter(view: CommentView) {
                         Log.d("Comment","Like Faile")
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        Log.d(register, "onError errorDetail : " + e.errorDetail)
+                        Log.d(register, "onError errorDetail : " + e.message)
                         Log.d("Comment","Like Faile")
                     }
                 } else {
@@ -152,6 +166,35 @@ class CommentPresenter(view: CommentView) {
             e.printStackTrace()
         }
         disposables.add(getObservable("refreshcomment")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver()))
+
+
+    }
+    fun refreshreplycomment(productid : String) {
+        try {
+            jsonObject.put("productid", productid)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservable("refreshrelycomment")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver()))
+
+
+    }
+    fun deletereplycomment(replycommentid : String, commentid : String) {
+
+        try {
+            jsonObject.put("replycommentid", replycommentid)
+            jsonObject.put("commentid", commentid)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservable("deletereplycomment")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver()))

@@ -181,6 +181,9 @@
         <activity android:name="finger.thuetot.vn.activity.ForgotPassword">
 
         </activity>
+        <activity android:name="finger.thuetot.vn.activity.ReplyCommentActivity">
+
+        </activity>
         <activity
             android:name="finger.thuetot.vn.activity.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />

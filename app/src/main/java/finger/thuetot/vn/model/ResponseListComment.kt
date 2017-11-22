@@ -5,5 +5,4 @@ package finger.thuetot.vn.model
  */
 class ResponseListComment {
     var comment : ArrayList<Comment>? = ArrayList()
-
 }

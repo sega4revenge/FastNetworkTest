@@ -127,7 +127,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 
         v.img_like.setOnClickListener(){
-            Log.d("aaaaaaaaaa",stt.toString())
             var num: Int = 0
             if(v.txt_num_like.text.toString().equals("") || v.txt_num_like.text.toString().equals("0")){
                 num = 0
@@ -152,7 +151,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
         v.img_like2.setOnClickListener(){
-            Log.d("aaaaaaaaaa",stt2.toString())
             var num: Int = 0
             if(v.txt_num_like2.text.toString().equals("") || v.txt_num_like2.text.toString().equals("0")){
                 num = 0
@@ -178,7 +176,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 
         v.img_like3.setOnClickListener {
-            Log.d("aaaaaaaaaa",stt3.toString())
             var num: Int
             if(v.txt_num_like3.text.toString().equals("") || v.txt_num_like3.text.toString().equals("0")){
                 num = 0
@@ -205,7 +202,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
         v.layout_image1.setOnClickListener {
-            Log.e("image1","image")
             if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
                 val dialogFrag = ProifileSellerFragment.newInstance()
                 val args = Bundle()
@@ -215,7 +211,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
         v.layout_image2.setOnClickListener {
-            Log.e("image2","image")
 
             if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![1].user!!._id)) {
                 val dialogFrag = ProifileSellerFragment.newInstance()
@@ -226,7 +221,6 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
         v.layout_image3.setOnClickListener {
-            Log.e("image3","image")
             if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![2].user!!._id)) {
                 val dialogFrag = ProifileSellerFragment.newInstance()
                 val args = Bundle()
@@ -439,35 +433,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             sendIntent.type = "text/plain"
             startActivity(sendIntent)
         }
-//        v.layout_share.setOnClickListener {
-//            val sendIntent = Intent()
-//            val linkapp = "https://www.facebook.com/groups/727189854084530/"
-//            val numberFormat = DecimalFormat("###,###")
-//            sendIntent.action = Intent.ACTION_SEND
-//
-//            if (product?.price == null || product?.price == "") {
-//                sendIntent.putExtra(Intent.EXTRA_TEXT,
-//                        "- Productname(tên sản phẩm): ${product!!.productname}\n" +
-//                                "- Category(thể loại): ${product!!.category}\n" +
-//                                "- Address(địa chỉ): ${product!!.location!!.address}\n" +
-//                                "- Time(thời gian): ${product!!.time} giờ\n" +
-//                                "- Description(Mô tả): ${product!!.description}\n" +
-//                                "- Tham khảo thêm tại: ${linkapp}")
-//            } else {
-//                val gia = numberFormat.format(product!!.price!!.toLong()).toString()
-//                sendIntent.putExtra(Intent.EXTRA_TEXT,
-//                        "- Productname(tên sản phẩm): ${product!!.productname}\n" +
-//                                "- Category(thể loại): ${product!!.category}\n" +
-//                                "- Price(giá): ${gia} VNĐ\n" +
-//                                "- Address(địa chỉ): ${product!!.location!!.address}\n" +
-//                                "- Time(thời gian): ${product!!.time} giờ\n" +
-//                                "- Description(Mô tả): ${product!!.description}\n" +
-//                                "- Tham khảo thêm tại: ${linkapp}")
-//
-//            }
-//            sendIntent.type = "text/plain"
-//            startActivity(sendIntent)
-//        }
+
         v.btn_save.setOnClickListener {
 
             if (statussave) {
@@ -940,6 +906,39 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 //        email_comment1.text = mProduct?.user!!.email
         comments1.text = mProduct?.content
         datecomment1.text = timeAgo(mProduct?.time!!)
+
+        //====================check reply =================================//
+        if(mProduct.listreply?.size!! > 0){
+            var photoprofile = ""
+            commemtreply.visibility = View.VISIBLE
+            if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
+                if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
+                    photoprofile = mProduct.listreply!![0].user?.photoprofile!!
+                }
+                else{
+                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![0].user?.photoprofile
+                }
+                val options = RequestOptions()
+                        .centerCrop()
+                        .dontAnimate()
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.server_unreachable)
+                        .priority(Priority.HIGH)
+                Glide.with(context)
+                        .load(photoprofile)
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(commentpic)
+            }else{
+
+            }
+            commentname.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
+            commentdata.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
+
+        }else{
+            commemtreply.visibility = View.GONE
+        }
+
     }
     fun setDatafromComment2(mProduct: Comment?){
         stt2 = false
@@ -974,6 +973,38 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         email_comment2.text = mProduct?.user!!.email
         comments2.text = mProduct?.content
         datecomment2.text = timeAgo(mProduct?.time!!)
+
+        //====================check reply =================================//
+        if(mProduct.listreply?.size!! > 0){
+            var photoprofile = ""
+            commemtreply2.visibility = View.VISIBLE
+            if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
+                if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
+                    photoprofile = mProduct.listreply!![0].user?.photoprofile!!
+                }
+                else{
+                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![0].user?.photoprofile
+                }
+                val options = RequestOptions()
+                        .centerCrop()
+                        .dontAnimate()
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.server_unreachable)
+                        .priority(Priority.HIGH)
+                Glide.with(context)
+                        .load(photoprofile)
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(commentpic2)
+            }else{
+
+            }
+            commentname2.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
+            commentdata2.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
+
+        }else{
+            commemtreply2.visibility = View.GONE
+        }
     }
     fun setDatafromComment3(mProduct: Comment?){
         stt3 = false
@@ -1006,6 +1037,38 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         email_comment3.text = product?.user!!.email
         comments3.text = mProduct?.content
         datecomment3.text = timeAgo(mProduct?.time!!)
+
+        //====================check reply =================================//
+        if(mProduct.listreply?.size!! > 0){
+            var photoprofile = ""
+            commemtreply3.visibility = View.VISIBLE
+            if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
+                if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
+                    photoprofile = mProduct.listreply!![0].user?.photoprofile!!
+                }
+                else{
+                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![0].user?.photoprofile
+                }
+                val options = RequestOptions()
+                        .centerCrop()
+                        .dontAnimate()
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.server_unreachable)
+                        .priority(Priority.HIGH)
+                Glide.with(context)
+                        .load(photoprofile)
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(commentpic3)
+            }else{
+
+            }
+            commentname3.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
+            commentdata3.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
+
+        }else{
+            commemtreply3.visibility = View.GONE
+        }
     }
     fun destroyfragment() {
 //        mProductDetailPresenter!!.cancelRequest()

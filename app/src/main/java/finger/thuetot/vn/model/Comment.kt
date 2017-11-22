@@ -10,6 +10,9 @@ class Comment {
     var content: String? = null
     var time: String? = null
     var listlike: ArrayList<String>? = ArrayList()
+    var listreply: ArrayList<Comment>? = ArrayList()
     var stt: Boolean = false
+
+    var comment: Comment? = null
 
 }

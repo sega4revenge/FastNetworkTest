@@ -45,6 +45,7 @@ internal object Constants {
     // Intent Extra + Bundle Argument + Saved Instance State
     val TOOLBAR_TITLE = "toolbar_title"
     val product_ID = "product_id"
+    val comment_ID = "comment_id"
     val user_ID = "user_id"
     val currency_ID = "currency_id"
     val currency_RATE = "currency_rate"

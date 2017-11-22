@@ -3,6 +3,7 @@ package finger.thuetot.vn.adapter
 
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
@@ -15,13 +16,14 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.layout_comments.view.*
 import finger.thuetot.vn.R
+import finger.thuetot.vn.activity.ReplyCommentActivity
 import finger.thuetot.vn.fragment.ProifileSellerFragment
 import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.Comment
 import finger.thuetot.vn.presenter.CommentPresenter
 import finger.thuetot.vn.util.Constants
+import kotlinx.android.synthetic.main.layout_comments.view.*
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,11 +32,13 @@ import kotlin.collections.ArrayList
  * Created by cc on 8/16/2017.
  */
 class CommentAdapter// Constructor
-(private val context: Context, private val oncommentClickListener: OncommentClickListener,fragment: FragmentManager) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CommentPresenter.CommentView {
+(private val context: Context, private val oncommentClickListener: OncommentClickListener,fragment: FragmentManager,type: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CommentPresenter.CommentView {
     private val format: String
     private val sharedPref: SharedPreferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
     var commentsList: ArrayList<Comment>
     var photoprofile : String? = null
+    var photoprofile2 : String? = null
+    var mType = type
     var mFragmentManager: FragmentManager = fragment
     var mCommentPresenter: CommentPresenter? = CommentPresenter(this)
     private val imageWidth: Int
@@ -74,7 +78,7 @@ class CommentAdapter// Constructor
     override fun onBindViewHolder(viewHolderParent: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(0)
         val comment = commentsList[position]
-        Log.d("position:::  "+position,"///"+comment.listlike?.size)
+        Log.d("position:::  "+position,"///"+comment.listreply?.size)
 
      
             // COMPACT MODE
@@ -152,17 +156,55 @@ class CommentAdapter// Constructor
                 comment?.stt  = true
             }
         }
-        
+        if(mType == 1){
+            viewHolder.itemView.txt_num_like.text = ""
+            viewHolder.itemView.reply.visibility = View.GONE
+            viewHolder.itemView.img_like.visibility = View.GONE
+        }
+        if(comment.listreply?.size!! > 0){
+            viewHolder.itemView.commemtreply.visibility = View.VISIBLE
+            if(!comment.listreply!![(comment.listreply!!.size-1)].user?.photoprofile.equals("")){
+                if(comment.listreply!![(comment.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
+                    photoprofile2 = comment.listreply!![0].user?.photoprofile
+                }
+                else{
+                    photoprofile2 = Constants.IMAGE_URL+comment.listreply!![0].user?.photoprofile
+                }
+                val options = RequestOptions()
+                        .centerCrop()
+                        .dontAnimate()
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.server_unreachable)
+                        .priority(Priority.HIGH)
+                Glide.with(context)
+                        .load(photoprofile2)
+                        .thumbnail(0.1f)
+                        .apply(options)
+                        .into(viewHolder.itemView.commentpic2)
+            }else{
 
+            }
+            viewHolder.itemView.commentname2.text = comment.listreply!![(comment.listreply!!.size-1)].user?.name
+            viewHolder.itemView.commentdata2.text = comment.listreply!![(comment.listreply!!.size-1)].content
 
-        /* viewHolder.itemView.category_name.text = comment.name
-         viewHolder.itemView.category_number.text = comment.number
-         viewHolder.itemView.category_line.setBackgroundResource(comment.color)
-         println(comment.color)*/
-        // Title and year
+        }else{
+            viewHolder.itemView.commemtreply.visibility = View.GONE
+        }
+        viewHolder.itemView.commemtreply.setOnClickListener(){
+            val intent = Intent(context, ReplyCommentActivity::class.java)
+            intent.putExtra(Constants.comment_ID, comment._id)
+            intent.putExtra(Constants.product_NAME, comment.content)
+            intent.putExtra(Constants.seller_name, comment.user?.name)
+            context.startActivity(intent)
+        }
+        viewHolder.itemView.reply.setOnClickListener(){
+            val intent = Intent(context, ReplyCommentActivity::class.java)
+            intent.putExtra(Constants.comment_ID, comment._id)
+            intent.putExtra(Constants.product_NAME, comment.content)
+            intent.putExtra(Constants.seller_name, comment.user?.name)
+            context.startActivity(intent)
+        }
 
-        //                commentViewHolder.commentRating.setText(comment.price+"");
-        //            }
         viewHolderParent.itemView.comment_item1.setOnLongClickListener {
             Log.e("oncommentClicked2","oncommentClicked2")
             oncommentClickListener.oncommentClicked(position)
