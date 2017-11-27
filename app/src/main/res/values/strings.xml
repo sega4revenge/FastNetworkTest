@@ -160,6 +160,8 @@
     <string name="need_rent">Wanna rent</string>
     <string name="renting">Be hiring</string>
     <string name="rented">Be hired</string>
+    <string name="need_rent1">Was rented</string>
+    <string name="renting1">Are renting</string>
     //======================================success
     <string name="delete_success">Delete product successfully</string>
     <string name="edit_success">Edit product successfully</string>.

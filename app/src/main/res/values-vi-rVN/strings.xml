@@ -160,6 +160,8 @@
     <string name="rent">Cho thuê</string>
     <string name="need_rent">Cần thuê</string>
     <string name="renting">Đang thuê</string>
+    <string name="need_rent1">Đã cho thuê</string>
+    <string name="renting1">Đang cho thuê</string>
     <string name="rented">Đã thuê</string>
     //======================================success
     <string name="delete_success">Xóa sản phẩm thành công</string>

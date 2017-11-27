@@ -1063,7 +1063,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                     .into(userimage3)
         }
         usercomments3.text = mProduct?.user!!.name
-        email_comment3.text = product?.user!!.email
+        email_comment3.text = mProduct?.user!!.email
         comments3.text = mProduct?.content
         datecomment3.text = timeAgo(mProduct?.time!!)
         //====================check reply =================================//

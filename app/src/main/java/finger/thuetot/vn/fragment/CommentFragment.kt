@@ -37,12 +37,12 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
         else{
             Log.d("TOPICCCCCCCCCCCCCCC",listcomment[(listcomment.size-1)]._id)
             FirebaseMessaging.getInstance().subscribeToTopic(listcomment[(listcomment.size-1)]._id)
-            adapter!!.commentsList.clear()
-            adapter!!.commentsList = listcomment
-            adapter!!.notifyDataSetChanged()
-            comments_list.scrollToPosition(adapter!!.commentsList.size-1)
-            no_cmt.visibility = View.GONE
-            comments_list.visibility = View.VISIBLE
+//            adapter!!.commentsList.clear()
+//            adapter!!.commentsList = listcomment
+//            adapter!!.notifyDataSetChanged()
+//            comments_list.scrollToPosition(adapter!!.commentsList.size-1)
+//            no_cmt.visibility = View.GONE
+//            comments_list.visibility = View.VISIBLE
         }
     }
 
