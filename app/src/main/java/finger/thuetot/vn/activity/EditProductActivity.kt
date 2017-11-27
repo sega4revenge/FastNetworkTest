@@ -32,12 +32,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.rx2androidnetworking.Rx2AndroidNetworking
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_edit_product.*
-import org.json.JSONObject
 import finger.thuetot.vn.R
 import finger.thuetot.vn.lib.imagepicker.TedBottomPicker
 import finger.thuetot.vn.lib.imagepicker.showpicker.ImageBean
@@ -48,6 +42,12 @@ import finger.thuetot.vn.model.Product
 import finger.thuetot.vn.presenter.EditProductPresenter
 import finger.thuetot.vn.util.CompressImage
 import finger.thuetot.vn.util.Constants
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_edit_product.*
+import org.json.JSONObject
 import java.io.File
 import java.net.URL
 import java.util.*
@@ -87,7 +87,15 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_backarrow_white)
         supportActionBar!!.title = getString(R.string.edit_product)
         editProduct = EditProductPresenter(this)
+
+        addressText.setOnClickListener(){
+            map_loading.visibility = View.VISIBLE
+            addressEdit.visibility = View.GONE
+            locationPlacesIntent()
+        }
         addressEdit.setOnClickListener {
+            map_loading.visibility = View.VISIBLE
+            addressEdit.visibility = View.GONE
             locationPlacesIntent()
         }
 
@@ -420,7 +428,6 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
             {
                 Snackbar.make(findViewById(R.id.root_addproduct), getString(R.string.up_fail), Snackbar.LENGTH_SHORT).show()
             }else{
-           //     Log.d("AAAAAAAAA",productname.text.toString() + price.text.toString() + time.selectedItem.toString()+ number.text.toString() + category.selectedItem.toString()+ addressEdit.text.toString()+ description.text.toString()+ mProduct?._id.toString()+imglistDel )
                 if(imglistDel.equals(""))
                 {imglistDel="0"}
                 if(switch_edit.isChecked){
@@ -510,6 +517,8 @@ class EditProductActivity : AppCompatActivity(),EditProductPresenter.EditProduct
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        map_loading.visibility = View.GONE
+        addressEdit.visibility = View.VISIBLE
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 val place = PlacePicker.getPlace(this@EditProductActivity, data)

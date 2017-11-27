@@ -33,6 +33,10 @@ import kotlin.collections.ArrayList
  */
 class CommentAdapter// Constructor
 (private val context: Context, private val oncommentClickListener: OncommentClickListener,fragment: FragmentManager,type: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), CommentPresenter.CommentView {
+    override fun getStatusAddComent(listcomment: ArrayList<Comment>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private val format: String
     private val sharedPref: SharedPreferences = context.getSharedPreferences(Constants.TABLE_USER, Context.MODE_PRIVATE)
     var commentsList: ArrayList<Comment>

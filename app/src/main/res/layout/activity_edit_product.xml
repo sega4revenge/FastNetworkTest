@@ -296,14 +296,11 @@
 
                             </LinearLayout>
                         </LinearLayout>
-
                         <LinearLayout
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-
-
                             android:weightSum="10">
 
                             <LinearLayout
@@ -353,20 +350,31 @@
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginLeft="20dp"
                                     android:text="" />
-
-                                <EditText
-                                    android:id="@+id/addressEdit"
+                                <RelativeLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="40dp"
-                                    android:background="@drawable/roundedt_right"
-                                    android:drawableEnd="@mipmap/area"
-                                    android:drawableRight="@mipmap/area"
-                                    android:focusable="false"
-                                    android:focusableInTouchMode="false"
-                                    android:paddingRight="13dp" />
+                                    android:layout_height="40dp">
+                                    <EditText
+                                        android:id="@+id/addressEdit"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:background="@drawable/roundedt_right"
+                                        android:drawableEnd="@mipmap/area"
+                                        android:drawableRight="@mipmap/area"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="false"
+                                        android:paddingRight="15dp" />
+                                    <ProgressBar
+                                        android:id="@+id/map_loading"
+                                        android:layout_width="25dp"
+                                        android:layout_height="25dp"
+                                        android:layout_centerInParent="true"
+                                        android:visibility="gone"/>
+                                </RelativeLayout>
+
 
                             </LinearLayout>
                         </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="match_parent"

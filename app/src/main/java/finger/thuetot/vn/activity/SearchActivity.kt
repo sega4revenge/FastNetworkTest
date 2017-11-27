@@ -131,7 +131,11 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                                         .position(latLng)
                                         .icon(iconpick)
                                         .title(getString(R.string.location)))
-                                mMap!!.addMarker(MarkerOptions().position(myLocation!!).title("Me"))
+                                if(myLocation!=null)
+                                {
+                                    mMap!!.addMarker(MarkerOptions().position(myLocation!!).title("Me"))
+                                }
+
                                 mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11.5f))
                                 val circleOptions = CircleOptions().center(latLng).radius(10000.0).fillColor(Color.argb(100, 78, 200, 156)).strokeColor(Color.BLUE).strokeWidth(8f)
 
@@ -454,10 +458,15 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         .tag = i
             }
             mMap!!.setOnInfoWindowClickListener { marker ->
-                val intent = Intent(this, ProductDetailActivity::class.java)
-                intent.putExtra(Constants.product_ID, productlist.get(marker.tag.toString().toInt())._id)
-                intent.putExtra(Constants.seller_ID, productlist.get(marker.tag.toString().toInt()).user?._id)
-                startActivity(intent)
+                if(marker.tag.toString().equals("null") && marker.tag.toString() == null){
+
+                }else{
+                    val intent = Intent(this, ProductDetailActivity::class.java)
+                    intent.putExtra(Constants.product_ID, productlist.get(marker.tag.toString().toInt())._id)
+                    intent.putExtra(Constants.seller_ID, productlist.get(marker.tag.toString().toInt()).user?._id)
+                    startActivity(intent)
+                }
+
             }
 
         } else {

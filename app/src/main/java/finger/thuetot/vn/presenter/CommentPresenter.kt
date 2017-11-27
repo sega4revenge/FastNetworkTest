@@ -79,6 +79,43 @@ class CommentPresenter(view: CommentView) {
             }
         }
     }
+    private fun getDisposableObserverAddComment(): DisposableObserver<ResponseListComment> {
+
+        return object : DisposableObserver<ResponseListComment>() {
+
+            override fun onNext(response: ResponseListComment) {
+                Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+                Log.e("Size", response!!.comment.toString())
+                mCommentView.getStatusAddComent(response.comment!!)
+            }
+
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+                    if (e.errorCode != 0) {
+                        // received ANError from server
+                        // error.getErrorCode() - the ANError code from server
+                        // error.getErrorBody() - the ANError body from server
+                        // error.getErrorDetail() - just a ANError detail
+                        Log.d(register, "onError errorCode : " + e.errorCode)
+                        Log.d(register, "onError errorBody : " + e.errorBody)
+                        Log.d(register, "onError errorDetail : " + e.errorDetail)
+                        mCommentView.setErrorMessage(e.message.toString())
+                    } else {
+                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                        Log.d(register, "onError errorDetail : " + e.message)
+                        mCommentView.setErrorMessage(e.message.toString())
+                    }
+                } else {
+                    Log.d(register, "onError errorMessage : " + e.message)
+                    mCommentView.setErrorMessage(e.message!!)
+                }
+            }
+
+            override fun onComplete() {
+                mCommentView.isCommentSuccessful(true)
+            }
+        }
+    }
     fun addcomment(userid : String, productid : String, content : String) {
         try {
             jsonObject.put("userid", userid)
@@ -90,7 +127,7 @@ class CommentPresenter(view: CommentView) {
         disposables.add(getObservable("addcomment")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(getDisposableObserver()))
+                .subscribeWith(getDisposableObserverAddComment()))
 
     }
     fun addreplycomment(userid : String, productid : String, content : String) {
@@ -104,7 +141,7 @@ class CommentPresenter(view: CommentView) {
         disposables.add(getObservable("addreplycomment")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(getDisposableObserver()))
+                .subscribeWith(getDisposableObserverAddComment()))
 
     }
 
@@ -224,6 +261,6 @@ class CommentPresenter(view: CommentView) {
         fun isCommentSuccessful(isCommentSuccessful: Boolean)
         fun setErrorMessage(errorMessage: String)
         fun getCommentDetail(listcomment :ArrayList<Comment>)
-
+        fun getStatusAddComent(listcomment :ArrayList<Comment>)
     }
 }

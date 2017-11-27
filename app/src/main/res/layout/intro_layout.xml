@@ -29,6 +29,7 @@
                 android:background="@drawable/logo_hihi"
                 android:visibility="visible"
                 android:alpha="0"
+                android:layout_marginBottom="20dp"
                 />
             <LinearLayout
                 android:id="@+id/lin_slogan"

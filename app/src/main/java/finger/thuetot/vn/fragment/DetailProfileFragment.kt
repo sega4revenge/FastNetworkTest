@@ -13,8 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.detailprofile.*
-import kotlinx.android.synthetic.main.layout_error_message.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.EditProductActivity
 import finger.thuetot.vn.adapter.ProductAdapter
@@ -23,6 +21,8 @@ import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.Product
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.DetailProfilePressenter
+import kotlinx.android.synthetic.main.detailprofile.*
+import kotlinx.android.synthetic.main.layout_error_message.*
 
 /**
  * Created by VinhNguyen on 8/22/2017.
@@ -176,6 +176,17 @@ class DetailProfileFragment : Fragment(), DetailProfilePressenter.DetailProfileV
 
     override fun onResume() {
         super.onResume()
+        if (adapter!!.productList.size > 0) {
+            adapter!!.productList.clear()
+        }
+        if (productGive.size != 0) {
+            productGive.clear()
+        }
+        if (productNeed.size != 0) {
+            productNeed.clear()
+        }
+        tv_number_give.text = "0"
+        tv_number_need.text = "0"
         tv_give.setTextColor(resources.getColor(R.color.colorAccent))
         tv_need.setTextColor(resources.getColor(R.color.text_light))
         tv_gived.setTextColor(resources.getColor(R.color.text_light))

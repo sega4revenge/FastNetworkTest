@@ -29,7 +29,22 @@ import kotlinx.android.synthetic.main.toolbar_twoline.*
  * A simple [Fragment] subclass.
  */
 class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, CommentPresenter.CommentView {
-
+    override fun getStatusAddComent(listcomment: ArrayList<Comment>) {
+        if(listcomment.size == 0){
+            no_cmt.visibility = View.VISIBLE
+            comments_list.visibility = View.GONE
+        }
+        else{
+            Log.d("TOPICCCCCCCCCCCCCCC",listcomment[(listcomment.size-1)]._id)
+            FirebaseMessaging.getInstance().subscribeToTopic(listcomment[(listcomment.size-1)]._id)
+            adapter!!.commentsList.clear()
+            adapter!!.commentsList = listcomment
+            adapter!!.notifyDataSetChanged()
+            comments_list.scrollToPosition(adapter!!.commentsList.size-1)
+            no_cmt.visibility = View.GONE
+            comments_list.visibility = View.VISIBLE
+        }
+    }
 
 
     override fun getCommentDetail(listcomment: ArrayList<Comment>) {
@@ -101,7 +116,7 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
 
         toolbar_title.text = product_name
         toolbar_subtitle.text = seller_name
-        Log.e("ASD", id)
+
         FirebaseMessaging.getInstance().subscribeToTopic(id)
         adapter = CommentAdapter(context, this,this.fragmentManager,0)
         val layoutManager = LinearLayoutManager(context)
@@ -119,7 +134,6 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
             }
             else
             {
-                Log.e("cmtttt", AppManager.getAppAccountUserId(activity) + " " + id + " " + writecomment.text.toString())
                 mCommentPresenter!!.addcomment(AppManager.getAppAccountUserId(activity), id, writecomment.text.trim().toString())
                 val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(writecomment.windowToken, 0)

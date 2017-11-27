@@ -32,12 +32,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.rx2androidnetworking.Rx2AndroidNetworking
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_add.*
-import org.json.JSONObject
 import finger.thuetot.vn.R
 import finger.thuetot.vn.lib.imagepicker.TedBottomPicker
 import finger.thuetot.vn.lib.imagepicker.showpicker.ImageBean
@@ -49,6 +43,12 @@ import finger.thuetot.vn.presenter.AddPresenter
 import finger.thuetot.vn.util.CompressImage
 import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_add.*
+import org.json.JSONObject
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -93,6 +93,11 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
             }
         }
 ///=======================Lay dia chi================================
+        addressText.setOnClickListener(){
+            map_loading.visibility = View.VISIBLE
+            addressEdit.visibility = View.GONE
+            locationPlacesIntent()
+        }
         addressEdit.setOnClickListener {
             map_loading.visibility = View.VISIBLE
             addressEdit.visibility = View.GONE

@@ -27,7 +27,22 @@ import kotlinx.android.synthetic.main.toolbar_twoline.*
  * Created by VinhNguyen on 11/21/2017.
  */
 class ReplyCommentFragment: Fragment(), CommentAdapter.OncommentClickListener, CommentPresenter.CommentView {
-
+    override fun getStatusAddComent(listcomment: ArrayList<Comment>) {
+        if(listcomment.size == 0){
+            no_cmt.visibility = View.VISIBLE
+            comments_list.visibility = View.GONE
+        }
+        else{
+            Log.d("TOPICCCCCCCCCCCCCCC222",id)
+            FirebaseMessaging.getInstance().subscribeToTopic(id)
+            adapter!!.commentsList.clear()
+            adapter!!.commentsList = listcomment
+            adapter!!.notifyDataSetChanged()
+            comments_list.scrollToPosition(adapter!!.commentsList.size-1)
+            no_cmt.visibility = View.GONE
+            comments_list.visibility = View.VISIBLE
+        }
+    }
 
 
     override fun getCommentDetail(listcomment: ArrayList<Comment>) {
@@ -85,7 +100,6 @@ class ReplyCommentFragment: Fragment(), CommentAdapter.OncommentClickListener, C
     private var id: String = ""
     private var product_name: String = ""
     private var seller_name: String = ""
-    private var userid: String = ""
 
     var adapter : CommentAdapter? = null
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -96,8 +110,6 @@ class ReplyCommentFragment: Fragment(), CommentAdapter.OncommentClickListener, C
 
         toolbar_title.text = product_name
         toolbar_subtitle.text = seller_name
-        Log.d("TOPICCCCCCCCCCC",id)
-        FirebaseMessaging.getInstance().subscribeToTopic(id)
 
         adapter = CommentAdapter(context, this,this.fragmentManager,1)
         val layoutManager = LinearLayoutManager(context)

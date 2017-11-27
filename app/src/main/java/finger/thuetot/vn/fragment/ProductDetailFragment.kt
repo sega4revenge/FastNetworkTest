@@ -56,9 +56,13 @@ import kotlinx.android.synthetic.main.layout_detail_info.view.*
 import kotlinx.android.synthetic.main.layout_error_message.view.*
 import java.text.DecimalFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+    override fun getStatusAddComent(listcomment: ArrayList<Comment>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     internal var error: Boolean = false
 /*    internal var commentslist = ArrayList<Comments>()*/
@@ -291,7 +295,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 }
                 else -> {
                     isMap = false
-                    change_map.background = resources.getDrawable(R.drawable.placeholder)
+                    change_map.background = resources.getDrawable(R.drawable.ic_location_white)
                     slider.visibility = View.VISIBLE
                 }
 
@@ -504,14 +508,14 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 txt_save.text = getString(R.string.save)
             }
         } catch (e: Exception) {
-            Log.e("getProductDetail", "saidjasd")
+            print(e.message)
             btn_save.visibility = View.GONE
             layout_favorite.visibility = View.GONE
         }
         userCreate = response.product?.user
         userCreateProduct = response.product?.user?._id.toString()
         this.product = response.product
-        Log.e("getProductDetail", userCreateProduct + "//" + AppManager.getAppAccountUserId(activity.applicationContext))
+
         if (userCreateProduct.equals(AppManager.getAppAccountUserId(activity.applicationContext))) {
             layout_contact.visibility  = View.GONE
         } else {
@@ -549,6 +553,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     override fun onResume() {
         super.onResume()
         // Send screen name to analytics
+        mCommentPresenter!!.refreshcomment(id)
         slider!!.startAutoCycle()
 
     }
@@ -708,37 +713,37 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }
         }
 
-
+        mCommentPresenter!!.refreshcomment(id)
 //=======================0 cmt========================
-        if (product!!.comment!!.size == 0) {
-            comment_item1.visibility = View.GONE
-            comment_item2.visibility = View.GONE
-            comment_item3.visibility = View.GONE
-
-            no_cmt.visibility = View.VISIBLE
-        }
-//=======================1 cmt========================
-        else if (product!!.comment!!.size == 1) {
-            setDatafromComment1(product!!.comment!![0])
-        }
-//=======================2 cmt========================
-
-        else if (product!!.comment!!.size == 2) {
-            setDatafromComment1(product!!.comment!![0])
-            setDatafromComment2(product!!.comment!![1])
-        }
-
-
-//=======================3 cmt========================
-        else if (product!!.comment!!.size == 3) {
-            setDatafromComment1(product!!.comment!![0])
-            setDatafromComment2(product!!.comment!![1])
-            setDatafromComment3(product!!.comment!![2])
-        }else{
-            setDatafromComment1(product!!.comment!![0])
-            setDatafromComment2(product!!.comment!![1])
-            setDatafromComment3(product!!.comment!![2])
-        }
+//        if (product!!.comment!!.size == 0) {
+//            comment_item1.visibility = View.GONE
+//            comment_item2.visibility = View.GONE
+//            comment_item3.visibility = View.GONE
+//
+//            no_cmt.visibility = View.VISIBLE
+//        }
+////=======================1 cmt========================
+//        else if (product!!.comment!!.size == 1) {
+//            setDatafromComment1(product!!.comment!![0])
+//        }
+////=======================2 cmt========================
+//
+//        else if (product!!.comment!!.size == 2) {
+//            setDatafromComment1(product!!.comment!![0])
+//            setDatafromComment2(product!!.comment!![1])
+//        }
+//
+//
+////=======================3 cmt========================
+//        else if (product!!.comment!!.size == 3) {
+//            setDatafromComment1(product!!.comment!![0])
+//            setDatafromComment2(product!!.comment!![1])
+//            setDatafromComment3(product!!.comment!![2])
+//        }else{
+//            setDatafromComment1(product!!.comment!![0])
+//            setDatafromComment2(product!!.comment!![1])
+//            setDatafromComment3(product!!.comment!![2])
+//        }
 
         val listUserComments = ArrayList<String>()
         product!!.comment!!
@@ -893,18 +898,29 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         comment_item1.visibility = View.VISIBLE
         comment_item2.visibility = View.GONE
         comment_item3.visibility = View.GONE
-        Glide.with(this)
-                .load(avatacmt(mProduct?.user!!.photoprofile!!))
-                .thumbnail(0.1f)
-                .apply(options)
-                .into(userimage1)
+        if(!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null)
+        {
+            Glide.with(this)
+                    .load(avatacmt(mProduct?.user!!.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage1)
+        }
+
         usercomments1.text = mProduct?.user!!.name
         Log.e("Email: ", mProduct?.user!!.email)
 //        email_comment1.text = mProduct?.user!!.email
         comments1.text = mProduct?.content
         datecomment1.text = timeAgo(mProduct?.time!!)
-
         //====================check reply =================================//
+        txt_reply.setOnClickListener(){
+            val intent = Intent(activity, ReplyCommentActivity::class.java)
+            intent.putExtra(Constants.comment_ID, mProduct._id)
+            intent.putExtra(Constants.product_NAME, mProduct.content)
+            intent.putExtra(Constants.seller_name, mProduct.user?.name)
+            activity.startActivity(intent)
+        }
+
         if(mProduct.listreply?.size!! > 0){
             var photoprofile = ""
             commemtreply.visibility = View.VISIBLE
@@ -929,13 +945,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }else{
 
             }
-            txt_reply.setOnClickListener(){
-                val intent = Intent(activity, ReplyCommentActivity::class.java)
-                intent.putExtra(Constants.comment_ID, mProduct._id)
-                intent.putExtra(Constants.product_NAME, mProduct.content)
-                intent.putExtra(Constants.seller_name, mProduct.user?.name)
-                activity.startActivity(intent)
-            }
+
             commentname.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
             commentdata.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
 
@@ -968,17 +978,28 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         comment_item2.visibility = View.VISIBLE
         comment_item3.visibility = View.GONE
 
-        Glide.with(this)
-                .load(avatacmt(mProduct?.user!!.photoprofile!!))
-                .thumbnail(0.1f)
-                .apply(options)
-                .into(userimage2)
+        if(!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null)
+        {
+            Glide.with(this)
+                    .load(avatacmt(mProduct?.user?.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage2)
+        }
+
         usercomments2.text = mProduct?.user!!.name
         email_comment2.text = mProduct?.user!!.email
         comments2.text = mProduct?.content
         datecomment2.text = timeAgo(mProduct?.time!!)
 
         //====================check reply =================================//
+        txt_reply2.setOnClickListener(){
+            val intent = Intent(activity, ReplyCommentActivity::class.java)
+            intent.putExtra(Constants.comment_ID, mProduct._id)
+            intent.putExtra(Constants.product_NAME, mProduct.content)
+            intent.putExtra(Constants.seller_name, mProduct.user?.name)
+            activity.startActivity(intent)
+        }
         if(mProduct.listreply?.size!! > 0){
             var photoprofile = ""
             commemtreply2.visibility = View.VISIBLE
@@ -1003,13 +1024,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }else{
 
             }
-            txt_reply2.setOnClickListener(){
-                val intent = Intent(activity, ReplyCommentActivity::class.java)
-                intent.putExtra(Constants.comment_ID, mProduct._id)
-                intent.putExtra(Constants.product_NAME, mProduct.content)
-                intent.putExtra(Constants.seller_name, mProduct.user?.name)
-                activity.startActivity(intent)
-            }
+
             commentname2.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
             commentdata2.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
 
@@ -1039,17 +1054,26 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
         comment_item3.visibility = View.VISIBLE
-        Glide.with(this)
-                .load(avatacmt(mProduct?.user!!.photoprofile!!))
-                .thumbnail(0.1f)
-                .apply(options)
-                .into(userimage3)
+        if(!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null)
+        {
+            Glide.with(this)
+                    .load(avatacmt(mProduct?.user?.photoprofile!!))
+                    .thumbnail(0.1f)
+                    .apply(options)
+                    .into(userimage3)
+        }
         usercomments3.text = mProduct?.user!!.name
         email_comment3.text = product?.user!!.email
         comments3.text = mProduct?.content
         datecomment3.text = timeAgo(mProduct?.time!!)
-
         //====================check reply =================================//
+        txt_reply3.setOnClickListener(){
+            val intent = Intent(activity, ReplyCommentActivity::class.java)
+            intent.putExtra(Constants.comment_ID, mProduct._id)
+            intent.putExtra(Constants.product_NAME, mProduct.content)
+            intent.putExtra(Constants.seller_name, mProduct.user?.name)
+            activity.startActivity(intent)
+        }
         if(mProduct.listreply?.size!! > 0){
             var photoprofile = ""
             commemtreply3.visibility = View.VISIBLE
@@ -1074,13 +1098,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             }else{
 
             }
-            txt_reply3.setOnClickListener(){
-                val intent = Intent(activity, ReplyCommentActivity::class.java)
-                intent.putExtra(Constants.comment_ID, mProduct._id)
-                intent.putExtra(Constants.product_NAME, mProduct.content)
-                intent.putExtra(Constants.seller_name, mProduct.user?.name)
-                activity.startActivity(intent)
-            }
+
             commentname3.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
             commentdata3.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
 
@@ -1128,7 +1146,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             @SuppressLint("MissingPermission")
             override fun onMapReady(map: GoogleMap?) {
 
-                change_map.background = resources.getDrawable(R.drawable.photo_camera)
+                change_map.background = resources.getDrawable(R.drawable.ic_gallery)
                 slider.visibility = View.GONE
                 mMap = map
                 mMap!!.isMyLocationEnabled = true

@@ -26,16 +26,6 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.android.synthetic.main.content_product_detail_need.*
-import kotlinx.android.synthetic.main.content_product_detail_need.view.*
-import kotlinx.android.synthetic.main.fragment_product_need_detail.*
-import kotlinx.android.synthetic.main.fragment_product_need_detail.view.*
-import kotlinx.android.synthetic.main.layout_detail_cast.*
-import kotlinx.android.synthetic.main.layout_detail_cast.view.*
-import kotlinx.android.synthetic.main.layout_detail_fab.*
-import kotlinx.android.synthetic.main.layout_detail_fab.view.*
-import kotlinx.android.synthetic.main.layout_detail_need_info.*
-import kotlinx.android.synthetic.main.layout_detail_need_info.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.ChatActivity
 import finger.thuetot.vn.activity.CommentActivity
@@ -49,6 +39,16 @@ import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.CommentPresenter
 import finger.thuetot.vn.presenter.ProductDetailPresenter
 import finger.thuetot.vn.util.Constants
+import kotlinx.android.synthetic.main.content_product_detail_need.*
+import kotlinx.android.synthetic.main.content_product_detail_need.view.*
+import kotlinx.android.synthetic.main.fragment_product_need_detail.*
+import kotlinx.android.synthetic.main.fragment_product_need_detail.view.*
+import kotlinx.android.synthetic.main.layout_detail_cast.*
+import kotlinx.android.synthetic.main.layout_detail_cast.view.*
+import kotlinx.android.synthetic.main.layout_detail_fab.*
+import kotlinx.android.synthetic.main.layout_detail_fab.view.*
+import kotlinx.android.synthetic.main.layout_detail_need_info.*
+import kotlinx.android.synthetic.main.layout_detail_need_info.view.*
 import java.lang.Double
 import java.text.DecimalFormat
 import java.util.*
@@ -57,6 +57,10 @@ import java.util.*
  * Created by cc on 9/21/2017.
  */
 class ProductDetailNeedFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, OnMapReadyCallback {
+    override fun getStatusAddComent(listcomment: ArrayList<Comment>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun isCommentSuccessful(isCommentSuccessful: Boolean) {
     }
 

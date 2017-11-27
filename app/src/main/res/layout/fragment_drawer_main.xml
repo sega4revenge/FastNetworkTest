@@ -681,13 +681,13 @@
                         <!--android:textSize="20sp" />-->
                         <ImageButton
                             android:id="@+id/addproduct"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="13dp"
-                            android:background="#37474F"
-                            android:src="@mipmap/ic_add_product" />
+                            android:background="@drawable/push_sign"
+                            />
 
                     </RelativeLayout>
 

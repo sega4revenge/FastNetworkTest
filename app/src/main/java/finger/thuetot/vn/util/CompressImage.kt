@@ -63,16 +63,17 @@ object CompressImage{
             bmp = BitmapFactory.decodeFile(imageUri.path, options)
         } catch (exception: OutOfMemoryError) {
             print(exception.message)
-        //    exception.printStackTrace()
+            exception.printStackTrace()
 
         }
+         try {
+                scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight, Bitmap.Config.ARGB_8888)
+            } catch (exception: OutOfMemoryError) {
+                print(exception.message)
+                exception.printStackTrace()
+          }
 
-        try {
-            scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight, Bitmap.Config.ARGB_8888)
-        } catch (exception: OutOfMemoryError) {
-            print(exception.message)
-          //  exception.printStackTrace()
-        }
+
 
         val ratioX = actualWidth / options.outWidth.toFloat()
         val ratioY = actualHeight / options.outHeight.toFloat()
