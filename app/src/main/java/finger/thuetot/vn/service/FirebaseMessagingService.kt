@@ -38,7 +38,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                 showNotificationReply(remoteMessage?.data?.get("commentid").toString(),remoteMessage?.data?.get("username").toString(),remoteMessage?.data?.get("content").toString(),remoteMessage?.data?.get("userreply").toString(),remoteMessage?.data?.get("userown").toString(),remoteMessage?.data?.get("msg").toString())
             }
             else {
-                showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString())
+                showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString(),remoteMessage?.data?.get("idsend").toString())
             }
         }
     }
@@ -51,7 +51,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         }
         return result
     }
-    private fun showNotificationChat(userto : String,name: String,messager: String, avata: String, userfrom : String) {
+    private fun showNotificationChat(userto : String,name: String,messager: String, avata: String, userfrom : String, idsend : String) {
             var usersendid = ""
             if(userto.equals(AppManager.getAppAccountUserId(this)))
             {
@@ -59,7 +59,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
             }else{
                 usersendid = userto
             }
-            val typenotification = 2
+            val typenotification = idsend.hashCode()
             val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             var notif: Notification? = null
@@ -79,7 +79,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                         .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                         .setLights(Color.RED, 3000, 3000)
                         .setSound(defaultSoundUri)
-                        .setSmallIcon(R.drawable.logo_hihi)
+                        .setSmallIcon(R.drawable.small_icon)
                         .build()
 
                 notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
@@ -105,7 +105,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                             .setLights(Color.RED, 3000, 3000)
                             .setSound(defaultSoundUri)
-                            .setSmallIcon(R.drawable.logo_hihi)
+                            .setSmallIcon(R.drawable.small_icon)
                             .setLargeIcon(getCroppedBitmap(image))
                             .build()
 
@@ -150,7 +150,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                             .setLights(Color.RED, 3000, 3000)
                             .setSound(defaultSoundUri)
-                            .setSmallIcon(R.drawable.logo_hihi)
+                            .setSmallIcon(R.drawable.small_icon)
                             .build()
 
                     notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
@@ -197,7 +197,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                     .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                     .setLights(Color.RED, 3000, 3000)
                     .setSound(defaultSoundUri)
-                    .setSmallIcon(R.drawable.logo_hihi)
+                    .setSmallIcon(R.drawable.small_icon)
                     .build()
 
             notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
