@@ -157,8 +157,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                             .setLights(Color.RED, 3000, 3000)
                             .setSound(defaultSoundUri)
-                            .setSmallIcon(getNotificationIcon())
-                            .setColor(resources.getColor(R.color.colorAccent))
+                            .setSmallIcon(R.drawable.small_icon)
                             .build()
 
                     notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
@@ -205,7 +204,7 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                     .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                     .setLights(Color.RED, 3000, 3000)
                     .setSound(defaultSoundUri)
-                    .setSmallIcon(getNotificationIcon())
+                    .setSmallIcon(R.drawable.small_icon)
                     .setColor(resources.getColor(R.color.colorAccent))
                     .build()
 
