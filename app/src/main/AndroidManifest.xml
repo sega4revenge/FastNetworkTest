@@ -125,7 +125,8 @@
 
             android:name="finger.thuetot.vn.activity.AppIntroActivity"
             android:label="@string/app_name"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -135,48 +136,22 @@
         <activity
             android:name="finger.thuetot.vn.activity.ProductDetailActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-            <intent-filter>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"
+            android:launchMode="singleTask"
+            android:exported="true">
+            <intent-filter android:label="@string/app_name" android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="45.77.36.109"
-                    android:pathPrefix="/api/v1/link/"
-                    android:scheme="http" />
-                <data
-                    android:host="45.77.36.109"
-                    android:scheme="http" />
-                <data
-                    android:host="45.77.36.109"
-                    android:pathPrefix="/api/v1/link"
-                    android:scheme="http" />
-                <data
-                    android:host="/api/v1/link"
-                    android:scheme="45.77.36.109" />
+                <data android:scheme="http"
+                    />
             </intent-filter>
         </activity>
         <activity
             android:name="finger.thuetot.vn.activity.ProductDetailNeedActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="freemarkets.ga"
-                    android:pathPrefix="/link.php/"
-                    android:scheme="http" />
-                <data
-                    android:host="freemarkets.ga"
-                    android:pathPrefix="/link.php"
-                    android:scheme="http" />
-            </intent-filter>
         </activity>
         <activity android:name="finger.thuetot.vn.activity.ForgotPassword">
 

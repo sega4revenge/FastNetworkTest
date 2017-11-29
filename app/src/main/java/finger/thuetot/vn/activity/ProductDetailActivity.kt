@@ -24,6 +24,7 @@ class ProductDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
+
         val i = Intent(applicationContext, LoginActivity::class.java)
         if (savedInstanceState == null) {
             var productId: String
@@ -38,12 +39,14 @@ class ProductDetailActivity : AppCompatActivity() {
                 loadproductDetailsOf(productId,productuserId )
             } else {
                 // Loading from deep link
+                println(data.toString())
                 val parts = data.toString().split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 productId = parts[parts.size - 1]
+
                 println(productId)
                 when (productId) {
                 // Load product Lists
-                    "link.php" -> if (AccountManager.get(this).getAccountsByType(AppManager.ACCOUNT_TYPE).isNotEmpty()) {
+                    "link" -> if (AccountManager.get(this).getAccountsByType(AppManager.ACCOUNT_TYPE).isNotEmpty()) {
                         loadproductsOfType(0)
                     } else {
                         startActivity(i)
