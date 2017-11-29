@@ -746,7 +746,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
 //        }
 
         val listUserComments = ArrayList<String>()
-        product!!.comment!!
+        product?.comment!!
                 .asSequence()
                 .filterNot { listUserComments.contains(it.user!!.photoprofile) }
                 .forEach {

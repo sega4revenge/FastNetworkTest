@@ -93,7 +93,18 @@ class ReplyCommentFragment: Fragment(), CommentAdapter.OncommentClickListener, C
     }
 
     override fun setErrorMessage(errorMessage: String) {
-        println(errorMessage)
+        if(errorMessage.equals("405")){
+            var build = android.app.AlertDialog.Builder(activity)
+            build.setMessage(R.string.comment_notexit)
+                    .setNegativeButton(R.string.btn_ok, { _, _ ->
+                        run {
+                        }
+                    })
+            var alert = build.create()
+            alert.show()
+        }else {
+            println(errorMessage)
+        }
     }
 
 

@@ -339,6 +339,12 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
             }
             mLocation?.position = myLocation
+            try{
+                SearchView!!.searchWithMap(ed_search.query.toString(), myLocation!!, cate, 10)
+            }catch (e: Exception){
+                print(e.message)
+            }
+
           //  if(intent.getBooleanExtra("first",false))
          //       try{
          //           mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(mLocation?.position, 17.0f))

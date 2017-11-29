@@ -99,15 +99,15 @@ class CommentPresenter(view: CommentView) {
                         Log.d(register, "onError errorCode : " + e.errorCode)
                         Log.d(register, "onError errorBody : " + e.errorBody)
                         Log.d(register, "onError errorDetail : " + e.errorDetail)
-                        mCommentView.setErrorMessage(e.message.toString())
+                        mCommentView.setErrorMessage(e.errorCode.toString())
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                         Log.d(register, "onError errorDetail : " + e.message)
-                        mCommentView.setErrorMessage(e.message.toString())
+                        mCommentView.setErrorMessage(e.errorCode.toString())
                     }
                 } else {
                     Log.d(register, "onError errorMessage : " + e.message)
-                    mCommentView.setErrorMessage(e.message!!)
+                    mCommentView.setErrorMessage(e.message.toString())
                 }
             }
 

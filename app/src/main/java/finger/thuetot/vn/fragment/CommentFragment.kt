@@ -35,7 +35,6 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
             comments_list.visibility = View.GONE
         }
         else{
-            Log.d("TOPICCCCCCCCCCCCCCC",listcomment[(listcomment.size-1)]._id)
             FirebaseMessaging.getInstance().subscribeToTopic(listcomment[(listcomment.size-1)]._id)
 //            adapter!!.commentsList.clear()
 //            adapter!!.commentsList = listcomment
@@ -99,7 +98,18 @@ class CommentFragment : Fragment(), CommentAdapter.OncommentClickListener, Comme
     }
 
     override fun setErrorMessage(errorMessage: String) {
-        println(errorMessage)
+        if(errorMessage.equals("405")){
+            var build = android.app.AlertDialog.Builder(activity)
+            build.setMessage(R.string.product_notexit)
+                    .setNegativeButton(R.string.btn_ok, { _, _ ->
+                        run {
+                        }
+                    })
+            var alert = build.create()
+            alert.show()
+        }else {
+            println(errorMessage)
+        }
     }
 
 
