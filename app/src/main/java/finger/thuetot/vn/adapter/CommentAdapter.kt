@@ -169,10 +169,10 @@ class CommentAdapter// Constructor
             viewHolder.itemView.commemtreply.visibility = View.VISIBLE
             if(!comment.listreply!![(comment.listreply!!.size-1)].user?.photoprofile.equals("")){
                 if(comment.listreply!![(comment.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
-                    photoprofile2 = comment.listreply!![0].user?.photoprofile
+                    photoprofile2 = comment.listreply!![(comment.listreply!!.size-1)].user?.photoprofile
                 }
                 else{
-                    photoprofile2 = Constants.IMAGE_URL+comment.listreply!![0].user?.photoprofile
+                    photoprofile2 = Constants.IMAGE_URL+comment.listreply!![(comment.listreply!!.size-1)].user?.photoprofile
                 }
                 val options = RequestOptions()
                         .centerCrop()

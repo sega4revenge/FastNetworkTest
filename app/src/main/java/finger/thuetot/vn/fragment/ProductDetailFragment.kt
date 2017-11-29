@@ -926,10 +926,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             commemtreply.visibility = View.VISIBLE
             if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
                 if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
-                    photoprofile = mProduct.listreply!![0].user?.photoprofile!!
+                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile!!
                 }
                 else{
-                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![0].user?.photoprofile
+                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile
                 }
                 val options = RequestOptions()
                         .centerCrop()
@@ -1005,10 +1005,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             commemtreply2.visibility = View.VISIBLE
             if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
                 if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
-                    photoprofile = mProduct.listreply!![0].user?.photoprofile!!
+                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile!!
                 }
                 else{
-                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![0].user?.photoprofile
+                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile
                 }
                 val options = RequestOptions()
                         .centerCrop()
@@ -1079,10 +1079,10 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             commemtreply3.visibility = View.VISIBLE
             if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
                 if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
-                    photoprofile = mProduct.listreply!![0].user?.photoprofile!!
+                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile!!
                 }
                 else{
-                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![0].user?.photoprofile
+                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile
                 }
                 val options = RequestOptions()
                         .centerCrop()
