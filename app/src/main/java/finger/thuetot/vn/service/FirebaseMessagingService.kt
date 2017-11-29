@@ -51,6 +51,11 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
         }
         return result
     }
+
+    private fun getNotificationIcon(): Int {
+        val useWhiteIcon = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP
+        return if (useWhiteIcon) R.drawable.smalliconwhite else R.drawable.small_icon
+    }
     private fun showNotificationChat(userto : String,name: String,messager: String, avata: String, userfrom : String, idsend : String) {
             var usersendid = ""
             if(userto.equals(AppManager.getAppAccountUserId(this)))
@@ -79,7 +84,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                         .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                         .setLights(Color.RED, 3000, 3000)
                         .setSound(defaultSoundUri)
-                        .setSmallIcon(R.drawable.small_icon)
+                        .setSmallIcon(getNotificationIcon())
+                        .setColor(resources.getColor(R.color.colorAccent))
                         .build()
 
                 notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
@@ -105,8 +111,9 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                             .setLights(Color.RED, 3000, 3000)
                             .setSound(defaultSoundUri)
-                            .setSmallIcon(R.drawable.small_icon)
+                            .setSmallIcon(getNotificationIcon())
                             .setLargeIcon(getCroppedBitmap(image))
+                            .setColor(resources.getColor(R.color.colorAccent))
                             .build()
 
                     notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
@@ -150,7 +157,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                             .setLights(Color.RED, 3000, 3000)
                             .setSound(defaultSoundUri)
-                            .setSmallIcon(R.drawable.small_icon)
+                            .setSmallIcon(getNotificationIcon())
+                            .setColor(resources.getColor(R.color.colorAccent))
                             .build()
 
                     notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL
@@ -197,7 +205,8 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
                     .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
                     .setLights(Color.RED, 3000, 3000)
                     .setSound(defaultSoundUri)
-                    .setSmallIcon(R.drawable.small_icon)
+                    .setSmallIcon(getNotificationIcon())
+                    .setColor(resources.getColor(R.color.colorAccent))
                     .build()
 
             notif!!.flags = notif.flags or Notification.FLAG_AUTO_CANCEL

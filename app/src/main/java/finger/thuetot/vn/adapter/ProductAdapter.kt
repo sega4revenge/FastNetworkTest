@@ -131,6 +131,7 @@ internal class ProductAdapter// Constructor
                 viewHolderParent.itemView.userpost.text = product.user!!.name
             viewHolderParent.itemView.area_compact.text = product.location!!.address
             viewHolderParent.itemView.area_compact.isSelected = true
+            if(product.status == "0"){
 
             if (product.type == "1") {
 
@@ -148,7 +149,14 @@ internal class ProductAdapter// Constructor
                         .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
                 viewHolderParent.itemView.price_compact.text = ""
             }
-
+            } else {
+                viewHolderParent.itemView.type_view.setText(R.string.need_rent1)
+                        .setTextColor(Color.WHITE)
+                        .setSlantedBackgroundColor(context.resources.getColor((R.color.wasRented)))
+                        .setTextSize(15)
+                        .setSlantedLength(60).mode = SlantedTextView.MODE_RIGHT_TRIANGLE
+                viewHolderParent.itemView.price_compact.text = ""
+            }
             when (product.category) {
                 "0" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_vehicle)
                 "1" -> viewHolderParent.itemView.product_poster_compact.setImageResource(R.drawable.cate_electronic)

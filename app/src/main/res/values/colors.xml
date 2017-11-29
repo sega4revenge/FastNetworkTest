@@ -17,6 +17,7 @@
     <!--<color name="colorPrimaryDark">#303F9F</color>-->
     <color name="colorAccent">#EC407A</color>
     <color name="white">#ffffff</color>
+    <color name="wasRented">#4682b4</color>
 
 
     <color name="actionBarColor">#37474F</color>

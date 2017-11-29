@@ -334,6 +334,7 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
         val timer = Timer()
         timer.scheduleAtFixedRate(task, 0, 500)
         val startTime = System.nanoTime()
+        Log.e("file",file.length().toString())
         val observable = Rx2AndroidNetworking.upload(Constants.BASE_URL + "upload")
                 .addMultipartParameter("productid", productid)
                 .addMultipartFile("image", CompressImage.compressImage(file, this))
@@ -384,10 +385,13 @@ class AddActivity : AppCompatActivity(), AddPresenter.AddView {
                         }
 //                        progressBar_addproduct.visibility = View.GONE
                         progressDialog?.dismiss()
-                        Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.server_unreachable), Snackbar.LENGTH_SHORT).show()
+//                        Snackbar.make(findViewById(R.id.root_addproduct),getString(R.string.server_unreachable), Snackbar.LENGTH_SHORT).show()
                         timer.cancel()
                         timer.purge()
                         mNotificationManager?.cancel(1)
+
+                        setResult(Constants.RESULD_ADD_ERROR,Intent())
+                        finish()
                     }
 
                     override fun onSubscribe(d: Disposable) {

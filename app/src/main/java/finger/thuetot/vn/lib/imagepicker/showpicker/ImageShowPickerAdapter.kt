@@ -3,6 +3,7 @@ package finger.thuetot.vn.lib.imagepicker.showpicker
 import android.content.Context
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -111,6 +112,8 @@ import java.util.*
     }
 
     override fun onDelClickListener(position: Int) {
+        Log.e("ImageShow","onDelClickListener")
+
         try {
          //   listuri.removeAt(position)
             list.removeAt(position)
@@ -133,6 +136,8 @@ import java.util.*
     }
 
     override fun onPicClickListener(position: Int) {
+        Log.e("ImageShow","onPicClickListener")
+
         if (position == list.size) {
             pickerListener?.addOnClickListener(mMaxNum - position - 1)
         } else {
@@ -168,6 +173,7 @@ import java.util.*
         }
 
         override fun onClick(v: View) {
+            Log.e("ImageShow","onClick")
             val i = v.id
             if (i == R.id.iv_image_show_picker_pic) {
                 picOnClickListener.onPicClickListener(layoutPosition)

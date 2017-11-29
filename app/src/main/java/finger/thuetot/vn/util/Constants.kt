@@ -20,7 +20,7 @@ internal object Constants {
     val TABLE_USER = "user_settings"
     val LAST_SELECTED = "last_drawer_selection"
     val THUMBNAIL_SIZE = "thumbnail_size"
-
+    val RESULD_ADD_ERROR = 1
     val FOTGOTPASSWORD = 1
     val CREATEPRODUCT = 1
 

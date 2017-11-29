@@ -37,8 +37,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import kotlinx.android.synthetic.main.tedbottompicker_content_view.view.*
-import kotlinx.android.synthetic.main.tedbottompicker_selected_item.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.lib.imagepicker.adapter.ImageGalleryAdapter
 import finger.thuetot.vn.lib.imagepicker.adapter.PhotoGalleryAdapter
@@ -46,6 +44,8 @@ import finger.thuetot.vn.lib.imagepicker.model.Photo
 import finger.thuetot.vn.lib.imagepicker.model.PhotoDirectory
 import finger.thuetot.vn.lib.imagepicker.util.MediaStoreHelper
 import finger.thuetot.vn.lib.imagepicker.util.RealPathUtil
+import kotlinx.android.synthetic.main.tedbottompicker_content_view.view.*
+import kotlinx.android.synthetic.main.tedbottompicker_selected_item.view.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -278,20 +278,28 @@ class TedBottomPicker : BottomSheetDialogFragment() {
                 activity, builder!!)
         contentView!!.rc_gallery!!.adapter = imageGalleryAdapter
         imageGalleryAdapter!!.setOnItemClickListener(object : ImageGalleryAdapter.OnItemClickListener {
+            @SuppressLint("SwitchIntDef")
             override fun onItemClick(view: View, position: Int) {
 
                 val pickerTile = imageGalleryAdapter!!.getItem(position)
+
+                Log.e("TedBottom", context.contentResolver.openInputStream(pickerTile.imageUri).available().toString())
+                if(context.contentResolver.openInputStream(pickerTile.imageUri).available() <= 0){
+                    Toast.makeText(activity,R.string.err_imageSize,Toast.LENGTH_LONG).show()
+//                    Snackbar.make(contentView!!.findViewById(R.id.slidingUpPanelLayout),getString(R.string.server_unreachable), Snackbar.LENGTH_SHORT).show()
+
+                }
+                else{
 
                 when (pickerTile.tileType) {
                     ImageGalleryAdapter.PickerTile.IMAGE -> complete(pickerTile.imageUri!!)
 
                     else -> errorMessage()
                 }
-
+                }
             }
         })
     }
-
     private fun complete(uri: Uri) {
         Log.d(TAG, "selected uri: " + uri.toString())
         //uri = Uri.parse(uri.toString());

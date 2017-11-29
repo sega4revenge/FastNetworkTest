@@ -35,6 +35,7 @@ object CompressImage{
         var imgRatio = (actualWidth / actualHeight).toFloat()
         val maxRatio = maxWidth / maxHeight
 
+        Log.e("Wid + Hei :" , actualWidth.toString() + " / " +actualHeight.toString())
 
         if (actualHeight > maxHeight || actualWidth > maxWidth) {
             if (imgRatio < maxRatio) {

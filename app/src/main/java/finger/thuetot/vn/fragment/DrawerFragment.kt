@@ -161,7 +161,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             mSelectedId = savedInstanceState?.getInt(SELECTED_ITEM_ID) ?: mSelectedId
             mPrevSelectedId = mSelectedId
 
-            navigation_view!!.menu.findItem(mSelectedId).isChecked = true
+//            navigation_view!!.menu.findItem(mSelectedId).isChecked = true
 
             navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true
             navigate(R.id.nav_1)
@@ -473,6 +473,9 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             if (resultCode == Activity.RESULT_OK) {
                 showSnackBarMessage(getString(R.string.up_success))
 
+            }
+            else if(resultCode == Constants.RESULD_ADD_ERROR){
+                showSnackBarMessage(getString(R.string.server_unreachable))
             }
         }
     }

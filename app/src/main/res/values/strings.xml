@@ -55,7 +55,7 @@
     <string name="btn_signin">Sign in</string>
     <string name="btn_join">Sign up</string>
     <string name="btn_forgot">Forgot password</string>
-    <string name="btn_signup">Don\'t have account ?</string>
+    <string name="btn_signup">Don\'t have account ? CLICK HERE</string>
     <string name="btn_signup_click">CLICK HERE</string>
     <string name="btn_backtologin">Already have account ? CLICK HERE</string>
     <string name="hint_name">Name</string>
@@ -133,6 +133,7 @@
     <string name="location">Location</string>
     <string name="started">Started</string>
     <string name="err">Have error !</string>
+    <string name="err_imageSize">Size is not invalid, please choose another image !</string>
     //======================================cate
     <string name="cate_vehicle">Vehicle</string>
     <string name="cate_electronic">Electronic</string>
