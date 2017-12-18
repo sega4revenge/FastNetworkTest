@@ -23,7 +23,6 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kotlinx.android.synthetic.main.profile_seller_layout.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.ChatActivity
 import finger.thuetot.vn.activity.ProductDetailActivity
@@ -33,6 +32,7 @@ import finger.thuetot.vn.model.Product
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.DetailProfilePressenter
 import finger.thuetot.vn.util.Constants
+import kotlinx.android.synthetic.main.profile_seller_layout.view.*
 import java.util.*
 
 /**
@@ -283,11 +283,11 @@ class ProifileSellerFragment : BottomSheetDialogFragment(), DetailProfilePressen
     }
 
     override fun setErrorMessage(errorMessage: String) {
+
     }
 
 
     override fun onproductClicked(position: Int) {
-     //   Log.d("test",adapter!!.productList[position]._id!!+"//"+adapter!!.productList[position].user!!._id)
 
         val intent = Intent(mContext, ProductDetailActivity::class.java)
         intent.putExtra(Constants.product_ID, adapter?.productList?.get(position)?._id)

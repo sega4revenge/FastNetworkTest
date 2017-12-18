@@ -1295,6 +1295,7 @@
         android:paddingLeft="7dp"
         android:paddingRight="7dp"
         android:paddingTop="10dp"
+        android:layout_marginTop="5dp"
         android:paddingBottom="10dp">
 
       <!--  <Button
@@ -1338,6 +1339,67 @@
         <!--android:layout_alignParentEnd="true" />-->
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/likenew">
+        <View
+            android:id="@+id/line_1"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/btn_color_login" />
+        <finger.thuetot.vn.view.RobotoLightTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sản phẩm liên quan"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@drawable/radius_all_view"
+            android:layout_marginBottom="5dp">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/radius_all_view"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <finger.thuetot.vn.view.RobotoBoldTextView
+                    android:id="@+id/nodata"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/pro_not_found"
+                    android:textSize="15dp"
+                    android:visibility="gone"/>
+
+                    <!-- Recycler View -->
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/product_recycleview"
+                        android:name="sega.fastnetwork.test.productGridFragment"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/radius_all_view"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:padding="@dimen/recycler_view_padding"
+                        />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
     <!-- See All Button -->
     <!--<include-->
         <!--android:id="@+id/comments_see_all"-->

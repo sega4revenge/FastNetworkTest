@@ -4,6 +4,10 @@ import android.os.Looper
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.rx2androidnetworking.Rx2AndroidNetworking
+import finger.thuetot.vn.model.Product
+import finger.thuetot.vn.model.ResponseListProduct
+import finger.thuetot.vn.model.User
+import finger.thuetot.vn.util.Constants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -11,10 +15,6 @@ import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONException
 import org.json.JSONObject
-import finger.thuetot.vn.model.Product
-import finger.thuetot.vn.model.ResponseListProduct
-import finger.thuetot.vn.model.User
-import finger.thuetot.vn.util.Constants
 
 
 
@@ -41,6 +41,21 @@ class ProductListPresenter(view: ProductListView) {
             e.printStackTrace()
         }
         disposables.add(getObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver()))
+
+
+    }
+    fun getProductListLikeNew(category: Int) {
+        try {
+            jsonObject.put("category", category)
+
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservableLikeNew()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver()))
@@ -93,21 +108,27 @@ class ProductListPresenter(view: ProductListView) {
                 }
                 .getObjectObservable(ResponseListProduct::class.java)
     }
-
+    private fun getObservableLikeNew(): Observable<ResponseListProduct> {
+        return  Rx2AndroidNetworking.post(Constants.BASE_URL + "/productlikenew")
+                .setTag("listproduct")
+                .setTag(this)
+                .addJSONObjectBody(jsonObject)
+                .build()
+                .setAnalyticsListener { timeTakenInMillis, bytesSent, bytesReceived, isFromCache ->
+                    Log.d(userdetail, " timeTakenInMillis : " + timeTakenInMillis)
+                    Log.d(userdetail, " bytesSent : " + bytesSent)
+                    Log.d(userdetail, " bytesReceived : " + bytesReceived)
+                    Log.d(userdetail, " isFromCache : " + isFromCache)
+                }
+                .getObjectObservable(ResponseListProduct::class.java)
+    }
     private fun getDisposableObserver(): DisposableObserver<ResponseListProduct> {
 
         return object : DisposableObserver<ResponseListProduct>() {
 
             override fun onNext(response: ResponseListProduct) {
                 Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
-
-            //    if(response?.listproduct?.size!! > 0)
-           //     {
-                Log.d("ssssss","!1")
-                    mProductListView.getListProduct(response.listproduct!!)
-              //  }else{
-           //         mProductListView.setErrorNotFound()
-             //   }
+                mProductListView.getListProduct(response.listproduct!!)
             }
             override fun onError(e: Throwable) {
                 if (e is ANError) {

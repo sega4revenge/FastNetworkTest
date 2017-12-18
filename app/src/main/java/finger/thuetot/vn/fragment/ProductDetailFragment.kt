@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.text.format.DateUtils
 import android.util.DisplayMetrics
@@ -32,6 +33,8 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.*
+import finger.thuetot.vn.adapter.ProductAdapter
+import finger.thuetot.vn.customview.DividerItemDecoration
 import finger.thuetot.vn.lib.SliderTypes.Animations.DescriptionAnimation
 import finger.thuetot.vn.lib.SliderTypes.BaseSliderView
 import finger.thuetot.vn.lib.SliderTypes.DefaultSliderView
@@ -44,6 +47,7 @@ import finger.thuetot.vn.model.Response
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.CommentPresenter
 import finger.thuetot.vn.presenter.ProductDetailPresenter
+import finger.thuetot.vn.presenter.ProductListPresenter
 import finger.thuetot.vn.util.Constants
 import kotlinx.android.synthetic.main.content_product_detail.*
 import kotlinx.android.synthetic.main.fragment_product_detail.*
@@ -59,7 +63,27 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,ProductDetailPresenter.ProductDetailView, ProductListPresenter.ProductListView, CommentPresenter.CommentView, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+    override fun setErrorNotFound() {
+        likenew.visibility = View.GONE
+    }
+
+    override fun getListProduct(productlist: ArrayList<Product>) {
+        Log.d("sizeeeeeeeeeee",productlist.size.toString()+"aaaaaaassss")
+        if(productlist?.size >0)
+        {
+            adapter!!.productList.addAll(productlist)
+            adapter?.notifyDataSetChanged()
+        }else{
+            likenew.visibility = View.GONE
+        }
+
+    }
+
+    override fun getListSavedProduct(productsavedlist: User) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getStatusAddComent(listcomment: ArrayList<Comment>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -81,6 +105,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
     internal var formatprice: DecimalFormat? = DecimalFormat("###,###,###")
     var isTablet: Boolean = false
     var mProductDetailPresenter: ProductDetailPresenter? = null
+    var mProductListPresenter: ProductListPresenter? = null
     var mCommentPresenter: CommentPresenter? = null
     var s = 0
     var userCreate: User? = null
@@ -98,6 +123,19 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
             .placeholder(R.drawable.logo)
             .error(R.drawable.img_error)
             .priority(Priority.HIGH)
+    private var layoutManager: LinearLayoutManager? = null
+    private var adapter: ProductAdapter? = null
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        product_recycleview.setHasFixedSize(true)
+        layoutManager = LinearLayoutManager(activity)
+        product_recycleview.layoutManager = layoutManager
+        product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
+        adapter = ProductAdapter(context, this, product_recycleview, layoutManager!!)
+        product_recycleview.adapter = adapter
+
+    }
 
     // Fragment lifecycle
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -116,7 +154,12 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         Myid = AppManager.getAppAccountUserId(activity.applicationContext)
         mProductDetailPresenter = ProductDetailPresenter(this)
         mCommentPresenter = CommentPresenter(this)
+        mProductListPresenter = ProductListPresenter(this)
 
+//        layoutManager = LinearLayoutManager(activity)
+//        v.product_recycleview.layoutManager = layoutManager
+//        adapter = ProductAdapter(context, this, v.product_recycleview, layoutManager!!)
+//        v.product_recycleview.adapter = adapter
         //========================refresh comment======================
 //        v.refresh_comment.setOnClickListener {
 //            doubleClick = true
@@ -516,6 +559,8 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         userCreateProduct = response.product?.user?._id.toString()
         this.product = response.product
 
+        mProductListPresenter?.getProductListLikeNew(response.product?.category!!.toInt())
+
         if (userCreateProduct.equals(AppManager.getAppAccountUserId(activity.applicationContext))) {
             layout_contact.visibility  = View.GONE
         } else {
@@ -714,36 +759,7 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
         }
 
         mCommentPresenter!!.refreshcomment(id)
-//=======================0 cmt========================
-//        if (product!!.comment!!.size == 0) {
-//            comment_item1.visibility = View.GONE
-//            comment_item2.visibility = View.GONE
-//            comment_item3.visibility = View.GONE
-//
-//            no_cmt.visibility = View.VISIBLE
-//        }
-////=======================1 cmt========================
-//        else if (product!!.comment!!.size == 1) {
-//            setDatafromComment1(product!!.comment!![0])
-//        }
-////=======================2 cmt========================
-//
-//        else if (product!!.comment!!.size == 2) {
-//            setDatafromComment1(product!!.comment!![0])
-//            setDatafromComment2(product!!.comment!![1])
-//        }
-//
-//
-////=======================3 cmt========================
-//        else if (product!!.comment!!.size == 3) {
-//            setDatafromComment1(product!!.comment!![0])
-//            setDatafromComment2(product!!.comment!![1])
-//            setDatafromComment3(product!!.comment!![2])
-//        }else{
-//            setDatafromComment1(product!!.comment!![0])
-//            setDatafromComment2(product!!.comment!![1])
-//            setDatafromComment3(product!!.comment!![2])
-//        }
+
 
         val listUserComments = ArrayList<String>()
         product?.comment!!
@@ -1194,7 +1210,15 @@ class ProductDetailFragment : Fragment(), ProductDetailPresenter.ProductDetailVi
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .check()
     }
+    override fun onproductClicked(position: Int) {
 
+        var intent2 = Intent(activity, ProductDetailActivity::class.java)
+        intent2.putExtra(Constants.product_ID, adapter!!.productList[position]._id!!)
+        intent2.putExtra(Constants.seller_ID, adapter!!.productList[position].user!!._id)
+        activity.startActivityForResult(intent2,105)
+        activity.finish()
+
+    }
     override fun onDestroy() {
         super.onDestroy()
         mProductDetailPresenter!!.cancelRequest()

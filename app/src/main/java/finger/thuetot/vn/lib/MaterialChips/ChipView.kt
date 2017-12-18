@@ -11,11 +11,11 @@ import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
-import kotlinx.android.synthetic.main.lib_chip_view.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.lib.MaterialChips.model.ChipInterface
 import finger.thuetot.vn.lib.MaterialChips.util.LetterTileProvider
 import finger.thuetot.vn.lib.MaterialChips.util.ViewUtil
+import kotlinx.android.synthetic.main.lib_chip_view.view.*
 
 class ChipView : RelativeLayout {
     // context
@@ -170,7 +170,7 @@ class ChipView : RelativeLayout {
             // hide icon
             icon.visibility = View.GONE
             // adjust padding
-            if (delete_button.visibility === View.VISIBLE)
+            if (delete_button.visibility == View.VISIBLE)
                 label.setPadding(ViewUtil.dpToPx(12), 0, 0, 0)
             else
                 label.setPadding(ViewUtil.dpToPx(12), 0, ViewUtil.dpToPx(12), 0)
@@ -179,7 +179,7 @@ class ChipView : RelativeLayout {
             // show icon
             icon.visibility = View.VISIBLE
             // adjust padding
-            if (delete_button.visibility === View.VISIBLE)
+            if (delete_button.visibility == View.VISIBLE)
                 label.setPadding(ViewUtil.dpToPx(8), 0, 0, 0)
             else
                 label.setPadding(ViewUtil.dpToPx(8), 0, ViewUtil.dpToPx(12), 0)
@@ -227,7 +227,7 @@ class ChipView : RelativeLayout {
             // hide delete icon
             delete_button.setVisibility(View.GONE)
             // adjust padding
-            if (icon.getVisibility() === View.VISIBLE)
+            if (icon.getVisibility() == View.VISIBLE)
                 label.setPadding(ViewUtil.dpToPx(8), 0, ViewUtil.dpToPx(12), 0)
             else
                 label.setPadding(ViewUtil.dpToPx(12), 0, ViewUtil.dpToPx(12), 0)
@@ -235,7 +235,7 @@ class ChipView : RelativeLayout {
             // show icon
             delete_button.setVisibility(View.VISIBLE)
             // adjust padding
-            if (icon.getVisibility() === View.VISIBLE)
+            if (icon.getVisibility() == View.VISIBLE)
                 label.setPadding(ViewUtil.dpToPx(8), 0, 0, 0)
             else
                 label.setPadding(ViewUtil.dpToPx(12), 0, 0, 0)

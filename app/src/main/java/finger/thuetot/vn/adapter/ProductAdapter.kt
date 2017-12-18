@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -173,7 +174,10 @@ internal class ProductAdapter// Constructor
             }
 
         }
-        viewHolderParent.itemView.setOnClickListener { onproductClickListener.onproductClicked(position) }
+        viewHolderParent.itemView.setOnClickListener {
+            Log.d("itemmmmmmmmmmmmmmmmmmm",position.toString()+"itemViewwwwwwwww")
+            onproductClickListener.onproductClicked(position)
+        }
 
 
     }

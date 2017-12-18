@@ -107,7 +107,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         }
         adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
-            Log.d("runnnnnnnnnnnnnnnnnnnn","nowwwwwwwwwwwwwwwwwwwwww")
+
             if (!isFirstLoad) {
                 val a = Product()
                 a.productname = ""
