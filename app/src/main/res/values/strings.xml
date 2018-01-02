@@ -113,7 +113,7 @@
     <string name="st_errpass2">Should not be empty or less than 6 character !</string>
     <string name="st_errpass3">Should not be empty or repassword not match !</string>
     <string name="st_errpass4">Should not be empty or less than 8 character !</string>
-
+    <string name="time_new">just now</string>
     //======================================
     <string name="ac_add">Add product</string>
     <string name="noselect">No select</string>

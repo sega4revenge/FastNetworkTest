@@ -21,77 +21,80 @@
             android:layout_height="45dp"
             android:layout_margin="5dp"
             />
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
             android:layout_marginRight="5dp"
-            >
+            android:gravity="center|left">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    >
+                    <TextView
+                        android:id="@+id/txtnameTo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:singleLine="true"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:textStyle="bold"
+                        android:text="vuongvinh"
+                        android:layout_marginLeft="7dp"
+                        android:visibility="gone"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/border_textchat"
+                        android:gravity="center"
+                        android:maxHeight="200dp"
+                        android:maxWidth="400dp"
+                        >
+                        <!--<ProgressBar-->
+                        <!--android:id="@+id/progressBarLoading"-->
+                        <!--android:visibility="gone"-->
+                        <!--android:layout_width="@dimen/progress_circle_small_width"-->
+                        <!--android:layout_height="@dimen/progress_circle_small_width" />-->
+                        <ImageView
+                            android:padding="7dp"
+                            android:id="@+id/imgSendTo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:visibility="gone"
+                            android:maxHeight="200dp"
+                            android:maxWidth="400dp"
+                            />
+                        <TextView
+                            android:padding="7dp"
+                            android:id="@+id/txtmessTo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
             <TextView
                 android:id="@+id/txttime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
-                android:textSize="12dp" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical"
-                >
-            <TextView
-                android:id="@+id/txtnameTo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:singleLine="true"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:textStyle="bold"
-                android:text="vuongvinh"
-                android:layout_marginLeft="7dp"
-                android:visibility="gone"
-                />
+                android:textSize="11dp"
+                android:layout_marginLeft="5dp"/>
+        </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/border_textchat"
-                    android:gravity="center"
-                    android:maxHeight="200dp"
-                    android:maxWidth="400dp"
-                   >
-                    <!--<ProgressBar-->
-                       <!--android:id="@+id/progressBarLoading"-->
-                        <!--android:visibility="gone"-->
-                        <!--android:layout_width="@dimen/progress_circle_small_width"-->
-                        <!--android:layout_height="@dimen/progress_circle_small_width" />-->
-                    <ImageView
-                        android:padding="7dp"
-                        android:id="@+id/imgSendTo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:visibility="gone"
-                        android:maxHeight="200dp"
-                        android:maxWidth="400dp"
-                        />
-                    <TextView
-                        android:padding="7dp"
-                        android:id="@+id/txtmessTo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-
-            </LinearLayout>
-        </RelativeLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/LinFrom"
@@ -104,79 +107,80 @@
         android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp">
 
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="vertical"
             android:layout_marginLeft="55dp"
-            >
-
-            <!--<TextView-->
-                <!--android:id="@+id/txttime"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_marginRight="10dp"-->
-                <!--android:textSize="12dp" />-->
-
-            <LinearLayout
+            android:gravity="right">
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtnameFrom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="vuongvinh"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/border_textchat"
-                    android:gravity="center"
-                    android:maxHeight="200dp"
-                    android:maxWidth="400dp"
-                    android:orientation="horizontal">
-
-                    <ProgressBar
-                        android:id="@+id/progressBarLoading"
-                        android:layout_width="@dimen/progress_circle_small_width"
-                        android:layout_height="@dimen/progress_circle_small_width"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:id="@+id/imgSend"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:maxHeight="200dp"
-                        android:maxWidth="400dp"
-                        android:padding="7dp"
-                        android:visibility="gone" />
+                    android:gravity="right"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/txtmessFrom"
+                        android:id="@+id/txtnameFrom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="7dp"
-                        android:textColor="@color/black"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="vuongvinh"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
-            </LinearLayout>
-        </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/border_textchat"
+                        android:gravity="center"
+                        android:maxHeight="200dp"
+                        android:maxWidth="400dp"
+                        android:orientation="horizontal">
+
+                        <ProgressBar
+                            android:id="@+id/progressBarLoading"
+                            android:layout_width="@dimen/progress_circle_small_width"
+                            android:layout_height="@dimen/progress_circle_small_width"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/imgSend"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:maxHeight="200dp"
+                            android:maxWidth="400dp"
+                            android:padding="7dp"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/txtmessFrom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="7dp"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/txttimeFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11dp"
+                android:layout_marginRight="5dp"/>
+        </LinearLayout>
+
         <finger.thuetot.vn.customview.CircleImageView
             android:id="@+id/imgAvatarFrom"
             android:layout_width="45dp"

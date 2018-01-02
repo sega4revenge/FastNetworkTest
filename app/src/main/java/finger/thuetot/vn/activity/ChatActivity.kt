@@ -238,6 +238,7 @@ class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
         Chatmess?.name = args[3].toString()
         Chatmess?.message = args[4].toString()
         Chatmess?.photoprofile = args[5].toString()
+        Chatmess?.created_at = args[6].toString()
         if(Chatmess?.photoprofile.equals("")){
 
         }else{

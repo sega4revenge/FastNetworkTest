@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,9 +128,19 @@ internal class ProductAdapter// Constructor
             if (product.user?.name.isNullOrEmpty())
                 viewHolderParent.itemView.userpost.text = user
             else
-                viewHolderParent.itemView.userpost.text = product.user!!.name
-            viewHolderParent.itemView.area_compact.text = product.location!!.address
+            viewHolderParent.itemView.userpost.text = product.user!!.name
             viewHolderParent.itemView.area_compact.isSelected = true
+            try{
+                var num = product.location!!.address?.split(", ")
+                if(num?.size!! > 2){
+                    viewHolderParent.itemView.area_compact.text = num[(num?.size-2)]
+                }else{
+                    viewHolderParent.itemView.area_compact.text = num[0]
+                }
+            }catch (e: Exception){
+
+            }
+
             if(product.status == "0"){
 
             if (product.type == "1") {
@@ -175,7 +184,6 @@ internal class ProductAdapter// Constructor
 
         }
         viewHolderParent.itemView.setOnClickListener {
-            Log.d("itemmmmmmmmmmmmmmmmmmm",position.toString()+"itemViewwwwwwwww")
             onproductClickListener.onproductClicked(position)
         }
 

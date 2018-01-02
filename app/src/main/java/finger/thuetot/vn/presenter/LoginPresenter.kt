@@ -149,7 +149,7 @@ private fun getObservable_loginfinish(typesearch: String): Observable<Response> 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver_loginfinish()))
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 private fun getObservable_register(typesearch: String): Observable<Response> {
     return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
             .setTag(register)
@@ -321,14 +321,14 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
             e.printStackTrace()
         }
 
-        disposables.add(getObservable_linkaccount("linkaccount")
+        disposables.add(getObservable_linkaccount("linkaccountdev")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver_linkaccount(type)))
 
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     private fun getObservable_register_finish(typesearch: String): Observable<Response> {
         return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
                 .setTag(register_finish)

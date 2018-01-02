@@ -150,6 +150,7 @@
     <string name="cate_other">Khác</string>
     //====================================== filter
     <string name="latest">Mới nhất</string>
+    <string name="time_new">mới đây</string>
     <string name="latest_des">Sắp xếp theo sản phẩm có ngày đăng mới nhất</string>
     <string name="popular">Phổ biến nhất</string>
     <string name="popular_des">Sắp xếp theo sản phẩm có lượt xem nhiều nhất</string>

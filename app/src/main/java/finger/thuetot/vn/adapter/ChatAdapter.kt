@@ -3,6 +3,7 @@ package finger.thuetot.vn.adapter
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.ChatMessager
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.util.Constants
+import java.util.*
 
 
 /**
@@ -72,7 +74,22 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerV
             }else{
                 holder.imgAvatarFrom.setImageResource(R.drawable.useravatar)
             }
-
+            if (item?.created_at != null) {
+                try{
+                    val tsLong = System.currentTimeMillis().toLong()
+                    var counttime = tsLong - item?.created_at!!.toLong()
+                    if(counttime < 60000){
+                        holder.txttimeFrom.text = mContext?.resources?.getString(R.string.time_new)
+                    }else{
+                        val timeAgo = DateUtils.getRelativeTimeSpanString(
+                                java.lang.Long.parseLong(item?.created_at),
+                                System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+                        holder.txttimeFrom.text = timeAgo
+                    }
+                }catch (e:Exception){
+                    System.out.print(e.message)
+                }
+            }
         }else {
             holder.mProgressbar.visibility = View.GONE
             if (item?.email.equals(user.email)) {
@@ -82,6 +99,23 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerV
                     holder.imgSend.visibility = View.GONE
                     holder.txtnameFrom.text = item?.name
                     holder.txtmessFrom.text = item?.message
+
+                    if (item?.created_at != null) {
+                        try{
+                            val tsLong = System.currentTimeMillis().toLong()
+                            var counttime = tsLong - item?.created_at!!.toLong()
+                            if(counttime < 60000){
+                                holder.txttimeFrom.text = mContext?.resources?.getString(R.string.time_new)
+                            }else{
+                                val timeAgo = DateUtils.getRelativeTimeSpanString(
+                                        java.lang.Long.parseLong(item?.created_at),
+                                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+                                holder.txttimeFrom.text = timeAgo
+                            }
+                        }catch (e:Exception){
+                            System.out.print(e.message)
+                        }
+                    }
                 } else {
                     holder.LinFrom.visibility = View.VISIBLE
                     holder.LinTo.visibility = View.GONE
@@ -94,6 +128,22 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerV
                             .thumbnail(0.5f)
                             .apply(options2)
                             .into(holder.imgSend)
+                    if (item?.created_at != null) {
+                        try{
+                            val tsLong = System.currentTimeMillis().toLong()
+                            var counttime = tsLong - item?.created_at!!.toLong()
+                            if(counttime < 60000){
+                                holder.txttimeFrom.text = mContext?.resources?.getString(R.string.time_new)
+                            }else{
+                                val timeAgo = DateUtils.getRelativeTimeSpanString(
+                                        java.lang.Long.parseLong(item?.created_at),
+                                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+                                holder.txttimeFrom.text = timeAgo
+                            }
+                        }catch (e:Exception){
+                            System.out.print(e.message)
+                        }
+                    }
                 }
 
                     if (!user.photoprofile.equals("")) {
@@ -113,6 +163,24 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerV
                     holder.imgSendTo.visibility = View.GONE
                     holder.txtnameTo.text = item?.name
                     holder.txtmessTo.text = item?.message
+                    if (item?.created_at != null) {
+
+                        try{
+                            val tsLong = System.currentTimeMillis().toLong()
+                            var counttime = tsLong - item?.created_at!!.toLong()
+                            if(counttime < 60000){
+                                holder.txttime.text = mContext?.resources?.getString(R.string.time_new)
+                            }else{
+                                val timeAgo = DateUtils.getRelativeTimeSpanString(
+                                        java.lang.Long.parseLong(item?.created_at),
+                                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+                                holder.txttime.text = timeAgo
+                            }
+                        }catch (e:Exception){
+                            System.out.print(e.message)
+                        }
+
+                    }
 
                 } else {
                  //   val url = URL(avatacmt(item?.photoprofile!!))
@@ -127,8 +195,24 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerV
                             .thumbnail(0.5f)
                             .apply(options2)
                             .into(holder.imgSendTo)
+                    if (item?.created_at != null) {
+                        try{
+                            val tsLong = System.currentTimeMillis().toLong()
+                            var counttime = tsLong - item?.created_at!!.toLong()
+                            if(counttime < 60000){
+                                holder.txttime.text = mContext?.resources?.getString(R.string.time_new)
+                            }else{
+                                val timeAgo = DateUtils.getRelativeTimeSpanString(
+                                        java.lang.Long.parseLong(item?.created_at),
+                                        System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS)
+                                holder.txttime.text = timeAgo
+                            }
+                        }catch (e:Exception){
+                            System.out.print(e.message)
+                        }
+                    }
                 }
-                    Log.d("ttttttttttt",imguserto+"11")
+
                     if (!imguserto.equals("")) {
                         Glide.with(mContext)
                                 .load(avatacmt(imguserto!!))
@@ -184,5 +268,7 @@ class ChatAdapter (item: ArrayList<ChatMessager>?, context: Context) : RecyclerV
         val imgSend = view.findViewById<ImageView>(R.id.imgSend)
         val imgSendTo = view.findViewById<ImageView>(R.id.imgSendTo)
         val mProgressbar = view.findViewById<ProgressBar>(R.id.progressBarLoading)
+        val txttime = view.findViewById<TextView>(R.id.txttime)
+        val txttimeFrom = view.findViewById<TextView>(R.id.txttimeFrom)
     }
 }

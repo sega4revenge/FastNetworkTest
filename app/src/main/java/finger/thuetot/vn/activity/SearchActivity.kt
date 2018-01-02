@@ -124,7 +124,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
                             mLocation = mMap!!.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("My Location"))
                             mMap!!.setOnMapClickListener { latLng ->
-
+                                Log.d("taG: asdasd","sssssssssssss")
                                 var iconpick = BitmapDescriptorFactory.fromResource(R.drawable.pin)
                                 mMap!!.clear()
                                 mMap!!.addMarker(MarkerOptions()
@@ -325,6 +325,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                 myLocation = LatLng(latitude.toDouble(), longitude.toDouble())
                 try{
                     mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 17.0f))
+                    SearchView!!.searchWithMap(ed_search.query.toString(), myLocation!!, cate, 10)
                 }catch (e: Exception){
                     print(e.message.toString())
                 }
@@ -339,11 +340,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 
             }
             mLocation?.position = myLocation
-            try{
-                SearchView!!.searchWithMap(ed_search.query.toString(), myLocation!!, cate, 10)
-            }catch (e: Exception){
-                print(e.message)
-            }
+
 
           //  if(intent.getBooleanExtra("first",false))
          //       try{
@@ -451,7 +448,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     override fun getListProduct(productlist: ArrayList<Product>) {
         if (isMap) {
 
-            for (i in productlist.indices) {
+            for ( i: Int in productlist.indices) {
+                Log.d("taG: position ", i.toString())
+                Log.d("taG:  productname", productlist[i].productname)
                 var iconCate: BitmapDescriptor? = null
                 iconCate= geticonCategory(productlist[i]?.category!!)
                 val PERTH = LatLng(productlist[i].location!!.coordinates!![1], productlist[i].location!!.coordinates!![0])
@@ -465,8 +464,10 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             }
             mMap!!.setOnInfoWindowClickListener { marker ->
                 if(marker.tag.toString().equals("null") && marker.tag.toString() == null){
-
+                        Log.d("taG:  ", marker.tag.toString())
                 }else{
+                    Log.d("taG:  ", marker.tag.toString())
+                    Log.d("taG:  ", productlist.get(marker.tag.toString().toInt()).productname)
                     val intent = Intent(this, ProductDetailActivity::class.java)
                     intent.putExtra(Constants.product_ID, productlist.get(marker.tag.toString().toInt())._id)
                     intent.putExtra(Constants.seller_ID, productlist.get(marker.tag.toString().toInt()).user?._id)
@@ -524,7 +525,6 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     public override fun onResume() {
         super.onResume()
         // Determine screen name
-
         registerReceiver(this.broadcastReceiver, IntentFilter("servicetutorial.service.receiver"))
 
     }

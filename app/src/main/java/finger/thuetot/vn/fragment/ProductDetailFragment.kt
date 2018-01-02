@@ -762,13 +762,18 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
 
 
         val listUserComments = ArrayList<String>()
-        product?.comment!!
-                .asSequence()
-                .filterNot { listUserComments.contains(it.user!!.photoprofile) }
-                .forEach {
-                    listUserComments.add(it.user!!.photoprofile!!)
-                    println(it.user!!.photoprofile)
-                }
+        try{
+            product?.comment!!
+                    .asSequence()
+                    .filterNot { listUserComments.contains(it.user!!.photoprofile) }
+                    .forEach {
+                        listUserComments.add(it.user!!.photoprofile!!)
+                        println(it.user!!.photoprofile)
+                    }
+        }catch (e: Exception){
+            System.out.print(e.message)
+        }
+
         when {
             listUserComments.size == 0 -> {
 
@@ -1147,12 +1152,17 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
     }
 
     private fun onDownloadFailed() {
-        error_message.visibility = View.VISIBLE
+        try{
+            error_message.visibility = View.VISIBLE
 
-        product_detail_holder.visibility = View.GONE
+            product_detail_holder.visibility = View.GONE
 //        toolbar_text_holder.visibility = View.GONE
 //        toolbar.title = ""
-        layout_detail_header.visibility = View.GONE
+            layout_detail_header.visibility = View.GONE
+        }catch (e: Exception){
+            System.out.print(e.message)
+        }
+
     }
 
 

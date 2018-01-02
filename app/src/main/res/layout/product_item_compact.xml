@@ -58,56 +58,27 @@
 
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="3dp"
-
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/userpostlayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <finger.thuetot.vn.view.RobotoLightTextView
-                        android:id="@+id/userpost"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:textSize="@dimen/text_small"
-                        tools:text="Sieu Gò Vấp" />
-
-                    <ImageView
-                        android:id="@+id/product_poster_compact"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-
-                        android:layout_gravity="center_horizontal"
-
-                        android:src="@drawable/cate_home" />
+                android:orientation="horizontal"
+                android:weightSum="100"
+                >
 
 
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/timelayout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/userpostlayout"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_weight="55">
 
                     <finger.thuetot.vn.view.RobotoLightTextView
                         android:id="@+id/timepost"
@@ -128,16 +99,50 @@
 
                     <finger.thuetot.vn.view.RobotoLightTextView
                         android:id="@+id/area_compact"
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:maxLines="1"
                         android:singleLine="true"
-
+                        android:ellipsize="end"
                         android:textSize="@dimen/text_small"
                         tools:text="AreyiiiytiaAreyiiiytiaAreyiiiAreyiiiytiaAreyiiiytiaAreyiiiytiaAreyiiiytiaytiaAreyiiiytia" />
                 </LinearLayout>
-            </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/userpostlayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:layout_weight="45">
+
+                    <finger.thuetot.vn.view.RobotoLightTextView
+                        android:id="@+id/userpost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textSize="@dimen/text_small"
+                        tools:text="Sieu Gò Vấp"
+                        android:singleLine="true"/>
+
+                    <ImageView
+                        android:id="@+id/product_poster_compact"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+
+                        android:layout_gravity="center_horizontal"
+
+                        android:src="@drawable/cate_home" />
+
+
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
