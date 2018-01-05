@@ -3,9 +3,7 @@ package finger.thuetot.vn.fragment
 
 import android.Manifest
 import android.app.Activity
-import android.content.ContentResolver
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -55,6 +53,15 @@ import java.util.*
  */
 
 class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener, DrawerPresenter.DrawerView, ChangePasswordPresenter.ChangePasswordView {
+    override fun cancelreferralSuccess(response: Response) {
+    }
+
+    override fun referralSuccess(response: Response) {
+    }
+
+    override fun setErrorPhonenumber(errorMessage: String) {
+    }
+
     override fun getUserDetail(user: User) {
         AppManager.onlyremoveAccount(context, user)
 //        AppManager.saveAccountUser(context,user,0)
@@ -90,7 +97,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         showSnackBarMessage(getString(R.string.changeinfo_success))
         AppManager.onlyremoveAccount(context, response.user!!)
 //        AppManager.saveAccountUser(context,response.user!!,0)
-        navigation_view.getHeaderView(0).username_header.text = response.user!!.name
+//        navigation_view.getHeaderView(0).username_header.text = response.user!!.name
         txtname.text = response.user!!.name
         user = response.user!!
     }
@@ -186,6 +193,15 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                     .into(navigation_view.getHeaderView(0).avatar_header)
             navigation_view.getHeaderView(0).username_header.text = user!!.name
             navigation_view.getHeaderView(0).email_header.text = user!!.email
+            navigation_view.getHeaderView(0).money_referral.text = user!!.totalreferralpoint.toString() + "đ"
+            navigation_view.getHeaderView(0).question_mark.setOnClickListener {
+                val builder = AlertDialog.Builder(activity)
+                builder.setMessage("Đây là số tiền bạn tích lũy được khi giới thiệu THUÊ TỐT. Khi số tiền lớn hơn 100.000đ, hãy liên lạc với chúng tôi qua page để rút số tiền này. Hãy giới thiệu nhiều người hơn để kiếm thật nhiều tiền nhé ! (Mã giới thiệu là số điện thoại bạn đăng ký)")
+                        .setPositiveButton(R.string.btn_ok, { _, _ ->
+                        })
+
+                        .show()
+            }
             linMotobike.setOnClickListener() {
                 changeCategory(0, HomeFragment())
             }
@@ -482,8 +498,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.e("onDestroy","onDestroy")
         mChangePasswordPresenter?.cancelRequest()
         mDrawerPresenter?.cancelRequest()
+        activity.unregisterReceiver(appendChatScreenMsgReceiver)
     }
 
     private fun getRealFilePath(context: Context, uri: Uri?): String? {
@@ -604,6 +622,19 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
     }
     override fun onResume() {
         super.onResume()
+        Log.e("onResume","onResume")
+        activity.registerReceiver(this.appendChatScreenMsgReceiver, IntentFilter("mainactivity"))
+
+    }
+
+    //    override fun onStart() {
+//        super.onStart()
+//        activity.registerReceiver(this.appendChatScreenMsgReceiver, IntentFilter("mainactivity"))
+//
+//    }
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        activity.registerReceiver(this.appendChatScreenMsgReceiver, IntentFilter("mainactivity"))
     }
 
     private fun changeCategory(mCategory: Int, mFragment: Fragment) {
@@ -838,7 +869,15 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
         private val SELECTED_ITEM_ID = "SELECTED_ITEM_ID"
     }
 
-
+    private var appendChatScreenMsgReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val b = intent.extras
+            if (b != null) {
+                var money = b.getString("reload")
+                navigation_view.getHeaderView(0).money_referral.text = money + "đ"
+            }
+        }
+    }
 }
 
 

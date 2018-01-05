@@ -12,6 +12,8 @@ class User() : Parcelable {
     var _id: String? = null
     var name: String? = null
     var email: String? = null
+    var referral : String? = null
+    var totalreferralpoint : Int? = null
     var photoprofile: String? = null
     var phone: String? = null
     var listproduct: ArrayList<Product>? = ArrayList()
@@ -26,6 +28,7 @@ class User() : Parcelable {
         _id = parcel.readString()
         name = parcel.readString()
         email = parcel.readString()
+        referral = parcel.readString()
         photoprofile = parcel.readString()
         phone = parcel.readString()
         hashed_password = parcel.readString()
@@ -36,6 +39,7 @@ class User() : Parcelable {
         parcel.writeString(_id)
         parcel.writeString(name)
         parcel.writeString(email)
+        parcel.writeString(referral)
         parcel.writeString(photoprofile)
         parcel.writeString(phone)
         parcel.writeString(hashed_password)

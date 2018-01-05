@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
         android:orientation="vertical"
         android:gravity="center_vertical"
         >
@@ -47,7 +47,32 @@
                 android:textSize="14sp"
                 />
 
+
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_light"
+                android:layout_marginLeft="20dp"
+                android:text="Số tiền lích lũy:  "/>
+            <TextView
+                android:id="@+id/money_referral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_light" />
+            <ImageButton
+                android:id="@+id/question_mark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/question_mark"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <View

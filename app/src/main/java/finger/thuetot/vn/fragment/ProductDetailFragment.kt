@@ -609,6 +609,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
             outState.putString(Constants.product_ID, id)
             outState.putParcelable(Constants.product_OBJECT, product)
             outState.putParcelable(Constants.seller_DETAIL, seller)
+            outState.putString(Constants.seller_ID, id_user)
         }
     }
 
@@ -661,10 +662,108 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
             }
 
         }
-        if (product!!.type == "1") {
-            product_status.text = getString(R.string.rent)
+        if(product?.status == "0") {
+
+            if (product!!.type == "1") {
+                product_status.text = getString(R.string.rent)
+                product_status.setTextColor(Color.WHITE)
+                product_status.background = resources.getDrawable(R.drawable.roundtextview)
+                val temp = formatprice?.format(product!!.price?.toDouble()) + format
+                product_price.text = temp
+                when (product!!.category) {
+                    "0" -> {
+                        icon_category.setImageResource(R.drawable.cate_vehicle_round)
+                        txt_category.text = getString(R.string.cate_vehicle)
+                    }
+
+                    "1" -> {
+                        icon_category.setImageResource(R.drawable.cate_electronic_round)
+                        txt_category.text = getString(R.string.cate_electronic)
+                    }
+                    "2" -> {
+                        icon_category.setImageResource(R.drawable.cate_fashion_round)
+                        txt_category.text = getString(R.string.cate_fashion)
+                    }
+                    "3" -> {
+                        icon_category.setImageResource(R.drawable.cate_home_round)
+                        txt_category.text = getString(R.string.cate_house)
+                    }
+                    "4" -> {
+                        icon_category.setImageResource(R.drawable.cate_mother_round)
+                        txt_category.text = getString(R.string.cate_motherandbaby)
+                    }
+                    "5" -> {
+                        icon_category.setImageResource(R.drawable.cate_furniture_round)
+                        txt_category.text = getString(R.string.cate_furniture)
+                    }
+                    "6" -> {
+                        icon_category.setImageResource(R.drawable.cate_cup_round)
+                        txt_category.text = getString(R.string.cate_entertaiment)
+                    }
+                    "7" -> {
+                        icon_category.setImageResource(R.drawable.cate_printer_round)
+                        txt_category.text = getString(R.string.cate_office)
+                    }
+                    else -> { // Note the block
+                        icon_category.setImageResource(R.drawable.cate_more_round)
+                        txt_category.text = getString(R.string.cate_other)
+                    }
+                }
+                product_status.setOnClickListener {
+
+                }
+            } else {
+
+                product_status.text = getString(R.string.need_rent)
+                product_status.setTextColor(Color.WHITE)
+                product_status.background = resources.getDrawable(R.drawable.roundtextview2)
+                price_and_bagde.visibility = View.GONE
+                icon_calendar.setImageResource(R.drawable.calendar1)
+                icon_view.setImageResource(R.drawable.eye1)
+                when (product!!.category) {
+                    "0" -> {
+                        icon_category.setImageResource(R.drawable.cate_vehicle_round1)
+                        txt_category.text = getString(R.string.cate_vehicle)
+                    }
+
+                    "1" -> {
+                        icon_category.setImageResource(R.drawable.cate_electronic_round1)
+                        txt_category.text = getString(R.string.cate_electronic)
+                    }
+                    "2" -> {
+                        icon_category.setImageResource(R.drawable.cate_fashion_round1)
+                        txt_category.text = getString(R.string.cate_fashion)
+                    }
+                    "3" -> {
+                        icon_category.setImageResource(R.drawable.cate_home_round1)
+                        txt_category.text = getString(R.string.cate_house)
+                    }
+                    "4" -> {
+                        icon_category.setImageResource(R.drawable.cate_mother_round1)
+                        txt_category.text = getString(R.string.cate_motherandbaby)
+                    }
+                    "5" -> {
+                        icon_category.setImageResource(R.drawable.cate_furniture_round1)
+                        txt_category.text = getString(R.string.cate_furniture)
+                    }
+                    "6" -> {
+                        icon_category.setImageResource(R.drawable.cate_cup_round1)
+                        txt_category.text = getString(R.string.cate_entertaiment)
+                    }
+                    "7" -> {
+                        icon_category.setImageResource(R.drawable.cate_printer_round)
+                        txt_category.text = getString(R.string.cate_office)
+                    }
+                    else -> { // Note the block
+                        icon_category.setImageResource(R.drawable.cate_more_round1)
+                        txt_category.text = getString(R.string.cate_other)
+                    }
+                }
+            }
+        } else {
+            product_status.text = getString(R.string.need_rent1)
             product_status.setTextColor(Color.WHITE)
-            product_status.background = resources.getDrawable(R.drawable.roundtextview)
+            product_status.background = resources.getDrawable(R.drawable.roundtextview3)
             val temp = formatprice?.format(product!!.price?.toDouble()) + format
             product_price.text = temp
             when (product!!.category) {
@@ -706,58 +805,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
                     txt_category.text = getString(R.string.cate_other)
                 }
             }
-            product_status.setOnClickListener {
-
-            }
-        } else {
-
-            product_status.text = getString(R.string.need_rent)
-            product_status.setTextColor(Color.WHITE)
-            product_status.background = resources.getDrawable(R.drawable.roundtextview2)
-            price_and_bagde.visibility = View.GONE
-            icon_calendar.setImageResource(R.drawable.calendar1)
-            icon_view.setImageResource(R.drawable.eye1)
-            when (product!!.category) {
-                "0" -> {
-                    icon_category.setImageResource(R.drawable.cate_vehicle_round1)
-                    txt_category.text = getString(R.string.cate_vehicle)
-                }
-
-                "1" -> {
-                    icon_category.setImageResource(R.drawable.cate_electronic_round1)
-                    txt_category.text = getString(R.string.cate_electronic)
-                }
-                "2" -> {
-                    icon_category.setImageResource(R.drawable.cate_fashion_round1)
-                    txt_category.text = getString(R.string.cate_fashion)
-                }
-                "3" -> {
-                    icon_category.setImageResource(R.drawable.cate_home_round1)
-                    txt_category.text = getString(R.string.cate_house)
-                }
-                "4" -> {
-                    icon_category.setImageResource(R.drawable.cate_mother_round1)
-                    txt_category.text = getString(R.string.cate_motherandbaby)
-                }
-                "5" -> {
-                    icon_category.setImageResource(R.drawable.cate_furniture_round1)
-                    txt_category.text = getString(R.string.cate_furniture)
-                }
-                "6" -> {
-                    icon_category.setImageResource(R.drawable.cate_cup_round1)
-                    txt_category.text = getString(R.string.cate_entertaiment)
-                }
-                "7" -> {
-                    icon_category.setImageResource(R.drawable.cate_printer_round)
-                    txt_category.text = getString(R.string.cate_office)
-                }
-                else -> { // Note the block
-                    icon_category.setImageResource(R.drawable.cate_more_round1)
-                    txt_category.text = getString(R.string.cate_other)
-                }
-            }
         }
-
         mCommentPresenter!!.refreshcomment(id)
 
 

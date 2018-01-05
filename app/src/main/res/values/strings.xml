@@ -256,5 +256,6 @@
     <string name="txt_Connect_store">Like us on the Play Store </string>
     <string name="txt_Connect_website">Visit our website </string>
     <string name="txt_reply">reply</string>
+    <string name="txt_phonenumber_referral">Input phone number referral</string>
 
 </resources>

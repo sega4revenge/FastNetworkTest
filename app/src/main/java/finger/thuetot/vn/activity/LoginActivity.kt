@@ -39,6 +39,9 @@ import java.util.regex.Pattern
 
 
 class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiClient.OnConnectionFailedListener {
+    override fun setCode(code: String) {
+    }
+
     var mAccountManager: AccountManager? = null
     var account: Account? = null
     var user = User()

@@ -264,6 +264,8 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
 
             override fun onNext(response: Response) {
                 Log.d(register, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+//                Log.e("codeeee",response.message)
+//                mLoginView.setCode(response.message.toString())
                 mLoginView.setErrorMessage(response.status.toString(),type)
             }
             override fun onError(e: Throwable) {
@@ -321,14 +323,14 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
             e.printStackTrace()
         }
 
-        disposables.add(getObservable_linkaccount("linkaccountdev")
+        disposables.add(getObservable_linkaccount("linkaccount")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver_linkaccount(type)))
 
     }
 
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun getObservable_register_finish(typesearch: String): Observable<Response> {
         return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
                 .setTag(register_finish)
@@ -408,5 +410,6 @@ private fun getObservable_register(typesearch: String): Observable<Response> {
         fun isRegisterSuccessful(isRegisterSuccessful: Boolean, type: Int)
         fun setErrorMessage(errorMessage: String, type: Int)
         fun getUserDetail(user: User)
+        fun setCode(code : String)
     }
 }

@@ -28,6 +28,7 @@ import finger.thuetot.vn.presenter.DrawerPresenter
 import finger.thuetot.vn.presenter.ProductListPresenter
 import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation
+import kotlinx.android.synthetic.main.dialog_phonenumber.view.*
 import kotlinx.android.synthetic.main.layout_error_message.*
 import kotlinx.android.synthetic.main.tab_home.*
 
@@ -37,6 +38,31 @@ import kotlinx.android.synthetic.main.tab_home.*
  */
 
 class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView {
+    override fun cancelreferralSuccess(response: Response) {
+        Log.e("phoneeeeee",response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
+        mAleftdialog?.cancel()
+        AppManager.onlyremoveAccount(context,response.user!!)    }
+
+    override fun referralSuccess(response: Response) {
+        Log.e("phoneeeeee",response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
+        mAleftdialog?.cancel()
+        showSnackBarMessage("Nhập mã giới thiệu thành công !")
+        AppManager.onlyremoveAccount(context,response.user!!)
+        val x = Intent()
+        x.action = "mainactivity"
+        x.putExtra("reload", response.user!!.totalreferralpoint.toString())
+        activity.sendBroadcast(x)
+//        navigation_view.getHeaderView(0).money_referral.text = response.user!!.totalreferralpoint.toString()
+    }
+
+    override fun setErrorPhonenumber(errorMessage: String) {
+//        val inflater = layoutInflater
+//        val v = inflater.inflate(R.layout.dialog_phonenumber, null)
+        v!!.progressBar_phonenumber.visibility = View.GONE
+        CircularAnim.show(v!!.btn_accept_phonenumber).go()
+        v!!.edt_phonenumber.error = "Không tìm thấy số điện thoại này"
+//        showSnackBarMessage(errorMessage)
+    }
 
     override fun changeAvatarSuccess(t: Response) {
     }
@@ -62,7 +88,10 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     var isFistTime = true
     var mCategory = 0
     var user: User? = null
-    val mAleftdialog: AlertDialog? = null
+    var mAleftdialog: AlertDialog? = null
+    var v: View? = null
+    var dialog: AlertDialog.Builder? = null
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -152,19 +181,20 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     override fun onResume() {
         super.onResume()
         user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
-        Log.e("Phone", "Name: " + user!!.name + "Email: " + user!!.email + "Phone: " + user!!.phone)
-        if (user!!.phone.equals("") || user!!.phone == null) {
-            Log.e("HERE", "Here")
+        Log.e("Phone","Phone: " + user!!.referral)
+        if (user!!.referral.equals("") || user!!.referral == null) {
+            Log.e("HEREEEEEEE", "Here")
 
-            val dl_phonenumber = AlertDialog.Builder(activity)
+            dialog = AlertDialog.Builder(activity)
             val inflater = layoutInflater
-            val v = inflater.inflate(R.layout.dialog_phonenumber, null)
-            val phonenumber = v.findViewById<EditText>(R.id.edt_phonenumber)
-            val progressBar = v.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
-            val accept = v.findViewById<Button>(R.id.btn_accept_phonenumber)
-            dl_phonenumber.setView(v)
-            dl_phonenumber.setCancelable(false)
-            val dg = dl_phonenumber.show()
+            v = inflater.inflate(R.layout.dialog_phonenumber, null)
+            val phonenumber = v!!.findViewById<EditText>(R.id.edt_phonenumber)
+            val progressBar = v!!.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
+            val accept = v!!.findViewById<Button>(R.id.btn_accept_phonenumber)
+            val cancel = v!!.findViewById<Button>(R.id.btn_cancel_phonenumber)
+            dialog!!.setView(v)
+            dialog!!.setCancelable(false)
+            mAleftdialog = dialog!!.show()
 
             accept.setOnClickListener {
                 CircularAnim.hide(accept)
@@ -184,7 +214,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 //                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
 //                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
                                     mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString())
-                                    dg.dismiss()
 
 //                    val user = User()
 //                    user.name = name.text.toString()
@@ -201,7 +230,21 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                         })
 
             }
+            cancel.setOnClickListener{
+                val builder = AlertDialog.Builder(activity)
+                builder.setTitle("Bạn có thật sự muốn hủy bỏ?")
+                        .setPositiveButton(R.string.btn_ok, { _, _ ->
+                            //                    Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
+                            mDrawarPresenter!!.cancelReferral(user!!._id!!)
 
+                        })
+                        .setNegativeButton(R.string.cancelnot, { _, _ ->
+                            //                            Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
+//                            mAleftdialog!!.dismiss()
+
+                        })
+                        .show()
+            }
 //            val aleftdialog = AlertDialog.Builder(activity)
 //            aleftdialog.setMessage("Enter phone number:")
 //            val input = EditText(activity)

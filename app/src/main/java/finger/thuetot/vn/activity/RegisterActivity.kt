@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import com.google.firebase.iid.FirebaseInstanceId
-import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.verify_phone_layout.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.customview.CircularAnim
 import finger.thuetot.vn.lib.smsverifycatcher.OnSmsCatchListener
@@ -22,6 +20,8 @@ import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation.validateEmail
 import finger.thuetot.vn.util.Validation.validateFields
 import finger.thuetot.vn.util.Validation.validatePassword
+import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.verify_phone_layout.view.*
 import java.util.regex.Pattern
 
 /**
@@ -29,6 +29,12 @@ import java.util.regex.Pattern
  */
 
 class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
+    override fun setCode(code: String) {
+        Snackbar.make(findViewById(R.id.root_register), code!!, Snackbar.LENGTH_INDEFINITE)
+                .setDuration(10000)
+                .setAction("OK", {
+                })
+                .show()    }
 
     var user = User()
 
