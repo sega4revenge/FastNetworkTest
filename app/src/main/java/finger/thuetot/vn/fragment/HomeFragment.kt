@@ -41,7 +41,8 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     override fun cancelreferralSuccess(response: Response) {
         Log.e("phoneeeeee",response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
         mAleftdialog?.cancel()
-        AppManager.onlyremoveAccount(context,response.user!!)    }
+        AppManager.onlyremoveAccount(context,response.user!!)
+    }
 
     override fun referralSuccess(response: Response) {
         Log.e("phoneeeeee",response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
