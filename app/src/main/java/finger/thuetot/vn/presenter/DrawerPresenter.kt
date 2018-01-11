@@ -186,7 +186,13 @@ private fun getObservable_editphonenumber(typesearch: String): Observable<Respon
                         Log.d(userdetail, "onError errorCode : " + e.errorCode)
                         Log.d(userdetail, "onError errorBody : " + e.errorBody)
                         Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
-                        mDrawerView.setErrorPhonenumber(JSONObject(e.errorBody.toString()).getString("message"))
+                        if(e.errorCode == 405)
+                        {
+                            mDrawerView.setErrorPhonenumber("")
+                        }else{
+                            mDrawerView.setErrorPhonenumber(JSONObject(e.errorBody.toString()).getString("message"))
+                        }
+
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                         Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
@@ -238,14 +244,15 @@ private fun getObservable_editphonenumber(typesearch: String): Observable<Respon
             }
         }
     }
-    fun editphonenumber(userid: String,phone: String) {
+    fun editphonenumber(userid: String,phone: String,token: String) {
         try {
             jsonObject.put("userid", userid)
             jsonObject.put("phone", phone)
+            jsonObject.put("token", token)
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        disposables.add(getObservable_editphonenumber("referral")
+        disposables.add(getObservable_editphonenumber("referral_tk")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver_editphonenumber()))

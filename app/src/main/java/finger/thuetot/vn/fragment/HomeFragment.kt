@@ -57,14 +57,17 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     }
 
     override fun setErrorPhonenumber(errorMessage: String) {
-        Log.e("Cancel button","Cancel buttonnnnnnnnnnnn")
-        accept?.isEnabled  = true
-//        val inflater = layoutInflater
-//        val v = inflater.inflate(R.layout.dialog_phonenumber, null)
-        v!!.progressBar_phonenumber.visibility = View.GONE
-        CircularAnim.show(v!!.btn_accept_phonenumber).go()
-        v!!.edt_phonenumber.error = "Không tìm thấy số điện thoại này"
-//        showSnackBarMessage(errorMessage)
+        if(errorMessage.equals("")){
+            v!!.progressBar_phonenumber.visibility = View.GONE
+            CircularAnim.show(v!!.btn_accept_phonenumber).go()
+            v!!.edt_phonenumber.error = "Không tìm thấy số điện thoại này"
+        }else{
+            v!!.progressBar_phonenumber.visibility = View.GONE
+            CircularAnim.show(v!!.btn_accept_phonenumber).go()
+            v!!.edt_phonenumber.error = "Cảnh báo! Chúng tôi đã phát hiện thiết bị được sử quá số lần cho phép"
+        }
+
+
     }
 
     override fun changeAvatarSuccess(t: Response) {
@@ -194,7 +197,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             v = inflater.inflate(R.layout.dialog_phonenumber, null)
             val phonenumber = v!!.findViewById<EditText>(R.id.edt_phonenumber)
             val progressBar = v!!.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
-            accept = v!!.findViewById<Button>(R.id.btn_accept_phonenumber)
+            val accept = v!!.findViewById<Button>(R.id.btn_accept_phonenumber)
             val cancel = v!!.findViewById<Button>(R.id.btn_cancel_phonenumber)
             dialog!!.setView(v)
             dialog!!.setCancelable(false)
@@ -230,7 +233,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
                                 } else {
                                     progressBar.visibility = View.GONE
-                                    CircularAnim.show(accept!!).go()
+                                    CircularAnim.show(accept).go()
 //                                    showSnackBarMessage("Enter Valid Details !")
                                 }                            }
                         })
