@@ -22,8 +22,8 @@ android {
         applicationId "finger.thuetot.vn"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 8
-        versionName "1.1.4"
+        versionCode 10
+        versionName "1.1.6"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
@@ -31,6 +31,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -44,9 +45,11 @@ android {
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
     }
+
     lintOptions {
         disable 'ValidFragment'
         checkReleaseBuilds false
+        abortOnError false
     }
     dataBinding {
         enabled = true
@@ -108,7 +111,6 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'com.weiwangcn.betterspinner:library:1.1.0'
     compile 'com.github.medyo:android-about-page:1.2.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }
 

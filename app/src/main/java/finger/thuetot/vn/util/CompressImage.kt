@@ -119,7 +119,7 @@ object CompressImage{
         try {
             out = FileOutputStream(imagefile)
 
-            scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+            scaledBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, out)
 
         } catch (e: FileNotFoundException) {
             print(e.message)

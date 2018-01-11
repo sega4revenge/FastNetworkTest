@@ -20,6 +20,8 @@ import finger.thuetot.vn.activity.SearchActivity
 import finger.thuetot.vn.adapter.ProductAdapter
 import finger.thuetot.vn.customview.CircularAnim
 import finger.thuetot.vn.customview.DividerItemDecoration
+import finger.thuetot.vn.lib.DetectEmulator_Sensor
+import finger.thuetot.vn.lib.DetectResult
 import finger.thuetot.vn.lib.ShimmerRecycleView.OnLoadMoreListener
 import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.Product
@@ -38,7 +40,112 @@ import kotlinx.android.synthetic.main.tab_home.*
  * Created by Admin on 3/15/2017.
  */
 
-class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView {
+class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView, DetectResult {
+    override fun Result(isRealDevice: Boolean) {
+       if(isRealDevice)
+       {
+           if (user!!.referral.equals("") || user!!.referral == null) {
+               Log.e("HEREEEEEEE", "Here")
+
+               dialog = AlertDialog.Builder(activity)
+               val inflater = layoutInflater
+               v = inflater.inflate(R.layout.dialog_phonenumber, null)
+               val phonenumber = v!!.findViewById<EditText>(R.id.edt_phonenumber)
+               val progressBar = v!!.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
+               accept = v!!.findViewById<Button>(R.id.btn_accept_phonenumber)
+               val cancel = v!!.findViewById<Button>(R.id.btn_cancel_phonenumber)
+               dialog!!.setView(v)
+               dialog!!.setCancelable(false)
+
+               mAleftdialog = dialog!!.show()
+
+               accept?.setOnClickListener {
+                   Log.e("Click button","Click buttonnnnnnnnnnnn")
+                   accept?.isEnabled = false
+                   CircularAnim.hide(accept!!)
+                           .endRadius((progressBar.height / 2).toFloat())
+                           .go(object : CircularAnim.OnAnimationEndListener {
+                               override fun onAnimationEnd() {
+                                   progressBar.visibility = View.VISIBLE
+                                   phonenumber!!.error = null
+                                   var err = 0
+                                   if (!Validation.validateFields(phonenumber.text.toString())) {
+                                       accept?.isEnabled = true
+                                       err++
+                                       phonenumber.error = getString(R.string.st_errpass)
+                                   }
+
+                                   if (err == 0) {
+//                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
+//                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
+                                       mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString())
+
+//                    val user = User()
+//                    user.name = name.text.toString()
+//                    user.password = password.text.toString()
+//                    user.email = email.text.toString()
+//                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
+//                    mRegisterPresenter!!.register(user,Constants.LOCAL)
+
+                                   } else {
+                                       progressBar.visibility = View.GONE
+                                       CircularAnim.show(accept!!).go()
+//                                    showSnackBarMessage("Enter Valid Details !")
+                                   }                            }
+                           })
+
+               }
+               cancel.setOnClickListener{
+                   val builder = AlertDialog.Builder(activity)
+                   builder.setTitle("Bạn có thật sự muốn hủy bỏ?")
+                           .setPositiveButton(R.string.btn_ok, { _, _ ->
+                               //                    Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
+                               mDrawarPresenter!!.cancelReferral(user!!._id!!)
+
+                           })
+                           .setNegativeButton(R.string.cancelnot, { _, _ ->
+                               //                            Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
+//                            mAleftdialog!!.dismiss()
+
+                           })
+                           .show()
+               }
+//            val aleftdialog = AlertDialog.Builder(activity)
+//            aleftdialog.setMessage("Enter phone number:")
+//            val input = EditText(activity)
+//            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+//            input.layoutParams = lp
+//            input.inputType = InputType.TYPE_CLASS_NUMBER
+//            aleftdialog.setView(input)
+//            aleftdialog.setIcon(R.drawable.phone_call)
+//            aleftdialog.setPositiveButton("OK", null)
+//            val mAleftdialog = aleftdialog.create()
+//            mAleftdialog.setOnShowListener {
+//                val b = mAleftdialog.getButton(AlertDialog.BUTTON_POSITIVE)
+//                b.setOnClickListener {
+//                    if (!Validation.validateFields(input.text.toString())) {
+//                        input.error = "Should not be empty !"
+//                    } else {
+//                        mDrawarPresenter!!.editphonenumber(user!!._id!!, input.text.toString())
+//                        mAleftdialog.dismiss()
+//                    }
+//                }
+//            }
+//            mAleftdialog.setCancelable(false)
+//            mAleftdialog.show()
+
+           }
+       }
+        else{
+           val builder = AlertDialog.Builder(activity)
+           builder.setMessage("Chức năng giới thiệu người dùng không áp dụng cho thiết bị nga")
+                   .setPositiveButton(R.string.btn_ok, { _, _ ->
+                   })
+
+                   .show()
+       }
+    }
+
     override fun cancelreferralSuccess(response: Response) {
         Log.e("phoneeeeee",response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
         mAleftdialog?.cancel()
@@ -58,6 +165,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     }
 
     override fun setErrorPhonenumber(errorMessage: String) {
+        accept?.isEnabled  = true
         if(errorMessage.equals("")){
             v!!.progressBar_phonenumber.visibility = View.GONE
             CircularAnim.show(v!!.btn_accept_phonenumber).go()
@@ -190,97 +298,10 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         super.onResume()
         user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
         Log.e("Phone","Phone: " + user!!.referral)
-        if (user!!.referral.equals("") || user!!.referral == null) {
-            Log.e("HEREEEEEEE", "Here")
+        val ds = DetectEmulator_Sensor(activity)
+        ds.setShowLog(true)
+        ds.Detect(this)
 
-            dialog = AlertDialog.Builder(activity)
-            val inflater = layoutInflater
-            v = inflater.inflate(R.layout.dialog_phonenumber, null)
-            val phonenumber = v!!.findViewById<EditText>(R.id.edt_phonenumber)
-            val progressBar = v!!.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
-            val accept = v!!.findViewById<Button>(R.id.btn_accept_phonenumber)
-            val cancel = v!!.findViewById<Button>(R.id.btn_cancel_phonenumber)
-            dialog!!.setView(v)
-            dialog!!.setCancelable(false)
-            mAleftdialog = dialog!!.show()
-
-            accept?.setOnClickListener {
-                Log.e("Click button","Click buttonnnnnnnnnnnn")
-                accept?.isEnabled = false
-                val tokenfirebase = FirebaseInstanceId.getInstance().token
-                CircularAnim.hide(accept!!)
-                        .endRadius((progressBar.height / 2).toFloat())
-                        .go(object : CircularAnim.OnAnimationEndListener {
-                            override fun onAnimationEnd() {
-                                progressBar.visibility = View.VISIBLE
-                                phonenumber!!.error = null
-                                var err = 0
-                                if (!Validation.validateFields(phonenumber.text.toString())) {
-
-                                    err++
-                                    phonenumber.error = getString(R.string.st_errpass)
-                                }
-
-                                if (err == 0) {
-//                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
-//                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
-                                    mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString(),tokenfirebase!!)
-
-//                    val user = User()
-//                    user.name = name.text.toString()
-//                    user.password = password.text.toString()
-//                    user.email = email.text.toString()
-//                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
-//                    mRegisterPresenter!!.register(user,Constants.LOCAL)
-
-                                } else {
-                                    progressBar.visibility = View.GONE
-                                    CircularAnim.show(accept).go()
-//                                    showSnackBarMessage("Enter Valid Details !")
-                                }                            }
-                        })
-
-            }
-            cancel.setOnClickListener{
-                val builder = AlertDialog.Builder(activity)
-                builder.setTitle("Bạn có thật sự muốn hủy bỏ?")
-                        .setPositiveButton(R.string.btn_ok, { _, _ ->
-                            //                    Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
-                            mDrawarPresenter!!.cancelReferral(user!!._id!!)
-
-                        })
-                        .setNegativeButton(R.string.cancelnot, { _, _ ->
-                            //                            Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
-//                            mAleftdialog!!.dismiss()
-
-                        })
-                        .show()
-            }
-//            val aleftdialog = AlertDialog.Builder(activity)
-//            aleftdialog.setMessage("Enter phone number:")
-//            val input = EditText(activity)
-//            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-//            input.layoutParams = lp
-//            input.inputType = InputType.TYPE_CLASS_NUMBER
-//            aleftdialog.setView(input)
-//            aleftdialog.setIcon(R.drawable.phone_call)
-//            aleftdialog.setPositiveButton("OK", null)
-//            val mAleftdialog = aleftdialog.create()
-//            mAleftdialog.setOnShowListener {
-//                val b = mAleftdialog.getButton(AlertDialog.BUTTON_POSITIVE)
-//                b.setOnClickListener {
-//                    if (!Validation.validateFields(input.text.toString())) {
-//                        input.error = "Should not be empty !"
-//                    } else {
-//                        mDrawarPresenter!!.editphonenumber(user!!._id!!, input.text.toString())
-//                        mAleftdialog.dismiss()
-//                    }
-//                }
-//            }
-//            mAleftdialog.setCancelable(false)
-//            mAleftdialog.show()
-
-        }
     }
 
     override fun onDestroyView() {

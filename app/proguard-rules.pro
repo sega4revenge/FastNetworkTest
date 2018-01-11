@@ -39,6 +39,9 @@
 -keepclassmembers class com.sothree.slidinguppanel.** {
 *;
 }
+-keepclassmembers class io.reactivex.** {
+*;
+}
 -keepclassmembers class sega.fastnetwork.test.model.** {
 *;
 }
@@ -55,6 +58,8 @@
 # Needed for Parcelable/SafeParcelable classes & their creators to not get renamed, as they are
 # found via reflection.
 -keep class com.google.android.gms.common.internal.ReflectedParcelable
+-dontwarn com.beloo.widget.chipslayoutmanager.**
+
 -keepnames class * implements com.google.android.gms.common.internal.ReflectedParcelable
 -keepclassmembers class * implements android.os.Parcelable {
   public static final *** CREATOR;
@@ -97,3 +102,24 @@
 }
 
 -dontwarn javax.annotation.**
+
+-keep class io.reactivex.android.schedulers.HandlerScheduler {
+    public static <methods>;
+}
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
+}
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    long producerNode;
+    long consumerNode;
+}

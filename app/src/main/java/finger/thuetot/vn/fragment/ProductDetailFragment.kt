@@ -170,78 +170,78 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
             gotoallcomment()
         }
 
-        v.img_like.setOnClickListener(){
+        v.img_like.setOnClickListener() {
             var num: Int = 0
-            if(v.txt_num_like.text.toString().equals("") || v.txt_num_like.text.toString().equals("0")){
+            if (v.txt_num_like.text.toString().equals("") || v.txt_num_like.text.toString().equals("0")) {
                 num = 0
-            }else{
+            } else {
                 num = v.txt_num_like.text.toString().toInt()
 
             }
-            if(stt){
-                mCommentPresenter?.likecomment(product!!.comment!![0]._id!!,Myid,1.toString())
+            if (stt) {
+                mCommentPresenter?.likecomment(product!!.comment!![0]._id!!, Myid, 1.toString())
                 v.img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
-                if((num-1)!=0){
-                    v.txt_num_like.text = (num-1).toString()
-                }else{
+                if ((num - 1) != 0) {
+                    v.txt_num_like.text = (num - 1).toString()
+                } else {
                     v.txt_num_like.text = ""
                 }
                 stt = false
-            }else{
-                mCommentPresenter?.likecomment(product!!.comment!![0]._id!!,Myid,0.toString())
+            } else {
+                mCommentPresenter?.likecomment(product!!.comment!![0]._id!!, Myid, 0.toString())
                 v.img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-                v.txt_num_like.text = (num+1).toString()
+                v.txt_num_like.text = (num + 1).toString()
                 stt = true
             }
         }
-        v.img_like2.setOnClickListener(){
+        v.img_like2.setOnClickListener() {
             var num: Int = 0
-            if(v.txt_num_like2.text.toString().equals("") || v.txt_num_like2.text.toString().equals("0")){
+            if (v.txt_num_like2.text.toString().equals("") || v.txt_num_like2.text.toString().equals("0")) {
                 num = 0
-            }else{
+            } else {
                 num = v.txt_num_like2.text.toString().toInt()
 
             }
-            if(stt2){
-                mCommentPresenter?.likecomment(product!!.comment!![1]._id!!,Myid,1.toString())
+            if (stt2) {
+                mCommentPresenter?.likecomment(product!!.comment!![1]._id!!, Myid, 1.toString())
                 v.img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
-                if((num-1)!=0){
-                    v.txt_num_like2.text = (num-1).toString()
-                }else{
+                if ((num - 1) != 0) {
+                    v.txt_num_like2.text = (num - 1).toString()
+                } else {
                     v.txt_num_like2.text = ""
                 }
                 stt2 = false
-            }else{
-                mCommentPresenter?.likecomment(product!!.comment!![1]._id!!,Myid,0.toString())
+            } else {
+                mCommentPresenter?.likecomment(product!!.comment!![1]._id!!, Myid, 0.toString())
                 v.img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-                v.txt_num_like2.text = (num+1).toString()
+                v.txt_num_like2.text = (num + 1).toString()
                 stt2 = true
             }
         }
 
         v.img_like3.setOnClickListener {
             var num: Int
-            if(v.txt_num_like3.text.toString().equals("") || v.txt_num_like3.text.toString().equals("0")){
+            if (v.txt_num_like3.text.toString().equals("") || v.txt_num_like3.text.toString().equals("0")) {
                 num = 0
-            }else{
+            } else {
                 num = v.txt_num_like3.text.toString().toInt()
 
             }
-            if(stt3){
-                mCommentPresenter?.likecomment(product!!.comment!![2]._id!!,Myid,1.toString())
+            if (stt3) {
+                mCommentPresenter?.likecomment(product!!.comment!![2]._id!!, Myid, 1.toString())
                 v.img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
-                if((num-1)!=0){
-                    v.txt_num_like3.text = (num-1).toString()
-                }else{
+                if ((num - 1) != 0) {
+                    v.txt_num_like3.text = (num - 1).toString()
+                } else {
                     v.txt_num_like3.text = ""
                 }
 
                 stt3 = false
-            }else{
+            } else {
 
-                mCommentPresenter?.likecomment(product!!.comment!![2]._id!!,Myid,0.toString())
+                mCommentPresenter?.likecomment(product!!.comment!![2]._id!!, Myid, 0.toString())
                 v.img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-                v.txt_num_like3.text = (num+1).toString()
+                v.txt_num_like3.text = (num + 1).toString()
                 stt3 = true
             }
         }
@@ -293,34 +293,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
             layout_detail_header.visibility = View.VISIBLE
             mProductDetailPresenter!!.getProductDetail(id, AppManager.getAppAccountUserId(activity))
         }
-//        v.userimage1.setOnClickListener() {
-//            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
-//                val dialogFrag = ProifileSellerFragment.newInstance()
-//                val args = Bundle()
-//                args.putBoolean("isMap", isMap)
-//                dialogFrag.arguments = args
-//                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![0].user!!, activity.applicationContext)
-//            }
-//        }
-//        v.userimage2.setOnClickListener() {
-//            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
-//                val dialogFrag = ProifileSellerFragment.newInstance()
-//                val args = Bundle()
-//                args.putBoolean("isMap", isMap)
-//                dialogFrag.arguments = args
-//                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![1].user!!, activity.applicationContext)
-//            }
-//        }
-//        v.userimage3.setOnClickListener() {
-//            if (!AppManager.getAppAccountUserId(activity.applicationContext).equals(product!!.comment!![0].user!!._id)) {
-//                val dialogFrag = ProifileSellerFragment.newInstance()
-//                val args = Bundle()
-//                args.putBoolean("isMap", isMap)
-//                dialogFrag.arguments = args
-//                dialogFrag.show(activity.supportFragmentManager, product!!.comment!![2].user!!, activity.applicationContext)
-//
-//            }
-//        }
+
 
         v.change_map.setOnClickListener {
             when (isMap) {
@@ -509,10 +482,9 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         intent.putExtra(Constants.product_ID, id)
         intent.putExtra(Constants.product_NAME, product!!.productname)
         intent.putExtra(Constants.seller_name, product!!.user!!.name)
-        startActivityForResult(intent,105)
-        activity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
+        startActivityForResult(intent, 105)
+        activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
-
 
 
     override fun setErrorMessage(errorMessage: String) {
@@ -541,14 +513,39 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         product = null
         try {
             statussave = response.statussave!!
-            if (statussave) {
-                btn_save.setImageResource(R.drawable.favorite_checked)
-                img_save.setImageResource(R.drawable.favorite_checked)
-                txt_save.text = getString(R.string.saved)
-            } else {
-                btn_save.setImageResource(R.drawable.favorite_unchecked)
-                img_save.setImageResource(R.drawable.favorite_unchecked)
-                txt_save.text = getString(R.string.save)
+            if (product!!.type == "1") {
+                if (statussave) {
+                    btn_save.setImageResource(R.drawable.favorite_checked)
+                    img_save.setImageResource(R.drawable.favorite_checked)
+                    txt_save.text = getString(R.string.saved)
+                } else {
+                    btn_save.setImageResource(R.drawable.favorite_unchecked)
+                    img_save.setImageResource(R.drawable.favorite_unchecked)
+                    txt_save.text = getString(R.string.save)
+                }
+            }
+            else if(product!!.type == "2"){
+                if (statussave) {
+                    btn_save.setImageResource(R.drawable.favorite_checked1)
+                    img_save.setImageResource(R.drawable.favorite_checked1)
+                    txt_save.text = getString(R.string.saved)
+                } else {
+                    btn_save.setImageResource(R.drawable.favorite_unchecked1)
+                    img_save.setImageResource(R.drawable.favorite_unchecked1)
+                    txt_save.text = getString(R.string.save)
+                }
+            }
+            else if(product!!.type == "3")
+            {
+                if (statussave) {
+                    btn_save.setImageResource(R.drawable.favorite_checked2)
+                    img_save.setImageResource(R.drawable.favorite_checked2)
+                    txt_save.text = getString(R.string.saved)
+                } else {
+                    btn_save.setImageResource(R.drawable.favorite_unchecked2)
+                    img_save.setImageResource(R.drawable.favorite_unchecked2)
+                    txt_save.text = getString(R.string.save)
+                }
             }
         } catch (e: Exception) {
             print(e.message)
@@ -562,7 +559,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         mProductListPresenter?.getProductListLikeNew(response.product?.category!!.toInt())
 
         if (userCreateProduct.equals(AppManager.getAppAccountUserId(activity.applicationContext))) {
-            layout_contact.visibility  = View.GONE
+            layout_contact.visibility = View.GONE
         } else {
             layout_contact.visibility = View.VISIBLE
         }
@@ -644,10 +641,10 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         product_user_email.text = product!!.user?.email
         product_user_address.text = product!!.location!!.address
         product_date.text = timeAgo(product!!.created_at.toString())
-        product_view.text = product!!.view.toString() +" "+ getString(R.string.view)
+        product_view.text = product!!.view.toString() + " " + getString(R.string.view)
         println(product!!._id)
-        Log.e("status",product?.status)
-        if(product?.status == "1"){
+        Log.e("status", product?.status)
+        if (product?.status == "1") {
             edt_rented.visibility = View.VISIBLE
         }
         if (product!!.status == "1")
@@ -939,27 +936,28 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         }
 
     }
-    fun setDatafromComment1(mProduct: Comment?){
+
+    fun setDatafromComment1(mProduct: Comment?) {
         stt = false
         // ======= Check like ==============/
-        if(mProduct?.listlike!!.size != 0){
+        if (mProduct?.listlike!!.size != 0) {
             txt_num_like.text = mProduct?.listlike!!.size.toString()
 
-            for(i in 0..(mProduct?.listlike!!.size-1)){
-                if(Myid.equals(mProduct?.listlike!![i])){
+            for (i in 0..(mProduct?.listlike!!.size - 1)) {
+                if (Myid.equals(mProduct?.listlike!![i])) {
                     stt = true
                     break
                 }
             }
 
-        }else{
+        } else {
 
             txt_num_like.text = ""
             img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
-        if(stt) {
+        if (stt) {
             img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-        }else{
+        } else {
             img_like.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
         //==================================/
@@ -967,8 +965,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         comment_item1.visibility = View.VISIBLE
         comment_item2.visibility = View.GONE
         comment_item3.visibility = View.GONE
-        if(!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null)
-        {
+        if (!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null) {
             Glide.with(this)
                     .load(avatacmt(mProduct?.user!!.photoprofile!!))
                     .thumbnail(0.1f)
@@ -982,7 +979,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         comments1.text = mProduct?.content
         datecomment1.text = timeAgo(mProduct?.time!!)
         //====================check reply =================================//
-        txt_reply.setOnClickListener(){
+        txt_reply.setOnClickListener() {
             val intent = Intent(activity, ReplyCommentActivity::class.java)
             intent.putExtra(Constants.comment_ID, mProduct._id)
             intent.putExtra(Constants.product_NAME, mProduct.content)
@@ -990,15 +987,14 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
             activity.startActivity(intent)
         }
 
-        if(mProduct.listreply?.size!! > 0){
+        if (mProduct.listreply?.size!! > 0) {
             var photoprofile = ""
             commemtreply.visibility = View.VISIBLE
-            if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
-                if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
-                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile!!
-                }
-                else{
-                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile
+            if (!mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile.equals("")) {
+                if (mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile?.startsWith("http")!!) {
+                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile!!
+                } else {
+                    photoprofile = Constants.IMAGE_URL + mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile
                 }
                 val options = RequestOptions()
                         .centerCrop()
@@ -1011,44 +1007,44 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
                         .thumbnail(0.1f)
                         .apply(options)
                         .into(commentpic)
-            }else{
+            } else {
 
             }
 
-            commentname.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
-            commentdata.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
+            commentname.text = mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.name
+            commentdata.text = mProduct.listreply!![(mProduct.listreply!!.size - 1)].content
 
-        }else{
+        } else {
             commemtreply.visibility = View.GONE
         }
 
     }
-    fun setDatafromComment2(mProduct: Comment?){
+
+    fun setDatafromComment2(mProduct: Comment?) {
         stt2 = false
-        if(mProduct?.listlike!!.size != 0){
+        if (mProduct?.listlike!!.size != 0) {
             txt_num_like2.text = mProduct?.listlike!!.size.toString()
 
-            for(i in 0..(mProduct?.listlike!!.size-1)){
-                if(Myid.equals(mProduct?.listlike!![i])){
+            for (i in 0..(mProduct?.listlike!!.size - 1)) {
+                if (Myid.equals(mProduct?.listlike!![i])) {
                     stt2 = true
                     break
                 }
             }
 
-        }else{
+        } else {
             txt_num_like2.text = ""
             img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
-        if(stt2) {
+        if (stt2) {
             img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-        }else{
+        } else {
             img_like2.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
         comment_item2.visibility = View.VISIBLE
         comment_item3.visibility = View.GONE
 
-        if(!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null)
-        {
+        if (!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null) {
             Glide.with(this)
                     .load(avatacmt(mProduct?.user?.photoprofile!!))
                     .thumbnail(0.1f)
@@ -1062,22 +1058,21 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         datecomment2.text = timeAgo(mProduct?.time!!)
 
         //====================check reply =================================//
-        txt_reply2.setOnClickListener(){
+        txt_reply2.setOnClickListener() {
             val intent = Intent(activity, ReplyCommentActivity::class.java)
             intent.putExtra(Constants.comment_ID, mProduct._id)
             intent.putExtra(Constants.product_NAME, mProduct.content)
             intent.putExtra(Constants.seller_name, mProduct.user?.name)
             activity.startActivity(intent)
         }
-        if(mProduct.listreply?.size!! > 0){
+        if (mProduct.listreply?.size!! > 0) {
             var photoprofile = ""
             commemtreply2.visibility = View.VISIBLE
-            if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
-                if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
-                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile!!
-                }
-                else{
-                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile
+            if (!mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile.equals("")) {
+                if (mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile?.startsWith("http")!!) {
+                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile!!
+                } else {
+                    photoprofile = Constants.IMAGE_URL + mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile
                 }
                 val options = RequestOptions()
                         .centerCrop()
@@ -1090,41 +1085,41 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
                         .thumbnail(0.1f)
                         .apply(options)
                         .into(commentpic2)
-            }else{
+            } else {
 
             }
 
-            commentname2.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
-            commentdata2.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
+            commentname2.text = mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.name
+            commentdata2.text = mProduct.listreply!![(mProduct.listreply!!.size - 1)].content
 
-        }else{
+        } else {
             commemtreply2.visibility = View.GONE
         }
     }
-    fun setDatafromComment3(mProduct: Comment?){
+
+    fun setDatafromComment3(mProduct: Comment?) {
         stt3 = false
-        if(mProduct?.listlike!!.size != 0){
+        if (mProduct?.listlike!!.size != 0) {
             txt_num_like3.text = mProduct?.listlike!!.size.toString()
 
-            for(i in 0..(mProduct?.listlike!!.size-1)){
-                if(Myid.equals(mProduct?.listlike!![i])){
+            for (i in 0..(mProduct?.listlike!!.size - 1)) {
+                if (Myid.equals(mProduct?.listlike!![i])) {
                     stt3 = true
                     break
                 }
             }
 
-        }else{
+        } else {
             txt_num_like3.text = ""
             img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
-        if(stt3) {
+        if (stt3) {
             img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_liked))
-        }else{
+        } else {
             img_like3.setImageDrawable(resources.getDrawable(R.drawable.icon_like))
         }
         comment_item3.visibility = View.VISIBLE
-        if(!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null)
-        {
+        if (!mProduct?.user?.photoprofile!!.equals("") && mProduct?.user?.photoprofile!! != null) {
             Glide.with(this)
                     .load(avatacmt(mProduct?.user?.photoprofile!!))
                     .thumbnail(0.1f)
@@ -1136,22 +1131,21 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         comments3.text = mProduct?.content
         datecomment3.text = timeAgo(mProduct?.time!!)
         //====================check reply =================================//
-        txt_reply3.setOnClickListener(){
+        txt_reply3.setOnClickListener() {
             val intent = Intent(activity, ReplyCommentActivity::class.java)
             intent.putExtra(Constants.comment_ID, mProduct._id)
             intent.putExtra(Constants.product_NAME, mProduct.content)
             intent.putExtra(Constants.seller_name, mProduct.user?.name)
             activity.startActivity(intent)
         }
-        if(mProduct.listreply?.size!! > 0){
+        if (mProduct.listreply?.size!! > 0) {
             var photoprofile = ""
             commemtreply3.visibility = View.VISIBLE
-            if(!mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile.equals("")){
-                if(mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile?.startsWith("http")!!){
-                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile!!
-                }
-                else{
-                    photoprofile = Constants.IMAGE_URL+mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.photoprofile
+            if (!mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile.equals("")) {
+                if (mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile?.startsWith("http")!!) {
+                    photoprofile = mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile!!
+                } else {
+                    photoprofile = Constants.IMAGE_URL + mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.photoprofile
                 }
                 val options = RequestOptions()
                         .centerCrop()
@@ -1164,17 +1158,18 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
                         .thumbnail(0.1f)
                         .apply(options)
                         .into(commentpic3)
-            }else{
+            } else {
 
             }
 
-            commentname3.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].user?.name
-            commentdata3.text = mProduct.listreply!![(mProduct.listreply!!.size-1)].content
+            commentname3.text = mProduct.listreply!![(mProduct.listreply!!.size - 1)].user?.name
+            commentdata3.text = mProduct.listreply!![(mProduct.listreply!!.size - 1)].content
 
-        }else{
+        } else {
             commemtreply3.visibility = View.GONE
         }
     }
+
     fun destroyfragment() {
 //        mProductDetailPresenter!!.cancelRequest()
         if (AppManager.getAppAccountUserId(activity) != id_user)
@@ -1238,25 +1233,23 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
             }
 
             override fun onPermissionGranted() {
-                try{
+                try {
                     val mapView_location = childFragmentManager.findFragmentById(R.id.mapView_location) as SupportMapFragment
                     mapView_location.getMapAsync(
                             this)
-                }
-                catch (e : Exception){
-                    Log.e("error",e.toString())
+                } catch (e: Exception) {
+                    Log.e("error", e.toString())
                 }
 
             }
 
 
             override fun onPermissionDenied(deniedPermissions: java.util.ArrayList<String>) {
-                try{
+                try {
                     Toast.makeText(activity, getString(R.string.per_deni) + deniedPermissions.toString(), Toast.LENGTH_SHORT).show()
 
-                }
-                catch (e : Exception){
-                    Log.e("error",e.toString())
+                } catch (e: Exception) {
+                    Log.e("error", e.toString())
                 }
             }
 
@@ -1301,7 +1294,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
                 /*downloadproductDetails(id)*/
 
             }
-        }else if(requestCode == 105){
+        } else if (requestCode == 105) {
             mCommentPresenter!!.refreshcomment(id)
         }
     }
@@ -1350,14 +1343,14 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         }
 //=======================1 cmt========================
         else if (listcomment.size == 1) {
-            product?.comment?.add(0,listcomment.get(0))
+            product?.comment?.add(0, listcomment.get(0))
             setDatafromComment1(listcomment.get(0))
         }
 //=======================2 cmt========================
 
         else if (listcomment.size == 2) {
-            product?.comment?.add(0,listcomment.get(1))
-            product?.comment?.add(1,listcomment.get(0))
+            product?.comment?.add(0, listcomment.get(1))
+            product?.comment?.add(1, listcomment.get(0))
             setDatafromComment1(listcomment.get(1))
             setDatafromComment2(listcomment.get(0))
         }
@@ -1365,20 +1358,20 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
 
 //=======================3 cmt========================
         else if (listcomment.size == 3) {
-            product?.comment?.add(0,listcomment.get(2))
-            product?.comment?.add(1,listcomment.get(1))
-            product?.comment?.add(2,listcomment.get(0))
+            product?.comment?.add(0, listcomment.get(2))
+            product?.comment?.add(1, listcomment.get(1))
+            product?.comment?.add(2, listcomment.get(0))
             setDatafromComment1(listcomment.get(2))
             setDatafromComment2(listcomment.get(1))
             setDatafromComment3(listcomment.get(0))
-        }else{
-            product?.comment?.add(0,listcomment.get(listcomment.size-1))
-            product?.comment?.add(1,listcomment.get(listcomment.size-2))
-            product?.comment?.add(2,listcomment.get(listcomment.size-3))
-            setDatafromComment1(listcomment.get(listcomment.size-1))
-            setDatafromComment2(listcomment.get(listcomment.size-2))
-            setDatafromComment3(listcomment.get(listcomment.size-3))
-            add_comment.text = getString(R.string.more_comment)+" ("+(listcomment.size -3)+")".toString()
+        } else {
+            product?.comment?.add(0, listcomment.get(listcomment.size - 1))
+            product?.comment?.add(1, listcomment.get(listcomment.size - 2))
+            product?.comment?.add(2, listcomment.get(listcomment.size - 3))
+            setDatafromComment1(listcomment.get(listcomment.size - 1))
+            setDatafromComment2(listcomment.get(listcomment.size - 2))
+            setDatafromComment3(listcomment.get(listcomment.size - 3))
+            add_comment.text = getString(R.string.more_comment) + " (" + (listcomment.size - 3) + ")".toString()
         }
     }
 }

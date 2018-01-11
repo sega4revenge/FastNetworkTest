@@ -16,7 +16,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import kotlinx.android.synthetic.main.filter_layout.view.*
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.SearchActivity
 import finger.thuetot.vn.adapter.CategoryAdapter
@@ -25,6 +24,7 @@ import finger.thuetot.vn.lib.MaterialChips.ChipsInput
 import finger.thuetot.vn.lib.MaterialChips.model.ChipInterface
 import finger.thuetot.vn.model.Category
 import finger.thuetot.vn.model.LocationChip
+import kotlinx.android.synthetic.main.filter_layout.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -239,7 +239,6 @@ class FilterFragment : BottomSheetDialogFragment(), CategoryAdapter.OncategoryCl
         contentView!!.filter_list.adapter = filterAdapter
         category_adapter = CategoryAdapter(activity, this)
         contentView!!.category_list.setHasFixedSize(true)
-
         contentView!!.category_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         contentView!!.category_list.adapter = category_adapter
         contentView!!.btn_refresh.setOnClickListener {
