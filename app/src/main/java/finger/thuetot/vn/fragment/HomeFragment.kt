@@ -62,6 +62,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                accept?.setOnClickListener {
                    Log.e("Click button","Click buttonnnnnnnnnnnn")
                    accept?.isEnabled = false
+                   val tokenfirebase = FirebaseInstanceId.getInstance().token
                    CircularAnim.hide(accept!!)
                            .endRadius((progressBar.height / 2).toFloat())
                            .go(object : CircularAnim.OnAnimationEndListener {
@@ -78,7 +79,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                                    if (err == 0) {
 //                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
 //                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
-                                       mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString())
+                                       mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString(),tokenfirebase!!)
 
 //                    val user = User()
 //                    user.name = name.text.toString()
@@ -169,11 +170,12 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         if(errorMessage.equals("")){
             v!!.progressBar_phonenumber.visibility = View.GONE
             CircularAnim.show(v!!.btn_accept_phonenumber).go()
-            v!!.edt_phonenumber.error = "Không tìm thấy số điện thoại này"
+            v!!.edt_phonenumber.error = "Cảnh báo! Chúng tôi đã phát hiện thiết bị được sử quá số lần cho phép"
+
         }else{
             v!!.progressBar_phonenumber.visibility = View.GONE
             CircularAnim.show(v!!.btn_accept_phonenumber).go()
-            v!!.edt_phonenumber.error = "Cảnh báo! Chúng tôi đã phát hiện thiết bị được sử quá số lần cho phép"
+            v!!.edt_phonenumber.error = "Không tìm thấy số điện thoại này"
         }
 
 
