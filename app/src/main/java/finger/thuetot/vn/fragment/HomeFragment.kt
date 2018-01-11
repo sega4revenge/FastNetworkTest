@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import com.google.firebase.iid.FirebaseInstanceId
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.ProductDetailActivity
 import finger.thuetot.vn.activity.SearchActivity
@@ -206,6 +207,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             accept?.setOnClickListener {
                 Log.e("Click button","Click buttonnnnnnnnnnnn")
                 accept?.isEnabled = false
+                val tokenfirebase = FirebaseInstanceId.getInstance().token
                 CircularAnim.hide(accept!!)
                         .endRadius((progressBar.height / 2).toFloat())
                         .go(object : CircularAnim.OnAnimationEndListener {
@@ -222,7 +224,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                                 if (err == 0) {
 //                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
 //                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
-                                    mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString())
+                                    mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString(),tokenfirebase!!)
 
 //                    val user = User()
 //                    user.name = name.text.toString()
