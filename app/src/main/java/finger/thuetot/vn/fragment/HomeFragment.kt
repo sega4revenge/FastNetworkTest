@@ -1,11 +1,16 @@
 package finger.thuetot.vn.fragment
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +47,9 @@ import kotlinx.android.synthetic.main.tab_home.*
 
 class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView, DetectResult {
     override fun Result(isRealDevice: Boolean) {
-       if(isRealDevice)
+        println("day la " +getEmulatorName(activity))
+
+       if(isRealDevice&&TextUtils.isEmpty(getEmulatorName(activity)))
        {
            if (user!!.referral.equals("") || user!!.referral == null) {
                Log.e("HEREEEEEEE", "Here")
@@ -139,13 +146,53 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
        }
         else{
            val builder = AlertDialog.Builder(activity)
-           builder.setMessage("Chức năng giới thiệu người dùng không áp dụng cho thiết bị nga")
+           builder.setMessage("Chức năng giới thiệu người dùng không áp dụng cho thiết bị này !")
                    .setPositiveButton(R.string.btn_ok, { _, _ ->
                    })
 
                    .show()
        }
     }
+
+    fun getEmulatorName(context: Context): String {
+        var sEmulatorName: String? = null
+        val packageManager = context.packageManager
+        val packages = packageManager
+                .getInstalledApplications(PackageManager.GET_META_DATA)
+        for (packageInfo in packages) {
+            val packageName = packageInfo.packageName
+            if (packageName.startsWith("com.vphone.") || packageName.startsWith("com.bignox.")) {
+                sEmulatorName = context.getString(R.string.emulator_name_yeshen)
+            } else if (packageName.startsWith("me.haima.")) {
+                sEmulatorName = context.getString(R.string.emulator_name_haimawan)
+            } else if (packageName.startsWith("com.bluestacks.")) {
+                sEmulatorName = context.getString(R.string.emulator_name_bluestacks)
+            } else if (packageName.startsWith("cn.itools.") && (Build.PRODUCT.startsWith("iToolsAVM") || Build.MANUFACTURER.startsWith("iToolsAVM") || Build.DEVICE.startsWith("iToolsAVM") || Build.MODEL.startsWith("iToolsAVM") || Build.BRAND.startsWith("generic") || Build.HARDWARE.startsWith("vbox86"))) {
+                sEmulatorName = context.getString(R.string.emulator_name_itools)
+            } else if (packageName.startsWith("com.kop.") || packageName.startsWith("com.kaopu.")) {
+                sEmulatorName = context.getString(R.string.emulator_name_tiantian)
+            } else if (packageName.startsWith("com.microvirt.")) {
+                sEmulatorName = context.getString(R.string.emulator_name_xiaoyao)
+            } else if (packageName == "com.google.android.launcher.layouts.genymotion") {
+                sEmulatorName = getString(R.string.emulator_name_genymotion)
+            }
+        }
+        if (sEmulatorName == null) {
+            val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val serviceInfos = manager.getRunningServices(30)
+            for (serviceInfo in serviceInfos) {
+                val serviceName = serviceInfo.service.className
+                if (serviceName.startsWith("com.bluestacks.")) {
+                    sEmulatorName = context.getString(R.string.emulator_name_bluestacks)
+                }
+            }
+        }
+        if (sEmulatorName == null && Build.PRODUCT.startsWith("sdk_google")) {
+            sEmulatorName = context.getString(R.string.emulator_name_android)
+        }
+        return if (sEmulatorName == null) "" else sEmulatorName
+    }
+
 
     override fun cancelreferralSuccess(response: Response) {
         Log.e("phoneeeeee",response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
@@ -292,6 +339,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     }
     override fun onDestroy() {
         super.onDestroy()
+
         mProductListPresenter?.stopRequest()
         mDrawarPresenter?.cancelRequest()
     }
