@@ -23,10 +23,10 @@ import android.graphics.BitmapFactory
 import android.support.multidex.MultiDex
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.ConnectionQuality
+import finger.thuetot.vn.manager.GoogleApiHelper
 import io.socket.client.IO
 import io.socket.client.Socket
 import okhttp3.OkHttpClient
-import finger.thuetot.vn.manager.GoogleApiHelper
 import java.util.concurrent.TimeUnit
 
 
@@ -49,7 +49,7 @@ class MyApplication : Application() {
         val options = BitmapFactory.Options()
         AndroidNetworking.setBitmapDecodeOptions(options)
         AndroidNetworking.enableLogging()
-        mSocket = IO.socket("http://45.77.36.109:8080").connect()
+        mSocket = IO.socket("http://45.77.36.109:8070").connect()
         AndroidNetworking.setConnectionQualityChangeListener { connectionQuality, _ ->
             when (connectionQuality) {
                 ConnectionQuality.EXCELLENT -> System.out.println("Tot")
