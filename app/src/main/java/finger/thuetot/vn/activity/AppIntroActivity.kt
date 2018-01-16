@@ -35,7 +35,7 @@ class AppIntroActivity : Activity() ,checkVersion.IntroView {
             }else{
                 val builder = AlertDialog.Builder(this)
                 builder.setCancelable(false)
-                builder.setTitle(resources.getString(R.string.txt_checkver) + " "+version)
+                builder.setTitle(resources.getString(R.string.txt_checkver_title) + " "+version)
                 builder.setMessage(resources.getString(R.string.txt_checkver)+" "+ver)
                         .setPositiveButton(R.string.txt_checkver_button, { _, _ ->
                             val appPackageName = packageName
