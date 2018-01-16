@@ -270,4 +270,8 @@
     <string name="emulator_name_xiaoyao">XiaoYaoEmulator</string>
     <string name="emulator_name_genymotion">GenymotionEmulator</string>
     <string name="emulator_name_android">AndroidEmulator</string>
+
+    <string name="txt_checkver">There is a new version available: </string>
+    <string name="txt_checkver_title">You are using old version</string>
+    <string name="txt_checkver_button">Update now</string>
 </resources>

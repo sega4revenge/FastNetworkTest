@@ -14,12 +14,12 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import finger.thuetot.vn.R
+import finger.thuetot.vn.R.id.main_fragment
 import finger.thuetot.vn.fragment.DrawerFragment
 import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.User
 import io.fabric.sdk.android.Fabric
 import io.socket.client.Socket
-import kotlinx.android.synthetic.main.activity_main.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 

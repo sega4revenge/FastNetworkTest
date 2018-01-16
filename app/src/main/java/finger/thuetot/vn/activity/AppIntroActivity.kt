@@ -2,8 +2,11 @@ package finger.thuetot.vn.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -11,18 +14,57 @@ import finger.thuetot.vn.R
 import finger.thuetot.vn.lib.firewall.SafetyNetHelper
 import finger.thuetot.vn.lib.firewall.Utils
 import finger.thuetot.vn.manager.PrefManager
+import finger.thuetot.vn.presenter.checkVersion
 import kotlinx.android.synthetic.main.intro_layout.*
+
+
 
 
 /**
  * Created by VinhNguyen on 11/5/2017.
  */
-class AppIntroActivity : Activity() {
+class AppIntroActivity : Activity() ,checkVersion.IntroView {
+    private var versionPressenter: checkVersion? =null
+    override fun getVersion(ver: String) {
+        if(version.equals("")){
+
+        }else{
+            if(version.equals(ver)){
+                startActivity(Intent(this@AppIntroActivity, MainActivity::class.java))
+                finish()
+            }else{
+                val builder = AlertDialog.Builder(this)
+                builder.setCancelable(false)
+                builder.setTitle(resources.getString(R.string.txt_checkver) + " "+version)
+                builder.setMessage(resources.getString(R.string.txt_checkver)+" "+ver)
+                        .setPositiveButton(R.string.txt_checkver_button, { _, _ ->
+                            val appPackageName = packageName
+                            try {
+                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)))
+                            } catch (anfe: android.content.ActivityNotFoundException) {
+                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)))
+                            }
+
+                        })
+                        .show()
+            }
+        }
+    }
+
     private var safetyNetHelper: SafetyNetHelper? = null
+    var version = ""
     var manager: PrefManager? = null
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.intro_layout)
+
+        try {
+            val pInfo = this.packageManager.getPackageInfo(packageName, 0)
+             version = pInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        versionPressenter = checkVersion(this)
         manager = PrefManager(this)
         safetyNetHelper = SafetyNetHelper("AIzaSyDbZnEq9-lpTvAk41v_fSe_ijKRIIj6R6Y")
         Log.d("HomeFragment", "AndroidAPIKEY: " + Utils.getSigningKeyFingerprint(this) + ";" + getPackageName())
@@ -34,6 +76,7 @@ class AppIntroActivity : Activity() {
             override fun error(errorCode: Int, errorMessage: String) {
 
                 handleError(errorCode, errorMessage)
+                versionPressenter?.getVersionServer()
             }
 
             override fun success(ctsProfileMatch: Boolean, basicIntegrity: Boolean) {
@@ -42,8 +85,9 @@ class AppIntroActivity : Activity() {
                     manager!!.setValidation(true)
                 } else {
                     manager!!.setValidation(false)
-
                 }
+                versionPressenter?.getVersionServer()
+
             }
         })
 
@@ -73,8 +117,7 @@ class AppIntroActivity : Activity() {
         val secondsDelayed2 = 4
         Handler().postDelayed(Runnable {
             txt_slogan.animate().alpha(10F)
-            startActivity(Intent(this@AppIntroActivity, MainActivity::class.java))
-            finish()
+
         }, (secondsDelayed2 * 1000).toLong())
     }
 
