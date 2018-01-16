@@ -164,19 +164,15 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
             err++
             phone_number!!.error = getString(R.string.st_errpass4)
         } else {
-            if (!validatePhone2( v!!.edit_phonenumber.text.toString())!!) {
+            if (!validatePhone2( phone_number.text.toString())!!) {
                 err++
-                v?.edit_phonenumber!!.error = getString(R.string.st_errPhone)
+                phone_number.error = getString(R.string.st_errPhone)
             }
         }
         if (err == 0) {
             user.phone = phone_number.text.toString()
             user.tokenfirebase = FirebaseInstanceId.getInstance().token
             mLoginPresenter!!.login(user.phone!!)
-
-
-
-
         } else {
             progressBar.visibility = View.GONE
             CircularAnim.show(btn_singin).go()
