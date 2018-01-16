@@ -170,11 +170,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
 //            navigation_view!!.menu.findItem(mSelectedId).isChecked = true
 
-            navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true
-            navigate(R.id.nav_1)
-            addproduct.setOnClickListener {
-                startActivity(Intent(this@DrawerFragment.activity, AddActivity::class.java))
-            }
+
             navigation_view!!.menu.findItem(R.id.nav_1).isChecked = true
             navigate(R.id.nav_1)
             addproduct.setOnClickListener {

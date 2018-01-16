@@ -4,6 +4,7 @@
     <string name="facebook_app_id">305092856672358</string>
     <string name="fb_login_protocol_scheme">fb305092856672358</string>
     <string name="google_maps_key">AIzaSyDBfdxli_eMNGalQDD19n2r0d4807UYlJQ</string>
+    <string name="validation_key">AIzaSyDbZnEq9-lpTvAk41v_fSe_ijKRIIj6R6Y</string>
     <string name="lg_hint_email">Email</string>
     <string name="lg_hint_pass">Mật khẩu</string>
     <string name="lg_btn_login">Đăng nhập</string>

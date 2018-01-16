@@ -149,7 +149,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
 
         btn_google.setOnClickListener {
-            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(MyApplication.getGoogleApiHelper()?.googleApiClient)
+            val signInIntent = Auth.GoogleSignInApi.getSignInIntent(MyApplication.getGoogleApiHelper()!!.googleApiClient)
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
     }
@@ -412,7 +412,7 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
         mLoginPresenter!!.register_finish(user,code,type)
     }
     private fun handleSignInResult(result: GoogleSignInResult) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess)
+        Log.d(TAG, "handleSignInResult:" + result.status)
         if (result.isSuccess) {
             // Signed in successfully, show authenticated UI.
 

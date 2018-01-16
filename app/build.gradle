@@ -68,6 +68,7 @@ buildscript {
         classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.7.3'
     }
 }
+
 allprojects {
     repositories {
         jcenter()
@@ -79,6 +80,7 @@ allprojects {
         }
     }
 }
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:$support_version"
@@ -99,18 +101,21 @@ dependencies {
     compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
     compile 'com.android.support:multidex:1.0.2'
     compile 'com.google.maps.android:android-maps-utils:0.4.4'
-    compile 'com.google.android.gms:play-services-places:11.0.4'
-    compile 'com.google.android.gms:play-services-auth:11.0.4'
-    compile 'com.google.android.gms:play-services-location:11.0.4'
+    compile 'com.google.android.gms:play-services-places:10.2.1'
+    compile 'com.google.android.gms:play-services-auth:10.2.1'
+    compile 'com.google.android.gms:play-services-location:10.2.1'
     compile 'gun0912.ted:tedpermission:2.1.0'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.facebook.android:facebook-android-sdk:4.5.0'
     compile 'com.amitshekhar.android:rx2-android-networking:1.0.0'
-    compile 'com.google.firebase:firebase-messaging:11.0.4'
-    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    compile 'com.google.firebase:firebase-messaging:10.2.1'
+    compile 'com.google.android.gms:play-services-maps:10.2.1'
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'com.weiwangcn.betterspinner:library:1.1.0'
     compile 'com.github.medyo:android-about-page:1.2.1'
+    compile('com.google.android.gms:play-services-safetynet:10.2.1') {
+        exclude module: 'support-v4'
+    }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }
 

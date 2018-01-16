@@ -1,16 +1,12 @@
 package finger.thuetot.vn.fragment
 
-import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import com.google.android.gms.common.ConnectionResult
 import com.google.firebase.iid.FirebaseInstanceId
 import finger.thuetot.vn.R
 import finger.thuetot.vn.activity.ProductDetailActivity
@@ -25,10 +22,10 @@ import finger.thuetot.vn.activity.SearchActivity
 import finger.thuetot.vn.adapter.ProductAdapter
 import finger.thuetot.vn.customview.CircularAnim
 import finger.thuetot.vn.customview.DividerItemDecoration
-import finger.thuetot.vn.lib.DetectEmulator_Sensor
-import finger.thuetot.vn.lib.DetectResult
 import finger.thuetot.vn.lib.ShimmerRecycleView.OnLoadMoreListener
+import finger.thuetot.vn.lib.firewall.SafetyNetHelper
 import finger.thuetot.vn.manager.AppManager
+import finger.thuetot.vn.manager.PrefManager
 import finger.thuetot.vn.model.Product
 import finger.thuetot.vn.model.Response
 import finger.thuetot.vn.model.User
@@ -45,166 +42,21 @@ import kotlinx.android.synthetic.main.tab_home.*
  * Created by Admin on 3/15/2017.
  */
 
-class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView, DetectResult {
-    override fun Result(isRealDevice: Boolean) {
-        println("day la " +getEmulatorName(activity))
-
-       if(isRealDevice&&TextUtils.isEmpty(getEmulatorName(activity)))
-       {
-           if (user!!.referral.equals("") || user!!.referral == null) {
-               Log.e("HEREEEEEEE", "Here")
-
-               dialog = AlertDialog.Builder(activity)
-               val inflater = layoutInflater
-               v = inflater.inflate(R.layout.dialog_phonenumber, null)
-               val phonenumber = v!!.findViewById<EditText>(R.id.edt_phonenumber)
-               val progressBar = v!!.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
-               accept = v!!.findViewById<Button>(R.id.btn_accept_phonenumber)
-               val cancel = v!!.findViewById<Button>(R.id.btn_cancel_phonenumber)
-               dialog!!.setView(v)
-               dialog!!.setCancelable(false)
-
-               mAleftdialog = dialog!!.show()
-
-               accept?.setOnClickListener {
-                   Log.e("Click button","Click buttonnnnnnnnnnnn")
-                   accept?.isEnabled = false
-                   val tokenfirebase = FirebaseInstanceId.getInstance().token
-                   CircularAnim.hide(accept!!)
-                           .endRadius((progressBar.height / 2).toFloat())
-                           .go(object : CircularAnim.OnAnimationEndListener {
-                               override fun onAnimationEnd() {
-                                   progressBar.visibility = View.VISIBLE
-                                   phonenumber!!.error = null
-                                   var err = 0
-                                   if (!Validation.validateFields(phonenumber.text.toString())) {
-                                       accept?.isEnabled = true
-                                       err++
-                                       phonenumber.error = getString(R.string.st_errpass)
-                                   }
-
-                                   if (err == 0) {
-//                                    mChangePasswordPresenter!!.changepassword(user!!._id!!, oldpass.text.toString(), newpass.text.toString())
-//                                        mDrawerPresenter!!.eidtInfoUser(user!!._id.toString(),newname.text.toString(),newphone.text.toString())
-                                       mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString(),tokenfirebase!!)
-
-//                    val user = User()
-//                    user.name = name.text.toString()
-//                    user.password = password.text.toString()
-//                    user.email = email.text.toString()
-//                    user.tokenfirebase = FirebaseInstanceId.getInstance().token
-//                    mRegisterPresenter!!.register(user,Constants.LOCAL)
-
-                                   } else {
-                                       progressBar.visibility = View.GONE
-                                       CircularAnim.show(accept!!).go()
-//                                    showSnackBarMessage("Enter Valid Details !")
-                                   }                            }
-                           })
-
-               }
-               cancel.setOnClickListener{
-                   val builder = AlertDialog.Builder(activity)
-                   builder.setTitle("Bạn có thật sự muốn hủy bỏ?")
-                           .setPositiveButton(R.string.btn_ok, { _, _ ->
-                               //                    Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
-                               mDrawarPresenter!!.cancelReferral(user!!._id!!)
-
-                           })
-                           .setNegativeButton(R.string.cancelnot, { _, _ ->
-                               //                            Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
-//                            mAleftdialog!!.dismiss()
-
-                           })
-                           .show()
-               }
-//            val aleftdialog = AlertDialog.Builder(activity)
-//            aleftdialog.setMessage("Enter phone number:")
-//            val input = EditText(activity)
-//            val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-//            input.layoutParams = lp
-//            input.inputType = InputType.TYPE_CLASS_NUMBER
-//            aleftdialog.setView(input)
-//            aleftdialog.setIcon(R.drawable.phone_call)
-//            aleftdialog.setPositiveButton("OK", null)
-//            val mAleftdialog = aleftdialog.create()
-//            mAleftdialog.setOnShowListener {
-//                val b = mAleftdialog.getButton(AlertDialog.BUTTON_POSITIVE)
-//                b.setOnClickListener {
-//                    if (!Validation.validateFields(input.text.toString())) {
-//                        input.error = "Should not be empty !"
-//                    } else {
-//                        mDrawarPresenter!!.editphonenumber(user!!._id!!, input.text.toString())
-//                        mAleftdialog.dismiss()
-//                    }
-//                }
-//            }
-//            mAleftdialog.setCancelable(false)
-//            mAleftdialog.show()
-
-           }
-       }
-        else{
-           val builder = AlertDialog.Builder(activity)
-           builder.setMessage("Chức năng giới thiệu người dùng không áp dụng cho thiết bị này !")
-                   .setPositiveButton(R.string.btn_ok, { _, _ ->
-                   })
-
-                   .show()
-       }
-    }
-
-    fun getEmulatorName(context: Context): String {
-        var sEmulatorName: String? = null
-        val packageManager = context.packageManager
-        val packages = packageManager
-                .getInstalledApplications(PackageManager.GET_META_DATA)
-        for (packageInfo in packages) {
-            val packageName = packageInfo.packageName
-            if (packageName.startsWith("com.vphone.") || packageName.startsWith("com.bignox.")) {
-                sEmulatorName = context.getString(R.string.emulator_name_yeshen)
-            } else if (packageName.startsWith("me.haima.")) {
-                sEmulatorName = context.getString(R.string.emulator_name_haimawan)
-            } else if (packageName.startsWith("com.bluestacks.")) {
-                sEmulatorName = context.getString(R.string.emulator_name_bluestacks)
-            } else if (packageName.startsWith("cn.itools.") && (Build.PRODUCT.startsWith("iToolsAVM") || Build.MANUFACTURER.startsWith("iToolsAVM") || Build.DEVICE.startsWith("iToolsAVM") || Build.MODEL.startsWith("iToolsAVM") || Build.BRAND.startsWith("generic") || Build.HARDWARE.startsWith("vbox86"))) {
-                sEmulatorName = context.getString(R.string.emulator_name_itools)
-            } else if (packageName.startsWith("com.kop.") || packageName.startsWith("com.kaopu.")) {
-                sEmulatorName = context.getString(R.string.emulator_name_tiantian)
-            } else if (packageName.startsWith("com.microvirt.")) {
-                sEmulatorName = context.getString(R.string.emulator_name_xiaoyao)
-            } else if (packageName == "com.google.android.launcher.layouts.genymotion") {
-                sEmulatorName = getString(R.string.emulator_name_genymotion)
-            }
-        }
-        if (sEmulatorName == null) {
-            val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            val serviceInfos = manager.getRunningServices(30)
-            for (serviceInfo in serviceInfos) {
-                val serviceName = serviceInfo.service.className
-                if (serviceName.startsWith("com.bluestacks.")) {
-                    sEmulatorName = context.getString(R.string.emulator_name_bluestacks)
-                }
-            }
-        }
-        if (sEmulatorName == null && Build.PRODUCT.startsWith("sdk_google")) {
-            sEmulatorName = context.getString(R.string.emulator_name_android)
-        }
-        return if (sEmulatorName == null) "" else sEmulatorName
-    }
-
+class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView {
 
     override fun cancelreferralSuccess(response: Response) {
-        Log.e("phoneeeeee",response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
+        manager!!.setValidation(true)
+        Log.e("phoneeeeee", response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
         mAleftdialog?.cancel()
-        AppManager.onlyremoveAccount(context,response.user!!)
+        AppManager.onlyremoveAccount(context, response.user!!)
     }
 
     override fun referralSuccess(response: Response) {
-        Log.e("phoneeeeee",response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
+        manager!!.setValidation(true)
+        Log.e("phoneeeeee", response.user?.totalreferralpoint.toString() + " / " + response.user?.email + " / " + response.user?.referral)
         mAleftdialog?.cancel()
         showSnackBarMessage("Nhập mã giới thiệu thành công !")
-        AppManager.onlyremoveAccount(context,response.user!!)
+        AppManager.onlyremoveAccount(context, response.user!!)
         val x = Intent()
         x.action = "mainactivity"
         x.putExtra("reload", response.user!!.totalreferralpoint.toString())
@@ -213,13 +65,13 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     }
 
     override fun setErrorPhonenumber(errorMessage: String) {
-        accept?.isEnabled  = true
-        if(errorMessage.equals("")){
+        accept?.isEnabled = true
+        if (errorMessage.equals("")) {
             v!!.progressBar_phonenumber.visibility = View.GONE
             CircularAnim.show(v!!.btn_accept_phonenumber).go()
             v!!.edt_phonenumber.error = "Cảnh báo! Chúng tôi đã phát hiện thiết bị được sử quá số lần cho phép"
 
-        }else{
+        } else {
             v!!.progressBar_phonenumber.visibility = View.GONE
             CircularAnim.show(v!!.btn_accept_phonenumber).go()
             v!!.edt_phonenumber.error = "Không tìm thấy số điện thoại này"
@@ -232,7 +84,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     }
 
     override fun getUserDetail(response: Response) {
-        AppManager.onlyremoveAccount(context,response.user!!)
+        AppManager.onlyremoveAccount(context, response.user!!)
 //        AppManager.saveAccountUser(context, response.user!!, 0)
         showSnackBarMessage(getString(R.string.update_phonenumber_success))
 //        Toast.makeText(activity, "Update phone success!", Toast.LENGTH_SHORT).show()
@@ -241,7 +93,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     override fun getListSavedProduct(productsavedlist: User) {
     }
 
-
+    var manager : PrefManager? =null
     var mProductListPresenter: ProductListPresenter? = null
     var mDrawarPresenter: DrawerPresenter? = null
     private var isTablet: Boolean = false
@@ -255,14 +107,98 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     var mAleftdialog: AlertDialog? = null
     var v: View? = null
     var dialog: AlertDialog.Builder? = null
-    var accept : Button ?= null
-
+    var accept: Button? = null
+    var mContext : Context?=null
+    private var safetyNetHelper: SafetyNetHelper? = null
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        manager = PrefManager(activity)
+        mContext = activity
+        user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
+        if(manager!!.validationDevice())
+        {
+            if (user!!.referral.equals("") || user!!.referral == null) {
+                Log.e("HEREEEEEEE", "Here")
+                dialog = AlertDialog.Builder(mContext!!)
+                val inflater = layoutInflater
+                v = inflater.inflate(R.layout.dialog_phonenumber, null)
+                val phonenumber = v!!.findViewById<EditText>(R.id.edt_phonenumber)
+                val progressBar = v!!.findViewById<ProgressBar>(R.id.progressBar_phonenumber)
+                accept = v!!.findViewById<Button>(R.id.btn_accept_phonenumber)
+                val cancel = v!!.findViewById<Button>(R.id.btn_cancel_phonenumber)
+                dialog!!.setView(v)
+                dialog!!.setCancelable(false)
+
+                mAleftdialog = dialog!!.show()
+
+                accept?.setOnClickListener {
+                    Log.e("Click button", "Click buttonnnnnnnnnnnn")
+                    accept?.isEnabled = false
+                    val tokenfirebase = FirebaseInstanceId.getInstance().token
+                    CircularAnim.hide(accept!!)
+                            .endRadius((progressBar.height / 2).toFloat())
+                            .go(object : CircularAnim.OnAnimationEndListener {
+                                override fun onAnimationEnd() {
+                                    progressBar.visibility = View.VISIBLE
+                                    phonenumber!!.error = null
+                                    var err = 0
+                                    if (!Validation.validateFields(phonenumber.text.toString())) {
+                                        accept?.isEnabled = true
+                                        err++
+                                        phonenumber.error = getString(R.string.st_errpass)
+                                    }
+
+                                    if (err == 0) {
+
+                                        mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString(), tokenfirebase!!)
+
+
+
+                                    } else {
+                                        progressBar.visibility = View.GONE
+                                        CircularAnim.show(accept!!).go()
+
+                                    }
+                                }
+                            })
+
+                }
+                cancel.setOnClickListener {
+                    val builder = AlertDialog.Builder(activity)
+                    builder.setTitle("Bạn có thật sự muốn hủy bỏ?")
+                            .setPositiveButton(R.string.btn_ok, { _, _ ->
+                                //                    Toast.makeText(context, "ádasda",Toast.LENGTH_LONG).show()
+                                mDrawarPresenter!!.cancelReferral(user!!._id!!)
+
+
+                            })
+                            .setNegativeButton(R.string.cancelnot, { _, _ ->
+                            })
+                            .show()
+                }
+            }
+            else
+            {
+                manager!!.setShowWarning(true)
+            }
+        }
+        else{
+            if(!manager!!.isWarning())
+            {
+                val builder = AlertDialog.Builder(mContext!!)
+                builder.setMessage("Chức năng nhập mã không hoạt động trên thiết bị đã root , sửa đổi bản rom , mở khóa bootloader , máy ảo , thiết bị đã bị chỉnh sửa , google service đã cũ hoặc không hoạt động")
+                        .setPositiveButton(R.string.btn_ok, { _, _ ->
+                        })
+
+                        .show()
+                manager!!.setShowWarning(true)
+            }
+
+        }
 
         var mBundle = Bundle()
         mBundle = arguments
-        mCategory = mBundle.getInt("Category",1)
+        mCategory = mBundle.getInt("Category", 1)
         isTablet = resources.getBoolean(R.bool.is_tablet)
         mProductListPresenter = ProductListPresenter(this)
         mDrawarPresenter = DrawerPresenter(this)
@@ -281,7 +217,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
         swipe_refresh.setOnRefreshListener({
-            if(isLodaing){
+            if (isLodaing) {
                 RefreshListener()
             }
         })
@@ -310,16 +246,59 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                     adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
                 })
             }
-            if(!isFistTime){
+            if (!isFistTime) {
                 adapter!!.pageToDownload++
             }
-            if(isLodaing){
+            if (isLodaing) {
                 mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
             }
 
         })
     }
-    fun RefreshListener(){
+
+    private fun handleError(errorCode: Int, errorMsg: String) {
+        Log.e("HomeFragment", errorMsg)
+
+        val b = StringBuilder()
+
+        when (errorCode) {
+            SafetyNetHelper.SAFETY_NET_API_REQUEST_UNSUCCESSFUL -> {
+                b.append("SafetyNet request failed\n")
+                b.append("(This could be a networking issue.)\n")
+            }
+            SafetyNetHelper.RESPONSE_ERROR_VALIDATING_SIGNATURE -> {
+                b.append("SafetyNet request: success\n")
+                b.append("Response signature validation: error\n")
+            }
+            SafetyNetHelper.RESPONSE_FAILED_SIGNATURE_VALIDATION -> {
+                b.append("SafetyNet request: success\n")
+                b.append("Response signature validation: fail\n")
+            }
+            SafetyNetHelper.RESPONSE_VALIDATION_FAILED -> {
+                b.append("SafetyNet request: success\n")
+                b.append("Response validation: fail\n")
+            }
+            ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED -> {
+                b.append("SafetyNet request: fail\n")
+                b.append("\n*GooglePlayServices outdated*\n")
+                try {
+                    val v = activity.getPackageManager().getPackageInfo("com.google.android.gms", 0).versionCode
+                    val vName = activity.getPackageManager().getPackageInfo("com.google.android.gms", 0).versionName.split(" ".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                    b.append("You are running version:\n$vName $v\nSafetyNet requires minimum:\n7.3.27 7327000\n")
+                } catch (NameNotFoundException: Exception) {
+                    b.append("Could not find GooglePlayServices on this device.\nPackage com.google.android.gms missing.")
+                }
+
+            }
+            else -> {
+                b.append("SafetyNet request failed\n")
+                b.append("(This could be a networking issue.)\n")
+            }
+        }
+        Log.e("HomeFragment", b.toString())
+    }
+
+    fun RefreshListener() {
         isLodaing = false
         // product_recycleview.isNestedScrollingEnabled = false
         swipe_refresh.isEnabled = false
@@ -331,12 +310,14 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
 
     }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.tab_home, container, false)
         retainInstance = true
         setHasOptionsMenu(true)
         return view
     }
+
     override fun onDestroy() {
         super.onDestroy()
 
@@ -346,11 +327,8 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
     override fun onResume() {
         super.onResume()
-        user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
-        Log.e("Phone","Phone: " + user!!.referral)
-        val ds = DetectEmulator_Sensor(activity)
-        ds.setShowLog(true)
-        ds.Detect(this)
+
+        Log.e("Phone", "Phone: " + user!!.referral)
 
     }
 
@@ -362,6 +340,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     override fun onDetach() {
         super.onDetach()
     }
+
     private fun onDownloadSuccessful() {
         if (isTablet && adapter?.productList?.size!! > 0) {
             /*(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))*/
@@ -406,6 +385,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     override fun setErrorMessage(errorMessage: String) {
         onDownloadFailed()
     }
+
     override fun setErrorNotFound() {
         if (adapter!!.pageToDownload == 1) {
             swipe_refresh.isRefreshing = false
@@ -424,6 +404,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         }
 
     }
+
     override fun getListProduct(productlist: ArrayList<Product>) {
         adapter!!.productList.removeAt(adapter!!.productList.size - 1)
         adapter!!.notifyItemRemoved(adapter!!.productList.size)
@@ -454,6 +435,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 //            }
 
     }
+
     private fun showSnackBarMessage(message: String?) {
 
         Snackbar.make(activity.findViewById(R.id.root_home), message!!, Snackbar.LENGTH_INDEFINITE)
