@@ -29,9 +29,9 @@ import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.LoginPresenter
 import finger.thuetot.vn.util.Constants
-import finger.thuetot.vn.util.Validation.validateFields
 import finger.thuetot.vn.util.Validation.validatePassword
 import finger.thuetot.vn.util.Validation.validatePhone
+import finger.thuetot.vn.util.Validation.validatePhone2
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.verify_phone_layout.view.*
 import org.json.JSONException
@@ -160,9 +160,14 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
 
 
         var err = 0
-        if (!validateFields(phone_number!!.text.toString())) {
+        if (!validatePhone(phone_number!!.text.toString())) {
             err++
-            phone_number!!.error = getString(R.string.st_errpass)
+            phone_number!!.error = getString(R.string.st_errpass4)
+        } else {
+            if (!validatePhone2( v!!.edit_phonenumber.text.toString())!!) {
+                err++
+                v?.edit_phonenumber!!.error = getString(R.string.st_errPhone)
+            }
         }
         if (err == 0) {
             user.phone = phone_number.text.toString()
@@ -269,6 +274,11 @@ class LoginActivity : AppCompatActivity(), LoginPresenter.LoginView, GoogleApiCl
                 if (!validatePhone( v!!.edit_phonenumber.text.toString())) {
                     err++
                     v?.edit_phonenumber!!.error = getString(R.string.st_errpass4)
+                } else {
+                    if (!validatePhone2( v!!.edit_phonenumber.text.toString())!!) {
+                        err++
+                        v?.edit_phonenumber!!.error = getString(R.string.st_errPhone)
+                    }
                 }
                 if (err == 0) {
                     CircularAnim.hide(v!!.send_code).go()

@@ -111,6 +111,7 @@
     <string name="sp_saved">Sản phẩm đã lưu</string>
     <string name="txt_mess">Tin nhắn</string>
     <string name="st_errpass">Không thể để trống !</string>
+    <string name="st_errPhone">Định dạng không hợp lệ ! </string>
     <string name="st_errpass2">Không thể để trống hoặc ít hơn 6 kí tự !</string>
     <string name="st_errpass3">Không thể để trống hoặc nhập lại chưa đúng !</string>
     <string name="st_errpass4">Không thể để trống hoặc ít hơn 8 kí tự !</string>
@@ -173,6 +174,7 @@
     <string name="delete_success">Xóa sản phẩm thành công</string>
     <string name="edit_success">Sửa sản phẩm thành công</string>
     <string name="changepass_success">Đổi mật khẩu thành công</string>
+    <string name="updatemoney_success">Cập nhật thông tin thành công</string>
     <string name="changeinfo_success">Đổi thông tin thành công</string>
     <string name="update_phonenumber_success">Cập nhật số điện thoại thành công</string>
     //======================================err

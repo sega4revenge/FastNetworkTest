@@ -36,6 +36,11 @@ import java.io.File
 
 
 class ChatActivity : AppCompatActivity(), DetailUserPresenter.DetailUserView {
+    override fun getUserUpdateMoney(user: User) {
+    }
+
+    override fun isgetUpdateMoneySuccess(success: Boolean) {
+    }
 
 
     var mMessager: ArrayList<Chat> = ArrayList()

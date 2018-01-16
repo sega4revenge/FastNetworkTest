@@ -2,6 +2,7 @@ package finger.thuetot.vn.util
 
 import android.text.TextUtils
 import android.util.Patterns
+import java.util.regex.Pattern
 
 /**
  * Created by Sega on 23/03/2017.
@@ -9,6 +10,8 @@ import android.util.Patterns
 
 
 object Validation {
+//    var regexStr : String = "0\\[0-9]{10}$"
+    var pattern = Pattern.compile("0\\d{9,10}")
 
     fun validateFields(name: String?): Boolean {
 
@@ -21,6 +24,10 @@ object Validation {
     fun validatePhone(name: String?): Boolean {
 
         return !(TextUtils.isEmpty(name) || name!!.trim { it <= ' ' } == "" || name.length < 8)
+    }
+    fun validatePhone2(phone : String?): Boolean? {
+        var matcher = pattern.matcher(phone)
+            return matcher.matches()
     }
     fun validateEmail(string: String?): Boolean {
 

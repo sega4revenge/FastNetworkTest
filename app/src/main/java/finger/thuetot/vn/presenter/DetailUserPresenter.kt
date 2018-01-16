@@ -5,16 +5,16 @@ import android.os.Looper
 import android.util.Log
 import com.androidnetworking.error.ANError
 import com.rx2androidnetworking.Rx2AndroidNetworking
+import finger.thuetot.vn.model.Response
+import finger.thuetot.vn.model.User
+import finger.thuetot.vn.util.CompressImage
+import finger.thuetot.vn.util.Constants
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import org.json.JSONObject
-import finger.thuetot.vn.model.Response
-import finger.thuetot.vn.model.User
-import finger.thuetot.vn.util.CompressImage
-import finger.thuetot.vn.util.Constants
 import java.io.File
 
 
@@ -80,12 +80,56 @@ class DetailUserPresenter(view: DetailUserPresenter.DetailUserView) {
             }
         }
     }
+    private fun getDisposableObserver_getUserUpdateMoney(): DisposableObserver<User> {
+
+        return object : DisposableObserver<User>() {
+
+            override fun onNext(user: User) {
+                Log.d(userdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+                Log.d(userdetail, user.name)
+                mDetailView.getUserUpdateMoney(user)
+            }
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+                    if (e.errorCode != 0) {
+                        // received ANError from server
+                        // error.getErrorCode() - the ANError code from server
+                        // error.getErrorBody() - the ANError body from server
+                        // error.getErrorDetail() - just a ANError detail
+                        Log.d(userdetail, "onError errorCode : " + e.errorCode)
+                        Log.d(userdetail, "onError errorBody : " + e.errorBody)
+                        Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
+                        mDetailView.setErrorMessage(e.errorDetail)
+                    } else {
+                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                        Log.d(userdetail, "onError errorDetail : " + e.errorDetail + "errmess: "+e.message)
+                        mDetailView.setErrorMessage(e.errorDetail)
+                    }
+                } else {
+                    Log.d(userdetail, "onError errorMessage : " + e.message)
+                    mDetailView.setErrorMessage(e.message!!)
+                }
+            }
+
+            override fun onComplete() {
+                mDetailView.isgetUpdateMoneySuccess(true)
+
+            }
+        }
+    }
     fun getUserDetail(userid: String) {
 
         disposables.add(getObservable_getUserDetail("/data/{userid}",userid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver_getUserDetail()))
+    }
+    fun updateMoney(userid: String) {
+
+        disposables.add(getObservable_getUserDetail("/updatemoney/{userid}",userid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver_getUserUpdateMoney()))
     }
     private fun getObservable_upImage(typesearch: String, file: File, userfrom: String, userto: String, email: String, name: String, context: Context ): Observable<Response> {
         return Rx2AndroidNetworking.upload(Constants.BASE_URL + typesearch)
@@ -154,6 +198,8 @@ class DetailUserPresenter(view: DetailUserPresenter.DetailUserView) {
         fun setErrorMessage(errorMessage: String)
         fun getUserDetail(user : User)
         fun isgetUserDetailSuccess(success : Boolean)
+        fun getUserUpdateMoney(user : User)
+        fun isgetUpdateMoneySuccess(success : Boolean)
 
     }
 }

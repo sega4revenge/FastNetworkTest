@@ -20,6 +20,8 @@ import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation.validateEmail
 import finger.thuetot.vn.util.Validation.validateFields
 import finger.thuetot.vn.util.Validation.validatePassword
+import finger.thuetot.vn.util.Validation.validatePhone
+import finger.thuetot.vn.util.Validation.validatePhone2
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.verify_phone_layout.view.*
 import java.util.regex.Pattern
@@ -125,11 +127,16 @@ class RegisterActivity : AppCompatActivity(), LoginPresenter.LoginView {
 
         var err = 0
 
-        if (!validateFields(txt_phone!!.text.toString())) {
-
+        if (!validatePhone(txt_phone!!.text.toString())) {
             err++
-            txt_phone!!.error = getString(R.string.st_errpass)
+            txt_phone!!.error = getString(R.string.st_errpass4)
+        } else {
+            if (!validatePhone2(txt_phone!!.text.toString())!!) {
+                err++
+                txt_phone!!.error = getString(R.string.st_errPhone)
+            }
         }
+
         if (!validateFields(name!!.text.toString())) {
 
             err++

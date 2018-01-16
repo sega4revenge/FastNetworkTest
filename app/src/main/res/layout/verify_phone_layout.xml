@@ -85,12 +85,6 @@
             android:weightSum="100"
             android:layout_marginTop="5dp"
             android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+84"
-                android:layout_marginRight="5dp"
-                android:textSize="14sp"/>
             <EditText
                 android:id="@+id/edit_phonenumber"
                 android:layout_width="0dp"

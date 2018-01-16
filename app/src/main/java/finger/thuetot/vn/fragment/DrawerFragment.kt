@@ -39,6 +39,7 @@ import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.Response
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.ChangePasswordPresenter
+import finger.thuetot.vn.presenter.DetailUserPresenter
 import finger.thuetot.vn.presenter.DrawerPresenter
 import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation.validateFields
@@ -52,7 +53,19 @@ import java.util.*
  * Created by sega4 on 08/08/2017.
  */
 
-class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener, DrawerPresenter.DrawerView, ChangePasswordPresenter.ChangePasswordView {
+class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener, DetailUserPresenter.DetailUserView, DrawerPresenter.DrawerView, ChangePasswordPresenter.ChangePasswordView {
+    override fun getStatusUpdateImage(mess: String) {
+    }
+
+    override fun getUserUpdateMoney(user: User) {
+        AppManager.onlyremoveAccount(context, user!!)
+        navigation_view.getHeaderView(0).money_referral.text = user?.totalreferralpoint.toString() + "đ"
+    }
+
+    override fun isgetUpdateMoneySuccess(success: Boolean) {
+        showSnackBarMessage(getString(R.string.updatemoney_success))
+    }
+
     override fun cancelreferralSuccess(response: Response) {
     }
 
@@ -119,6 +132,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
 
     var photoprofile: String? = null
     var mChangePasswordPresenter: ChangePasswordPresenter? = null
+    var mDetailUserPresenter : DetailUserPresenter ?= null
     private var mDrawerPresenter: DrawerPresenter? = null
     val options = RequestOptions()
             .centerCrop()
@@ -138,7 +152,7 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
             isTablet = resources.getBoolean(R.bool.is_tablet)
             mDrawerPresenter = DrawerPresenter(this)
             mChangePasswordPresenter = ChangePasswordPresenter(this)
-
+            mDetailUserPresenter = DetailUserPresenter(this)
 
             if (view != null) {
                 (activity as AppCompatActivity).setSupportActionBar(toolbar)
@@ -197,6 +211,10 @@ class DrawerFragment : Fragment(), NavigationView.OnNavigationItemSelectedListen
                         })
 
                         .show()
+            }
+            navigation_view.getHeaderView(0).updateMoney.setOnClickListener {
+                Log.e("Log","LOGGGG")
+                mDetailUserPresenter?.updateMoney(user?._id!!)
             }
             linMotobike.setOnClickListener() {
                 changeCategory(0, HomeFragment())

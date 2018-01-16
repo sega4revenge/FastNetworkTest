@@ -50,7 +50,7 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -64,6 +64,7 @@
                 android:id="@+id/money_referral"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="50000d"
                 android:textColor="@color/text_light" />
             <ImageButton
                 android:id="@+id/question_mark"
@@ -71,6 +72,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@drawable/question_mark"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:id="@+id/updateMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/com_facebook_blue"
+                    android:text="Cập nhật"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
