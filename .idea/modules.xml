@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FastNetworkTest.iml" filepath="$PROJECT_DIR$/FastNetworkTest.iml" />
       <module fileurl="file://E:\StudioProjects\ThueTot\FastNetworkTest.iml" filepath="E:\StudioProjects\ThueTot\FastNetworkTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ThueTot.iml" filepath="$PROJECT_DIR$/ThueTot.iml" />
       <module fileurl="file://E:\FingerProject\Finger_Project\FastNetworkTest\ThueTot.iml" filepath="E:\FingerProject\Finger_Project\FastNetworkTest\ThueTot.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

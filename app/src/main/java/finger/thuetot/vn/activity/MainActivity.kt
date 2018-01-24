@@ -14,7 +14,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import finger.thuetot.vn.R
-import finger.thuetot.vn.R.id.main_fragment
 import finger.thuetot.vn.fragment.DrawerFragment
 import finger.thuetot.vn.manager.AppManager
 import finger.thuetot.vn.model.User
@@ -106,7 +105,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
-            (main_fragment as DrawerFragment).isClosedDrawer()
+
+            (supportFragmentManager.findFragmentById(R.id.main_fragment) as DrawerFragment).isClosedDrawer()
             return
         }
 
