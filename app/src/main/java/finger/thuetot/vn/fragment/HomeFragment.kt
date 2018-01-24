@@ -90,7 +90,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         else{
             v!!.progressBar_phonenumber.visibility = View.GONE
             CircularAnim.show(v!!.btn_accept_phonenumber).go()
-            v!!.edt_phonenumber.error = "Không tìm thấy số điện thoại này"
+            v!!.edt_phonenumber.error = "Mã giới thiệu không đúng hoặc không hợp lệ"
         }
 
 
