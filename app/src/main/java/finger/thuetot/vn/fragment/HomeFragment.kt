@@ -1,8 +1,11 @@
 package finger.thuetot.vn.fragment
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.provider.Settings
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
@@ -14,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import com.facebook.FacebookSdk
 import com.google.android.gms.common.ConnectionResult
 import com.google.firebase.iid.FirebaseInstanceId
 import finger.thuetot.vn.R
@@ -31,6 +35,7 @@ import finger.thuetot.vn.model.Response
 import finger.thuetot.vn.model.User
 import finger.thuetot.vn.presenter.DrawerPresenter
 import finger.thuetot.vn.presenter.ProductListPresenter
+import finger.thuetot.vn.presenter.checkVersion
 import finger.thuetot.vn.util.Constants
 import finger.thuetot.vn.util.Validation
 import kotlinx.android.synthetic.main.dialog_phonenumber.view.*
@@ -38,11 +43,16 @@ import kotlinx.android.synthetic.main.layout_error_message.*
 import kotlinx.android.synthetic.main.tab_home.*
 
 
+
+
 /**
  * Created by Admin on 3/15/2017.
  */
 
-class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView {
+class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductListPresenter.ProductListView, DrawerPresenter.DrawerView, checkVersion.IntroView {
+    override fun getVersion(ver: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun cancelreferralSuccess(response: Response) {
         manager!!.setValidation(true)
@@ -69,9 +79,15 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         if (errorMessage.equals("")) {
             v!!.progressBar_phonenumber.visibility = View.GONE
             CircularAnim.show(v!!.btn_accept_phonenumber).go()
-            v!!.edt_phonenumber.error = "Cảnh báo! Chúng tôi đã phát hiện thiết bị được sử quá số lần cho phép"
+            v!!.edt_phonenumber.error = "Cảnh báo! Chúng tôi đã phát hiện thiết bị được sử dụng quá số lần cho phép"
 
-        } else {
+        } else if(errorMessage.equals("block")){
+            v!!.progressBar_phonenumber.visibility = View.GONE
+            CircularAnim.show(v!!.btn_accept_phonenumber).go()
+            v!!.edt_phonenumber.error = "Cảnh báo! mã giới thiệu này đã bị tạm khóa vì sai phạm điều lệ THUÊ TỐT. Hãy thử mã giới thiệu khác."
+
+        }
+        else{
             v!!.progressBar_phonenumber.visibility = View.GONE
             CircularAnim.show(v!!.btn_accept_phonenumber).go()
             v!!.edt_phonenumber.error = "Không tìm thấy số điện thoại này"
@@ -79,7 +95,17 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
 
     }
-
+    private var appendChatScreenMsgReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val b = intent.extras
+            if (b != null) {
+                if (b.getBoolean("blockuser")) {
+                    FacebookSdk.sdkInitialize(activity)
+                    AppManager.removeAccount(activity)
+                }
+            }
+        }
+    }
     override fun changeAvatarSuccess(t: Response) {
     }
 
@@ -95,6 +121,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
     var manager : PrefManager? =null
     var mProductListPresenter: ProductListPresenter? = null
+    var mCheckAndroidId: checkVersion? = null
     var mDrawarPresenter: DrawerPresenter? = null
     private var isTablet: Boolean = false
     private var layoutManager: LinearLayoutManager? = null
@@ -108,6 +135,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
     var v: View? = null
     var dialog: AlertDialog.Builder? = null
     var accept: Button? = null
+    var androidId = ""
     var mContext : Context?=null
     private var safetyNetHelper: SafetyNetHelper? = null
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -115,10 +143,23 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
         manager = PrefManager(activity)
         mContext = activity
         user = AppManager.getUserDatafromAccount(context, AppManager.getAppAccount(context)!!)
+        mCheckAndroidId = checkVersion(this)
+
+        try{
+             androidId = Settings.Secure.getString(activity.getContentResolver(),
+                    Settings.Secure.ANDROID_ID)
+
+            if(!androidId.equals("") || androidId != null){
+                mCheckAndroidId?.checkAndroidId(user?._id!!,androidId)
+            }
+        }catch (ex: Exception){
+            System.out.print(ex.message)
+        }
+
+
         if(manager!!.validationDevice())
         {
             if (user!!.referral.equals("") || user!!.referral == null) {
-                Log.e("HEREEEEEEE", "Here")
                 dialog = AlertDialog.Builder(mContext!!)
                 val inflater = layoutInflater
                 v = inflater.inflate(R.layout.dialog_phonenumber, null)
@@ -132,7 +173,6 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
                 mAleftdialog = dialog!!.show()
 
                 accept?.setOnClickListener {
-                    Log.e("Click button", "Click buttonnnnnnnnnnnn")
                     accept?.isEnabled = false
                     val tokenfirebase = FirebaseInstanceId.getInstance().token
                     CircularAnim.hide(accept!!)
@@ -150,7 +190,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
                                     if (err == 0) {
 
-                                        mDrawarPresenter!!.editphonenumber(user!!._id!!, phonenumber.text.toString(), tokenfirebase!!)
+                                        mDrawarPresenter!!.editphone(user!!._id!!, phonenumber.text.toString(), androidId)
 
 
 
@@ -212,7 +252,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
         adapter!!.pageToDownload = 1
         adapter!!.initShimmer()
-        // mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
+
 
 
         swipe_refresh.setColorSchemeResources(R.color.color_background_button)
@@ -254,6 +294,7 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
             }
 
         })
+        mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
     }
 
     private fun handleError(errorCode: Int, errorMsg: String) {
@@ -320,14 +361,14 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
     override fun onDestroy() {
         super.onDestroy()
-
+        activity.unregisterReceiver(appendChatScreenMsgReceiver)
         mProductListPresenter?.stopRequest()
         mDrawarPresenter?.cancelRequest()
     }
 
     override fun onResume() {
         super.onResume()
-
+        activity.registerReceiver(this.appendChatScreenMsgReceiver, IntentFilter("blockuser"))
         Log.e("Phone", "Phone: " + user!!.referral)
 
     }

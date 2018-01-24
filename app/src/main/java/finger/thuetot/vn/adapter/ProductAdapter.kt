@@ -49,10 +49,9 @@ internal class ProductAdapter// Constructor
                 super.onScrolled(recyclerView, dx, dy)
 
                 totalItemCount = lastVisibleItem.findLastVisibleItemPosition()
-                        //linnerlayout.findLastVisibleItemPosition()
-              //  lastVisibleItem = lastposition
 
-                if (!isLoading && !isLoadingLocked && totalItemCount == productList.size - 1) {
+           //     Log.d("aaaaaaaaaa","asd"+totalItemCount+" "+totalItemCount+" "+productList.size)
+                if (!isLoading && !isLoadingLocked && totalItemCount == productList.size -1 ) {
 
                     if (mOnLoadMoreListener != null && pageToDownload < TOTAL_PAGES) {
                         mOnLoadMoreListener!!.onLoadMore()

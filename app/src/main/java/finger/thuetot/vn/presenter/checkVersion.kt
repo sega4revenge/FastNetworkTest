@@ -11,6 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import org.json.JSONException
 import org.json.JSONObject
 
 /**
@@ -32,7 +33,19 @@ class checkVersion(view : checkVersion.IntroView) {
                 .subscribeWith(getDisposableObserver()))
 
     }
+    fun checkAndroidId(userid: String,androidid: String) {
+        try {
+            jsonObject.put("iduser", userid)
+            jsonObject.put("androidid", androidid)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservable("addAndroidId")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver2()))
 
+    }
     private fun getObservable(typesearch: String): Observable<Response> {
         return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
                 .setTag(productdetail)
@@ -48,7 +61,34 @@ class checkVersion(view : checkVersion.IntroView) {
 
                 .getObjectObservable(Response::class.java)
     }
+    private fun getDisposableObserver2(): DisposableObserver<Response> {
 
+        return object : DisposableObserver<Response>() {
+
+            override fun onNext(response: Response) {
+                Log.d(productdetail, "onResponse isMainThread : " + (Looper.myLooper() == Looper.getMainLooper()).toString())
+              //  mcheckVersion.getVersion(response?.message!!)
+            }
+
+            override fun onError(e: Throwable) {
+                if (e is ANError) {
+                    Log.d(productdetail, "onError errorCode : " + e.errorCode)
+                    Log.d(productdetail, "onError errorBody : " + e.errorBody)
+                    Log.d(productdetail, e.errorDetail + " : " + e.message)
+                    if(e.errorBody.equals("200")){
+                     //   mcheckVersion.getStatusCheckAndroidId()
+                    }
+
+                } else {
+                    Log.d(productdetail, "onError errorMessage : " + e.message)
+
+                }
+            }
+
+            override fun onComplete() {
+            }
+        }
+    }
     private fun getDisposableObserver(): DisposableObserver<Response> {
 
         return object : DisposableObserver<Response>() {
@@ -78,5 +118,6 @@ class checkVersion(view : checkVersion.IntroView) {
 
     interface IntroView {
         fun getVersion(ver: String)
+      //  fun getStatusCheckAndroidId()
     }
 }

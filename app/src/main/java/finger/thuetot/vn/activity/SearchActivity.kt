@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.support.v4.util.ArrayMap
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -32,6 +31,7 @@ import finger.thuetot.vn.R
 import finger.thuetot.vn.adapter.ProductAdapter
 import finger.thuetot.vn.customview.DividerItemDecoration
 import finger.thuetot.vn.fragment.FilterFragment
+import finger.thuetot.vn.lib.ShimmerRecycleView.OnLoadMoreListener
 import finger.thuetot.vn.model.Product
 import finger.thuetot.vn.presenter.SearchPresenterImp
 import finger.thuetot.vn.service.LocationService
@@ -43,7 +43,7 @@ import kotlinx.android.synthetic.main.searchmain_layout.*
 /**
  * Created by VinhNguyen on 8/9/2017.
  */
-class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, FilterFragment.Callbacks {
+class SearchActivity : AppCompatActivity() , SearchPresenterImp.SearchView, ProductAdapter.OnproductClickListener, FilterFragment.Callbacks {
 
 
     internal var mLocation: Marker? = null
@@ -56,7 +56,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     var loca = ""
     var cate = ""
     val mLocationRequestwithBalanced = LocationRequest()
-
+    var isFirstLoad = true
+    var isLodaing = true
+    var isFistTime = true
     internal var listProductMaker = java.util.ArrayList<Marker>()
     private var myLocation: LatLng? = null
     private var isLoading: Boolean = false
@@ -80,7 +82,7 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         isTablet = resources.getBoolean(R.bool.is_tablet)
         SearchView = SearchPresenterImp(this)
         layoutManager = LinearLayoutManager(this)
-        adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
+
 
 
        // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
@@ -227,24 +229,47 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                 else -> {
                     println("list")
                     isMap = false
-                    nestedScrollView.visibility = View.VISIBLE
+                   nestedScrollView.visibility = View.VISIBLE
                     layout_map.visibility = View.GONE
                 }
             }
 
         }
-        product_recycleview.visibility = View.GONE
+      //  product_recycleview.visibility = View.GONE
         product_recycleview.setHasFixedSize(true)
-        product_recycleview.layoutManager = (layoutManager as RecyclerView.LayoutManager?)!!
+        product_recycleview.layoutManager = layoutManager
         product_recycleview.addItemDecoration(DividerItemDecoration(R.color.category_divider_color, 3))
+        adapter = ProductAdapter(this, this, product_recycleview, layoutManager!!)
         product_recycleview.adapter = adapter
-        pageToDownload = 1
-       // ed_search.isFocusable = false
-      //  ed_search.isActivated = true
-      //  ed_search.queryHint = "Search"
-     //   ed_search.onActionViewExpanded()
-    //    ed_search.setIconifiedByDefault(true)
-     //   ed_search.isIconified = false
+//        product_recycleview.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+//            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                Log.d("aaaaaaaaaa","xyz "+dx+" "+dy)
+//            }
+//        })
+        adapter!!.pageToDownload = 1
+       // adapter!!.initShimmer()
+
+        adapter!!.setOnLoadMoreListener(OnLoadMoreListener {
+
+            if (!isFirstLoad) {
+                val a = Product()
+                a.productname = ""
+                adapter!!.productList.add(a)
+                product_recycleview.post({
+                    adapter!!.notifyItemInserted(adapter!!.productList.size - 1)
+                })
+            }
+            if (!isFistTime) {
+                adapter!!.pageToDownload++
+            }
+            if (isLodaing) {
+                isLodaing = false
+                SearchView?.searchWithListLoadMore(ed_search.query.toString(), loca, cate, mFilter,adapter?.pageToDownload!!)
+                //  mProductListPresenter!!.getProductList(Constants.BORROW, adapter!!.pageToDownload, mCategory)
+            }
+
+        })
 
         ed_search.setOnCloseListener(object : SearchView.OnCloseListener{
             override fun onClose(): Boolean {
@@ -295,7 +320,8 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
 //            }
 //
 //        })
-        SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
+        SearchView?.searchWithListLoadMore(ed_search.query.toString(), loca, cate, mFilter,adapter?.pageToDownload!!)
+
 
         try_again.setOnClickListener {
             SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
@@ -357,6 +383,8 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     override fun onResult(result: Any?) {
         loca = ""
         cate = ""
+        adapter?.pageToDownload = 1
+        isFirstLoad = false
         if (result.toString() != "swiped_down") {
             println(applied_filters["category"])
             println(applied_filters["location"])
@@ -384,7 +412,9 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
                         }
                     }
                 }
-                SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, applied_filters["filter"]?.get(0)!!.toInt())
+                SearchView?.searchWithListLoadMore(ed_search.query.toString(), loca, cate, applied_filters["filter"]?.get(0)!!.toInt(),adapter?.pageToDownload!!)
+
+             //   SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, applied_filters["filter"]?.get(0)!!.toInt())
                 Log.d("k9res", loca + cate)
             }
 
@@ -397,9 +427,13 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
     //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     //  }
     override fun setMessagerNotFound() {
-        product_recycleview.visibility = View.GONE
-        layout_map.visibility = View.GONE
-        txt_notfound.visibility = View.VISIBLE
+        if(adapter?.pageToDownload!! == 1)
+        {
+            product_recycleview.visibility = View.GONE
+            layout_map.visibility = View.GONE
+            txt_notfound.visibility = View.VISIBLE
+        }
+
 
     }
 
@@ -477,12 +511,21 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
             }
 
         } else {
-            if (adapter!!.productList.size > 0) {
+//            if (adapter!!.productList.size > 0) {
+//                adapter!!.productList.clear()
+//                Log.d("test search ", "clear")
+//
+//            }
+//            adapter!!.productList.removeAt(adapter!!.productList.size - 1)
+//            adapter!!.notifyItemRemoved(adapter!!.productList.size)
+            if (!isFirstLoad) {
                 adapter!!.productList.clear()
-                Log.d("test search ", "clear")
-
+                isFirstLoad = true
             }
-            adapter!!.productList = productlist
+            adapter!!.productList.addAll(productlist)
+            adapter!!.isLoading = false
+            adapter!!.isLoadingLocked = false
+         //   adapter!!.productList = productlist
             onDownloadSuccessful()
         }
 
@@ -492,16 +535,18 @@ class SearchActivity : AppCompatActivity(), SearchPresenterImp.SearchView, Produ
         if (isTablet && adapter?.productList?.size!! > 0) {
             //(activity as ProductActivity).loadDetailFragmentWith(adapter.productList[0].productid + "", String.valueOf(adapter.productList[0].userid))
         }
-        isLoading = false
+      //  isLoading = true
         product_recycleview.visibility = View.VISIBLE
         error_message.visibility = View.GONE
         txt_notfound.visibility = View.GONE
         adapter?.notifyDataSetChanged()
+        isLodaing = true
+        isFistTime = false
 
     }
 
     private fun onDownloadFailed() {
-        isLoading = false
+     //   isLoading = false
         if(!isMap)
         {
             if (pageToDownload == 1) {

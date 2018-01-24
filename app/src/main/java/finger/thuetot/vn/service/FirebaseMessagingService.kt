@@ -37,8 +37,14 @@ class FirebaseMessagingService : com.google.firebase.messaging.FirebaseMessaging
             {
                 showNotificationReply(remoteMessage?.data?.get("commentid").toString(),remoteMessage?.data?.get("username").toString(),remoteMessage?.data?.get("content").toString(),remoteMessage?.data?.get("userreply").toString(),remoteMessage?.data?.get("userown").toString(),remoteMessage?.data?.get("msg").toString())
             }
-            else {
+            else if(remoteMessage?.data?.get("userblock")!= null){
+                val x = Intent()
+                x.action = "blockuser"
+                x.putExtra("blockuser", true)
+                this.sendBroadcast(x)
+            }else{
                 showNotificationChat(remoteMessage?.data?.get("userto").toString(),remoteMessage?.data?.get("name").toString(),remoteMessage?.data?.get("messager").toString(),remoteMessage?.data?.get("avata").toString(),remoteMessage?.data?.get("userfrom").toString(),remoteMessage?.data?.get("idsend").toString())
+
             }
         }
     }

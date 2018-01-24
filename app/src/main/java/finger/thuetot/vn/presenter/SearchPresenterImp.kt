@@ -40,6 +40,23 @@ class SearchPresenterImp(searchView: SearchView){
                 .subscribeWith(getDisposableObserver()))
 
     }
+    fun searchWithListLoadMore(key: String, mLocation: String, mCategory: String, mTypeArrange: Int,page: Int) {
+
+        try {
+            jsonObject.put("keysearch", key)
+            jsonObject.put("location", mLocation)
+            jsonObject.put("category", mCategory)
+            jsonObject.put("typeArrange", mTypeArrange)
+            jsonObject.put("page", page)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservable("searchLoadMore")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver()))
+
+    }
     fun searchWithMap(key: String, mLatLng: LatLng, mCategory: String, mRadius : Int) {
 
 

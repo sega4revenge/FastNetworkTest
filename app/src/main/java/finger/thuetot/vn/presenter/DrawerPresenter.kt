@@ -107,7 +107,7 @@ private fun getObservable_eidtInfoUser(typesearch: String): Observable<Response>
         return object : DisposableObserver<Response>() {
 
             override fun onNext(response: Response) {
-                Log.e("ALOALO","AlO")
+
                 mDrawerView.getUserDetail(response)
 
             }
@@ -152,6 +152,21 @@ private fun getObservable_eidtInfoUser(typesearch: String): Observable<Response>
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver_eidtInfoUser()))
     }
+
+    fun editphone(userid: String,phone: String, androidid: String) {
+
+        try {
+            jsonObject.put("userid", userid)
+            jsonObject.put("phone", phone)
+            jsonObject.put("androidid", androidid)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        disposables.add(getObservable_eidtInfoUser("referralandroidid")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(getDisposableObserver_editphonenumber()))
+    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 private fun getObservable_editphonenumber(typesearch: String): Observable<Response> {
     return Rx2AndroidNetworking.post(Constants.BASE_URL + typesearch)
@@ -179,16 +194,15 @@ private fun getObservable_editphonenumber(typesearch: String): Observable<Respon
             override fun onError(e: Throwable) {
                 if (e is ANError) {
                     if (e.errorCode != 0) {
-                        // received ANError from server
-                        // error.getErrorCode() - the ANError code from server
-                        // error.getErrorBody() - the ANError body from server
-                        // error.getErrorDetail() - just a ANError detail
+
                         Log.d(userdetail, "onError errorCode : " + e.errorCode)
                         Log.d(userdetail, "onError errorBody : " + e.errorBody)
                         Log.d(userdetail, "onError errorDetail : " + e.errorDetail)
                         if(e.errorCode == 405)
                         {
                             mDrawerView.setErrorPhonenumber("")
+                        }else if(e.errorCode == 406){
+                            mDrawerView.setErrorPhonenumber("block")
                         }else{
                             mDrawerView.setErrorPhonenumber(JSONObject(e.errorBody.toString()).getString("message"))
                         }
@@ -252,7 +266,7 @@ private fun getObservable_editphonenumber(typesearch: String): Observable<Respon
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-        disposables.add(getObservable_editphonenumber("referral_tk")
+        disposables.add(getObservable_editphonenumber("referralandroidid")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(getDisposableObserver_editphonenumber()))
