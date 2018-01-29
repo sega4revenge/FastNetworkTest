@@ -273,9 +273,11 @@ class SearchActivity : AppCompatActivity() , SearchPresenterImp.SearchView, Prod
 
         ed_search.setOnCloseListener(object : SearchView.OnCloseListener{
             override fun onClose(): Boolean {
+                isFirstLoad = false
+                adapter!!.pageToDownload = 1
                 ed_search.setQuery("",true)
                 ed_search.onActionViewCollapsed()
-                SearchView!!.searchWithList("", loca, cate, mFilter)
+                SearchView?.searchWithListLoadMore("", loca, cate, mFilter,adapter?.pageToDownload!!)
               return true
             }
 
@@ -286,8 +288,11 @@ class SearchActivity : AppCompatActivity() , SearchPresenterImp.SearchView, Prod
         ed_search.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String): Boolean {
+                isFirstLoad = false
+                adapter!!.pageToDownload = 1
                 SearchView!!.cancelRequest()
-                SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
+                SearchView?.searchWithListLoadMore(ed_search.query.toString(), loca, cate, mFilter,adapter?.pageToDownload!!)
+
                 ed_search.clearFocus()
                 return true
             }
@@ -324,7 +329,9 @@ class SearchActivity : AppCompatActivity() , SearchPresenterImp.SearchView, Prod
 
 
         try_again.setOnClickListener {
-            SearchView!!.searchWithList(ed_search.query.toString(), loca, cate, mFilter)
+            isFirstLoad = false
+            SearchView?.searchWithListLoadMore(ed_search.query.toString(), loca, cate, mFilter,adapter?.pageToDownload!!)
+
         }
     }
 

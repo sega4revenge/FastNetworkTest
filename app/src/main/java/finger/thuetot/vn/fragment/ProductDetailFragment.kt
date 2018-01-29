@@ -115,6 +115,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
     var stt = false
     var stt2 = false
     var stt3 = false
+    var views: View? = null
     var photoprofile: String? = null
     private var isMap: Boolean = false
     val options = RequestOptions()
@@ -143,6 +144,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         super.onCreateView(inflater, container, savedInstanceState)
 
         val v = inflater.inflate(R.layout.fragment_product_detail, container, false)
+        views = v
         isTablet = resources.getBoolean(R.bool.is_tablet)
         val displaymetrics = DisplayMetrics()
         activity.windowManager.defaultDisplay.getMetrics(displaymetrics)
@@ -311,7 +313,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
                 }
                 else -> {
                     isMap = false
-                    change_map.background = resources.getDrawable(R.drawable.ic_location_white)
+                    v.change_map.background = resources.getDrawable(R.drawable.ic_location_white)
                     slider.visibility = View.VISIBLE
                 }
 
@@ -612,7 +614,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
 
 
     private fun onDownloadSuccessful() {
-        change_map.visibility = View.VISIBLE
+        views?.change_map?.visibility = View.VISIBLE
         // status save product
 
 
@@ -928,7 +930,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
         }
         if (product?.images?.size == 0) {
             slider.visibility = View.GONE
-            change_map.visibility = View.GONE
+            views?.change_map?.visibility = View.GONE
             isMap = false
             map()
         } else {
@@ -1215,7 +1217,7 @@ class ProductDetailFragment : Fragment(), ProductAdapter.OnproductClickListener,
             @SuppressLint("MissingPermission")
             override fun onMapReady(map: GoogleMap?) {
 
-                change_map.background = resources.getDrawable(R.drawable.ic_gallery)
+                views?.change_map?.background = resources.getDrawable(R.drawable.ic_gallery)
                 slider.visibility = View.GONE
                 mMap = map
                 mMap!!.isMyLocationEnabled = true

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import finger.thuetot.vn.R
 import finger.thuetot.vn.fragment.ProductDetailFragment
 import finger.thuetot.vn.manager.AppManager
@@ -54,11 +55,15 @@ class ProductDetailActivity : AppCompatActivity() {
                     }
                 // Load details of a particular product
                     else -> if (AccountManager.get(this).getAccountsByType(AppManager.ACCOUNT_TYPE).isNotEmpty()) {
-                        val abc = productId.split("&".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        productId = abc[0].substring(abc[0].lastIndexOf("=") + 1)
-                        userId = abc[1].substring(abc[1].lastIndexOf("=") + 1)
-                        println(userId + " " + productId)
-                        loadproductDetailsOf(productId,productuserId)
+                        try{
+                            val abc = productId.split("&".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                            productId = abc[0].substring(abc[0].lastIndexOf("=") + 1)
+                            userId = abc[1].substring(abc[1].lastIndexOf("=") + 1)
+                            println(userId + " " + productId)
+                            loadproductDetailsOf(productId,productuserId)
+                        }catch (e: Exception){
+                            Log.d("ProductDetailActivity",e.message)
+                        }
                     } else {
 
                         startActivity(i)
