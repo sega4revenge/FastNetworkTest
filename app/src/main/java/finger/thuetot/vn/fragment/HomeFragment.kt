@@ -361,7 +361,12 @@ class HomeFragment : Fragment(), ProductAdapter.OnproductClickListener, ProductL
 
     override fun onDestroy() {
         super.onDestroy()
-        activity.unregisterReceiver(appendChatScreenMsgReceiver)
+        try{
+            if(appendChatScreenMsgReceiver != null){
+                activity.unregisterReceiver(appendChatScreenMsgReceiver)
+            }
+        }catch (e: Exception){System.out.print(e.message)}
+
         mProductListPresenter?.stopRequest()
         mDrawarPresenter?.cancelRequest()
     }

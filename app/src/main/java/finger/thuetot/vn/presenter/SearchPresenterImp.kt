@@ -96,7 +96,6 @@ class SearchPresenterImp(searchView: SearchView){
         return object : DisposableObserver<ResponseListProduct>() {
 
             override fun onNext(response: ResponseListProduct) {
-                Log.d("aaaaaaaaaa",response.listproduct!![0].productname.toString())
                 searchview.getListProduct(response.listproduct!!)
             }
 
